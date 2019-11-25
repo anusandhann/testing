@@ -1,0 +1,872 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/theme"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/holo_red_light" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            />
+
+        <Button
+            android:id="@+id/report"
+            android:layout_width="380dp"
+            android:layout_height="68dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="132dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="#954C4C"
+            android:fontFamily="serif"
+            android:text="@string/activity_report"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#0F1010"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.212"
+            android:orientation="vertical"
+            android:gravity="center"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/holo_red_light" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card1"
+            android:layout_gravity="center"
+            android:layout_width="375dp"
+            android:layout_height="150dp"
+            app:cardBackgroundColor="#954C4C"
+            card_view:cardCornerRadius="4dp">
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Wake up"
+                    android:textColor="#ffffff"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/text1"
+                    android:layout_width="183dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/barchart1"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="64dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Time"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp" />
+
+                <ImageView
+                    android:id="@+id/image1"
+                    android:layout_width="191dp"
+                    android:layout_height="75dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="43dp"
+                    android:layout_marginEnd="-57dp"
+                    android:layout_marginBottom="32dp"
+                    android:layout_toStartOf="@+id/barchart1"
+                    android:contentDescription="@string/todo"
+                    app:srcCompat="@drawable/icon" />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/barchart1"
+                    android:layout_width="223dp"
+                    android:layout_height="102dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="11dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/card1"
+                    app:layout_constraintVertical_bias="0.019"
+                    tools:ignore="NotSibling" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <RadioGroup
+
+            android:layout_width="201dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="100dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Normal" />
+
+            <RadioButton
+                android:id="@+id/suspicious"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Suspicious" />
+
+        </RadioGroup>
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/holo_red_light" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card2"
+            android:layout_gravity="center"
+            android:layout_width="375dp"
+            android:layout_height="150dp"
+            app:cardBackgroundColor="#954C4C"
+            card_view:cardCornerRadius="4dp">
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Shower"
+                    android:textColor="#ffffff"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/text2"
+                    android:layout_width="183dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/barchart2"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="64dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Time"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp" />
+
+                <ImageView
+                    android:id="@+id/image2"
+                    android:layout_width="191dp"
+                    android:layout_height="75dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="43dp"
+                    android:layout_marginEnd="-57dp"
+                    android:layout_marginBottom="32dp"
+                    android:layout_toStartOf="@+id/barchart2"
+                    android:contentDescription="@string/todo"
+                    app:srcCompat="@drawable/icon" />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/barchart2"
+                    android:layout_width="223dp"
+                    android:layout_height="102dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="11dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/card2"
+                    app:layout_constraintVertical_bias="0.019"
+                    tools:ignore="NotSibling" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <RadioGroup
+
+            android:layout_width="201dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="100dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/normal1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Normal" />
+
+            <RadioButton
+                android:id="@+id/suspicious1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Suspicious" />
+
+        </RadioGroup>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/holo_red_light" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card3"
+            android:layout_gravity="center"
+            android:layout_width="375dp"
+            android:layout_height="150dp"
+            app:cardBackgroundColor="#954C4C"
+            card_view:cardCornerRadius="4dp">
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Breakfast"
+                    android:textColor="#ffffff"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/text3"
+                    android:layout_width="183dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/barchart3"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="64dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Time"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp" />
+
+                <ImageView
+                    android:id="@+id/image3"
+                    android:layout_width="191dp"
+                    android:layout_height="75dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="43dp"
+                    android:layout_marginEnd="-57dp"
+                    android:layout_marginBottom="32dp"
+                    android:layout_toStartOf="@+id/barchart3"
+                    android:contentDescription="@string/todo"
+                    app:srcCompat="@drawable/icon" />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/barchart3"
+                    android:layout_width="223dp"
+                    android:layout_height="102dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="11dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/card3"
+                    app:layout_constraintVertical_bias="0.019"
+                    tools:ignore="NotSibling" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <RadioGroup
+
+            android:layout_width="201dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="100dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radio_pirates"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Normal" />
+
+            <RadioButton
+                android:id="@+id/radio_ninjas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Suspicious" />
+
+        </RadioGroup>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/holo_red_light" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card4"
+            android:layout_gravity="center"
+            android:layout_width="375dp"
+            android:layout_height="150dp"
+            app:cardBackgroundColor="#954C4C"
+            card_view:cardCornerRadius="4dp">
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Medication"
+                    android:textColor="#ffffff"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/text4"
+                    android:layout_width="183dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/barchart4"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="64dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Time"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp" />
+
+                <ImageView
+                    android:id="@+id/image4"
+                    android:layout_width="191dp"
+                    android:layout_height="75dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="43dp"
+                    android:layout_marginEnd="-57dp"
+                    android:layout_marginBottom="32dp"
+                    android:layout_toStartOf="@+id/barchart4"
+                    android:contentDescription="@string/todo"
+                    app:srcCompat="@drawable/icon" />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/barchart4"
+                    android:layout_width="223dp"
+                    android:layout_height="102dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="11dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/card4"
+                    app:layout_constraintVertical_bias="0.019"
+                    tools:ignore="NotSibling" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <RadioGroup
+            android:layout_width="201dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="100dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radiopirates"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Normal" />
+
+            <RadioButton
+                android:id="@+id/radioninjas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Suspicious" />
+
+        </RadioGroup>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/holo_red_light" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card5"
+            android:layout_gravity="center"
+            android:layout_width="375dp"
+            android:layout_height="150dp"
+            app:cardBackgroundColor="#954C4C"
+            card_view:cardCornerRadius="4dp">
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lunch"
+                    android:textColor="#ffffff"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/text5"
+                    android:layout_width="183dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/barchart5"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="64dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Time"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp" />
+
+                <ImageView
+                    android:id="@+id/image5"
+                    android:layout_width="191dp"
+                    android:layout_height="75dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="43dp"
+                    android:layout_marginEnd="-57dp"
+                    android:layout_marginBottom="32dp"
+                    android:layout_toStartOf="@+id/barchart5"
+                    android:contentDescription="@string/todo"
+                    app:srcCompat="@drawable/icon" />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/barchart5"
+                    android:layout_width="223dp"
+                    android:layout_height="102dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="11dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/card5"
+                    app:layout_constraintVertical_bias="0.019"
+                    tools:ignore="NotSibling" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <RadioGroup
+
+            android:layout_width="201dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="100dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radiopirate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Normal" />
+
+            <RadioButton
+                android:id="@+id/radioninja"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Suspicious" />
+
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/holo_red_light" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            />
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card6"
+            android:layout_gravity="center"
+            android:layout_width="375dp"
+            android:layout_height="150dp"
+            app:cardBackgroundColor="#954C4C"
+            card_view:cardCornerRadius="4dp">
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TV/PC"
+                    android:textColor="#ffffff"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/text6"
+                    android:layout_width="183dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/barchart6"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="64dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Time"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp" />
+
+                <ImageView
+                    android:id="@+id/image6"
+                    android:layout_width="191dp"
+                    android:layout_height="75dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="43dp"
+                    android:layout_marginEnd="-57dp"
+                    android:layout_marginBottom="32dp"
+                    android:contentDescription="@string/todo"
+                    app:srcCompat="@drawable/icon" />/>
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/barchart6"
+                    android:layout_width="223dp"
+                    android:layout_height="102dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="11dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/card6"
+                    app:layout_constraintVertical_bias="0.019"
+                    tools:ignore="NotSibling" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <RadioGroup
+
+            android:layout_width="201dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="100dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radiopiratee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Normal" />
+
+            <RadioButton
+                android:id="@+id/radioninjae"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Suspicious" />
+
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/holo_red_light" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            />
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card7"
+            android:layout_gravity="center"
+            android:layout_width="375dp"
+            android:layout_height="150dp"
+            app:cardBackgroundColor="#954C4C"
+            card_view:cardCornerRadius="4dp">
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dinner"
+                    android:textColor="#ffffff"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/text7"
+                    android:layout_width="183dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/barchart7"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="64dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Time"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp" />
+
+                <ImageView
+                    android:id="@+id/image7"
+                    android:layout_width="191dp"
+                    android:layout_height="75dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="43dp"
+                    android:layout_marginEnd="-57dp"
+                    android:layout_marginBottom="32dp"
+                    android:contentDescription="@string/todo"
+                    app:srcCompat="@drawable/icon" />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/barchart7"
+                    android:layout_width="223dp"
+                    android:layout_height="102dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="11dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/card7"
+                    app:layout_constraintVertical_bias="0.019"
+                    tools:ignore="NotSibling" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <RadioGroup
+
+            android:layout_width="201dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="100dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radiopiraatee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Normal" />
+
+            <RadioButton
+                android:id="@+id/radioninjaae"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Suspicious" />
+
+        </RadioGroup>
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/holo_red_light" />
+
+
+        <Button
+            android:id="@+id/submitreport"
+            android:layout_width="380dp"
+            android:layout_height="68dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="132dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="#954C4C"
+            android:fontFamily="serif"
+            android:text="@string/report"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#0F1010"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card7"
+            app:layout_constraintVertical_bias="0.212"
+            />
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</RelativeLayout>

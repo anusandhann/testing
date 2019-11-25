@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">testing</string>
+    <string name="activity_report">Activity Report</string>
+    <string name="report">Submit Report</string>
+    <string name="normal">Normal</string>
+    <string name="suspicious">Suspicious</string>
+    <string name="todo">TODO</string>
+</resources>
