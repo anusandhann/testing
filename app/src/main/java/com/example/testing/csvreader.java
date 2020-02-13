@@ -24,14 +24,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class csvreader extends AppCompatActivity {
+
     private BarChart mGraph;
     String TAG = "";
+    String[] xy;
+    Double x,y;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.csvview);
-        mGraph = (BarChart) findViewById(R.id.testcard);
+        mGraph = (BarChart) findViewById(R.id.testbarchart);
+
     }
 
 }

@@ -122,7 +122,7 @@
                     android:contentDescription="@string/todo"
                     app:srcCompat="@drawable/icon" />
 
-                <com.github.mikephil.charting.charts.BarChart
+                <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/barchart1"
                     android:layout_width="223dp"
                     android:layout_height="102dp"
@@ -145,6 +145,7 @@
 
         <RadioGroup
 
+            android:id="@+id/radiostate"
             android:layout_width="201dp"
             android:layout_height="39dp"
             android:layout_marginStart="100dp"
@@ -154,14 +155,14 @@
                 android:id="@+id/normal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
+
                 android:text="Normal" />
 
             <RadioButton
                 android:id="@+id/suspicious"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
+
                 android:text="Suspicious" />
 
         </RadioGroup>

@@ -6,13 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/testcard"
-        android:layout_gravity="center"
-        android:layout_width="375dp"
-        android:layout_height="150dp"
-        app:cardBackgroundColor="#954C4C"
-        card_view:cardCornerRadius="4dp"/>
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/testbarchart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="11dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/card1"
+        app:layout_constraintVertical_bias="0.019" />
 
 </LinearLayout>

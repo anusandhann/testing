@@ -1,15 +1,27 @@
 package com.example.testing;
 
+import android.icu.util.LocaleData;
+import android.text.format.Time;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.LocalDate;
+
 class DataPoint extends RecyclerView.Adapter {
 
     private int sleep, cook;
     private String time;
+    private LocalDate time2;
 
+    public LocalDate getTime2() {
+        return time2;
+    }
+
+    public void setTime2(LocalDate time2) {
+        this.time2 = time2;
+    }
 
     public String getTime() {
         return time;
@@ -41,6 +53,7 @@ class DataPoint extends RecyclerView.Adapter {
                 "time=" + time +
                 ", sleep=" + sleep +
                 ", cook=" + cook +
+                ", time2=" + time2 +
                 '}';
     }
 
