@@ -1,6 +1,7 @@
 package com.example.testing;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,15 +11,13 @@ import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,8 +27,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -41,6 +38,7 @@ import java.util.List;
 public class csvread extends AppCompatActivity
 {
     private RecyclerView csvread;
+public CardView card1;
     LineChart testbarchart;
     private String TAG = csvread.class.getSimpleName();
     private ListView lv;
@@ -50,14 +48,11 @@ public class csvread extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.graphtest);
 
       //  csvread = (RecyclerView) findViewById(R.id.csvview);
         testbarchart = (LineChart)findViewById(R.id.testbarchart);
-
-       // readcsv();
-       // readjson();
-
+card1 = (CardView)findViewById(R.id.card1);
         contactList = new ArrayList<>();
         lv = (ListView) findViewById(R.id.list);
         new GetContacts().execute();
@@ -75,7 +70,7 @@ public class csvread extends AppCompatActivity
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
             // Making a request to url and getting response
-            String url = "https://api.androidhive.info/contacts/";
+            String url = "http://163.221.68.223:8080/api" ;
             String jsonStr = sh.makeServiceCall(url);
 
             Log.e(TAG, "Response from url: " + jsonStr);
@@ -84,33 +79,46 @@ public class csvread extends AppCompatActivity
                     JSONObject jsonObj = new JSONObject(jsonStr.substring(jsonStr.indexOf("{"), jsonStr.lastIndexOf("}") + 1));
 
                     // Getting JSON Array node
-                    JSONArray contacts = jsonObj.getJSONArray("contacts");
+                    JSONArray contacts = jsonObj.getJSONArray("result");
 
                     // looping through All Actv
                     for (int i = 0; i < contacts.length(); i++) {
 
                         JSONObject c = contacts.getJSONObject(i);
 
-//                        String id = c.getString("id");
-                        String name = c.getString("name");
-                        String email = c.getString("email");
-//                      String address = c.getString("address");
-//                        String gender = c.getString("gender");
+                        String activity = c.getString("actv");
+                        String date = c.getString("date");
+                        final String cookduration = c.getString("duration");
+                        String sleepduration = c.getString("duration");
+                        String eatduration = c.getString("duration");
 
-                         //Phone node is JSON Object
-                        JSONObject phone = c.getJSONObject("phone");
-                        String mobile = phone.getString("mobile");
-//                        String home = phone.getString("home");
-//                        String office = phone.getString("office");
 
                         // tmp hash map for single contact
                         HashMap<String, String> contact = new HashMap<>();
 
                         // adding each child node to HashMap key => value
-//                        contact.put("id", id);
-                        contact.put("name", name);
-                        contact.put("email", email);
-                       // contact.put("mobile", mobile);
+
+                        contact.put("actv", activity);
+                        contact.put("date", date);
+
+                        if(activity.equals("Cook")){
+                            contact.put("duration", cookduration);
+                            int cookingtime = Integer.parseInt(cookduration) / (60 * 1000);
+                            Log.d("khana pakako time", "" + cookingtime);
+
+                            //report.drawchart();
+                        }
+                        if(activity.equals("Eat")){
+                            contact.put("duration", eatduration);
+                            int eatingtime = Integer.parseInt(cookduration)/(60*1000);
+                            Log.d("khana khaeko time", "" + eatingtime);
+
+                            Intent eatintent = new Intent(getApplicationContext(), csvread.class);
+                            eatintent.putExtra("cookingintent", eatingtime);
+                        }
+
+                        Log.d("khana", eatduration);
+                        Log.d("pakako", cookduration);
 
                         // adding contact to contact list
                         contactList.add(contact);
@@ -145,40 +153,60 @@ public class csvread extends AppCompatActivity
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
+
+            Intent in = getIntent();
+            String cookingtime = in.getStringExtra("cookingintent");
+            Log.d("arko java classma aaeko", "" + cookingtime);
+
             ListAdapter adapter = new SimpleAdapter(csvread.this, contactList,
-                    R.layout.list_item, new String[]{"name","email"},
-                    new int[]{R.id.name, R.id.email});
-            lv.setAdapter(adapter);
-            //drawchart();
+                    R.layout.list_item, new String[]{"actv", "date", "duration"},
+                    new int[]{R.id.activity, R.id.date, R.id.duration});
+//            lv.setAdapter(adapter);
+                drawchart();
+
         }
     }
     private void drawchart() {
 
-        ArrayList<Entry> entries = new ArrayList<>();
-        entries.add(new Entry(0, R.id.mobile)); //5 is the value
-        entries.add(new Entry(15, R.id.mobile));
-
-        ArrayList<Entry> entry = new ArrayList<>();
-        entry.add(new Entry(8, 0)); //8 is the value
-        entry.add(new Entry(8, 8));
-
-        LineData chartdata = new LineData();
-
-        LineDataSet lDataSet1 = new LineDataSet(entries, "Average");
-        lDataSet1.setColors(R.color.design_default_color_primary);
-        lDataSet1.setDrawValues(false);
-        lDataSet1.setLineWidth(4);
-        chartdata.addDataSet(lDataSet1);
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
 
-        LineDataSet lDataSet2 = new LineDataSet(entry, "Today");
-        lDataSet2.setColors(R.color.red);
-        lDataSet2.setLineWidth(4);
-        lDataSet2.setDrawValues(false);
-        chartdata.addDataSet(lDataSet2);
+//        long diffSeconds = duration / 1000 % 60;
+//        long diffMinutes = duration / (60 * 1000);
+//        long diffHours = duration / (60 * 60 * 1000) % 24;
+//        long diffDays = duration / (24 * 60 * 60 * 1000);
+//
+//        Log.d("now",  " Difference is : "
+//
+//                + diffDays + "  " + "days" + "  " + diffHours + " " + "hours" + "  "
+//
+//                + diffMinutes + " "+ "Minutes" + " " + diffSeconds + "  " + "Seconds");
 
-        testbarchart.setData(chartdata);
-        testbarchart.invalidate();
+//        ArrayList<Entry> entries = new ArrayList<>();
+//        entries.add(new Entry(0, )); //5 is the value
+//        entries.add(new Entry(15, R.id.duration));
+//
+//        ArrayList<Entry> entry = new ArrayList<>();
+//        entry.add(new Entry(8, 0)); //8 is the value
+//        entry.add(new Entry(8, 8));
+//
+//        LineData chartdata = new LineData();
+//
+//        LineDataSet lDataSet1 = new LineDataSet(entries, "Average");
+//        lDataSet1.setColors(R.color.design_default_color_primary);
+//        lDataSet1.setDrawValues(false);
+//        lDataSet1.setLineWidth(4);
+//        chartdata.addDataSet(lDataSet1);
+//
+//
+//        LineDataSet lDataSet2 = new LineDataSet(entry, "Today");
+//        lDataSet2.setColors(R.color.red);
+//        lDataSet2.setLineWidth(4);
+//        lDataSet2.setDrawValues(false);
+//        chartdata.addDataSet(lDataSet2);
+//
+//        testbarchart.setData(chartdata);
+//        testbarchart.invalidate();
     }
 
     private List<DataPoint> dailylife = new ArrayList<>();

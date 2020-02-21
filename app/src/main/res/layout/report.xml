@@ -88,7 +88,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Wake up"
+                    android:text="Sleep"
                     android:textColor="#ffffff"
                     android:textSize="24sp" />
 
@@ -105,7 +105,7 @@
                     android:text="Time"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
-                    android:textSize="24sp" />
+                    android:textSize="10sp" />
 
                 <ImageView
                     android:id="@+id/image1"
@@ -120,7 +120,7 @@
                     android:layout_marginBottom="32dp"
                     android:layout_toStartOf="@+id/barchart1"
                     android:contentDescription="@string/todo"
-                    app:srcCompat="@drawable/icon" />
+                    app:srcCompat="@drawable/sleep" />
 
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/barchart1"
@@ -233,7 +233,7 @@
                     android:layout_marginBottom="32dp"
                     android:layout_toStartOf="@+id/barchart2"
                     android:contentDescription="@string/todo"
-                    app:srcCompat="@drawable/icon" />
+                    app:srcCompat="@drawable/shower" />
 
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/barchart2"
@@ -344,7 +344,7 @@
                     android:layout_marginBottom="32dp"
                     android:layout_toStartOf="@+id/barchart3"
                     android:contentDescription="@string/todo"
-                    app:srcCompat="@drawable/icon" />
+                    app:srcCompat="@drawable/eat" />
 
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/barchart3"
@@ -455,7 +455,7 @@
                     android:layout_marginBottom="32dp"
                     android:layout_toStartOf="@+id/barchart4"
                     android:contentDescription="@string/todo"
-                    app:srcCompat="@drawable/icon" />
+                    app:srcCompat="@drawable/med" />
 
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/barchart4"
@@ -565,7 +565,7 @@
                     android:layout_marginBottom="32dp"
                     android:layout_toStartOf="@+id/barchart5"
                     android:contentDescription="@string/todo"
-                    app:srcCompat="@drawable/icon" />
+                    app:srcCompat="@drawable/eat" />
 
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/barchart5"
@@ -675,7 +675,7 @@
                     android:layout_marginEnd="-57dp"
                     android:layout_marginBottom="32dp"
                     android:contentDescription="@string/todo"
-                    app:srcCompat="@drawable/icon" />/>
+                    app:srcCompat="@drawable/tv" />/>
 
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/barchart6"
@@ -785,7 +785,7 @@
                     android:layout_marginEnd="-57dp"
                     android:layout_marginBottom="32dp"
                     android:contentDescription="@string/todo"
-                    app:srcCompat="@drawable/icon" />
+                    app:srcCompat="@drawable/eat" />
 
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/barchart7"

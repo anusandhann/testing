@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+   >
+
+    <LinearLayout
+        android:layout_width="392dp"
+        android:layout_height="463dp"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:hint="Enter email"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:hint="Enter password"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/buttonsignup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="#954C4C"
+            android:onClick="signin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#0F1010"
+            android:textSize="25sp"
+            android:text="Sign up" />
+
+        <Button
+            android:id="@+id/loginoption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="@color/common_google_signin_btn_text_dark_default"
+            android:backgroundTint="@android:color/background_light"
+            android:onClick="loginoption"
+            android:text="Already registered? Click here to Log in"
+            android:textColor="@color/red"
+            tools:backgroundTint="@color/common_google_signin_btn_text_dark_default" />
+
+    </LinearLayout>
+
+</LinearLayout>
