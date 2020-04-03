@@ -28,7 +28,7 @@ public class managenotifications extends JobIntentService {
 
     @Override
     protected void onHandleWork(@NonNull Intent intent) {
-            notice();
+            //notice();
     }
 
     private NotificationManager notifManager;
@@ -41,9 +41,7 @@ public class managenotifications extends JobIntentService {
         Intent intent;
         PendingIntent pendingIntent;
         NotificationCompat.Builder builder;
-        if (notifManager == null) {
-            notifManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        }
+        notifManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel mChannel = notifManager.getNotificationChannel(id);
@@ -107,7 +105,7 @@ public class managenotifications extends JobIntentService {
             createNotification("Check when the elderly woke up ", "MutualMonitor", this, report.class, "7");
         } else if (mHour == 9) {
             createNotification("Did the elderly take medicine today? ", "MutualMonitor", this, report.class, "9");
-        } else if (mHour == 13) {
+        } else if (mHour == 15) {
             createNotification("Lunch time!! Did the elderly had lunch? ", "MutualMonitor", this, report.class, "14");
         } else if (mHour == 17) {
             createNotification("Did you check activities of the elderly today? ", "MutualMonitor", this, report.class, "17");

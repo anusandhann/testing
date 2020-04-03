@@ -9,10 +9,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,38 +22,64 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 
 public class report extends AppCompatActivity {
 
-    public LineChart chart1;
-    public TextView text1;
-    private RadioGroup statebutton;
+    public LineChart chart1, chart2;
+    public TextView text1, text2;
+    private RadioGroup sleepradio, showerradio, breakfastradio,medicationradio,lunchradio,tvradio,dinnerradio;
     Button submitreport;
     private String TAG = csvread.class.getSimpleName();
     ArrayList<HashMap<String, String>> contactList;
     private ListView lv;
-    public CardView card1;
+    public CardView card1, card2, card3, card4, card5,card6,card7;
+    private RadioButton radioButton;
+
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.report);
-        card1 = (CardView)findViewById(R.id.card1);
+        submitreport = (Button) findViewById(R.id.submitreport);
+
+        card1 = (CardView)findViewById(R.id.sleepcard);
+        card2 = (CardView)findViewById(R.id.showercard);
+        card3= (CardView)findViewById(R.id.breakfastcard);
+        card4= (CardView)findViewById(R.id.medicationcard);
+        card5= (CardView)findViewById(R.id.lunchcard);
+        card6= (CardView)findViewById(R.id.tvcard);
+        card7= (CardView)findViewById(R.id.dinnercard);
+
+        submitbutton();
 
         chart1 = (LineChart) findViewById(R.id.barchart1);
+        chart2 = (LineChart)findViewById(R.id.barchart2);
+
         text1 = (TextView)findViewById(R.id.text1);
+        text2 =(TextView)findViewById(R.id.text2);
+
         chart1.setBackgroundColor(Color.WHITE);
         chart1.getDescription().setEnabled(false);
         chart1.setTouchEnabled(false);
+
+        chart2.setBackgroundColor(Color.WHITE);
+        chart2.getDescription().setEnabled(false);
+        chart2.setTouchEnabled(false);
+
         contactList = new ArrayList<>();
         lv = (ListView) findViewById(R.id.list);
         new GetContacts().execute();
@@ -65,8 +90,7 @@ public class report extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Toast.makeText(report.this, "Json Data is downloading", Toast.LENGTH_LONG).show();
-
+            //Toast.makeText(report.this, "Json Data is downloading", Toast.LENGTH_LONG).show();
         }
 
         @SuppressLint("SetTextI18n")
@@ -92,7 +116,8 @@ public class report extends AppCompatActivity {
 
                         String activity = c.getString("actv");
                         String date = c.getString("start_time");
-                        final String cookduration = c.getString("duration");
+
+                        String cookduration = c.getString("duration");
                         String sleepduration = c.getString("duration");
                         String eatduration = c.getString("duration");
 
@@ -103,25 +128,28 @@ public class report extends AppCompatActivity {
                         // adding each child node to HashMap key => value
 
                         contact.put("actv", activity);
-                        contact.put("start_time", date);
+                        //contact.put("start_time", date);
 
                         if (activity.equals("Cook")) {
                             contact.put("duration", cookduration);
+                            contact.put("start_time", date);
 
                             int cookingtime = Integer.parseInt(cookduration) / (60 * 1000);
-                            if(cookingtime >= 60){
+                            if (cookingtime >= 60) {
                                 long cookinghour = cookingtime / (60);
                                 text1.setText("Sleep Duration: " + cookinghour + " " + "hours and " + cookingtime + " " + "minutes");
-                            }
-                            else{
+                            } else {
                                 text1.setText("Sleep Duration: " + cookingtime + "  " + "minutes");
                             }
                             Log.d("khana pakako time", "" + cookingtime);
 
                             Log.d("khana pakako suruwat", "" + date);
 
+//                            startActivity(new Intent(report.this, select.class));
+
                             drawchart();
-                            buttonreader();
+//                            managenotifications not = new managenotifications();
+//                            not.notice();
                         }
 
                         if (activity.equals("Eat")) {
@@ -129,9 +157,26 @@ public class report extends AppCompatActivity {
                             int eatingtime = Integer.parseInt(cookduration) / (60 * 1000);
                             Log.d("khana khaeko time", "" + eatingtime);
 
-                            Intent eatintent = new Intent(getApplicationContext(), csvread.class);
-                            eatintent.putExtra("cookingintent", eatingtime);
+                            if (eatingtime >= 60) {
+                                long cookinghour = eatingtime / (60);
+                                text2.setText("Shower Duration: " + cookinghour + " " + "hours and " + eatingtime + " " + "minutes");
+                            } else {
+                                text2.setText("Shower Duration: " + eatingtime + "  " + "minutes");
+                            }
+
+                            drawchart2();
+
+                        } else {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    managenotifications not = new managenotifications();
+                                    //not.notice();
+                                     }
+                            });
                         }
+
 
                         // adding contact to contact list
                         contactList.add(contact);
@@ -162,28 +207,18 @@ public class report extends AppCompatActivity {
 
             return null;
         }
+
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-
-            Intent in = getIntent();
-            String cookingtime = in.getStringExtra("cookingintent");
-            Log.d("arko java classma aaeko", "" + cookingtime);
-
-            ListAdapter adapter = new SimpleAdapter(report.this, contactList,
-                    R.layout.list_item, new String[]{"actv", "start_time", "duration"},
-                    new int[]{R.id.activity, R.id.date, R.id.duration});
-//            lv.setAdapter(adapter);
-            drawchart();
-
         }
-
+    }
         public void drawchart() {
 
 
             ArrayList<Entry> entries = new ArrayList<>();
-            entries.add(new Entry(0, 5)); //5 is the value
-            entries.add(new Entry(15, 5));
+            entries.add(new Entry(0, 9)); //5 is the value
+            entries.add(new Entry(15, 9));
 
             ArrayList<Entry> entry = new ArrayList<>();
             entry.add(new Entry(8, 0)); //8 is the value
@@ -208,24 +243,147 @@ public class report extends AppCompatActivity {
             chart1.invalidate();
         }
 
-        private void buttonreader() {
+        public void drawchart2() {
 
-            statebutton = (RadioGroup) findViewById(R.id.radiostate);
-            submitreport = (Button) findViewById(R.id.submitreport);
 
-            final int selectedstate = statebutton.getCheckedRadioButtonId();
+            ArrayList<Entry> entries = new ArrayList<>();
+            entries.add(new Entry(0, 9)); //5 is the value
+            entries.add(new Entry(15, 9));
+
+            ArrayList<Entry> entry = new ArrayList<>();
+            entry.add(new Entry(7, 0)); //8 is the value
+            entry.add(new Entry(7, 7));
+
+            LineData chartdata = new LineData();
+
+            LineDataSet lDataSet1 = new LineDataSet(entries, "Average");
+            lDataSet1.setColors(R.color.design_default_color_primary);
+            lDataSet1.setDrawValues(false);
+            lDataSet1.setLineWidth(4);
+            chartdata.addDataSet(lDataSet1);
+
+
+            LineDataSet lDataSet2 = new LineDataSet(entry, "Today");
+            lDataSet2.setColor(R.color.graph);
+            lDataSet2.setLineWidth(4);
+            lDataSet2.setDrawValues(false);
+            chartdata.addDataSet(lDataSet2);
+
+            chart2.setData(chartdata);
+            chart2.invalidate();
+        }
+
+        private void showerbutton() {
+
+            showerradio = (RadioGroup) findViewById(R.id.showerbutton);
+
+            final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+            final FirebaseUser thisuser = FirebaseAuth.getInstance().getCurrentUser();
+            final String email = thisuser.getEmail();
+            final Object userdr = email + "  " + new Date();
+
+            final int selectedstate = showerradio.getCheckedRadioButtonId();
 
             submitreport.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    Toast.makeText(report.this, submitreport.getText(), Toast.LENGTH_LONG).show();
+                    HashMap<String, Object> map = new HashMap<>();
+                    Log.d(TAG, email);
+                    String id = ref.push().getKey();
+
+                    radioButton = (RadioButton) findViewById(showerradio.getCheckedRadioButtonId());
+                    String radiovalue =  radioButton.getText().toString();
+                    Log.d("value    ", radiovalue);
+
+                    map.put("Shower state", userdr);
+                    ref.child("Reports").child(radiovalue).child(id).updateChildren(map);
+
                     Intent newintent = new Intent(report.this, mainactivity.class);
                     startActivity(newintent);
                 }
             });
-
         }
 
+//practice code
+    private void submitbutton() {
+
+        lunchradio = (RadioGroup) findViewById(R.id.lunchbutton);
+        dinnerradio = (RadioGroup) findViewById(R.id.dinnerbutton);
+        tvradio = (RadioGroup) findViewById(R.id.tvbutton);
+        medicationradio = (RadioGroup) findViewById(R.id.medicationbutton);
+        breakfastradio = (RadioGroup) findViewById(R.id.breakfastbutton);
+        showerradio = (RadioGroup) findViewById(R.id.showerbutton);
+        sleepradio = (RadioGroup) findViewById(R.id.sleepbutton);
+
+        final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        final FirebaseUser thisuser = FirebaseAuth.getInstance().getCurrentUser();
+        final String email = thisuser.getEmail();
+        final Object userdr = email + "  " + new Date();
+
+
+        final int selectedstate = lunchradio.getCheckedRadioButtonId();
+
+        submitreport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(sleepradio.getCheckedRadioButtonId()== -1)
+                { Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show(); }
+                else{
+                    radioButton = (RadioButton) findViewById(sleepradio.getCheckedRadioButtonId());
+                    String radiovalue =  radioButton.getText().toString();
+                Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
+                }
+
+                if(showerradio.getCheckedRadioButtonId()== -1)
+                { Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show(); }
+                else{
+                    radioButton = (RadioButton) findViewById(showerradio.getCheckedRadioButtonId());
+                    String radiovalue =  radioButton.getText().toString();
+                    Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
+                }
+
+                if(breakfastradio.getCheckedRadioButtonId()== -1)
+                { Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show(); }
+                else{
+                    radioButton = (RadioButton) findViewById(breakfastradio.getCheckedRadioButtonId());
+                    String radiovalue =  radioButton.getText().toString();
+                    Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
+                }
+
+                if(medicationradio.getCheckedRadioButtonId()== -1)
+                { Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show(); }
+                else{
+                    radioButton = (RadioButton) findViewById(medicationradio.getCheckedRadioButtonId());
+                    String radiovalue =  radioButton.getText().toString();
+                    Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
+                }
+
+                if(lunchradio.getCheckedRadioButtonId()== -1)
+                { Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show(); }
+                else{
+                    radioButton = (RadioButton) findViewById(lunchradio.getCheckedRadioButtonId());
+                    String radiovalue =  radioButton.getText().toString();
+                    Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
+                }
+
+                if(tvradio.getCheckedRadioButtonId()== -1)
+                { Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show(); }
+                else{
+                    radioButton = (RadioButton) findViewById(tvradio.getCheckedRadioButtonId());
+                    String radiovalue =  radioButton.getText().toString();
+                    Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
+                }
+
+                if(dinnerradio.getCheckedRadioButtonId()== -1)
+                { Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show(); }
+                else{
+                    radioButton = (RadioButton) findViewById(dinnerradio.getCheckedRadioButtonId());
+                    String radiovalue =  radioButton.getText().toString();
+                    Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
-}
+    }

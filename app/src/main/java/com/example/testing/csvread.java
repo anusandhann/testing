@@ -15,25 +15,14 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 public class csvread extends AppCompatActivity
 {
@@ -52,7 +41,7 @@ public CardView card1;
 
       //  csvread = (RecyclerView) findViewById(R.id.csvview);
         testbarchart = (LineChart)findViewById(R.id.testbarchart);
-card1 = (CardView)findViewById(R.id.card1);
+card1 = (CardView)findViewById(R.id.sleepcard);
         contactList = new ArrayList<>();
         lv = (ListView) findViewById(R.id.list);
         new GetContacts().execute();
@@ -209,116 +198,6 @@ card1 = (CardView)findViewById(R.id.card1);
 //        testbarchart.invalidate();
     }
 
-    private List<DataPoint> dailylife = new ArrayList<>();
-
-    private void readcsv() {
-
-        InputStream ins= getResources().openRawResource(R.raw.lessdata);
-        BufferedReader bfread = new BufferedReader(new InputStreamReader
-                (ins, Charset.forName("UTF-8")));
-
-        String line = "";
-
-        try {
-                //step over headers
-
-            bfread.readLine();
-
-            int prevtime = 0, prevcook = 0, cookstarttime = 0, cookendtime = 0;
-
-            while ( (line = bfread.readLine())!= null) {
-
-                //split columns
-
-                String[] tokens = line.split(",");
-                //read data
-
-                DataPoint sample = new DataPoint();
-
-                try {
-
-                    sample.setCook(Integer.parseInt(tokens[1]));
-
-                    prevcook = sample.getCook();
-
-                    if ((cookstarttime == 0) && (prevcook != sample.getCook())){
-                        cookstarttime = Integer.parseInt(tokens[0]);
-                    }
-                    else if (prevcook != sample.getCook()){
-                        cookendtime = Integer.parseInt(tokens[0]);
-
-                    }
-
-                    String time1 = "01/14/2012 23:29:58";
-                    String time2 = "01/15/2012 08:31:48";
-
-                    @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-                    Date date1 = format.parse(time1);
-                    Date date2 = format.parse(time2);
-
-                    long diff = date2.getTime() - date1.getTime();
-
-                    long diffSeconds = diff / 1000 % 60;
-                    long diffMinutes = diff / (60 * 1000) % 60;
-                    long diffHours = diff / (60 * 60 * 1000) % 24;
-                    long diffDays = diff / (24 * 60 * 60 * 1000);
-
-                    Log.d("now", cookstarttime + " " + cookendtime + " Difference is : "
-
-                            + diffDays + "  " + "days" + "  " + diffHours + " " + "hours" + "  "
-
-                            + diffMinutes + " "+ "Minutes" + " " + diffSeconds + "  " + "Seconds");
-
-
-                    Date timeforgraph = format.parse(time1);
-
-                    format.applyPattern("HH:mm");
-
-                    String graphtiming = format.format(timeforgraph);
-
-                    Log.d("graphtime", "  " + graphtiming);
-
-
-                } catch (NumberFormatException e) {
-                     System.out.println("No no");
-                     e.printStackTrace();
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-                try {
-                    sample.setSleep(Integer.parseInt(tokens[2]));
-                } catch (NumberFormatException e) {
-                    // System.out.println("No no");
-                }
-
-                try {
-                    sample.setTime(tokens[0]);
-                } catch (NumberFormatException e) {
-                    //  System.out.println("No no");
-                }
-
-
-                Log.d("that", tokens[0]);
-
-                Log.d("this", cookstarttime + "      " + cookendtime + "  " + prevcook);
-
-                dailylife.add(sample);
-                // csvread.setAdapter(sample);
-
-            }
-
-    }catch (IOException e){
-            e.printStackTrace();
-        }
-
 
     }
 
-    private void readjson() {
-
-
-    }
-
-
-    }

@@ -20,7 +20,7 @@ public class select extends AppCompatActivity {
     private FirebaseAuth firebaseauth;
 
     ListView simpleList;
-    String countryList[] = {"", "Target 1", "Target 2", "Target 3", "Target 4", "Target 5", "Target 6"};
+    String[] countryList = {"", "Target 1", "Target 2", "Target 3", "Target 4", "Target 5", "Target 6"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +34,12 @@ public class select extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
                 FirebaseUser user= firebaseAuth.getCurrentUser();
-                if (user== null){
+                if (user == null){
                     startActivity(new Intent(select.this, mainactivity.class));
                     finish();
+                }
+                else
+                {  choosetarget();
                 }
             }
         };
@@ -44,9 +47,10 @@ public class select extends AppCompatActivity {
 
         // startService(new Intent(this, managenotifications.class));
 
-    public void signOut(){
-        firebaseauth.signOut();
-    }
+//    public void signOut(){
+//        firebaseauth.signOut();
+//    }
+
     @Override
     public void onStart(){
         super.onStart();
@@ -58,8 +62,10 @@ public class select extends AppCompatActivity {
         if (fbauth != null) {
             firebaseauth.removeAuthStateListener(fbauth);
         }
+    }
+    public void choosetarget () {
 
-    simpleList = (ListView) findViewById(R.id.list);
+        simpleList = (ListView) findViewById(R.id.list);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.listings, R.id.textView, countryList);
         simpleList.setAdapter(arrayAdapter);
 
@@ -67,14 +73,21 @@ public class select extends AppCompatActivity {
         simpleList.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+
+                        if (position == 1)
+                        {
                         Intent intent = new Intent(select.this, report.class);
-                        startActivity(intent);
+                        startActivity(intent);}
+
+                        if (position == 2)
+                        {
+                            Intent intent = new Intent(select.this, signingup.class);
+                            startActivity(intent);}
+
                     }
 
 
                 });
-
     }
-
 }

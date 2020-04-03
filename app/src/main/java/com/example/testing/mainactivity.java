@@ -31,9 +31,6 @@ public class mainactivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.start);
 
-        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent notificationIntent = new Intent(this, receiver.class);
         notificationIntent.putExtra("notifId", 1);
 

@@ -72,7 +72,7 @@
                 android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/card1"
+            android:id="@+id/sleepcard"
             android:layout_gravity="center"
             android:layout_width="375dp"
             android:layout_height="150dp"
@@ -134,7 +134,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.3"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/card1"
+                    app:layout_constraintTop_toTopOf="@id/sleepcard"
                     app:layout_constraintVertical_bias="0.019"
                     tools:ignore="NotSibling" />
 
@@ -145,7 +145,7 @@
 
         <RadioGroup
 
-            android:id="@+id/radiostate"
+            android:id="@+id/sleepbutton"
             android:layout_width="201dp"
             android:layout_height="39dp"
             android:layout_marginStart="100dp"
@@ -185,7 +185,7 @@
             />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/card2"
+            android:id="@+id/showercard"
             android:layout_gravity="center"
             android:layout_width="375dp"
             android:layout_height="150dp"
@@ -218,7 +218,7 @@
                     android:text="Time"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
-                    android:textSize="24sp" />
+                    android:textSize="10sp" />
 
                 <ImageView
                     android:id="@+id/image2"
@@ -235,7 +235,7 @@
                     android:contentDescription="@string/todo"
                     app:srcCompat="@drawable/shower" />
 
-                <com.github.mikephil.charting.charts.BarChart
+                <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/barchart2"
                     android:layout_width="223dp"
                     android:layout_height="102dp"
@@ -247,7 +247,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.3"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/card2"
+                    app:layout_constraintTop_toTopOf="@id/showercard"
                     app:layout_constraintVertical_bias="0.019"
                     tools:ignore="NotSibling" />
 
@@ -257,7 +257,7 @@
 
 
         <RadioGroup
-
+            android:id="@+id/showerbutton"
             android:layout_width="201dp"
             android:layout_height="39dp"
             android:layout_marginStart="100dp"
@@ -267,14 +267,12 @@
                 android:id="@+id/normal1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
                 android:text="Normal" />
 
             <RadioButton
                 android:id="@+id/suspicious1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
                 android:text="Suspicious" />
 
         </RadioGroup>
@@ -296,7 +294,7 @@
             />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/card3"
+            android:id="@+id/breakfastcard"
             android:layout_gravity="center"
             android:layout_width="375dp"
             android:layout_height="150dp"
@@ -358,7 +356,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.3"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/card3"
+                    app:layout_constraintTop_toTopOf="@id/breakfastcard"
                     app:layout_constraintVertical_bias="0.019"
                     tools:ignore="NotSibling" />
 
@@ -368,7 +366,7 @@
 
 
         <RadioGroup
-
+            android:id="@+id/breakfastbutton"
             android:layout_width="201dp"
             android:layout_height="39dp"
             android:layout_marginStart="100dp"
@@ -378,14 +376,12 @@
                 android:id="@+id/radio_pirates"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
                 android:text="Normal" />
 
             <RadioButton
                 android:id="@+id/radio_ninjas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
                 android:text="Suspicious" />
 
         </RadioGroup>
@@ -407,7 +403,7 @@
             />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/card4"
+            android:id="@+id/medicationcard"
             android:layout_gravity="center"
             android:layout_width="375dp"
             android:layout_height="150dp"
@@ -469,7 +465,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.3"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/card4"
+                    app:layout_constraintTop_toTopOf="@id/medicationcard"
                     app:layout_constraintVertical_bias="0.019"
                     tools:ignore="NotSibling" />
 
@@ -479,6 +475,8 @@
 
 
         <RadioGroup
+            android:id="@+id/medicationbutton"
+
             android:layout_width="201dp"
             android:layout_height="39dp"
             android:layout_marginStart="100dp"
@@ -488,14 +486,12 @@
                 android:id="@+id/radiopirates"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
                 android:text="Normal" />
 
             <RadioButton
                 android:id="@+id/radioninjas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
                 android:text="Suspicious" />
 
         </RadioGroup>
@@ -517,7 +513,7 @@
             />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/card5"
+            android:id="@+id/lunchcard"
             android:layout_gravity="center"
             android:layout_width="375dp"
             android:layout_height="150dp"
@@ -579,7 +575,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.3"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/card5"
+                    app:layout_constraintTop_toTopOf="@id/lunchcard"
                     app:layout_constraintVertical_bias="0.019"
                     tools:ignore="NotSibling" />
 
@@ -589,6 +585,7 @@
 
 
         <RadioGroup
+            android:id="@+id/lunchbutton"
 
             android:layout_width="201dp"
             android:layout_height="39dp"
@@ -599,14 +596,12 @@
                 android:id="@+id/radiopirate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
                 android:text="Normal" />
 
             <RadioButton
                 android:id="@+id/radioninja"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
                 android:text="Suspicious" />
 
         </RadioGroup>
@@ -628,7 +623,7 @@
 
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/card6"
+            android:id="@+id/tvcard"
             android:layout_gravity="center"
             android:layout_width="375dp"
             android:layout_height="150dp"
@@ -689,7 +684,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.3"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/card6"
+                    app:layout_constraintTop_toTopOf="@id/tvcard"
                     app:layout_constraintVertical_bias="0.019"
                     tools:ignore="NotSibling" />
 
@@ -699,6 +694,7 @@
 
 
         <RadioGroup
+            android:id="@+id/tvbutton"
 
             android:layout_width="201dp"
             android:layout_height="39dp"
@@ -709,14 +705,12 @@
                 android:id="@+id/radiopiratee"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
                 android:text="Normal" />
 
             <RadioButton
                 android:id="@+id/radioninjae"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
                 android:text="Suspicious" />
 
         </RadioGroup>
@@ -738,7 +732,7 @@
 
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/card7"
+            android:id="@+id/dinnercard"
             android:layout_gravity="center"
             android:layout_width="375dp"
             android:layout_height="150dp"
@@ -799,7 +793,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.3"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/card7"
+                    app:layout_constraintTop_toTopOf="@id/dinnercard"
                     app:layout_constraintVertical_bias="0.019"
                     tools:ignore="NotSibling" />
 
@@ -809,6 +803,7 @@
 
 
         <RadioGroup
+            android:id="@+id/dinnerbutton"
 
             android:layout_width="201dp"
             android:layout_height="39dp"
@@ -819,14 +814,12 @@
                 android:id="@+id/radiopiraatee"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
                 android:text="Normal" />
 
             <RadioButton
                 android:id="@+id/radioninjaae"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
                 android:text="Suspicious" />
 
         </RadioGroup>
@@ -862,7 +855,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.6"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card7"
+            app:layout_constraintTop_toBottomOf="@+id/dinnercard"
             app:layout_constraintVertical_bias="0.212"
             />
 
