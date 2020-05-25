@@ -65,6 +65,7 @@ public class report extends AppCompatActivity {
         card7= (CardView)findViewById(R.id.dinnercard);
 
         submitbutton();
+       // showerbutton();
 
         chart1 = (LineChart) findViewById(R.id.barchart1);
         chart2 = (LineChart)findViewById(R.id.barchart2);
@@ -82,18 +83,18 @@ public class report extends AppCompatActivity {
 
         contactList = new ArrayList<>();
         lv = (ListView) findViewById(R.id.list);
-        new GetContacts().execute();
+        new GetActivity().execute();
 
     }
 
-    private class GetContacts extends AsyncTask<Void, Void, Void> {
+    @SuppressLint("StaticFieldLeak")
+    private class GetActivity extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             //Toast.makeText(report.this, "Json Data is downloading", Toast.LENGTH_LONG).show();
         }
 
-        @SuppressLint("SetTextI18n")
         @Override
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
@@ -118,7 +119,6 @@ public class report extends AppCompatActivity {
                         String date = c.getString("start_time");
 
                         String cookduration = c.getString("duration");
-                        String sleepduration = c.getString("duration");
                         String eatduration = c.getString("duration");
 
 
@@ -141,9 +141,9 @@ public class report extends AppCompatActivity {
                             } else {
                                 text1.setText("Sleep Duration: " + cookingtime + "  " + "minutes");
                             }
-                            Log.d("khana pakako time", "" + cookingtime);
+                            Log.d("duration of cooking", "" + cookingtime);
 
-                            Log.d("khana pakako suruwat", "" + date);
+                            Log.d("start time for cooking", "" + date);
 
 //                            startActivity(new Intent(report.this, select.class));
 
@@ -217,7 +217,7 @@ public class report extends AppCompatActivity {
 
 
             ArrayList<Entry> entries = new ArrayList<>();
-            entries.add(new Entry(0, 9)); //5 is the value
+            entries.add(new Entry(0, 9)); //15 is the value
             entries.add(new Entry(15, 9));
 
             ArrayList<Entry> entry = new ArrayList<>();
@@ -282,8 +282,6 @@ public class report extends AppCompatActivity {
             final String email = thisuser.getEmail();
             final Object userdr = email + "  " + new Date();
 
-            final int selectedstate = showerradio.getCheckedRadioButtonId();
-
             submitreport.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -296,8 +294,8 @@ public class report extends AppCompatActivity {
                     String radiovalue =  radioButton.getText().toString();
                     Log.d("value    ", radiovalue);
 
-                    map.put("Shower state", userdr);
-                    ref.child("Reports").child(radiovalue).child(id).updateChildren(map);
+//                    map.put("Shower state", userdr);
+//                    ref.child("Reports").child(radiovalue).child(id).updateChildren(map);
 
                     Intent newintent = new Intent(report.this, mainactivity.class);
                     startActivity(newintent);
@@ -327,62 +325,77 @@ public class report extends AppCompatActivity {
         submitreport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                HashMap<String, Object> maps = new HashMap<>();
+                String id = ref.push().getKey();
 
-                if(sleepradio.getCheckedRadioButtonId()== -1)
-                { Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show(); }
-                else{
-                    radioButton = (RadioButton) findViewById(sleepradio.getCheckedRadioButtonId());
-                    String radiovalue =  radioButton.getText().toString();
-                Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
+                if((sleepradio.getCheckedRadioButtonId()!= -1) && showerradio.getCheckedRadioButtonId() != -1)
+                {
+                    Toast.makeText(getApplicationContext(), " NNNNNNN" + "  " + selectedstate, Toast.LENGTH_LONG).show();
+
                 }
 
-                if(showerradio.getCheckedRadioButtonId()== -1)
-                { Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show(); }
-                else{
-                    radioButton = (RadioButton) findViewById(showerradio.getCheckedRadioButtonId());
-                    String radiovalue =  radioButton.getText().toString();
-                    Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
-                }
 
-                if(breakfastradio.getCheckedRadioButtonId()== -1)
-                { Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show(); }
-                else{
-                    radioButton = (RadioButton) findViewById(breakfastradio.getCheckedRadioButtonId());
-                    String radiovalue =  radioButton.getText().toString();
-                    Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
-                }
+//                if(sleepradio.getCheckedRadioButtonId()== -1)
+//                    Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show();
+//                else{
+//                    radioButton = (RadioButton) findViewById(sleepradio.getCheckedRadioButtonId());
+//                    String radiovalue =  radioButton.getText().toString();
+//                    Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
+//                    maps.put("Sleep state", userdr);
+//                    ref.child("Reports").child("user1").child(radiovalue).child(id).updateChildren(maps);
+//                }
+//
+//                if (showerradio.getCheckedRadioButtonId()== -1)
+//                { Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show(); }
+//                else{
+//                    radioButton = (RadioButton) findViewById(showerradio.getCheckedRadioButtonId());
+//                    String radiovalue =  radioButton.getText().toString();
+//                    Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
+//                    maps.put("Shower state", userdr);
+//                    ref.child("Reports").child("user1").child(radiovalue).child(id).updateChildren(maps);
+//                }
+//
+//                if(breakfastradio.getCheckedRadioButtonId()== -1)
+//                { Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show(); }
+//                else{
+//                    radioButton = (RadioButton) findViewById(breakfastradio.getCheckedRadioButtonId());
+//                    String radiovalue =  radioButton.getText().toString();
+//                    Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
+//                    maps.put("Breakfast state", userdr);
+//                    ref.child("Reports").child("user1").child(radiovalue).child(id).updateChildren(maps);
+//                }
 
-                if(medicationradio.getCheckedRadioButtonId()== -1)
-                { Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show(); }
-                else{
-                    radioButton = (RadioButton) findViewById(medicationradio.getCheckedRadioButtonId());
-                    String radiovalue =  radioButton.getText().toString();
-                    Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
-                }
-
-                if(lunchradio.getCheckedRadioButtonId()== -1)
-                { Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show(); }
-                else{
-                    radioButton = (RadioButton) findViewById(lunchradio.getCheckedRadioButtonId());
-                    String radiovalue =  radioButton.getText().toString();
-                    Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
-                }
-
-                if(tvradio.getCheckedRadioButtonId()== -1)
-                { Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show(); }
-                else{
-                    radioButton = (RadioButton) findViewById(tvradio.getCheckedRadioButtonId());
-                    String radiovalue =  radioButton.getText().toString();
-                    Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
-                }
-
-                if(dinnerradio.getCheckedRadioButtonId()== -1)
-                { Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show(); }
-                else{
-                    radioButton = (RadioButton) findViewById(dinnerradio.getCheckedRadioButtonId());
-                    String radiovalue =  radioButton.getText().toString();
-                    Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
-                }
+//                if(medicationradio.getCheckedRadioButtonId()== -1)
+//                { Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show(); }
+//                else{
+//                    radioButton = (RadioButton) findViewById(medicationradio.getCheckedRadioButtonId());
+//                    String radiovalue =  radioButton.getText().toString();
+//                    Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
+//                }
+//
+//                if(lunchradio.getCheckedRadioButtonId()== -1)
+//                { Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show(); }
+//                else{
+//                    radioButton = (RadioButton) findViewById(lunchradio.getCheckedRadioButtonId());
+//                    String radiovalue =  radioButton.getText().toString();
+//                    Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
+//                }
+//
+//                if(tvradio.getCheckedRadioButtonId()== -1)
+//                { Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show(); }
+//                else{
+//                    radioButton = (RadioButton) findViewById(tvradio.getCheckedRadioButtonId());
+//                    String radiovalue =  radioButton.getText().toString();
+////                    Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
+//                }
+//
+//                if(dinnerradio.getCheckedRadioButtonId()== -1)
+//                { Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show(); }
+//                else{
+//                    radioButton = (RadioButton) findViewById(dinnerradio.getCheckedRadioButtonId());
+//                    String radiovalue =  radioButton.getText().toString();
+////                    Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
+//                }
             }
         });
     }

@@ -101,19 +101,19 @@ public class managenotifications extends JobIntentService {
 
         Log.d("", "notification is sent");
 
-        if (mHour == 7) {
+        if (mHour > 6 && mHour < 9 ) {
             createNotification("Check when the elderly woke up ", "MutualMonitor", this, report.class, "7");
-        } else if (mHour == 9) {
+        } else if (mHour > 8 && mHour < 11) {
             createNotification("Did the elderly take medicine today? ", "MutualMonitor", this, report.class, "9");
-        } else if (mHour == 15) {
+        } else if (mHour > 11 && mHour < 14) {
             createNotification("Lunch time!! Did the elderly had lunch? ", "MutualMonitor", this, report.class, "14");
-        } else if (mHour == 17) {
+        } else if (mHour > 14 && mHour < 17) {
             createNotification("Did you check activities of the elderly today? ", "MutualMonitor", this, report.class, "17");
-        } else if (mHour == 20) {
+        } else if (mHour > 19 && mHour < 22) {
             createNotification("Time to check if the elderly had dinner ", "MutualMonitor", this, report.class, "20");
         }
         else {
-            Log.d("", "not the time for notification");
+            Log.d("", "no notification");
         }
     }
 

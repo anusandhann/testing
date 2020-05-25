@@ -27,7 +27,7 @@ import java.util.HashMap;
 public class csvread extends AppCompatActivity
 {
     private RecyclerView csvread;
-public CardView card1;
+    public CardView card1;
     LineChart testbarchart;
     private String TAG = csvread.class.getSimpleName();
     private ListView lv;
@@ -37,29 +37,30 @@ public CardView card1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.graphtest);
+        setContentView(R.layout.activity_main);
 
-      //  csvread = (RecyclerView) findViewById(R.id.csvview);
+        //csvread = (RecyclerView) findViewById(R.id.csvview);
         testbarchart = (LineChart)findViewById(R.id.testbarchart);
-card1 = (CardView)findViewById(R.id.sleepcard);
+        card1 = (CardView)findViewById(R.id.sleepcard);
         contactList = new ArrayList<>();
         lv = (ListView) findViewById(R.id.list);
         new GetContacts().execute();
 
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class GetContacts extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Toast.makeText(csvread.this,"Json Data is downloading",Toast.LENGTH_LONG).show();
+            //Toast.makeText(csvread.this,"Json Data is downloading",Toast.LENGTH_LONG).show();
 
         }
         @Override
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
             // Making a request to url and getting response
-            String url = "http://163.221.68.223:8080/api" ;
+            String url = "https://api.androidhive.info/contacts/" ;
             String jsonStr = sh.makeServiceCall(url);
 
             Log.e(TAG, "Response from url: " + jsonStr);
@@ -68,46 +69,35 @@ card1 = (CardView)findViewById(R.id.sleepcard);
                     JSONObject jsonObj = new JSONObject(jsonStr.substring(jsonStr.indexOf("{"), jsonStr.lastIndexOf("}") + 1));
 
                     // Getting JSON Array node
-                    JSONArray contacts = jsonObj.getJSONArray("result");
+                    JSONArray contacts = jsonObj.getJSONArray("contacts");
 
                     // looping through All Actv
                     for (int i = 0; i < contacts.length(); i++) {
 
                         JSONObject c = contacts.getJSONObject(i);
 
-                        String activity = c.getString("actv");
-                        String date = c.getString("date");
-                        final String cookduration = c.getString("duration");
-                        String sleepduration = c.getString("duration");
-                        String eatduration = c.getString("duration");
+                        String name = c.getString("name");
+                        String email = c.getString("email");
+//
 
+                        //Phone node is JSON Object
+                        JSONObject phone = c.getJSONObject("phone");
+                        String mobile = phone.getString("mobile");
+//
 
                         // tmp hash map for single contact
                         HashMap<String, String> contact = new HashMap<>();
 
+//                        if(name.equals("Will Smith")){
+//                            managenotifications mg = new managenotifications();
+//                            mg.notice();
+//                        }
+
                         // adding each child node to HashMap key => value
-
-                        contact.put("actv", activity);
-                        contact.put("date", date);
-
-                        if(activity.equals("Cook")){
-                            contact.put("duration", cookduration);
-                            int cookingtime = Integer.parseInt(cookduration) / (60 * 1000);
-                            Log.d("khana pakako time", "" + cookingtime);
-
-                            //report.drawchart();
-                        }
-                        if(activity.equals("Eat")){
-                            contact.put("duration", eatduration);
-                            int eatingtime = Integer.parseInt(cookduration)/(60*1000);
-                            Log.d("khana khaeko time", "" + eatingtime);
-
-                            Intent eatintent = new Intent(getApplicationContext(), csvread.class);
-                            eatintent.putExtra("cookingintent", eatingtime);
-                        }
-
-                        Log.d("khana", eatduration);
-                        Log.d("pakako", cookduration);
+//                        contact.put("id", id);
+                        contact.put("name", name);
+                        contact.put("email", email);
+                        // contact.put("mobile", mobile);
 
                         // adding contact to contact list
                         contactList.add(contact);
@@ -142,21 +132,18 @@ card1 = (CardView)findViewById(R.id.sleepcard);
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-
-            Intent in = getIntent();
-            String cookingtime = in.getStringExtra("cookingintent");
-            Log.d("arko java classma aaeko", "" + cookingtime);
-
             ListAdapter adapter = new SimpleAdapter(csvread.this, contactList,
-                    R.layout.list_item, new String[]{"actv", "date", "duration"},
-                    new int[]{R.id.activity, R.id.date, R.id.duration});
-//            lv.setAdapter(adapter);
-                drawchart();
+                    R.layout.list_item, new String[]{"name","email"},
+                    new int[]{R.id.name, R.id.email});
+            lv.setAdapter(adapter);
+            //drawchart();
+
+                managenotifications mg = new managenotifications();
+                mg.notice();
 
         }
     }
     private void drawchart() {
-
         @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
 

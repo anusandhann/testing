@@ -41,8 +41,6 @@ public class user {
         result.put("userid", userid);
         result.put("email", email);
         return result;
-
-
     }
 
 }

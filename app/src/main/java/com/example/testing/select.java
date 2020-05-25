@@ -77,12 +77,12 @@ public class select extends AppCompatActivity {
 
                         if (position == 1)
                         {
-                        Intent intent = new Intent(select.this, report.class);
+                        Intent intent = new Intent(select.this, csvread.class);
                         startActivity(intent);}
 
                         if (position == 2)
                         {
-                            Intent intent = new Intent(select.this, signingup.class);
+                            Intent intent = new Intent(select.this, report.class);
                             startActivity(intent);}
 
                     }

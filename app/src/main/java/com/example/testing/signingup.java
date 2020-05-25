@@ -86,7 +86,7 @@ public class signingup extends Activity {
 
     }
     public void loginoption(View view) {
-        Intent intent = new Intent(signingup.this, loggingin.class);
+        Intent intent = new Intent(signingup.this, signingin.class);
         startActivity(intent);
     }
 

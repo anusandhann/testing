@@ -17,7 +17,7 @@ public class receiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d(TAG, "hariyo dada mathi halo bechne sathi");
+        Log.d(TAG, "receiver for notification");
 
         managenotifications.enqueueWork(context, new Intent());
     }

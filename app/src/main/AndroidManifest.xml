@@ -32,10 +32,9 @@
             android:name=".signingup"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".loggingin"
+            android:name=".signingin"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".docread"/>
         <activity android:name=".csvread"/>
 
         <activity android:name=".HttpHandler"/>
