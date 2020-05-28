@@ -28,7 +28,8 @@ public class managenotifications extends JobIntentService {
 
     @Override
     protected void onHandleWork(@NonNull Intent intent) {
-            //notice();
+        //this provokes the notification
+       // notice();
     }
 
     private NotificationManager notifManager;

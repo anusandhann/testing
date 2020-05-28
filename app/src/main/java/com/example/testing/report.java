@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-
+//this is the main class..i read the dataset, create graph, and provoke notifications from this class.
 public class report extends AppCompatActivity {
 
     public LineChart chart1, chart2;
@@ -49,12 +49,14 @@ public class report extends AppCompatActivity {
     private RadioButton radioButton;
 
 
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.report);
         submitreport = (Button) findViewById(R.id.submitreport);
+
+        chart1 = (LineChart) findViewById(R.id.barchart1);
+        chart2 = (LineChart)findViewById(R.id.barchart2);
 
         card1 = (CardView)findViewById(R.id.sleepcard);
         card2 = (CardView)findViewById(R.id.showercard);
@@ -65,11 +67,8 @@ public class report extends AppCompatActivity {
         card7= (CardView)findViewById(R.id.dinnercard);
 
         submitbutton();
-       // showerbutton();
-
-        chart1 = (LineChart) findViewById(R.id.barchart1);
-        chart2 = (LineChart)findViewById(R.id.barchart2);
-
+       // drawchart(15,8);
+        drawchart2();
         text1 = (TextView)findViewById(R.id.text1);
         text2 =(TextView)findViewById(R.id.text2);
 
@@ -87,14 +86,13 @@ public class report extends AppCompatActivity {
 
     }
 
-    @SuppressLint("StaticFieldLeak")
     private class GetActivity extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             //Toast.makeText(report.this, "Json Data is downloading", Toast.LENGTH_LONG).show();
         }
-
+        @SuppressLint("SetTextI18n")
         @Override
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
@@ -110,7 +108,7 @@ public class report extends AppCompatActivity {
                     // Getting JSON Array node
                     JSONArray contacts = jsonObj.getJSONArray("result");
 
-                    // looping through All Actv
+                    // looping through All Activities
                     for (int i = 0; i < contacts.length(); i++) {
 
                         JSONObject c = contacts.getJSONObject(i);
@@ -120,7 +118,6 @@ public class report extends AppCompatActivity {
 
                         String cookduration = c.getString("duration");
                         String eatduration = c.getString("duration");
-
 
                         // tmp hash map for single contact
                         HashMap<String, String> contact = new HashMap<>();
@@ -145,9 +142,8 @@ public class report extends AppCompatActivity {
 
                             Log.d("start time for cooking", "" + date);
 
-//                            startActivity(new Intent(report.this, select.class));
 
-                            drawchart();
+                            drawchart(15,8);
 //                            managenotifications not = new managenotifications();
 //                            not.notice();
                         }
@@ -155,7 +151,7 @@ public class report extends AppCompatActivity {
                         if (activity.equals("Eat")) {
                             contact.put("duration", eatduration);
                             int eatingtime = Integer.parseInt(cookduration) / (60 * 1000);
-                            Log.d("khana khaeko time", "" + eatingtime);
+                            Log.d("Eating time", "" + eatingtime);
 
                             if (eatingtime >= 60) {
                                 long cookinghour = eatingtime / (60);
@@ -164,7 +160,7 @@ public class report extends AppCompatActivity {
                                 text2.setText("Shower Duration: " + eatingtime + "  " + "minutes");
                             }
 
-                            drawchart2();
+                            //drawchart2();
 
                         } else {
                             runOnUiThread(new Runnable() {
@@ -172,12 +168,10 @@ public class report extends AppCompatActivity {
                                 public void run() {
 
                                     managenotifications not = new managenotifications();
-                                    //not.notice();
+                                    not.notice();
                                      }
                             });
                         }
-
-
                         // adding contact to contact list
                         contactList.add(contact);
                     }
@@ -213,16 +207,15 @@ public class report extends AppCompatActivity {
             super.onPostExecute(result);
         }
     }
-        public void drawchart() {
-
+        public void drawchart(int x, int y) {
 
             ArrayList<Entry> entries = new ArrayList<>();
-            entries.add(new Entry(0, 9)); //15 is the value
-            entries.add(new Entry(15, 9));
+            entries.add(new Entry(0, 9)); //x is the value
+            entries.add(new Entry(x, 9));
 
             ArrayList<Entry> entry = new ArrayList<>();
-            entry.add(new Entry(8, 0)); //8 is the value
-            entry.add(new Entry(8, 8));
+            entry.add(new Entry(8, 0)); //y is the value
+            entry.add(new Entry(8, y));
 
             LineData chartdata = new LineData();
 
@@ -247,11 +240,11 @@ public class report extends AppCompatActivity {
 
 
             ArrayList<Entry> entries = new ArrayList<>();
-            entries.add(new Entry(0, 9)); //5 is the value
+            entries.add(new Entry(0, 9)); //15 is the value
             entries.add(new Entry(15, 9));
 
             ArrayList<Entry> entry = new ArrayList<>();
-            entry.add(new Entry(7, 0)); //8 is the value
+            entry.add(new Entry(7, 0)); //7 is the value
             entry.add(new Entry(7, 7));
 
             LineData chartdata = new LineData();
@@ -303,7 +296,8 @@ public class report extends AppCompatActivity {
             });
         }
 
-//practice code
+//practice code to submit into Firebase
+
     private void submitbutton() {
 
         lunchradio = (RadioGroup) findViewById(R.id.lunchbutton);
@@ -330,72 +324,9 @@ public class report extends AppCompatActivity {
 
                 if((sleepradio.getCheckedRadioButtonId()!= -1) && showerradio.getCheckedRadioButtonId() != -1)
                 {
-                    Toast.makeText(getApplicationContext(), " NNNNNNN" + "  " + selectedstate, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),   "  " + selectedstate, Toast.LENGTH_LONG).show();
 
                 }
-
-
-//                if(sleepradio.getCheckedRadioButtonId()== -1)
-//                    Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show();
-//                else{
-//                    radioButton = (RadioButton) findViewById(sleepradio.getCheckedRadioButtonId());
-//                    String radiovalue =  radioButton.getText().toString();
-//                    Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
-//                    maps.put("Sleep state", userdr);
-//                    ref.child("Reports").child("user1").child(radiovalue).child(id).updateChildren(maps);
-//                }
-//
-//                if (showerradio.getCheckedRadioButtonId()== -1)
-//                { Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show(); }
-//                else{
-//                    radioButton = (RadioButton) findViewById(showerradio.getCheckedRadioButtonId());
-//                    String radiovalue =  radioButton.getText().toString();
-//                    Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
-//                    maps.put("Shower state", userdr);
-//                    ref.child("Reports").child("user1").child(radiovalue).child(id).updateChildren(maps);
-//                }
-//
-//                if(breakfastradio.getCheckedRadioButtonId()== -1)
-//                { Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show(); }
-//                else{
-//                    radioButton = (RadioButton) findViewById(breakfastradio.getCheckedRadioButtonId());
-//                    String radiovalue =  radioButton.getText().toString();
-//                    Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
-//                    maps.put("Breakfast state", userdr);
-//                    ref.child("Reports").child("user1").child(radiovalue).child(id).updateChildren(maps);
-//                }
-
-//                if(medicationradio.getCheckedRadioButtonId()== -1)
-//                { Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show(); }
-//                else{
-//                    radioButton = (RadioButton) findViewById(medicationradio.getCheckedRadioButtonId());
-//                    String radiovalue =  radioButton.getText().toString();
-//                    Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
-//                }
-//
-//                if(lunchradio.getCheckedRadioButtonId()== -1)
-//                { Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show(); }
-//                else{
-//                    radioButton = (RadioButton) findViewById(lunchradio.getCheckedRadioButtonId());
-//                    String radiovalue =  radioButton.getText().toString();
-//                    Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
-//                }
-//
-//                if(tvradio.getCheckedRadioButtonId()== -1)
-//                { Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show(); }
-//                else{
-//                    radioButton = (RadioButton) findViewById(tvradio.getCheckedRadioButtonId());
-//                    String radiovalue =  radioButton.getText().toString();
-////                    Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
-//                }
-//
-//                if(dinnerradio.getCheckedRadioButtonId()== -1)
-//                { Toast.makeText(getApplicationContext(), " Nothing is selected" + "  " + selectedstate, Toast.LENGTH_LONG).show(); }
-//                else{
-//                    radioButton = (RadioButton) findViewById(dinnerradio.getCheckedRadioButtonId());
-//                    String radiovalue =  radioButton.getText().toString();
-////                    Toast.makeText(getApplicationContext(), " Radio group works" + "  " + radiovalue, Toast.LENGTH_LONG).show();
-//                }
             }
         });
     }

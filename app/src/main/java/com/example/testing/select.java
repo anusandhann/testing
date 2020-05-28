@@ -45,7 +45,7 @@ public class select extends AppCompatActivity {
         };
         };
 
-        // startService(new Intent(this, managenotifications.class));
+        // startService(new Intent(this, managenotifications.class)); //this is for, if i want to start notifications periodically
 
 //    public void signOut(){
 //        firebaseauth.signOut();

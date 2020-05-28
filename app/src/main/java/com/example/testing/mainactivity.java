@@ -38,6 +38,7 @@ public class mainactivity extends Activity {
 
         Calendar calendar = Calendar.getInstance();
 
+                        //this is to periodically send notifications
         alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),  55 * 60 * 1000, alarmIntent);
 
@@ -48,7 +49,7 @@ public class mainactivity extends Activity {
             Intent i = new Intent(this, select.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
-            Log.d(TAG, "logged");
+            Log.d(TAG, "logged in");
         } else {
             // User is signed out
             Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -61,7 +62,7 @@ public class mainactivity extends Activity {
     }
 
     public void signin(View view) {
-        Intent intent= new Intent(this, select.class);
+        Intent intent= new Intent(this, signingin.class);
         startActivity(intent);
     }
 }

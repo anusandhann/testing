@@ -2,6 +2,7 @@ package com.example.testing;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,9 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,9 +28,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+//This is a practice class... i try to check different codes in this class.
+
 public class csvread extends AppCompatActivity
 {
-    private RecyclerView csvread;
+    RecyclerView csvread;
     public CardView card1;
     LineChart testbarchart;
     private String TAG = csvread.class.getSimpleName();
@@ -37,7 +43,7 @@ public class csvread extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.graphtest);
 
         //csvread = (RecyclerView) findViewById(R.id.csvview);
         testbarchart = (LineChart)findViewById(R.id.testbarchart);
@@ -46,9 +52,12 @@ public class csvread extends AppCompatActivity
         lv = (ListView) findViewById(R.id.list);
         new GetContacts().execute();
 
+        testbarchart.setBackgroundColor(Color.WHITE);
+        testbarchart.getDescription().setEnabled(false);
+        testbarchart.setTouchEnabled(false);
+
     }
 
-    @SuppressLint("StaticFieldLeak")
     private class GetContacts extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
@@ -71,7 +80,7 @@ public class csvread extends AppCompatActivity
                     // Getting JSON Array node
                     JSONArray contacts = jsonObj.getJSONArray("contacts");
 
-                    // looping through All Actv
+                    // looping through All Actvities
                     for (int i = 0; i < contacts.length(); i++) {
 
                         JSONObject c = contacts.getJSONObject(i);
@@ -88,10 +97,13 @@ public class csvread extends AppCompatActivity
                         // tmp hash map for single contact
                         HashMap<String, String> contact = new HashMap<>();
 
-//                        if(name.equals("Will Smith")){
-//                            managenotifications mg = new managenotifications();
-//                            mg.notice();
-//                        }
+                        if (name.equals("Will Smith")){
+                            Log.d(TAG, "can read json from server");
+
+                            drawchart(15,8);
+                            managenotifications not = new managenotifications();
+                            not.notice();
+                        }
 
                         // adding each child node to HashMap key => value
 //                        contact.put("id", id);
@@ -132,59 +144,40 @@ public class csvread extends AppCompatActivity
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            ListAdapter adapter = new SimpleAdapter(csvread.this, contactList,
-                    R.layout.list_item, new String[]{"name","email"},
-                    new int[]{R.id.name, R.id.email});
-            lv.setAdapter(adapter);
-            //drawchart();
-
-                managenotifications mg = new managenotifications();
-                mg.notice();
-
+//            ListAdapter adapter = new SimpleAdapter(csvread.this, contactList,
+//                    R.layout.list_item, new String[]{"name","email"},
+//                    new int[]{R.id.name, R.id.email});
+//            lv.setAdapter(adapter);
         }
     }
-    private void drawchart() {
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        public void drawchart( int x, int y){
+
+            ArrayList<Entry> entries = new ArrayList<>();
+            entries.add(new Entry(0, 9)); //x is the value
+            entries.add(new Entry(x, 9));
+
+            ArrayList<Entry> entry = new ArrayList<>();
+            entry.add(new Entry(8, 0)); //y is the value
+            entry.add(new Entry(8, y));
+
+            LineData chartdata = new LineData();
+
+            LineDataSet lDataSet1 = new LineDataSet(entries, "Average");
+            lDataSet1.setColors(R.color.design_default_color_primary);
+            lDataSet1.setDrawValues(false);
+            lDataSet1.setLineWidth(4);
+            chartdata.addDataSet(lDataSet1);
 
 
-//        long diffSeconds = duration / 1000 % 60;
-//        long diffMinutes = duration / (60 * 1000);
-//        long diffHours = duration / (60 * 60 * 1000) % 24;
-//        long diffDays = duration / (24 * 60 * 60 * 1000);
-//
-//        Log.d("now",  " Difference is : "
-//
-//                + diffDays + "  " + "days" + "  " + diffHours + " " + "hours" + "  "
-//
-//                + diffMinutes + " "+ "Minutes" + " " + diffSeconds + "  " + "Seconds");
+            LineDataSet lDataSet2 = new LineDataSet(entry, "Today");
+            lDataSet2.setColor(R.color.graph);
+            lDataSet2.setLineWidth(4);
+            lDataSet2.setDrawValues(false);
+            chartdata.addDataSet(lDataSet2);
 
-//        ArrayList<Entry> entries = new ArrayList<>();
-//        entries.add(new Entry(0, )); //5 is the value
-//        entries.add(new Entry(15, R.id.duration));
-//
-//        ArrayList<Entry> entry = new ArrayList<>();
-//        entry.add(new Entry(8, 0)); //8 is the value
-//        entry.add(new Entry(8, 8));
-//
-//        LineData chartdata = new LineData();
-//
-//        LineDataSet lDataSet1 = new LineDataSet(entries, "Average");
-//        lDataSet1.setColors(R.color.design_default_color_primary);
-//        lDataSet1.setDrawValues(false);
-//        lDataSet1.setLineWidth(4);
-//        chartdata.addDataSet(lDataSet1);
-//
-//
-//        LineDataSet lDataSet2 = new LineDataSet(entry, "Today");
-//        lDataSet2.setColors(R.color.red);
-//        lDataSet2.setLineWidth(4);
-//        lDataSet2.setDrawValues(false);
-//        chartdata.addDataSet(lDataSet2);
-//
-//        testbarchart.setData(chartdata);
-//        testbarchart.invalidate();
-    }
-
+            testbarchart.setData(chartdata);
+            testbarchart.invalidate();
+        }
 
     }
 
