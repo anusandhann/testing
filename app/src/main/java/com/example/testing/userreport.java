@@ -1,6 +1,7 @@
 package com.example.testing;
 
 import android.annotation.SuppressLint;
+import android.app.IntentService;
 import android.app.Service;
 import android.app.job.JobService;
 import android.content.Context;
@@ -11,13 +12,19 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.JobIntentService;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
@@ -25,11 +32,11 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 public class userreport extends Service {
 
     Context context;
-
     @Override
     public void onCreate() {
         super.onCreate();
         context = getBaseContext();
+
     }
 
     @Override
@@ -37,13 +44,16 @@ public class userreport extends Service {
         return null;
     }
 
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("", "start of the usereport service");
         final getactivitydata task = new getactivitydata();
         task.execute();
         return super.onStartCommand(intent, flags, startId);
+
     }
+
 
     @Override
     public void onDestroy() {
@@ -77,10 +87,14 @@ public class userreport extends Service {
                         JSONObject c = contacts.getJSONObject(i);
 
                         String activity = c.getString("actv");
-                        String date = c.getString("start_time");
 
-                        String cookduration = c.getString("duration");
-                        String eatduration = c.getString("duration");
+                        String username = c.getString("user");
+
+                        String endtime = c.getString("end_time");
+
+                        String starttime = c.getString("start_time");
+
+                        String activityduration = c.getString("duration");
 
                         // tmp hash map for single contact
                         HashMap<String, String> contact = new HashMap<>();
@@ -90,39 +104,45 @@ public class userreport extends Service {
                         contact.put("actv", activity);
                         //contact.put("start_time", date);
 
-                        if (activity.equals("Cook")) {
-                            contact.put("duration", cookduration);
-                            contact.put("start_time", date);
+                        if (username.equals("research")){
+                            Log.d("here is the username  ", "" + username);}
 
-                            int cookingtime = Integer.parseInt(cookduration) / (60 * 1000);
-                            if (cookingtime >= 60) {
-                                long cookinghour = cookingtime / (60);
+                        if (activity.equals("Leave House")) {
+                            contact.put("duration", activityduration);
+                            contact.put("end_time", endtime);
 
-                            } else {
-                                long cookinghour = cookingtime;
-                            }
-                            Log.d("duration of cooking", "" + cookingtime);
+                            String cookingduration = String.valueOf(Integer.parseInt(activityduration)/ (60 * 1000));
 
-                            Log.d("start time for cooking", "" + date);
+//                            if (cookingduration >= 60) {
+////                                long cookinghour = cookingduration / (60);
+////
+////                            } else {
+////                                long cookinghour = cookingduration;
+////                            }
+
+                            Log.d("duration of cooking", "" + cookingduration);
+
+                            Log.d("start time for cooking", "" + starttime);
+
+                            SimpleDateFormat datetimeFormatter1 = new SimpleDateFormat("HH:mm");
+                            Date newtime = new SimpleDateFormat("YY-MM-dd HH:mm:ss").parse(endtime);
+                            String newdate = new SimpleDateFormat("HH:mm").format(newtime);
 
                             managenotifications not = new managenotifications(context);
                             not.notice();
+
+                            Intent in = new Intent("cookact");
+
+                            in.putExtra("cookduration", cookingduration);
+                            in.putExtra("cookingtime", newdate);
+                            in.putExtra("cookdate", endtime);
+
+                            sendBroadcast(in);
                         }
 
                         if (activity.equals("Eat")) {
-                            contact.put("duration", eatduration);
-                            int eatingtime = Integer.parseInt(cookduration) / (60 * 1000);
-                            Log.d("Eating time", "" + eatingtime);
+                            contact.put("duration", activityduration);
 
-                            if (eatingtime >= 60) {
-                                long cookinghour = eatingtime / (60);
-                                report rn = new report();
-                                rn.drawchart2();
-
-                            } else {
-//                                report rn = new report();
-//                                rn.drawchart2();
-                            }
                         }
                         else {
                             runOnUiThread(new Runnable() {
@@ -134,7 +154,7 @@ public class userreport extends Service {
                         }
                         // adding contact to contact list
                     }
-                } catch (final JSONException e) {
+                } catch (final JSONException | ParseException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
                         @Override

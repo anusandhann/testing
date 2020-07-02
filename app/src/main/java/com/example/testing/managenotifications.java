@@ -1,5 +1,6 @@
 package com.example.testing;
 
+import android.app.DownloadManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -22,6 +23,14 @@ public class managenotifications extends JobIntentService {
     private final String TAG = "MyService";
     public static final int JOB_ID = 1;
 
+    Context context;
+
+    public managenotifications() { }
+
+    public managenotifications(Context context) {
+        this.context = context;
+    }
+
     public static void enqueueWork(Context context, Intent work) {
         enqueueWork(context, managenotifications.class, JOB_ID, work);
     }
@@ -29,20 +38,18 @@ public class managenotifications extends JobIntentService {
     @Override
     protected void onHandleWork(@NonNull Intent intent) {
         //this provokes the notification
-       // notice();
+        //notice();
     }
-
-    private NotificationManager notifManager;
 
     public void createNotification(String aMessage, String newtitle, Context context, Class newclass, String id) {
         final int NOTIFY_ID = 0; // ID of notification
         String title = newtitle; // Default Channel
-        NotificationManager notifManager = null;
+        NotificationManager notifManager;
 
         Intent intent;
         PendingIntent pendingIntent;
         NotificationCompat.Builder builder;
-        notifManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notifManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel mChannel = notifManager.getNotificationChannel(id);
@@ -91,8 +98,6 @@ public class managenotifications extends JobIntentService {
             // User is signed out
             Log.d("", "onAuthStateChanged:signed_out");
         }
-//        Notification notification = builder.build();
-//        notifManager.notify(NOTIFY_ID, notification);
     }
 
     final public void notice() {
@@ -102,21 +107,19 @@ public class managenotifications extends JobIntentService {
 
         Log.d("", "notification is sent");
 
-        if (mHour > 6 && mHour < 9 ) {
-            createNotification("Check when the elderly woke up ", "MutualMonitor", this, report.class, "7");
-        } else if (mHour > 8 && mHour < 11) {
-            createNotification("Did the elderly take medicine today? ", "MutualMonitor", this, report.class, "9");
-        } else if (mHour > 11 && mHour < 14) {
-            createNotification("Lunch time!! Did the elderly had lunch? ", "MutualMonitor", this, report.class, "14");
-        } else if (mHour > 14 && mHour < 17) {
-            createNotification("Did you check activities of the elderly today? ", "MutualMonitor", this, report.class, "17");
-        } else if (mHour > 19 && mHour < 22) {
-            createNotification("Time to check if the elderly had dinner ", "MutualMonitor", this, report.class, "20");
+        if (mHour ==8 ) {
+            createNotification("Check when the elderly woke up ", "MutualMonitor", context, report.class, "7");
+        } else if (mHour==9) {
+            createNotification("Did the elderly take medicine today? ", "MutualMonitor", context, report.class, "9");
+        } else if (mHour == 12) {
+            createNotification("Lunch time!! Did the elderly had lunch? ", "MutualMonitor", context, report.class, "14");
+        } else if (mHour == 14) {
+            createNotification("Did you check activities of the elderly today? ", "MutualMonitor", context, report.class, "17");
+        } else if (mHour == 17) {
+            createNotification("Time to check if the elderly had dinner ", "MutualMonitor", context, report.class, "20");
         }
         else {
             Log.d("", "no notification");
         }
     }
-
-
 }

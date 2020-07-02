@@ -1,7 +1,10 @@
 package com.example.testing;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -43,9 +46,25 @@ public class select extends AppCompatActivity {
                 }
             }
         };
-        };
 
-        // startService(new Intent(this, managenotifications.class)); //this is for, if i want to start notifications periodically
+//      isMyServiceRunning(userreport.class);
+//      startService(new Intent(this, userreport.class));
+//        Log.d("", "service runing check 1");
+
+
+    };
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        Log.d("", "service runing check");
+
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 //    public void signOut(){
 //        firebaseauth.signOut();
@@ -69,7 +88,6 @@ public class select extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.listings, R.id.textView, countryList);
         simpleList.setAdapter(arrayAdapter);
 
-
         simpleList.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
@@ -77,7 +95,7 @@ public class select extends AppCompatActivity {
 
                         if (position == 1)
                         {
-                        Intent intent = new Intent(select.this, csvread.class);
+                        Intent intent = new Intent(select.this, report.class);
                         startActivity(intent);}
 
                         if (position == 2)

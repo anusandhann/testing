@@ -11,7 +11,7 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning,LockedOrientationActivity">
 
         <activity android:name=".select"
             android:screenOrientation = "portrait"/>
@@ -26,14 +26,35 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".report"
-        android:screenOrientation = "portrait"/>
-        <activity
+        <activity android:name =".report"
+            android:screenOrientation = "portrait">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN"/>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+
+        <receiver android:name=".report$breceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".MyXAxisValueFormatter"/>
+    <activity
             android:name=".signingup"
             android:screenOrientation="portrait" />
         <activity
             android:name=".signingin"
             android:screenOrientation="portrait" />
+
+        <service android:name=".userreport"
+            android:exported="false"
+            android:enabled="true">
+        </service>
 
         <activity android:name=".csvread"/>
 

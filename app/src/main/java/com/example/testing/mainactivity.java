@@ -17,7 +17,6 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Calendar;
 
 public class mainactivity extends Activity {
-    private AlarmManager alarmMgr;
     private PendingIntent alarmIntent;
     AlarmManager alarmManager;
 
@@ -39,8 +38,8 @@ public class mainactivity extends Activity {
         Calendar calendar = Calendar.getInstance();
 
                         //this is to periodically send notifications
-        alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),  55 * 60 * 1000, alarmIntent);
+//        alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+//        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),  55 * 60 * 1000, alarmIntent);
 
 
        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -50,6 +49,7 @@ public class mainactivity extends Activity {
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
             Log.d(TAG, "logged in");
+
         } else {
             // User is signed out
             Log.d(TAG, "onAuthStateChanged:signed_out");

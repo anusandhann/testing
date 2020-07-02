@@ -1,7 +1,11 @@
 package com.example.testing;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,9 +23,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -31,9 +37,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 //this is the main class..i read the dataset, create graph, and provoke notifications from this class.
 public class report extends AppCompatActivity {
@@ -47,7 +62,6 @@ public class report extends AppCompatActivity {
     private ListView lv;
     public CardView card1, card2, card3, card4, card5,card6,card7;
     private RadioButton radioButton;
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +82,6 @@ public class report extends AppCompatActivity {
 
         submitbutton();
        // drawchart(15,8);
-        drawchart2();
         text1 = (TextView)findViewById(R.id.text1);
         text2 =(TextView)findViewById(R.id.text2);
 
@@ -82,8 +95,30 @@ public class report extends AppCompatActivity {
 
         contactList = new ArrayList<>();
         lv = (ListView) findViewById(R.id.list);
-        new GetActivity().execute();
+        //new GetActivity().execute();
 
+        isMyServiceRunning(userreport.class);
+
+        breceiver ar = new breceiver();
+        IntentFilter filter = new IntentFilter("cookact");
+        registerReceiver(ar,filter);
+
+        startService(new Intent(this, userreport.class));
+        Log.d("", "service runing check 1");
+
+    }
+
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        Log.d("", "service runing check");
+
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private class GetActivity extends AsyncTask<Void, Void, Void> {
@@ -97,7 +132,7 @@ public class report extends AppCompatActivity {
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
             // Making a request to url and getting response
-            String url = "http://163.221.68.223:8080/api";
+            String url = "http://163.221.68.248:8080/api";
             String jsonStr = sh.makeServiceCall(url);
 
             Log.e(TAG, "Response from url: " + jsonStr);
@@ -114,6 +149,7 @@ public class report extends AppCompatActivity {
                         JSONObject c = contacts.getJSONObject(i);
 
                         String activity = c.getString("actv");
+
                         String date = c.getString("start_time");
 
                         String cookduration = c.getString("duration");
@@ -140,10 +176,23 @@ public class report extends AppCompatActivity {
                             }
                             Log.d("duration of cooking", "" + cookingtime);
 
-                            Log.d("start time for cooking", "" + date);
+                           Log.d("start time for cooking", "" + date);
+
+                           DateFormat format = new SimpleDateFormat("YY-mm-dd HH:mm:ss");
+                           Date newdate = format.parse(date);
+                          // long dd = Long.parseLong(new SimpleDateFormat("HH:mm").format(newdate));
+                          // Double d = Double.parseDouble(dd);
 
 
-                            drawchart(15,8);
+                           Log.d("time time time time", " " + newdate + " and then"  + " hawa hwa hwa" );
+
+                           card1.setVisibility(View.INVISIBLE);
+                           //sleepradio.setVisibility(View.INVISIBLE);
+
+
+
+                            //drawchart(5.5f, 8.2f);
+
 //                            managenotifications not = new managenotifications();
 //                            not.notice();
                         }
@@ -167,15 +216,13 @@ public class report extends AppCompatActivity {
                                 @Override
                                 public void run() {
 
-                                    managenotifications not = new managenotifications();
-                                    not.notice();
                                      }
                             });
                         }
                         // adding contact to contact list
                         contactList.add(contact);
                     }
-                } catch (final JSONException e) {
+                } catch (final JSONException | ParseException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
                         @Override
@@ -207,17 +254,39 @@ public class report extends AppCompatActivity {
             super.onPostExecute(result);
         }
     }
-        public void drawchart(int x, int y) {
 
-            ArrayList<Entry> entries = new ArrayList<>();
-            entries.add(new Entry(0, 9)); //x is the value
-            entries.add(new Entry(x, 9));
 
-            ArrayList<Entry> entry = new ArrayList<>();
-            entry.add(new Entry(8, 0)); //y is the value
-            entry.add(new Entry(8, y));
+    public class breceiver extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (Objects.equals(intent.getAction(), "cookact")){
 
-            LineData chartdata = new LineData();
+                String cookingduration = intent.getStringExtra("cookduration");
+                String completiontime =intent.getStringExtra("cookingtime");
+                String cookingdate = intent.getStringExtra("cookdate");
+
+
+                Log.d("cooking completed time", completiontime);
+                Log.d("duration",cookingduration);
+                Log.d("cooking date", cookingdate);
+
+
+                //drawchart(Float.valueOf(cookingdate), Float.valueOf(completiontime));
+            }
+        }
+        }
+
+    public void drawchart(float x, float y) {
+
+
+
+        ArrayList<Entry> entries = new ArrayList<>();
+
+        entries.add(new Entry(x,y)); //x is the value
+
+
+
+        LineData chartdata = new LineData();
 
             LineDataSet lDataSet1 = new LineDataSet(entries, "Average");
             lDataSet1.setColors(R.color.design_default_color_primary);
@@ -225,12 +294,6 @@ public class report extends AppCompatActivity {
             lDataSet1.setLineWidth(4);
             chartdata.addDataSet(lDataSet1);
 
-
-            LineDataSet lDataSet2 = new LineDataSet(entry, "Today");
-            lDataSet2.setColor(R.color.graph);
-            lDataSet2.setLineWidth(4);
-            lDataSet2.setDrawValues(false);
-            chartdata.addDataSet(lDataSet2);
 
             chart1.setData(chartdata);
             chart1.invalidate();
@@ -330,4 +393,5 @@ public class report extends AppCompatActivity {
             }
         });
     }
-    }
+
+}

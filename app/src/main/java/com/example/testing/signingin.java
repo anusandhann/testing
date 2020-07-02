@@ -37,6 +37,7 @@ public class signingin extends AppCompatActivity {
             Intent i = new Intent(this, select.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
+
         } else {
             // User is signed out
             Log.d("", "onAuthStateChanged:signed_out");

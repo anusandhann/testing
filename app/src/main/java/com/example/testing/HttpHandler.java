@@ -22,11 +22,15 @@ public class HttpHandler {
         String response = null;
         try {
             URL url = new URL(reqUrl);
+            Log.i(TAG,"url = " + url.toString());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            Log.i(TAG,"conn = " + conn.toString());
             conn.setRequestMethod("GET");
             // read the response
             InputStream in = new BufferedInputStream(conn.getInputStream());
+            Log.i(TAG,"in = " + in.toString());
             response = convertStreamToString(in);
+            Log.i(TAG,"response = " + response.toString());
         } catch (MalformedURLException e) {
             Log.e(TAG, "MalformedURLException: " + e.getMessage());
         } catch (ProtocolException e) {
@@ -34,7 +38,7 @@ public class HttpHandler {
         } catch (IOException e) {
             Log.e(TAG, "IOException: " + e.getMessage());
         } catch (Exception e) {
-            Log.e(TAG, "Exception: " + e.getMessage());
+            Log.e(TAG, "Exception: " + e);
         }
         return response;
     }

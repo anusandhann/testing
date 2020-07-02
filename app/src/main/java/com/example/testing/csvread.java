@@ -101,8 +101,7 @@ public class csvread extends AppCompatActivity
                             Log.d(TAG, "can read json from server");
 
                             drawchart(15,8);
-                            managenotifications not = new managenotifications();
-                            not.notice();
+
                         }
 
                         // adding each child node to HashMap key => value
