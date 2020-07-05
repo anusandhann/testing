@@ -152,14 +152,14 @@
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/normal"
+                android:id="@+id/sleepnormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
                 android:text="Normal" />
 
             <RadioButton
-                android:id="@+id/suspicious"
+                android:id="@+id/sleepsuspicious"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
@@ -264,13 +264,13 @@
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/normal1"
+                android:id="@+id/showernormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Normal" />
 
             <RadioButton
-                android:id="@+id/suspicious1"
+                android:id="@+id/showersuspicious"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Suspicious" />
@@ -373,13 +373,13 @@
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/radio_pirates"
+                android:id="@+id/bfnormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Normal" />
 
             <RadioButton
-                android:id="@+id/radio_ninjas"
+                android:id="@+id/bfsuspicious"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Suspicious" />
@@ -483,13 +483,13 @@
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/radiopirates"
+                android:id="@+id/mednormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Normal" />
 
             <RadioButton
-                android:id="@+id/radioninjas"
+                android:id="@+id/medsuspicious"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Suspicious" />
@@ -593,13 +593,13 @@
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/radiopirate"
+                android:id="@+id/lunchnormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Normal" />
 
             <RadioButton
-                android:id="@+id/radioninja"
+                android:id="@+id/lunchsuspicious"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Suspicious" />
@@ -702,13 +702,13 @@
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/radiopiratee"
+                android:id="@+id/tvnormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Normal" />
 
             <RadioButton
-                android:id="@+id/radioninjae"
+                android:id="@+id/tvsuspicious"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Suspicious" />
@@ -811,13 +811,13 @@
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/radiopiraatee"
+                android:id="@+id/dinnernormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Normal" />
 
             <RadioButton
-                android:id="@+id/radioninjaae"
+                android:id="@+id/dinnersuspicious"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Suspicious" />

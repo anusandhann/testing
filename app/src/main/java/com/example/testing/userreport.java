@@ -7,6 +7,7 @@ import android.app.job.JobService;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
@@ -24,6 +25,8 @@ import org.json.JSONObject;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -96,6 +99,12 @@ public class userreport extends Service {
 
                         String activityduration = c.getString("duration");
 
+//                        for (int index=0; index<contacts.length(); ++index){
+//                            JSONObject currentFriend = contacts.getJSONObject(index);
+//                            String ida = currentFriend.getString("duration");
+//                            Log.d("here is the username  ", "" + ida);
+//                        }
+
                         // tmp hash map for single contact
                         HashMap<String, String> contact = new HashMap<>();
 
@@ -107,21 +116,13 @@ public class userreport extends Service {
                         if (username.equals("research")){
                             Log.d("here is the username  ", "" + username);}
 
-                        if (activity.equals("Leave House")) {
+                        if (activity.equals("Cook")) {
                             contact.put("duration", activityduration);
                             contact.put("end_time", endtime);
 
                             String cookingduration = String.valueOf(Integer.parseInt(activityduration)/ (60 * 1000));
 
-//                            if (cookingduration >= 60) {
-////                                long cookinghour = cookingduration / (60);
-////
-////                            } else {
-////                                long cookinghour = cookingduration;
-////                            }
-
                             Log.d("duration of cooking", "" + cookingduration);
-
                             Log.d("start time for cooking", "" + starttime);
 
                             SimpleDateFormat datetimeFormatter1 = new SimpleDateFormat("HH:mm");
@@ -133,9 +134,32 @@ public class userreport extends Service {
 
                             Intent in = new Intent("cookact");
 
+                            //this sends the value of cook duration as am array
+                            for (int index=0; index<contacts.length(); ++index){
+                                JSONObject currentFriend = contacts.getJSONObject(index);
+                                String ida = currentFriend.getString("duration");
+                                String durr = String.valueOf((Integer.parseInt(ida)/ (60 * 1000)));
+                                Log.d("here is the sssss   aaaaa  ", "" + durr);
+                                in.putExtra("dd", durr);
+
+                                ArrayList transits_list = new ArrayList<report>();
+                                transits_list.add(durr);
+
+                                Intent arrayListIntent = new Intent("arrayList");
+                                Bundle extra = new Bundle();
+                                extra.putSerializable("transArray", transits_list);
+                                in.putExtra("extra", extra);
+                                sendBroadcast(arrayListIntent);
+
+                            }
+
+                            //Log.d("hullaballu", "" + a);
+
+
                             in.putExtra("cookduration", cookingduration);
                             in.putExtra("cookingtime", newdate);
                             in.putExtra("cookdate", endtime);
+                            in.putExtra("user", username);
 
                             sendBroadcast(in);
                         }
