@@ -18,6 +18,8 @@ import androidx.core.app.JobIntentService;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 
+import com.google.gson.JsonArray;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,6 +29,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -75,6 +78,7 @@ public class userreport extends Service {
             // Making a request to url and getting response
             String url = "http://163.221.68.248:8080/api";
             String jsonStr = sh.makeServiceCall(url);
+            ArrayList<HashMap<String, String>> activityMapList = new ArrayList<>();
 
             Log.e(TAG, "Response from url: " + jsonStr);
             if (jsonStr != null) {
@@ -82,102 +86,182 @@ public class userreport extends Service {
                     JSONObject jsonObj = new JSONObject(jsonStr.substring(jsonStr.indexOf("{"), jsonStr.lastIndexOf("}") + 1));
 
                     // Getting JSON Array node
-                    JSONArray contacts = jsonObj.getJSONArray("result");
+                    JSONArray jsonActivities = jsonObj.getJSONArray("result");
 
-                    // looping through All Activities
-                    for (int i = 0; i < contacts.length(); i++) {
+                    // looping through All JSON Activities, putting them into the array list
+                    for (int i = 0; i < jsonActivities.length(); i++) {
 
-                        JSONObject c = contacts.getJSONObject(i);
+                        JSONObject c = jsonActivities.getJSONObject(i);
 
                         String activity = c.getString("actv");
-
                         String username = c.getString("user");
-
                         String endtime = c.getString("end_time");
-
                         String starttime = c.getString("start_time");
+                        String activityDuration = c.getString("duration");
 
-                        String activityduration = c.getString("duration");
-
-//                        for (int index=0; index<contacts.length(); ++index){
-//                            JSONObject currentFriend = contacts.getJSONObject(index);
-//                            String ida = currentFriend.getString("duration");
-//                            Log.d("here is the username  ", "" + ida);
-//                        }
-
-                        // tmp hash map for single contact
-                        HashMap<String, String> contact = new HashMap<>();
-
+                        // tmp hash map for single activityMap
+                        HashMap<String, String> activityMap = new HashMap<>();
                         // adding each child node to HashMap key => value
+                        activityMap.put("actv", activity);
+                        activityMap.put("user", username);
+                        activityMap.put("end_time", endtime);
+                        activityMap.put("start_time", starttime);
+                        activityMap.put("duration", activityDuration);
 
-                        contact.put("actv", activity);
-                        //contact.put("start_time", date);
+                        activityMapList.add(activityMap);
+                    }
 
-                        if (username.equals("research")){
-                            Log.d("here is the username  ", "" + username);}
+                    // Find all users
+                    ArrayList<String> usernameList = new ArrayList<>();
+                    for ( HashMap<String, String> activityMap : activityMapList ) {
+//                        if activityMap.get("user") is not in username list: put it in
+                        if (!usernameList.contains(activityMap.get("user"))) {
+                            usernameList.add(activityMap.get("user"));
+                        }
+                    }
+                    Log.d("usernameList array", String.valueOf((usernameList)));
 
-                        if (activity.equals("Cook")) {
-                            contact.put("duration", activityduration);
-                            contact.put("end_time", endtime);
+                    // Find all activity types
+                    ArrayList<String> activityTypeList = new ArrayList<>();
+                    for ( HashMap<String, String> activityMap : activityMapList ) {
+                        if (!activityTypeList.contains(activityMap.get("actv"))) {
+                            activityTypeList.add(activityMap.get("actv"));
+                        }
+                    }
+                    Log.d("activityTypeList array", String.valueOf((activityTypeList)));
 
-                            String cookingduration = String.valueOf(Integer.parseInt(activityduration)/ (60 * 1000));
+                    // Loop through all users
+                    for ( String userFilter : usernameList ) {
 
-                            Log.d("duration of cooking", "" + cookingduration);
-                            Log.d("start time for cooking", "" + starttime);
+                        // Loop through all activity types
+                        for (String activityTypeFilter : activityTypeList) {
+                            ArrayList<String>  startList = new ArrayList<>();
+                            ArrayList<String>  endList = new ArrayList<>();
+                            ArrayList<String>  durationList = new ArrayList<>();
 
-                            SimpleDateFormat datetimeFormatter1 = new SimpleDateFormat("HH:mm");
-                            Date newtime = new SimpleDateFormat("YY-MM-dd HH:mm:ss").parse(endtime);
-                            String newdate = new SimpleDateFormat("HH:mm").format(newtime);
+                            // Find all actvities in the activity map list that match our filters
+                            for (HashMap<String, String> activityMap : activityMapList) {
+                                Log.d("User/Activity", activityMap.get("user") + " " + activityMap.get("actv"));
+                                // Check if the user does not match the filter
+                                if (!activityMap.get("user").equals(userFilter)) {
+                                    continue;
+                                }
 
-                            managenotifications not = new managenotifications(context);
-                            not.notice();
+                                // Check if the activity type does not match the filter
+                                if (!activityMap.get("actv").equals(activityTypeFilter)) {
+                                    continue;
+                                }
 
-                            Intent in = new Intent("cookact");
+                                // Fill up the array lists using values from each activity map
+                                startList.add( activityMap.get("start_time")  );
+                                endList.add( activityMap.get("end_time")  );
+                                durationList.add( activityMap.get("duration")  );
+                            }
+                            Log.d("startList array", String.valueOf((startList)));
+                            Log.d("endList array", String.valueOf((endList)));
+                            Log.d("durationList array", String.valueOf((durationList)));
 
-                            //this sends the value of cook duration as am array
-                            for (int index=0; index<contacts.length(); ++index){
-                                JSONObject currentFriend = contacts.getJSONObject(index);
-                                String ida = currentFriend.getString("duration");
-                                String durr = String.valueOf((Integer.parseInt(ida)/ (60 * 1000)));
-                                Log.d("here is the sssss   aaaaa  ", "" + durr);
-                                in.putExtra("dd", durr);
+                            // Correct the format of the start times in the start time list
+                            for ( int i = 0; i < startList.size(); i++ ) {
+                                // Convert the timestamp format to numeric values that can be graphed
+                                @SuppressLint("SimpleDateFormat") Date newtime = new SimpleDateFormat("YY-MM-dd HH:mm:ss").parse(startList.get(i));
+//                                Calendar cal = Calendar.getInstance();
+//                                cal.setTime(newtime);
+//                                String startTimeVal = cal.get(Calendar.HOUR_OF_DAY) + "" + ((float)(cal.get(Calendar.MINUTE)) / 60.0);
+                                @SuppressLint("SimpleDateFormat") String startTimeVal = new SimpleDateFormat("hh.mm").format(newtime);
 
-                                ArrayList transits_list = new ArrayList<report>();
-                                transits_list.add(durr);
-
-                                Intent arrayListIntent = new Intent("arrayList");
-                                Bundle extra = new Bundle();
-                                extra.putSerializable("transArray", transits_list);
-                                in.putExtra("extra", extra);
-                                sendBroadcast(arrayListIntent);
-
+                                // Replace the original list item
+                                startList.set(i, startTimeVal);
                             }
 
-                            //Log.d("hullaballu", "" + a);
+                            // Correct the format of the end times in the end time list
+                            for ( int i = 0; i < endList.size(); i++ ) {
+                                // Convert the timestamp format to numeric values that can be graphed
+                                @SuppressLint("SimpleDateFormat") Date newtime = new SimpleDateFormat("YY-MM-dd HH:mm:ss").parse(endList.get(i));
+                                Calendar cal = Calendar.getInstance();
+                                cal.setTime(newtime);
+                                String endTimeVal = String.valueOf(cal.get(Calendar.HOUR_OF_DAY) + ((float)(cal.get(Calendar.MINUTE)) / 60.0));
+
+                                // Replace the original list item
+                                endList.set(i, endTimeVal);
+                            }
+
+                            // Correct the format of the duration in the duration list
+                            for ( int i = 0; i < durationList.size(); i++ ) {
+                                // Convert the duration format to something
+                                String durationVal = String.valueOf(Integer.parseInt(durationList.get(i))/ (60 * 1000));
+                                // Replace the original list item
+                                durationList.set(i, durationVal);
+                            }
+
+                            // Build the intent
+                            String lastactivityduration = durationList.get(durationList.size()-1);
+                            Intent in = new Intent("cookact");
+                            in.putExtra("user", userFilter);
+                            in.putExtra("actv", activityTypeFilter);
+                            in.putExtra("cookduration", lastactivityduration);
+                            in.putStringArrayListExtra("starttimearraylist", startList);
+                            in.putStringArrayListExtra("endtimearraylist", endList);
+                            in.putStringArrayListExtra("durationarraylist", durationList);
 
 
-                            in.putExtra("cookduration", cookingduration);
-                            in.putExtra("cookingtime", newdate);
-                            in.putExtra("cookdate", endtime);
-                            in.putExtra("user", username);
-
+                            // Broadcast the intent
                             sendBroadcast(in);
-                        }
-
-                        if (activity.equals("Eat")) {
-                            contact.put("duration", activityduration);
 
                         }
-                        else {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-
-                                }
-                            });
-                        }
-                        // adding contact to contact list
                     }
+
+
+                            /** IMPORTANT **/
+//                            managenotifications not = new managenotifications(context);
+////                            not.notice(endtime);
+                            /** IMPORTANT **/
+
+//                            String cookingduration = String.valueOf(Integer.parseInt(activityDuration)/ (60 * 1000));
+//
+//                            Log.d("duration of cooking", "" + cookingduration);
+//                            Log.d("start time for cooking", "" + starttime);
+//
+//
+//
+//
+//                            for (int index=0; index<jsonActivities.length(); ++index){
+//                                JSONObject currentFriend = jsonActivities.getJSONObject(index);
+//                                String ida = currentFriend.getString("duration");
+//                                String durr = String.valueOf((Integer.parseInt(ida)/ (60 * 1000)));
+//                                in.putExtra("duration", durr);
+//                                durationList.add(durr);
+//                            }
+//
+//
+//                            //do date manipulation here and get only required value from json
+//                            for (int index=0; index<jsonActivities.length(); ++index){
+//
+//                                JSONObject currentFriend1 = jsonActivities.getJSONObject(index);
+//                                String id1 = currentFriend1.getString("actv");
+//                                String ida1 = currentFriend1.getString("end_time");
+//                                if (id1.equals("Cook")){
+//                                    in.putExtra("endtime", ida1);
+//                                    Log.d(" of cooking", "" + ida1);
+//                                    endlist.add(ida1);
+//                                    in.putStringArrayListExtra("endtimearraylist",endlist);
+//                                }
+//                            }
+//                            for (int index=0; index<jsonActivities.length(); ++index){
+//
+//                                JSONObject currentFriend2 = jsonActivities.getJSONObject(index);
+//                                String id2 = currentFriend2.getString("actv");
+//                                String ida2 = currentFriend2.getString("start_time");
+//                                if (id2.equals("Lunch")){
+//                                    in.putExtra("starttime", ida2);
+//                                    Log.d(" of cooking", "" + ida2);
+//                                    startlist.add(ida2);
+//                                    in.putStringArrayListExtra("starttimearraylist",startlist);
+//                                }
+//                            }
+//
+//
+//                            sendBroadcast(in);
                 } catch (final JSONException | ParseException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
@@ -189,7 +273,6 @@ public class userreport extends Service {
                         }
                     });
                 }
-
             } else {
                 Log.e(TAG, "Couldn't get json from server.");
                 runOnUiThread(new Runnable() {

@@ -23,7 +23,7 @@ public class select extends AppCompatActivity {
     private FirebaseAuth firebaseauth;
 
     ListView simpleList;
-    String[] countryList = {"", "Target 1", "Target 2", "Target 3", "Target 4", "Target 5", "Target 6"};
+    String[] countryList = {"", "Target 1", "Target 2", "Target 3"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +47,9 @@ public class select extends AppCompatActivity {
             }
         };
 
-//      isMyServiceRunning(userreport.class);
-//      startService(new Intent(this, userreport.class));
-//        Log.d("", "service runing check 1");
+      isMyServiceRunning(userreport.class);
+      startService(new Intent(this, userreport.class));
+        Log.d("", "service runing check 1");
 
 
     };
@@ -92,16 +92,9 @@ public class select extends AppCompatActivity {
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-
-                        if (position == 1)
-                        {
                         Intent intent = new Intent(select.this, report.class);
-                        startActivity(intent);}
-
-                        if (position == 2)
-                        {
-                            Intent intent = new Intent(select.this, report.class);
-                            startActivity(intent);}
+                        intent.putExtra("user", String.valueOf(position));
+                        startActivity(intent);
 
                     }
 

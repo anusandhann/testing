@@ -22,12 +22,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -37,25 +37,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
-import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 
 //this is the main class..i read the dataset, create graph, and provoke notifications from this class.
 public class report extends AppCompatActivity {
 
-    public LineChart chart1, chart2;
-    public TextView text1, text2;
+    public LineChart chart1, chart2, chart3, chart4, chart5, chart6, chart7;
+    public TextView text1, text2, text3, text4, text5, text6, text7;
     RadioButton sleep, shower, bf, lunch, dinner, medication, tv;
     private RadioGroup sleepradio, showerradio, breakfastradio,medicationradio,lunchradio,tvradio,dinnerradio;
     Button submitreport;
@@ -63,7 +57,11 @@ public class report extends AppCompatActivity {
     ArrayList<HashMap<String, String>> contactList;
     private ListView lv;
     public CardView card1, card2, card3, card4, card5,card6,card7;
-    private RadioButton radioButton;
+    public BarChart barchart1;
+
+    private HashMap<String,LineChart> activityChartMap = new HashMap<>();
+    private String userStr = null;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,8 +69,23 @@ public class report extends AppCompatActivity {
         setContentView(R.layout.report);
         submitreport = (Button) findViewById(R.id.submitreport);
 
-        chart1 = (LineChart) findViewById(R.id.barchart1);
+        chart1 = (LineChart) findViewById(R.id.linechart1);
+
         chart2 = (LineChart)findViewById(R.id.barchart2);
+        chart3 = (LineChart)findViewById(R.id.barchart3);
+        chart4 = (LineChart)findViewById(R.id.barchart4);
+        chart5 = (LineChart)findViewById(R.id.barchart5);
+        chart6 = (LineChart)findViewById(R.id.barchart6);
+        chart7 = (LineChart)findViewById(R.id.barchart7);
+
+        activityChartMap.put("Sleep", chart1 );
+        activityChartMap.put("Bath", chart2 );
+        activityChartMap.put("Breakfast", chart3 );
+        activityChartMap.put("medicine ", chart4 ); // TODO Remove the space at end next time
+        activityChartMap.put("Lunch", chart5 );
+        activityChartMap.put("TV", chart6 );
+        activityChartMap.put("Dinner", chart7 );
+
 
         card1 = (CardView)findViewById(R.id.sleepcard);
         card2 = (CardView)findViewById(R.id.showercard);
@@ -84,6 +97,11 @@ public class report extends AppCompatActivity {
 
         text1 = (TextView)findViewById(R.id.text1);
         text2 =(TextView)findViewById(R.id.text2);
+        text3 =(TextView)findViewById(R.id.text3);
+        text4 =(TextView)findViewById(R.id.text4);
+        text5 =(TextView)findViewById(R.id.text5);
+        text6 =(TextView)findViewById(R.id.text6);
+        text7 =(TextView)findViewById(R.id.text7);
 
         chart1.setBackgroundColor(Color.WHITE);
         chart1.getDescription().setEnabled(false);
@@ -92,6 +110,26 @@ public class report extends AppCompatActivity {
         chart2.setBackgroundColor(Color.WHITE);
         chart2.getDescription().setEnabled(false);
         chart2.setTouchEnabled(false);
+
+        chart3.setBackgroundColor(Color.WHITE);
+        chart3.getDescription().setEnabled(false);
+        chart3.setTouchEnabled(false);
+
+        chart4.setBackgroundColor(Color.WHITE);
+        chart4.getDescription().setEnabled(false);
+        chart4.setTouchEnabled(false);
+
+        chart5.setBackgroundColor(Color.WHITE);
+        chart5.getDescription().setEnabled(false);
+        chart5.setTouchEnabled(false);
+
+        chart6.setBackgroundColor(Color.WHITE);
+        chart6.getDescription().setEnabled(false);
+        chart6.setTouchEnabled(false);
+
+        chart7.setBackgroundColor(Color.WHITE);
+        chart7.getDescription().setEnabled(false);
+        chart7.setTouchEnabled(false);
 
         contactList = new ArrayList<>();
         lv = (ListView) findViewById(R.id.list);
@@ -103,14 +141,16 @@ public class report extends AppCompatActivity {
         IntentFilter filter = new IntentFilter("cookact");
         registerReceiver(ar,filter);
 
-        startService(new Intent(this, userreport.class));
-        Log.d("", "service runing check 1");
+        Intent passedIntent = getIntent();
+        userStr = passedIntent.getStringExtra("user");
 
+        startService(new Intent(this, userreport.class));
+        Log.d("", "service runing check which might be the cause for error");
     }
 
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
-        Log.d("", "service runing check");
+        Log.d("", "service runing check in acitivy");
 
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
@@ -257,69 +297,97 @@ public class report extends AppCompatActivity {
 
 
     public class breceiver extends BroadcastReceiver{
+        @SuppressLint("SimpleDateFormat")
         @Override
         public void onReceive(Context context, Intent intent) {
-
             if (Objects.equals(intent.getAction(), "cookact")){
-
-                String cookingduration = intent.getStringExtra("cookduration");
-                String completiontime =intent.getStringExtra("cookingtime");
-                String cookingdate = intent.getStringExtra("cookdate");
-
-                String durr = intent.getStringExtra("dd");
-                Log.d("durrrrrrrrr", durr);
-
+                // Get username from intent
                 String username = intent.getStringExtra("user");
-                Log.d("userrrrrr", username);
-                submitbutton(username);
+                Log.d("getting username from service", username);
 
-                Bundle extra = intent.getBundleExtra("extra");
-                ArrayList<report> transArrayListFromBroadCast = (ArrayList<report>) extra.getSerializable("transArray");
-                Log.d("rrrrrrrrr", String.valueOf(transArrayListFromBroadCast));
+                // Check if this is the username we want
+                if (userStr.equals(username)) {
+                    String cookingduration = intent.getStringExtra("cookduration"); //text
+//                String completiontime =intent.getStringExtra("activitycompletiontime"); //y-value
 
-                Log.d("cooking completed time", completiontime);
-                Log.d("cooking date", cookingdate);
+                    // String cookingdate = intent.getStringExtra("cookdate");
 
-                if (Float.valueOf(cookingduration) >= 60) {
+                    ArrayList<String>endarray = intent.getStringArrayListExtra("endtimearraylist");
+                    Log.d("endtime array", String.valueOf((endarray)));
 
-                    String cookinghour = Long.valueOf(cookingduration)/60%24 + " Hours" +':' + Long.valueOf(cookingduration)%60 + "  Minutes";
+                    ArrayList<String>durarray = intent.getStringArrayListExtra("durationarraylist");
+                    Log.d("duration array", String.valueOf((durarray)));
 
-                    Log.d("duration", cookinghour);
+                    ArrayList<String>startarray = intent.getStringArrayListExtra("starttimearraylist");
+                    Log.d("starttime array", String.valueOf((startarray)));
 
-                } else {
-                    long cookinghour = Long.valueOf(cookingduration);
+                    String activityType = intent.getStringExtra("actv");
+                    Log.d("getting activity from service", activityType);
 
-                    drawchart(cookinghour,cookinghour);
+                    submitbutton(username);
+
+//                Bundle extra = intent.getBundleExtra("extra");
+//                ArrayList<report> transArrayListFromBroadCast = (ArrayList<report>) extra.getSerializable("transArray");
+//                Log.d("rrrrrrrrr", String.valueOf(transArrayListFromBroadCast));
+
+//                Log.d("cooking completed time", completiontime);
+                    // Log.d("cooking date", cookingdate);
+
+//                if (Float.parseFloat(cookingduration) >= 60) {
+//
+//                    String cookinghour = Long.parseLong(cookingduration)/60%24 + " Hours" +':' + Long.parseLong(cookingduration)%60 + "  Minutes";
+//
+//                    Log.d("duration", cookinghour);
+//                    text1.setText(cookingduration);
+//                    text1.setText("Duration of sleep: " + cookinghour);
+//                    drawchart(durarray,durarray);
+//
+//
+//
+//                } else {
+                    long cookinghour = Long.parseLong(cookingduration);
 
                     Log.d("duration", String.valueOf(cookinghour));
-                }
-                if (Float.valueOf(cookingduration) == (0)){
-                    card1.setVisibility(View.INVISIBLE);
+                    text1.setText("Duration of sleep: " + cookingduration + "   minutes");
+                    drawchart(durarray, durarray, activityType);
+
+
+//                }
+//                if (Float.parseFloat(cookingduration) == (0)){
+//                    card1.setVisibility(View.INVISIBLE);
+//                }
                 }
             }
         }
         }
 
-    public void drawchart(float x, float y) {
-
-
+    public void drawchart(ArrayList<String> x, ArrayList<String> y, String activityType) {
 
         ArrayList<Entry> entries = new ArrayList<>();
 
-        entries.add(new Entry(x, y));//x is the value
+        for (int i = 0; i < x.size(); i++)
+        {
+            entries.add(new Entry((float) i, Float.parseFloat(y.get(i) + ".0")));
 
+            Log.d("graph thing", x.get(i));
+
+        }
 
         LineData chartdata = new LineData();
+        LineDataSet lDataSet1 = new LineDataSet(entries, "Timeline of Activity");
+        lDataSet1.setColors(R.color.design_default_color_primary);
+        lDataSet1.setDrawValues(false);
+        lDataSet1.setLineWidth(4);
 
-            LineDataSet lDataSet1 = new LineDataSet(entries, "Average");
-            lDataSet1.setColors(R.color.design_default_color_primary);
-            lDataSet1.setDrawValues(false);
-            lDataSet1.setLineWidth(4);
-            chartdata.addDataSet(lDataSet1);
+        chartdata.addDataSet(lDataSet1);
 
+        LineChart selectedChart = activityChartMap.get(activityType);
+        Log.d("selectedChart", activityType + "" + selectedChart);
 
-            chart1.setData(chartdata);
-            chart1.invalidate();
+        selectedChart.setData(chartdata);
+        selectedChart.notifyDataSetChanged();
+        selectedChart.invalidate();
+
         }
 
 //practice code to submit into Firebase
@@ -327,8 +395,6 @@ public class report extends AppCompatActivity {
     private void submitbutton(String name) {
 
         final String x= name;
-        Log.d("aayo hai ayo", x);
-
 
         lunchradio = (RadioGroup) findViewById(R.id.lunchbutton);
         dinnerradio = (RadioGroup) findViewById(R.id.dinnerbutton);
@@ -340,6 +406,7 @@ public class report extends AppCompatActivity {
 
         final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         final FirebaseUser thisuser = FirebaseAuth.getInstance().getCurrentUser();
+        assert thisuser != null;
         final String email = thisuser.getEmail();
         final Object userdr = email + "  " + new Date();
 

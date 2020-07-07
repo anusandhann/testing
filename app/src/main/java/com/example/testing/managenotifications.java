@@ -1,5 +1,6 @@
 package com.example.testing;
 
+import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -17,7 +18,9 @@ import androidx.core.app.NotificationCompat;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class managenotifications extends JobIntentService {
     private final String TAG = "MyService";
@@ -100,24 +103,26 @@ public class managenotifications extends JobIntentService {
         }
     }
 
-    final public void notice() {
-        int mHour;
-        Calendar c = Calendar.getInstance();
-        mHour = c.get(Calendar.HOUR_OF_DAY);
+    final public void notice(String timefornot) {
+
+        @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+
+        Log.d("current time", timeStamp);
 
         Log.d("", "notification is sent");
 
-        if (mHour ==8 ) {
-            createNotification("Check when the elderly woke up ", "MutualMonitor", context, report.class, "7");
-        } else if (mHour==9) {
-            createNotification("Did the elderly take medicine today? ", "MutualMonitor", context, report.class, "9");
-        } else if (mHour == 12) {
-            createNotification("Lunch time!! Did the elderly had lunch? ", "MutualMonitor", context, report.class, "14");
-        } else if (mHour == 14) {
-            createNotification("Did you check activities of the elderly today? ", "MutualMonitor", context, report.class, "17");
-        } else if (mHour == 17) {
-            createNotification("Time to check if the elderly had dinner ", "MutualMonitor", context, report.class, "20");
+        if (timefornot!= null) {
+            createNotification("Please Check the recent activity of the elderly!! ", "MutualMonitor", context, report.class, "7");
         }
+//        else if (mHour==9) {
+//            createNotification("Did the elderly take medicine today? ", "MutualMonitor", context, report.class, "9");
+//        } else if (mHour == 12) {
+//            createNotification("Lunch time!! Did the elderly had lunch? ", "MutualMonitor", context, report.class, "14");
+//        } else if (mHour == 14) {
+//            createNotification("Did you check activities of the elderly today? ", "MutualMonitor", context, report.class, "17");
+//        } else if (mHour == 17) {
+//            createNotification("Time to check if the elderly had dinner ", "MutualMonitor", context, report.class, "20");
+//        }
         else {
             Log.d("", "no notification");
         }

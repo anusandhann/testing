@@ -96,7 +96,7 @@
                     android:id="@+id/text1"
                     android:layout_width="183dp"
                     android:layout_height="30dp"
-                    android:layout_below="@+id/barchart1"
+                    android:layout_below="@+id/linechart1"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
                     android:layout_marginTop="5dp"
@@ -118,12 +118,12 @@
                     android:layout_marginTop="43dp"
                     android:layout_marginEnd="-57dp"
                     android:layout_marginBottom="32dp"
-                    android:layout_toStartOf="@+id/barchart1"
+                    android:layout_toStartOf="@+id/linechart1"
                     android:contentDescription="@string/todo"
-                    app:srcCompat="@drawable/sleep" />
+                    app:srcCompat="@drawable/sll" />
 
                 <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/barchart1"
+                    android:id="@+id/linechart1"
                     android:layout_width="223dp"
                     android:layout_height="102dp"
                     android:layout_alignParentEnd="true"
@@ -233,7 +233,7 @@
                     android:layout_marginBottom="32dp"
                     android:layout_toStartOf="@+id/barchart2"
                     android:contentDescription="@string/todo"
-                    app:srcCompat="@drawable/shower" />
+                    app:srcCompat="@drawable/bath" />
 
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/barchart2"
@@ -342,9 +342,9 @@
                     android:layout_marginBottom="32dp"
                     android:layout_toStartOf="@+id/barchart3"
                     android:contentDescription="@string/todo"
-                    app:srcCompat="@drawable/eat" />
+                    app:srcCompat="@drawable/eating" />
 
-                <com.github.mikephil.charting.charts.BarChart
+                <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/barchart3"
                     android:layout_width="223dp"
                     android:layout_height="102dp"
@@ -451,9 +451,9 @@
                     android:layout_marginBottom="32dp"
                     android:layout_toStartOf="@+id/barchart4"
                     android:contentDescription="@string/todo"
-                    app:srcCompat="@drawable/med" />
+                    app:srcCompat="@drawable/medicine" />
 
-                <com.github.mikephil.charting.charts.BarChart
+                <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/barchart4"
                     android:layout_width="223dp"
                     android:layout_height="102dp"
@@ -561,9 +561,9 @@
                     android:layout_marginBottom="32dp"
                     android:layout_toStartOf="@+id/barchart5"
                     android:contentDescription="@string/todo"
-                    app:srcCompat="@drawable/eat" />
+                    app:srcCompat="@drawable/eating" />
 
-                <com.github.mikephil.charting.charts.BarChart
+                <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/barchart5"
                     android:layout_width="223dp"
                     android:layout_height="102dp"
@@ -669,10 +669,11 @@
                     android:layout_marginTop="43dp"
                     android:layout_marginEnd="-57dp"
                     android:layout_marginBottom="32dp"
+                    android:layout_toStartOf="@+id/barchart6"
                     android:contentDescription="@string/todo"
-                    app:srcCompat="@drawable/tv" />/>
+                    app:srcCompat="@drawable/pc" />
 
-                <com.github.mikephil.charting.charts.BarChart
+                <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/barchart6"
                     android:layout_width="223dp"
                     android:layout_height="102dp"
@@ -778,10 +779,11 @@
                     android:layout_marginTop="43dp"
                     android:layout_marginEnd="-57dp"
                     android:layout_marginBottom="32dp"
+                    android:layout_toStartOf="@+id/barchart7"
                     android:contentDescription="@string/todo"
-                    app:srcCompat="@drawable/eat" />
+                    app:srcCompat="@drawable/eating" />
 
-                <com.github.mikephil.charting.charts.BarChart
+                <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/barchart7"
                     android:layout_width="223dp"
                     android:layout_height="102dp"
