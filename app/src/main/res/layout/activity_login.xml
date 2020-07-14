@@ -48,7 +48,7 @@
             android:layout_margin="15dp"
             android:onClick="signup"
             android:backgroundTint="@android:color/background_light"
-            android:textColor="@color/red"
+            android:textColor="@color/appTheme"
             tools:backgroundTint="@color/common_google_signin_btn_text_dark_default"
             android:text="Not a member yet? Sign up" />
 

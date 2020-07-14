@@ -7,13 +7,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -22,12 +22,15 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.charts.CandleStickChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.CandleData;
+import com.github.mikephil.charting.data.CandleDataSet;
+import com.github.mikephil.charting.data.CandleEntry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -38,6 +41,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,18 +52,20 @@ import java.util.Objects;
 //this is the main class..i read the dataset, create graph, and provoke notifications from this class.
 public class report extends AppCompatActivity {
 
-    public LineChart chart1, chart2, chart3, chart4, chart5, chart6, chart7;
-    public TextView text1, text2, text3, text4, text5, text6, text7;
+    public CandleStickChart chart2, chart3, chart4, chart5, chart6, chart7;
+    public CandleStickChart chart1;
+    public TextView text1, text2, text3, text4, text5, text6, text7, durationTextview;
     RadioButton sleep, shower, bf, lunch, dinner, medication, tv;
-    private RadioGroup sleepradio, showerradio, breakfastradio,medicationradio,lunchradio,tvradio,dinnerradio;
+    private RadioGroup sleepradio, showerradio, breakfastradio, medicationradio, lunchradio, tvradio, dinnerradio;
     Button submitreport;
     private String TAG = csvread.class.getSimpleName();
-    ArrayList<HashMap<String, String>> contactList;
-    private ListView lv;
-    public CardView card1, card2, card3, card4, card5,card6,card7;
-    public BarChart barchart1;
 
-    private HashMap<String,LineChart> activityChartMap = new HashMap<>();
+    ArrayList<HashMap<String, String>> contactList;
+    public CardView card1, card2, card3, card4, card5, card6, card7;
+
+    private HashMap<String, TextView> TextHash = new HashMap<>();
+
+    private HashMap<String, CandleStickChart> activityChartMap = new HashMap<>();
     private String userStr = null;
 
 
@@ -69,77 +75,58 @@ public class report extends AppCompatActivity {
         setContentView(R.layout.report);
         submitreport = (Button) findViewById(R.id.submitreport);
 
-        chart1 = (LineChart) findViewById(R.id.linechart1);
+        chart1 = (CandleStickChart) findViewById(R.id.sleepLinechart);
+        chart2 = (CandleStickChart) findViewById(R.id.ShowerLinechart);
+        chart3 = (CandleStickChart) findViewById(R.id.breakfastLinechart);
+        chart4 = (CandleStickChart) findViewById(R.id.medicineLinechart);
+        chart5 = (CandleStickChart) findViewById(R.id.lunchLinechart);
+        chart6 = (CandleStickChart) findViewById(R.id.tvLinechart);
+        chart7 = (CandleStickChart) findViewById(R.id.dinnerLinechart);
 
-        chart2 = (LineChart)findViewById(R.id.barchart2);
-        chart3 = (LineChart)findViewById(R.id.barchart3);
-        chart4 = (LineChart)findViewById(R.id.barchart4);
-        chart5 = (LineChart)findViewById(R.id.barchart5);
-        chart6 = (LineChart)findViewById(R.id.barchart6);
-        chart7 = (LineChart)findViewById(R.id.barchart7);
+        activityChartMap.put("Sleep", chart1);
+        activityChartMap.put("Bath", chart2);
+        activityChartMap.put("Breakfast", chart3);
+        activityChartMap.put("medicine ", chart4); // TODO Remove the space at end next time
+        activityChartMap.put("Lunch", chart5);
+        activityChartMap.put("TV", chart6);
+        activityChartMap.put("Dinner", chart7);
 
-        activityChartMap.put("Sleep", chart1 );
-        activityChartMap.put("Bath", chart2 );
-        activityChartMap.put("Breakfast", chart3 );
-        activityChartMap.put("medicine ", chart4 ); // TODO Remove the space at end next time
-        activityChartMap.put("Lunch", chart5 );
-        activityChartMap.put("TV", chart6 );
-        activityChartMap.put("Dinner", chart7 );
+        text1 = (TextView) findViewById(R.id.text1);
+        text2 = (TextView) findViewById(R.id.text2);
+        text3 = (TextView) findViewById(R.id.text3);
+        text4 = (TextView) findViewById(R.id.text4);
+        text5 = (TextView) findViewById(R.id.text5);
+        text6 = (TextView) findViewById(R.id.text6);
+        text7 = (TextView) findViewById(R.id.text7);
 
 
-        card1 = (CardView)findViewById(R.id.sleepcard);
-        card2 = (CardView)findViewById(R.id.showercard);
-        card3= (CardView)findViewById(R.id.breakfastcard);
-        card4= (CardView)findViewById(R.id.medicationcard);
-        card5= (CardView)findViewById(R.id.lunchcard);
-        card6= (CardView)findViewById(R.id.tvcard);
-        card7= (CardView)findViewById(R.id.dinnercard);
+        TextHash.put("Sleep", text1);
+        TextHash.put("Bath", text2);
+        TextHash.put("Breakfast", text3);
+        TextHash.put("medicine ", text4); // TODO Remove the space at end next time
+        TextHash.put("Lunch", text5);
+        TextHash.put("TV", text6);
+        TextHash.put("Dinner", text7);
 
-        text1 = (TextView)findViewById(R.id.text1);
-        text2 =(TextView)findViewById(R.id.text2);
-        text3 =(TextView)findViewById(R.id.text3);
-        text4 =(TextView)findViewById(R.id.text4);
-        text5 =(TextView)findViewById(R.id.text5);
-        text6 =(TextView)findViewById(R.id.text6);
-        text7 =(TextView)findViewById(R.id.text7);
 
-        chart1.setBackgroundColor(Color.WHITE);
-        chart1.getDescription().setEnabled(false);
-        chart1.setTouchEnabled(false);
+        card1 = (CardView) findViewById(R.id.sleepcard);
+        card2 = (CardView) findViewById(R.id.showercard);
+        card3 = (CardView) findViewById(R.id.breakfastcard);
+        card4 = (CardView) findViewById(R.id.medicationcard);
+        card5 = (CardView) findViewById(R.id.lunchcard);
+        card6 = (CardView) findViewById(R.id.tvcard);
+        card7 = (CardView) findViewById(R.id.dinnercard);
 
-        chart2.setBackgroundColor(Color.WHITE);
-        chart2.getDescription().setEnabled(false);
-        chart2.setTouchEnabled(false);
-
-        chart3.setBackgroundColor(Color.WHITE);
-        chart3.getDescription().setEnabled(false);
-        chart3.setTouchEnabled(false);
-
-        chart4.setBackgroundColor(Color.WHITE);
-        chart4.getDescription().setEnabled(false);
-        chart4.setTouchEnabled(false);
-
-        chart5.setBackgroundColor(Color.WHITE);
-        chart5.getDescription().setEnabled(false);
-        chart5.setTouchEnabled(false);
-
-        chart6.setBackgroundColor(Color.WHITE);
-        chart6.getDescription().setEnabled(false);
-        chart6.setTouchEnabled(false);
-
-        chart7.setBackgroundColor(Color.WHITE);
-        chart7.getDescription().setEnabled(false);
-        chart7.setTouchEnabled(false);
 
         contactList = new ArrayList<>();
-        lv = (ListView) findViewById(R.id.list);
         //new GetActivity().execute();
 
         isMyServiceRunning(userreport.class);
 
         breceiver ar = new breceiver();
         IntentFilter filter = new IntentFilter("cookact");
-        registerReceiver(ar,filter);
+        registerReceiver(ar, filter);
+        // unregisterReceiver(ar);
 
         Intent passedIntent = getIntent();
         userStr = passedIntent.getStringExtra("user");
@@ -167,6 +154,7 @@ public class report extends AppCompatActivity {
             super.onPreExecute();
             //Toast.makeText(report.this, "Json Data is downloading", Toast.LENGTH_LONG).show();
         }
+
         @SuppressLint("SetTextI18n")
         @Override
         protected Void doInBackground(Void... arg0) {
@@ -216,19 +204,18 @@ public class report extends AppCompatActivity {
                             }
                             Log.d("duration of cooking", "" + cookingtime);
 
-                           Log.d("start time for cooking", "" + date);
+                            Log.d("start time for cooking", "" + date);
 
-                           DateFormat format = new SimpleDateFormat("YY-mm-dd HH:mm:ss");
-                           Date newdate = format.parse(date);
-                          // long dd = Long.parseLong(new SimpleDateFormat("HH:mm").format(newdate));
-                          // Double d = Double.parseDouble(dd);
+                            DateFormat format = new SimpleDateFormat("YY-mm-dd HH:mm:ss");
+                            Date newdate = format.parse(date);
+                            // long dd = Long.parseLong(new SimpleDateFormat("HH:mm").format(newdate));
+                            // Double d = Double.parseDouble(dd);
 
 
-                           Log.d("time time time time", " " + newdate + " and then"  + " hawa hwa hwa" );
+                            Log.d("time time time time", " " + newdate + " and then" + " hawa hwa hwa");
 
-                           card1.setVisibility(View.INVISIBLE);
-                           //sleepradio.setVisibility(View.INVISIBLE);
-
+                            card1.setVisibility(View.INVISIBLE);
+                            //sleepradio.setVisibility(View.INVISIBLE);
 
 
                             //drawchart(5.5f, 8.2f);
@@ -256,7 +243,7 @@ public class report extends AppCompatActivity {
                                 @Override
                                 public void run() {
 
-                                     }
+                                }
                             });
                         }
                         // adding contact to contact list
@@ -296,256 +283,301 @@ public class report extends AppCompatActivity {
     }
 
 
-    public class breceiver extends BroadcastReceiver{
-        @SuppressLint("SimpleDateFormat")
+    public class breceiver extends BroadcastReceiver {
+        @SuppressLint({"SimpleDateFormat", "SetTextI18n"})
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (Objects.equals(intent.getAction(), "cookact")){
+            if (Objects.equals(intent.getAction(), "cookact")) {
                 // Get username from intent
                 String username = intent.getStringExtra("user");
                 Log.d("getting username from service", username);
 
                 // Check if this is the username we want
                 if (userStr.equals(username)) {
-                    String cookingduration = intent.getStringExtra("cookduration"); //text
+                    String activityDuration = intent.getStringExtra("activityDuration"); //text
+
 //                String completiontime =intent.getStringExtra("activitycompletiontime"); //y-value
 
                     // String cookingdate = intent.getStringExtra("cookdate");
 
-                    ArrayList<String>endarray = intent.getStringArrayListExtra("endtimearraylist");
+                    ArrayList<String> endarray = intent.getStringArrayListExtra("endtimearraylist");
                     Log.d("endtime array", String.valueOf((endarray)));
 
-                    ArrayList<String>durarray = intent.getStringArrayListExtra("durationarraylist");
+                    ArrayList<String> durarray = intent.getStringArrayListExtra("durationarraylist");
                     Log.d("duration array", String.valueOf((durarray)));
 
-                    ArrayList<String>startarray = intent.getStringArrayListExtra("starttimearraylist");
+                    ArrayList<String> startarray = intent.getStringArrayListExtra("starttimearraylist");
                     Log.d("starttime array", String.valueOf((startarray)));
+
 
                     String activityType = intent.getStringExtra("actv");
                     Log.d("getting activity from service", activityType);
 
                     submitbutton(username);
 
-//                Bundle extra = intent.getBundleExtra("extra");
-//                ArrayList<report> transArrayListFromBroadCast = (ArrayList<report>) extra.getSerializable("transArray");
-//                Log.d("rrrrrrrrr", String.valueOf(transArrayListFromBroadCast));
 
-//                Log.d("cooking completed time", completiontime);
-                    // Log.d("cooking date", cookingdate);
+                    if (Float.parseFloat(activityDuration) >= 60) {
 
-//                if (Float.parseFloat(cookingduration) >= 60) {
-//
-//                    String cookinghour = Long.parseLong(cookingduration)/60%24 + " Hours" +':' + Long.parseLong(cookingduration)%60 + "  Minutes";
-//
-//                    Log.d("duration", cookinghour);
-//                    text1.setText(cookingduration);
-//                    text1.setText("Duration of sleep: " + cookinghour);
-//                    drawchart(durarray,durarray);
-//
-//
-//
-//                } else {
-                    long cookinghour = Long.parseLong(cookingduration);
+                        String durationOfActivity = Long.parseLong(activityDuration) / 60 % 24 + " Hours" + ":  " + Long.parseLong(activityDuration) % 60 + "  Minutes";
 
-                    Log.d("duration", String.valueOf(cookinghour));
-                    text1.setText("Duration of sleep: " + cookingduration + "   minutes");
-                    drawchart(durarray, durarray, activityType);
+                        durationTextview = TextHash.get(activityType);
+
+                        durationTextview.setText("Duration of Activity is :  " + durationOfActivity);
+                        Log.d("durationOfActivity", String.valueOf(durationOfActivity));
+
+
+                        drawchart(startarray, endarray, activityType);
+                    } else {
+                        durationTextview = TextHash.get(activityType);
+
+                        long durationOfActivity = Long.parseLong(activityDuration);
+
+                        Log.d("durationOfActivity", String.valueOf(durationOfActivity));
+
+                        durationTextview.setText("Duration of Activity :  " + activityDuration + "  minutes");
+
+                        //text1.setText("Duration of sleep: " + cookingduration + "   minutes");
+
+                        drawchart(startarray, endarray, activityType);
 
 
 //                }
 //                if (Float.parseFloat(cookingduration) == (0)){
 //                    card1.setVisibility(View.INVISIBLE);
 //                }
+//                    card1.setVisibility(View.GONE);
+//                    sleepradio.setVisibility(View.GONE);
+                    }
                 }
             }
         }
-        }
 
-    public void drawchart(ArrayList<String> x, ArrayList<String> y, String activityType) {
 
-        ArrayList<Entry> entries = new ArrayList<>();
+        public void drawchart(ArrayList<String> x, ArrayList<String> y, String activityType) {
 
-        for (int i = 0; i < x.size(); i++)
-        {
-            entries.add(new Entry((float) i, Float.parseFloat(y.get(i) + ".0")));
+            ArrayList<CandleEntry> candleEntryTry = new ArrayList<CandleEntry>();
 
-            Log.d("graph thing", x.get(i));
+            for (int i = 0; i < x.size(); i++) {
+                candleEntryTry.add(new CandleEntry(i, 30, 0, (float) i, Float.parseFloat(y.get(i))));
+                Log.d("graph thing", x.get(i));
+            }
 
-        }
 
-        LineData chartdata = new LineData();
-        LineDataSet lDataSet1 = new LineDataSet(entries, "Timeline of Activity");
-        lDataSet1.setColors(R.color.design_default_color_primary);
-        lDataSet1.setDrawValues(false);
-        lDataSet1.setLineWidth(4);
+            CandleStickChart selectedChart = activityChartMap.get(activityType);
+            assert selectedChart != null;
+            selectedChart.setBackgroundColor(Color.WHITE);
+            selectedChart.getDescription().setEnabled(false);
+            selectedChart.setTouchEnabled(false);
 
-        chartdata.addDataSet(lDataSet1);
+            selectedChart.notifyDataSetChanged();
 
-        LineChart selectedChart = activityChartMap.get(activityType);
-        Log.d("selectedChart", activityType + "" + selectedChart);
+            selectedChart.getAxisRight().setDrawLabels(true);
 
-        selectedChart.setData(chartdata);
-        selectedChart.notifyDataSetChanged();
-        selectedChart.invalidate();
+            selectedChart.setDrawBorders(true);
+            selectedChart.setHighlightPerDragEnabled(true);
+            selectedChart.setBorderColor(getResources().getColor((R.color.borderofGraph)));
 
+            XAxis XAxis = selectedChart.getXAxis();
+            XAxis.setDrawGridLines(false);
+            XAxis.setDrawLabels(false);
+            XAxis.setGranularityEnabled(true);
+            XAxis.setGranularity(1f);
+            XAxis.setAvoidFirstLastClipping(true);
+
+            YAxis leftAxis = selectedChart.getAxisLeft();
+            YAxis rightAxis = selectedChart.getAxisRight();
+            rightAxis.setTextColor(Color.WHITE);
+            leftAxis.setDrawGridLines(false);
+            rightAxis.setDrawGridLines(false);
+
+            selectedChart.requestDisallowInterceptTouchEvent(true);
+
+            Legend l = selectedChart.getLegend();
+            l.setEnabled(false);
+
+            CandleDataSet set1 = new CandleDataSet(candleEntryTry, "DataSet");
+
+            set1.setColor(Color.rgb(80, 80, 80));
+            set1.setShadowColor(getResources().getColor(R.color.textforApp));  //need to change to WHITE later
+            set1.setShadowWidth(0.8f);
+            set1.setDecreasingColor(getResources().getColor(R.color.colorinGraph));
+            set1.setDecreasingPaintStyle(Paint.Style.FILL);
+            set1.setIncreasingColor(getResources().getColor(R.color.colorinGraph));
+            set1.setIncreasingPaintStyle(Paint.Style.FILL);
+            set1.setNeutralColor(Color.LTGRAY);
+            set1.setDrawValues(false);
+            CandleData data = new CandleData(set1);
+            selectedChart.setData(data);
+
+            selectedChart.invalidate();
         }
 
 //practice code to submit into Firebase
 
-    private void submitbutton(String name) {
+        private void submitbutton(String name) {
 
-        final String x= name;
+            final String x = name;
 
-        lunchradio = (RadioGroup) findViewById(R.id.lunchbutton);
-        dinnerradio = (RadioGroup) findViewById(R.id.dinnerbutton);
-        tvradio = (RadioGroup) findViewById(R.id.tvbutton);
-        medicationradio = (RadioGroup) findViewById(R.id.medicationbutton);
-        breakfastradio = (RadioGroup) findViewById(R.id.breakfastbutton);
-        showerradio = (RadioGroup) findViewById(R.id.showerbutton);
-        sleepradio = (RadioGroup) findViewById(R.id.sleepbutton);
+            lunchradio = (RadioGroup) findViewById(R.id.lunchbutton);
+            dinnerradio = (RadioGroup) findViewById(R.id.dinnerbutton);
+            tvradio = (RadioGroup) findViewById(R.id.tvbutton);
+            medicationradio = (RadioGroup) findViewById(R.id.medicationbutton);
+            breakfastradio = (RadioGroup) findViewById(R.id.breakfastbutton);
+            showerradio = (RadioGroup) findViewById(R.id.showerbutton);
+            sleepradio = (RadioGroup) findViewById(R.id.sleepbutton);
 
-        final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        final FirebaseUser thisuser = FirebaseAuth.getInstance().getCurrentUser();
-        assert thisuser != null;
-        final String email = thisuser.getEmail();
-        final Object userdr = email + "  " + new Date();
+            final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+            final FirebaseUser thisuser = FirebaseAuth.getInstance().getCurrentUser();
+            assert thisuser != null;
+            final String email = thisuser.getEmail();
+            final Object userdr = email + "  " + new Date();
 
-        submitreport.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            submitreport.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                HashMap<String, Object> sleepmap = new HashMap<>();
-                HashMap<String, Object> showermap = new HashMap<>();
-                HashMap<String, Object> medmap = new HashMap<>();
-                HashMap<String, Object> bfmap = new HashMap<>();
-                HashMap<String, Object> lunchmap = new HashMap<>();
-                HashMap<String, Object> dinnermap = new HashMap<>();
-                HashMap<String, Object> tvmap = new HashMap<>();
+                    HashMap<String, Object> sleepmap = new HashMap<>();
+                    HashMap<String, Object> showermap = new HashMap<>();
+                    HashMap<String, Object> medmap = new HashMap<>();
+                    HashMap<String, Object> bfmap = new HashMap<>();
+                    HashMap<String, Object> lunchmap = new HashMap<>();
+                    HashMap<String, Object> dinnermap = new HashMap<>();
+                    HashMap<String, Object> tvmap = new HashMap<>();
 
-                Log.d(TAG, email);
-                String id = ref.push().getKey();
-                assert id!= null;
+                    Log.d(TAG, email);
+                    String id = ref.push().getKey();
+                    assert id != null;
 
-                final int sleepstate = sleepradio.getCheckedRadioButtonId();
-                final int showerstate = showerradio.getCheckedRadioButtonId();
-                final int medstate = medicationradio.getCheckedRadioButtonId();
-                final int bfstate = breakfastradio.getCheckedRadioButtonId();
-                final int lunchstate = lunchradio.getCheckedRadioButtonId();
-                final int dinnerstate = dinnerradio.getCheckedRadioButtonId();
-                final int tvstate = tvradio.getCheckedRadioButtonId();
-
-
-                sleep = (RadioButton) findViewById(sleepstate);
-                shower = (RadioButton) findViewById(showerstate);
-                medication = (RadioButton) findViewById(medstate);
-                bf = (RadioButton) findViewById(bfstate);
-                lunch = (RadioButton) findViewById(lunchstate);
-                dinner = (RadioButton) findViewById(dinnerstate);
-                tv = (RadioButton) findViewById(tvstate);
+                    final int sleepstate = sleepradio.getCheckedRadioButtonId();
+                    final int showerstate = showerradio.getCheckedRadioButtonId();
+                    final int medstate = medicationradio.getCheckedRadioButtonId();
+                    final int bfstate = breakfastradio.getCheckedRadioButtonId();
+                    final int lunchstate = lunchradio.getCheckedRadioButtonId();
+                    final int dinnerstate = dinnerradio.getCheckedRadioButtonId();
+                    final int tvstate = tvradio.getCheckedRadioButtonId();
 
 
-                if (sleep.getText().equals("Normal")) {
-                    Log.d("value    ", String.valueOf(sleep.getText()));
-                    sleepmap.put("Sleep state", userdr);
-                    ref.child(x).child("Sleep").child(String.valueOf(sleep.getText())).child(id).updateChildren(sleepmap);
-                }
-                else if(sleep.getText().equals("Suspicious")) {
-                    Log.d("value    ", String.valueOf(sleep.getText()));
-                    sleepmap.put("Sleep state", userdr);
-                    ref.child(x).child("Sleep").child(String.valueOf(sleep.getText())).child(id).updateChildren(sleepmap);
-                }
+                    sleep = (RadioButton) findViewById(sleepstate);
+                    shower = (RadioButton) findViewById(showerstate);
+                    medication = (RadioButton) findViewById(medstate);
+                    bf = (RadioButton) findViewById(bfstate);
+                    lunch = (RadioButton) findViewById(lunchstate);
+                    dinner = (RadioButton) findViewById(dinnerstate);
+                    tv = (RadioButton) findViewById(tvstate);
+
+
+                    if (sleep.getText().equals("Normal")) {
+                        Log.d("value    ", String.valueOf(sleep.getText()));
+                        sleepmap.put("Sleep state", userdr);
+                        ref.child(x).child("Sleep").child(String.valueOf(sleep.getText())).child(id).updateChildren(sleepmap);
+                    } else if (sleep.getText().equals("Suspicious")) {
+                        Log.d("value    ", String.valueOf(sleep.getText()));
+                        sleepmap.put("Sleep state", userdr);
+                        ref.child(x).child("Sleep").child(String.valueOf(sleep.getText())).child(id).updateChildren(sleepmap);
+                    }
 //                else if(!sleepradio.isSelected()) {
 //                    Toast.makeText(getApplicationContext(), "Please check selection1" , Toast.LENGTH_LONG).show();
 //                }
 
-                if (shower.getText().equals("Normal")){
-                    Log.d("value    ", String.valueOf(shower.getText()));
-                    showermap.put("Shower state", userdr);
-                    ref.child(x).child("Shower").child(String.valueOf(shower.getText())).child(id).updateChildren(showermap);
-                }
-                else if(shower.getText().equals("Suspicious")){
-                    Log.d("value    ", String.valueOf(shower.getText()));
-                    showermap.put("Shower state", userdr);
-                    ref.child(x).child("Shower").child(String.valueOf(shower.getText())).child(id).updateChildren(showermap);
-                }
+                    if (shower.getText().equals("Normal")) {
+                        Log.d("value    ", String.valueOf(shower.getText()));
+                        showermap.put("Shower state", userdr);
+                        ref.child(x).child("Shower").child(String.valueOf(shower.getText())).child(id).updateChildren(showermap);
+                    } else if (shower.getText().equals("Suspicious")) {
+                        Log.d("value    ", String.valueOf(shower.getText()));
+                        showermap.put("Shower state", userdr);
+                        ref.child(x).child("Shower").child(String.valueOf(shower.getText())).child(id).updateChildren(showermap);
+                    }
 //                else if(!showerradio.isSelected()) {
 //                    Toast.makeText(getApplicationContext(), "Please check selection2" , Toast.LENGTH_LONG).show();
 //                }
 
-                if (bf.getText().equals("Normal")){
-                    Log.d("value    ", String.valueOf(bf.getText()));
-                    bfmap.put("Breakfast state", userdr);
-                    ref.child(x).child("Breakfast").child(String.valueOf(bf.getText())).child(id).updateChildren(bfmap);
-                }
-                else if (bf.getText().equals("Suspicious")){
-                    Log.d("value    ", String.valueOf(bf.getText()));
-                    bfmap.put("Breakfast state", userdr);
-                    ref.child(x).child("Breakfast").child(String.valueOf(bf.getText())).child(id).updateChildren(bfmap);
-                }
+                    if (bf.getText().equals("Normal")) {
+                        Log.d("value    ", String.valueOf(bf.getText()));
+                        bfmap.put("Breakfast state", userdr);
+                        ref.child(x).child("Breakfast").child(String.valueOf(bf.getText())).child(id).updateChildren(bfmap);
+                    } else if (bf.getText().equals("Suspicious")) {
+                        Log.d("value    ", String.valueOf(bf.getText()));
+                        bfmap.put("Breakfast state", userdr);
+                        ref.child(x).child("Breakfast").child(String.valueOf(bf.getText())).child(id).updateChildren(bfmap);
+                    }
 //                else if(!breakfastradio.isSelected()) {
 //                    Toast.makeText(getApplicationContext(), "Please check selection4" , Toast.LENGTH_LONG).show();
 //                }
 
-                if (medication.getText().equals("Normal")){
-                    Log.d("value    ", String.valueOf(medication.getText()));
-                    medmap.put("Medication state", userdr);
-                    ref.child(x).child("Medication").child(String.valueOf(medication.getText())).child(id).updateChildren(medmap);
+                    if (medication.getText().equals("Normal")) {
+                        Log.d("value    ", String.valueOf(medication.getText()));
+                        medmap.put("Medication state", userdr);
+                        ref.child(x).child("Medication").child(String.valueOf(medication.getText())).child(id).updateChildren(medmap);
 
-                }
-                else if (medication.getText().equals("Suspicious")){
-                    Log.d("value    ", String.valueOf(medication.getText()));
-                    medmap.put("Medication state", userdr);
-                    ref.child(x).child("Medication").child(String.valueOf(medication.getText())).child(id).updateChildren(medmap);
-                }
+                    } else if (medication.getText().equals("Suspicious")) {
+                        Log.d("value    ", String.valueOf(medication.getText()));
+                        medmap.put("Medication state", userdr);
+                        ref.child(x).child("Medication").child(String.valueOf(medication.getText())).child(id).updateChildren(medmap);
+                    }
 //                else if(!medicationradio.isSelected()) {
 //                    Toast.makeText(getApplicationContext(), "Please check selection3" , Toast.LENGTH_LONG).show();
 //                }
 
-                if (lunch.getText().equals("Normal")){
-                    Log.d("value    ", String.valueOf(lunch.getText()));
-                    lunchmap.put("lunch state", userdr);
-                    ref.child(x).child("Lunch").child(String.valueOf(lunch.getText())).child(id).updateChildren(lunchmap);
-                }
-                else if (lunch.getText().equals("Suspicious")){
-                    Log.d("value    ", String.valueOf(bf.getText()));
-                    lunchmap.put("lunch state", userdr);
-                    ref.child(x).child("Lunch").child(String.valueOf(bf.getText())).child(id).updateChildren(lunchmap);
-                }
+                    if (lunch.getText().equals("Normal")) {
+                        Log.d("value    ", String.valueOf(lunch.getText()));
+                        lunchmap.put("lunch state", userdr);
+                        ref.child(x).child("Lunch").child(String.valueOf(lunch.getText())).child(id).updateChildren(lunchmap);
+                    } else if (lunch.getText().equals("Suspicious")) {
+                        Log.d("value    ", String.valueOf(bf.getText()));
+                        lunchmap.put("lunch state", userdr);
+                        ref.child(x).child("Lunch").child(String.valueOf(bf.getText())).child(id).updateChildren(lunchmap);
+                    }
 //                else  if(!lunchradio.isSelected()) {
 //                    Toast.makeText(getApplicationContext(), "Please check selection5" , Toast.LENGTH_LONG).show();
 //                }
 
-                if (tv.getText().equals("Normal")){
-                    Log.d("value    ", String.valueOf(tv.getText()));
-                    tvmap.put("TV state", userdr);
-                    ref.child(x).child("TV").child(String.valueOf(tv.getText())).child(id).updateChildren(tvmap);
-                }
-                else if (tv.getText().equals("Suspicious")){
-                    Log.d("value    ", String.valueOf(tv.getText()));
-                    tvmap.put("TV state", userdr);
-                    ref.child(x).child("TV ").child(String.valueOf(tv.getText())).child(id).updateChildren(tvmap);
-                }
+                    if (tv.getText().equals("Normal")) {
+                        Log.d("value    ", String.valueOf(tv.getText()));
+                        tvmap.put("TV state", userdr);
+                        ref.child(x).child("TV").child(String.valueOf(tv.getText())).child(id).updateChildren(tvmap);
+                    } else if (tv.getText().equals("Suspicious")) {
+                        Log.d("value    ", String.valueOf(tv.getText()));
+                        tvmap.put("TV state", userdr);
+                        ref.child(x).child("TV ").child(String.valueOf(tv.getText())).child(id).updateChildren(tvmap);
+                    }
 //                else if (!tvradio.isSelected()) {
 //                    Toast.makeText(getApplicationContext(), "Please check selection7" , Toast.LENGTH_LONG).show();
 //                }
-                if (dinner.getText().equals("Normal")){
-                    Log.d("value    ", String.valueOf(dinner.getText()));
-                    dinnermap.put("dinner state", userdr);
-                    ref.child(x).child("Dinner").child(String.valueOf(dinner.getText())).child(id).updateChildren(dinnermap);
-                }
-                else if (dinner.getText().equals("Suspicious")){
-                    Log.d("value    ", String.valueOf(dinner.getText()));
-                    dinnermap.put("dinner state", userdr);
-                    ref.child(x).child("Dinner").child(String.valueOf(dinner.getText())).child(id).updateChildren(dinnermap);
-                }
+                    if (dinner.getText().equals("Normal")) {
+                        Log.d("value    ", String.valueOf(dinner.getText()));
+                        dinnermap.put("dinner state", userdr);
+                        ref.child(x).child("Dinner").child(String.valueOf(dinner.getText())).child(id).updateChildren(dinnermap);
+                    } else if (dinner.getText().equals("Suspicious")) {
+                        Log.d("value    ", String.valueOf(dinner.getText()));
+                        dinnermap.put("dinner state", userdr);
+                        ref.child(x).child("Dinner").child(String.valueOf(dinner.getText())).child(id).updateChildren(dinnermap);
+                    }
 //                else if(!dinnerradio.isSelected()) {
 //                    Toast.makeText(getApplicationContext(), "Please check selection6" , Toast.LENGTH_LONG).show();
 //                }
 
-                Intent newintent = new Intent(report.this, select.class);
-                startActivity(newintent);
-            }
-        });
-    }
+                    Intent newintent = new Intent(report.this, select.class);
+                    startActivity(newintent);
+                }
+            });
+        }
 
+        private class MyXAxisValueFormatter implements IAxisValueFormatter {
+            private DecimalFormat mFormat;
+            private String[] yvalues;
+
+            public MyXAxisValueFormatter(String[] values) {
+                // format values to 1 decimal digit
+                //mFormat = new DecimalFormat("#,#,#0.0");
+                this.yvalues = values;
+            }
+
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                //return mFormat.format(value) + "am";
+                return yvalues[(int) value];
+            }
+        }
+    }
 }

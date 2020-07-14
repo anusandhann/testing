@@ -1,14 +1,10 @@
 package com.example.testing;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,7 +20,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -169,7 +164,7 @@ public class csvread extends AppCompatActivity
 
 
             LineDataSet lDataSet2 = new LineDataSet(entry, "Today");
-            lDataSet2.setColor(R.color.graph);
+            lDataSet2.setColor(R.color.borderofGraph);
             lDataSet2.setLineWidth(4);
             lDataSet2.setDrawValues(false);
             chartdata.addDataSet(lDataSet2);

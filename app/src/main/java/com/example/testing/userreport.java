@@ -164,20 +164,22 @@ public class userreport extends Service {
                             // Correct the format of the start times in the start time list
                             for ( int i = 0; i < startList.size(); i++ ) {
                                 // Convert the timestamp format to numeric values that can be graphed
-                                @SuppressLint("SimpleDateFormat") Date newtime = new SimpleDateFormat("YY-MM-dd HH:mm:ss").parse(startList.get(i));
-//                                Calendar cal = Calendar.getInstance();
-//                                cal.setTime(newtime);
-//                                String startTimeVal = cal.get(Calendar.HOUR_OF_DAY) + "" + ((float)(cal.get(Calendar.MINUTE)) / 60.0);
-                                @SuppressLint("SimpleDateFormat") String startTimeVal = new SimpleDateFormat("hh.mm").format(newtime);
+                                @SuppressLint("SimpleDateFormat") Date newtime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(startList.get(i));
+                                //@SuppressLint("SimpleDateFormat") String startTimeVal = new SimpleDateFormat("EEE, MMM d").format(newtime);
+                                Calendar cal = Calendar.getInstance();
+                                cal.setTime(newtime);
+                                String startTimeChartVal = String.valueOf(cal.get(Calendar.HOUR_OF_DAY) + ((float)(cal.get(Calendar.MINUTE)) / 60.0));
 
+
+                                Log.d("testing newtime array", (startTimeChartVal));
                                 // Replace the original list item
-                                startList.set(i, startTimeVal);
+                                startList.set(i, startTimeChartVal);
                             }
 
                             // Correct the format of the end times in the end time list
                             for ( int i = 0; i < endList.size(); i++ ) {
                                 // Convert the timestamp format to numeric values that can be graphed
-                                @SuppressLint("SimpleDateFormat") Date newtime = new SimpleDateFormat("YY-MM-dd HH:mm:ss").parse(endList.get(i));
+                                @SuppressLint("SimpleDateFormat") Date newtime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(endList.get(i));
                                 Calendar cal = Calendar.getInstance();
                                 cal.setTime(newtime);
                                 String endTimeVal = String.valueOf(cal.get(Calendar.HOUR_OF_DAY) + ((float)(cal.get(Calendar.MINUTE)) / 60.0));
@@ -199,11 +201,10 @@ public class userreport extends Service {
                             Intent in = new Intent("cookact");
                             in.putExtra("user", userFilter);
                             in.putExtra("actv", activityTypeFilter);
-                            in.putExtra("cookduration", lastactivityduration);
+                            in.putExtra("activityDuration", lastactivityduration);
                             in.putStringArrayListExtra("starttimearraylist", startList);
                             in.putStringArrayListExtra("endtimearraylist", endList);
                             in.putStringArrayListExtra("durationarraylist", durationList);
-
 
                             // Broadcast the intent
                             sendBroadcast(in);

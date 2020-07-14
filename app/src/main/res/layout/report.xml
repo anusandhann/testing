@@ -96,7 +96,7 @@
                     android:id="@+id/text1"
                     android:layout_width="183dp"
                     android:layout_height="30dp"
-                    android:layout_below="@+id/linechart1"
+                    android:layout_below="@+id/sleepLinechart"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
                     android:layout_marginTop="5dp"
@@ -118,12 +118,12 @@
                     android:layout_marginTop="43dp"
                     android:layout_marginEnd="-57dp"
                     android:layout_marginBottom="32dp"
-                    android:layout_toStartOf="@+id/linechart1"
+                    android:layout_toStartOf="@+id/sleepLinechart"
                     android:contentDescription="@string/todo"
                     app:srcCompat="@drawable/sll" />
 
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/linechart1"
+                <com.github.mikephil.charting.charts.CandleStickChart
+                    android:id="@+id/sleepLinechart"
                     android:layout_width="223dp"
                     android:layout_height="102dp"
                     android:layout_alignParentEnd="true"
@@ -209,7 +209,7 @@
                     android:id="@+id/text2"
                     android:layout_width="183dp"
                     android:layout_height="30dp"
-                    android:layout_below="@+id/barchart2"
+                    android:layout_below="@+id/ShowerLinechart"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
                     android:layout_marginTop="5dp"
@@ -231,12 +231,12 @@
                     android:layout_marginTop="43dp"
                     android:layout_marginEnd="-57dp"
                     android:layout_marginBottom="32dp"
-                    android:layout_toStartOf="@+id/barchart2"
+                    android:layout_toStartOf="@+id/ShowerLinechart"
                     android:contentDescription="@string/todo"
                     app:srcCompat="@drawable/bath" />
 
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/barchart2"
+                <com.github.mikephil.charting.charts.CandleStickChart
+                    android:id="@+id/ShowerLinechart"
                     android:layout_width="223dp"
                     android:layout_height="102dp"
                     android:layout_alignParentEnd="true"
@@ -318,7 +318,7 @@
                     android:id="@+id/text3"
                     android:layout_width="183dp"
                     android:layout_height="30dp"
-                    android:layout_below="@+id/barchart3"
+                    android:layout_below="@+id/breakfastLinechart"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
                     android:layout_marginTop="5dp"
@@ -327,7 +327,7 @@
                     android:text="Time"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
-                    android:textSize="24sp" />
+                    android:textSize="10sp" />
 
                 <ImageView
                     android:id="@+id/image3"
@@ -340,12 +340,12 @@
                     android:layout_marginTop="43dp"
                     android:layout_marginEnd="-57dp"
                     android:layout_marginBottom="32dp"
-                    android:layout_toStartOf="@+id/barchart3"
+                    android:layout_toStartOf="@+id/breakfastLinechart"
                     android:contentDescription="@string/todo"
                     app:srcCompat="@drawable/eating" />
 
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/barchart3"
+                <com.github.mikephil.charting.charts.CandleStickChart
+                    android:id="@+id/breakfastLinechart"
                     android:layout_width="223dp"
                     android:layout_height="102dp"
                     android:layout_alignParentEnd="true"
@@ -427,7 +427,7 @@
                     android:id="@+id/text4"
                     android:layout_width="183dp"
                     android:layout_height="30dp"
-                    android:layout_below="@+id/barchart4"
+                    android:layout_below="@+id/medicineLinechart"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
                     android:layout_marginTop="5dp"
@@ -436,7 +436,7 @@
                     android:text="Time"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
-                    android:textSize="24sp" />
+                    android:textSize="10sp" />
 
                 <ImageView
                     android:id="@+id/image4"
@@ -449,12 +449,12 @@
                     android:layout_marginTop="43dp"
                     android:layout_marginEnd="-57dp"
                     android:layout_marginBottom="32dp"
-                    android:layout_toStartOf="@+id/barchart4"
+                    android:layout_toStartOf="@+id/medicineLinechart"
                     android:contentDescription="@string/todo"
                     app:srcCompat="@drawable/medicine" />
 
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/barchart4"
+                <com.github.mikephil.charting.charts.CandleStickChart
+                    android:id="@+id/medicineLinechart"
                     android:layout_width="223dp"
                     android:layout_height="102dp"
                     android:layout_alignParentEnd="true"
@@ -537,7 +537,7 @@
                     android:id="@+id/text5"
                     android:layout_width="183dp"
                     android:layout_height="30dp"
-                    android:layout_below="@+id/barchart5"
+                    android:layout_below="@+id/lunchLinechart"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
                     android:layout_marginTop="5dp"
@@ -546,7 +546,7 @@
                     android:text="Time"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
-                    android:textSize="24sp" />
+                    android:textSize="10sp" />
 
                 <ImageView
                     android:id="@+id/image5"
@@ -559,12 +559,12 @@
                     android:layout_marginTop="43dp"
                     android:layout_marginEnd="-57dp"
                     android:layout_marginBottom="32dp"
-                    android:layout_toStartOf="@+id/barchart5"
+                    android:layout_toStartOf="@+id/lunchLinechart"
                     android:contentDescription="@string/todo"
                     app:srcCompat="@drawable/eating" />
 
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/barchart5"
+                <com.github.mikephil.charting.charts.CandleStickChart
+                    android:id="@+id/lunchLinechart"
                     android:layout_width="223dp"
                     android:layout_height="102dp"
                     android:layout_alignParentEnd="true"
@@ -647,7 +647,7 @@
                     android:id="@+id/text6"
                     android:layout_width="183dp"
                     android:layout_height="30dp"
-                    android:layout_below="@+id/barchart6"
+                    android:layout_below="@+id/tvLinechart"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
                     android:layout_marginTop="5dp"
@@ -656,7 +656,7 @@
                     android:text="Time"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
-                    android:textSize="24sp" />
+                    android:textSize="10sp" />
 
                 <ImageView
                     android:id="@+id/image6"
@@ -669,12 +669,12 @@
                     android:layout_marginTop="43dp"
                     android:layout_marginEnd="-57dp"
                     android:layout_marginBottom="32dp"
-                    android:layout_toStartOf="@+id/barchart6"
+                    android:layout_toStartOf="@+id/tvLinechart"
                     android:contentDescription="@string/todo"
                     app:srcCompat="@drawable/pc" />
 
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/barchart6"
+                <com.github.mikephil.charting.charts.CandleStickChart
+                    android:id="@+id/tvLinechart"
                     android:layout_width="223dp"
                     android:layout_height="102dp"
                     android:layout_alignParentEnd="true"
@@ -757,7 +757,7 @@
                     android:id="@+id/text7"
                     android:layout_width="183dp"
                     android:layout_height="30dp"
-                    android:layout_below="@+id/barchart7"
+                    android:layout_below="@+id/dinnerLinechart"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
                     android:layout_marginTop="5dp"
@@ -766,7 +766,7 @@
                     android:text="Time"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
-                    android:textSize="24sp" />
+                    android:textSize="10sp" />
 
                 <ImageView
                     android:id="@+id/image7"
@@ -779,12 +779,12 @@
                     android:layout_marginTop="43dp"
                     android:layout_marginEnd="-57dp"
                     android:layout_marginBottom="32dp"
-                    android:layout_toStartOf="@+id/barchart7"
+                    android:layout_toStartOf="@+id/dinnerLinechart"
                     android:contentDescription="@string/todo"
                     app:srcCompat="@drawable/eating" />
 
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/barchart7"
+                <com.github.mikephil.charting.charts.CandleStickChart
+                    android:id="@+id/dinnerLinechart"
                     android:layout_width="223dp"
                     android:layout_height="102dp"
                     android:layout_alignParentEnd="true"
@@ -844,7 +844,7 @@
             android:layout_width="380dp"
             android:layout_height="68dp"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="132dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:background="#954C4C"

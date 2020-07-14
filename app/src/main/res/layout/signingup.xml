@@ -49,7 +49,7 @@
             android:backgroundTint="@android:color/background_light"
             android:onClick="loginoption"
             android:text="Already registered? Click here to Log in"
-            android:textColor="@color/red"
+            android:textColor="@color/appTheme"
             tools:backgroundTint="@color/common_google_signin_btn_text_dark_default" />
 
     </LinearLayout>
