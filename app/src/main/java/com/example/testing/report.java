@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -44,6 +46,8 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -83,6 +87,34 @@ public class report extends AppCompatActivity {
         chart6 = (CandleStickChart) findViewById(R.id.tvLinechart);
         chart7 = (CandleStickChart) findViewById(R.id.dinnerLinechart);
 
+        YAxis sleepleft = chart1.getAxisLeft();
+        sleepleft.setAxisMaximum((float) 24.0);
+        sleepleft.setAxisMinimum(4);
+
+        YAxis showerleft = chart2.getAxisLeft();
+        showerleft.setAxisMaximum((float) 24.0);
+        showerleft.setAxisMinimum(15);
+
+        YAxis bfleft = chart3.getAxisLeft();
+        bfleft.setAxisMaximum((float) 11.0);
+        bfleft.setAxisMinimum(5);
+
+        YAxis medleft = chart4.getAxisLeft();
+        medleft.setAxisMaximum((float) 10.0);
+        medleft.setAxisMinimum(6);
+
+        YAxis lunchleft = chart5.getAxisLeft();
+        lunchleft.setAxisMaximum((float) 16.0);
+        lunchleft.setAxisMinimum(10);
+
+        YAxis tvleft = chart6.getAxisLeft();
+        tvleft.setAxisMaximum((float) 20.0);
+        tvleft.setAxisMinimum(12);
+
+        YAxis dinnerleft = chart7.getAxisLeft();
+        dinnerleft.setAxisMaximum((float) 23.0);
+        dinnerleft.setAxisMinimum(16);
+
         activityChartMap.put("Sleep", chart1);
         activityChartMap.put("Bath", chart2);
         activityChartMap.put("Breakfast", chart3);
@@ -119,20 +151,19 @@ public class report extends AppCompatActivity {
 
 
         contactList = new ArrayList<>();
-        //new GetActivity().execute();
 
         isMyServiceRunning(userreport.class);
 
         breceiver ar = new breceiver();
-        IntentFilter filter = new IntentFilter("cookact");
+        IntentFilter filter = new IntentFilter("intentAction");
         registerReceiver(ar, filter);
         // unregisterReceiver(ar);
 
         Intent passedIntent = getIntent();
         userStr = passedIntent.getStringExtra("user");
 
-        startService(new Intent(this, userreport.class));
-        Log.d("", "service runing check which might be the cause for error");
+       startService(new Intent(this, userreport.class));
+        Log.d("", "service running check which might be the cause for error");
     }
 
 
@@ -148,146 +179,12 @@ public class report extends AppCompatActivity {
         return false;
     }
 
-    private class GetActivity extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            //Toast.makeText(report.this, "Json Data is downloading", Toast.LENGTH_LONG).show();
-        }
-
-        @SuppressLint("SetTextI18n")
-        @Override
-        protected Void doInBackground(Void... arg0) {
-            HttpHandler sh = new HttpHandler();
-            // Making a request to url and getting response
-            String url = "http://163.221.68.248:8080/api";
-            String jsonStr = sh.makeServiceCall(url);
-
-            Log.e(TAG, "Response from url: " + jsonStr);
-            if (jsonStr != null) {
-                try {
-                    JSONObject jsonObj = new JSONObject(jsonStr.substring(jsonStr.indexOf("{"), jsonStr.lastIndexOf("}") + 1));
-
-                    // Getting JSON Array node
-                    JSONArray contacts = jsonObj.getJSONArray("result");
-
-                    // looping through All Activities
-                    for (int i = 0; i < contacts.length(); i++) {
-
-                        JSONObject c = contacts.getJSONObject(i);
-
-                        String activity = c.getString("actv");
-
-                        String date = c.getString("start_time");
-
-                        String cookduration = c.getString("duration");
-                        String eatduration = c.getString("duration");
-
-                        // tmp hash map for single contact
-                        HashMap<String, String> contact = new HashMap<>();
-
-                        // adding each child node to HashMap key => value
-
-                        contact.put("actv", activity);
-                        //contact.put("start_time", date);
-
-                        if (activity.equals("Cook")) {
-                            contact.put("duration", cookduration);
-                            contact.put("start_time", date);
-
-                            int cookingtime = Integer.parseInt(cookduration) / (60 * 1000);
-                            if (cookingtime >= 60) {
-                                long cookinghour = cookingtime / (60);
-                                text1.setText("Sleep Duration: " + cookinghour + " " + "hours and " + cookingtime + " " + "minutes");
-                            } else {
-                                text1.setText("Sleep Duration: " + cookingtime + "  " + "minutes");
-                            }
-                            Log.d("duration of cooking", "" + cookingtime);
-
-                            Log.d("start time for cooking", "" + date);
-
-                            DateFormat format = new SimpleDateFormat("YY-mm-dd HH:mm:ss");
-                            Date newdate = format.parse(date);
-                            // long dd = Long.parseLong(new SimpleDateFormat("HH:mm").format(newdate));
-                            // Double d = Double.parseDouble(dd);
-
-
-                            Log.d("time time time time", " " + newdate + " and then" + " hawa hwa hwa");
-
-                            card1.setVisibility(View.INVISIBLE);
-                            //sleepradio.setVisibility(View.INVISIBLE);
-
-
-                            //drawchart(5.5f, 8.2f);
-
-//                            managenotifications not = new managenotifications();
-//                            not.notice();
-                        }
-
-                        if (activity.equals("Eat")) {
-                            contact.put("duration", eatduration);
-                            int eatingtime = Integer.parseInt(cookduration) / (60 * 1000);
-                            Log.d("Eating time", "" + eatingtime);
-
-                            if (eatingtime >= 60) {
-                                long cookinghour = eatingtime / (60);
-                                text2.setText("Shower Duration: " + cookinghour + " " + "hours and " + eatingtime + " " + "minutes");
-                            } else {
-                                text2.setText("Shower Duration: " + eatingtime + "  " + "minutes");
-                            }
-
-                            //drawchart2();
-
-                        } else {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-
-                                }
-                            });
-                        }
-                        // adding contact to contact list
-                        contactList.add(contact);
-                    }
-                } catch (final JSONException | ParseException e) {
-                    Log.e(TAG, "Json parsing error: " + e.getMessage());
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getApplicationContext(),
-                                    "Json parsing error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    });
-                }
-
-            } else {
-                Log.e(TAG, "Couldn't get json from server.");
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(),
-                                "Couldn't get json from server. Check LogCat for possible errors!",
-                                Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-        }
-    }
-
-
     public class breceiver extends BroadcastReceiver {
+        @RequiresApi(api = Build.VERSION_CODES.O)
         @SuppressLint({"SimpleDateFormat", "SetTextI18n"})
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (Objects.equals(intent.getAction(), "cookact")) {
+            if (Objects.equals(intent.getAction(), "intentAction")) {
                 // Get username from intent
                 String username = intent.getStringExtra("user");
                 Log.d("getting username from service", username);
@@ -295,10 +192,6 @@ public class report extends AppCompatActivity {
                 // Check if this is the username we want
                 if (userStr.equals(username)) {
                     String activityDuration = intent.getStringExtra("activityDuration"); //text
-
-//                String completiontime =intent.getStringExtra("activitycompletiontime"); //y-value
-
-                    // String cookingdate = intent.getStringExtra("cookdate");
 
                     ArrayList<String> endarray = intent.getStringArrayListExtra("endtimearraylist");
                     Log.d("endtime array", String.valueOf((endarray)));
@@ -309,56 +202,90 @@ public class report extends AppCompatActivity {
                     ArrayList<String> startarray = intent.getStringArrayListExtra("starttimearraylist");
                     Log.d("starttime array", String.valueOf((startarray)));
 
+                    ArrayList<String> datearray = intent.getStringArrayListExtra("datelist");
+                    Log.d("datearray", String.valueOf((datearray)));
 
                     String activityType = intent.getStringExtra("actv");
                     Log.d("getting activity from service", activityType);
 
                     submitbutton(username);
 
+                   // LocalDate startDate = LocalDate.of(2019, Month.JUNE, 5);
 
-                    if (Float.parseFloat(activityDuration) >= 60) {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Setting date format
 
-                        String durationOfActivity = Long.parseLong(activityDuration) / 60 % 24 + " Hours" + ":  " + Long.parseLong(activityDuration) % 60 + "  Minutes";
+                   // LocalDate endDate = LocalDate.of(2019, Month.JUNE, 8);
+
+                    LocalDate startDate = LocalDate.parse(datearray.get(0));
+
+                    LocalDate today = LocalDate.now();
+
+                    Log.d("startdatelocal", String.valueOf(startDate));
+                    Log.d("dayoftheyear", String.valueOf(today.getDayOfYear()));
+
+                    int enddateindex = (today.getDayOfYear() % (datearray.size()-2)) + 2;
+                    String activitydur = durarray.get(enddateindex);
+                    Log.d("activitydur", String.valueOf(activitydur));
+
+
+                    LocalDate endDate = LocalDate.parse(datearray.get(enddateindex));
+                    Log.d("enddatelocal", String.valueOf(endDate));
+
+
+//                    LocalDate startDate = endDate.minusDays(endDate.getDayOfWeek().ordinal()); // start Date
+
+                    Log.d("startttt", String.valueOf(endDate.getDayOfWeek().ordinal()));
+
+
+                    ArrayList<String> modStartArray = new ArrayList<>();
+                    ArrayList<String> modEndArray = new ArrayList<>();
+
+
+                    for(int i = 0; i < datearray.size(); i++){
+                        String datestr = datearray.get(i);
+                        LocalDate d = LocalDate.parse(datestr, formatter);
+                        if((d.isAfter(startDate) || d.isEqual(startDate)) && (d.isBefore(endDate)|| d.isEqual(endDate))){
+                            modEndArray.add(endarray.get(i));
+                            modStartArray.add(startarray.get(i));
+                        }
+                    }
+
+                    if (Float.parseFloat(activitydur) >= 60) {
+
+                        String durationOfActivity = Long.parseLong(activitydur) / 60 % 24 + " Hours" + ":  " + Long.parseLong(activitydur) % 60 + "  Minutes";
 
                         durationTextview = TextHash.get(activityType);
 
-                        durationTextview.setText("Duration of Activity is :  " + durationOfActivity);
-                        Log.d("durationOfActivity", String.valueOf(durationOfActivity));
+                        assert durationTextview != null;
+                        durationTextview.setText("Duration of Activity :  " + durationOfActivity);
 
+                        Log.d("durationOfActivity", (durationOfActivity));
 
-                        drawchart(startarray, endarray, activityType);
+                        drawchart(modStartArray, modEndArray, datearray, activityType);
+
                     } else {
                         durationTextview = TextHash.get(activityType);
 
-                        long durationOfActivity = Long.parseLong(activityDuration);
+                        long durationOfActivity = Long.parseLong(activitydur);
 
                         Log.d("durationOfActivity", String.valueOf(durationOfActivity));
 
-                        durationTextview.setText("Duration of Activity :  " + activityDuration + "  minutes");
+                        durationTextview.setText("Duration of Activity :  " + activitydur + "  minutes");
 
-                        //text1.setText("Duration of sleep: " + cookingduration + "   minutes");
-
-                        drawchart(startarray, endarray, activityType);
-
-
-//                }
-//                if (Float.parseFloat(cookingduration) == (0)){
-//                    card1.setVisibility(View.INVISIBLE);
-//                }
-//                    card1.setVisibility(View.GONE);
-//                    sleepradio.setVisibility(View.GONE);
+                        drawchart(modStartArray, modEndArray, datearray, activityType);
                     }
+
                 }
             }
         }
 
 
-        public void drawchart(ArrayList<String> x, ArrayList<String> y, String activityType) {
+        public void drawchart(ArrayList<String> x, ArrayList<String> y, ArrayList<String> z, String activityType) {
 
             ArrayList<CandleEntry> candleEntryTry = new ArrayList<CandleEntry>();
 
             for (int i = 0; i < x.size(); i++) {
-                candleEntryTry.add(new CandleEntry(i, 30, 0, (float) i, Float.parseFloat(y.get(i))));
+                candleEntryTry.add(new CandleEntry(i, 23, 0, Float.parseFloat(x.get(i)), Float.parseFloat(y.get(i))));
                 Log.d("graph thing", x.get(i));
             }
 
@@ -377,15 +304,22 @@ public class report extends AppCompatActivity {
             selectedChart.setHighlightPerDragEnabled(true);
             selectedChart.setBorderColor(getResources().getColor((R.color.borderofGraph)));
 
-            XAxis XAxis = selectedChart.getXAxis();
-            XAxis.setDrawGridLines(false);
-            XAxis.setDrawLabels(false);
-            XAxis.setGranularityEnabled(true);
-            XAxis.setGranularity(1f);
-            XAxis.setAvoidFirstLastClipping(true);
+            XAxis xAxis = selectedChart.getXAxis();
+            xAxis.setValueFormatter(new MyXAxisValueFormatter(z));
+
+            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+            xAxis.setDrawGridLines(false);
+            xAxis.setDrawLabels(true);
+            xAxis.setGranularityEnabled(true);
+            xAxis.setGranularity(1f);
+            xAxis.setAvoidFirstLastClipping(true);
 
             YAxis leftAxis = selectedChart.getAxisLeft();
             YAxis rightAxis = selectedChart.getAxisRight();
+            leftAxis.setValueFormatter(new MyYAxisValueFormatter());
+
+
             rightAxis.setTextColor(Color.WHITE);
             leftAxis.setDrawGridLines(false);
             rightAxis.setDrawGridLines(false);
@@ -563,20 +497,34 @@ public class report extends AppCompatActivity {
             });
         }
 
-        private class MyXAxisValueFormatter implements IAxisValueFormatter {
-            private DecimalFormat mFormat;
-            private String[] yvalues;
 
-            public MyXAxisValueFormatter(String[] values) {
-                // format values to 1 decimal digit
-                //mFormat = new DecimalFormat("#,#,#0.0");
-                this.yvalues = values;
+        private class MyYAxisValueFormatter implements IAxisValueFormatter {
+            public MyYAxisValueFormatter() {
             }
 
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
                 //return mFormat.format(value) + "am";
-                return yvalues[(int) value];
+                return (int) value + ":00";
+            }
+        }
+
+        private class MyXAxisValueFormatter implements IAxisValueFormatter {
+            private ArrayList<String> mValues;
+
+
+            public MyXAxisValueFormatter(ArrayList<String> values) {
+                this.mValues = values;
+
+                for(int i =0; i< mValues.size();i++){
+                    String newval = mValues.get(i).replace("2019-", "");
+                    mValues.set(i, newval);
+               }
+            }
+
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return mValues.get((int) value);
             }
         }
     }

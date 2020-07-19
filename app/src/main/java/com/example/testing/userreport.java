@@ -1,34 +1,26 @@
 package com.example.testing;
 
 import android.annotation.SuppressLint;
-import android.app.IntentService;
 import android.app.Service;
-import android.app.job.JobService;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
-import androidx.core.app.JobIntentService;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-
-import com.google.gson.JsonArray;
+import androidx.core.content.ContextCompat;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -42,7 +34,6 @@ public class userreport extends Service {
     public void onCreate() {
         super.onCreate();
         context = getBaseContext();
-
     }
 
     @Override
@@ -57,7 +48,6 @@ public class userreport extends Service {
         final getactivitydata task = new getactivitydata();
         task.execute();
         return super.onStartCommand(intent, flags, startId);
-
     }
 
 
@@ -98,6 +88,8 @@ public class userreport extends Service {
                         String endtime = c.getString("end_time");
                         String starttime = c.getString("start_time");
                         String activityDuration = c.getString("duration");
+                        String activityDate = c.getString("date");
+
 
                         // tmp hash map for single activityMap
                         HashMap<String, String> activityMap = new HashMap<>();
@@ -107,6 +99,7 @@ public class userreport extends Service {
                         activityMap.put("end_time", endtime);
                         activityMap.put("start_time", starttime);
                         activityMap.put("duration", activityDuration);
+                        activityMap.put("date", activityDate);
 
                         activityMapList.add(activityMap);
                     }
@@ -137,6 +130,7 @@ public class userreport extends Service {
                         for (String activityTypeFilter : activityTypeList) {
                             ArrayList<String>  startList = new ArrayList<>();
                             ArrayList<String>  endList = new ArrayList<>();
+                            ArrayList<String>  dateList = new ArrayList<>();
                             ArrayList<String>  durationList = new ArrayList<>();
 
                             // Find all actvities in the activity map list that match our filters
@@ -156,6 +150,8 @@ public class userreport extends Service {
                                 startList.add( activityMap.get("start_time")  );
                                 endList.add( activityMap.get("end_time")  );
                                 durationList.add( activityMap.get("duration")  );
+                                dateList.add(activityMap.get("date"));
+
                             }
                             Log.d("startList array", String.valueOf((startList)));
                             Log.d("endList array", String.valueOf((endList)));
@@ -165,7 +161,6 @@ public class userreport extends Service {
                             for ( int i = 0; i < startList.size(); i++ ) {
                                 // Convert the timestamp format to numeric values that can be graphed
                                 @SuppressLint("SimpleDateFormat") Date newtime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(startList.get(i));
-                                //@SuppressLint("SimpleDateFormat") String startTimeVal = new SimpleDateFormat("EEE, MMM d").format(newtime);
                                 Calendar cal = Calendar.getInstance();
                                 cal.setTime(newtime);
                                 String startTimeChartVal = String.valueOf(cal.get(Calendar.HOUR_OF_DAY) + ((float)(cal.get(Calendar.MINUTE)) / 60.0));
@@ -179,10 +174,27 @@ public class userreport extends Service {
                             // Correct the format of the end times in the end time list
                             for ( int i = 0; i < endList.size(); i++ ) {
                                 // Convert the timestamp format to numeric values that can be graphed
+
                                 @SuppressLint("SimpleDateFormat") Date newtime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(endList.get(i));
                                 Calendar cal = Calendar.getInstance();
                                 cal.setTime(newtime);
                                 String endTimeVal = String.valueOf(cal.get(Calendar.HOUR_OF_DAY) + ((float)(cal.get(Calendar.MINUTE)) / 60.0));
+
+                                @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                                String endtime = sdf.format(newtime);
+                                String endTimeMinutes = String.valueOf(endtime);
+
+                                @SuppressLint("SimpleDateFormat") String currentTime = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
+
+                               // Log.d("testing endtime array", (endTimeMinutes));
+                                //Log.d("testing currenttime array", (currentTime));
+
+
+                                if (endTimeMinutes.equals(currentTime)) {
+                                    managenotifications sendNotification = new managenotifications(context);
+                                    sendNotification.notice(currentTime);
+                                    Log.d("testing for notification", currentTime);
+                                }
 
                                 // Replace the original list item
                                 endList.set(i, endTimeVal);
@@ -198,13 +210,15 @@ public class userreport extends Service {
 
                             // Build the intent
                             String lastactivityduration = durationList.get(durationList.size()-1);
-                            Intent in = new Intent("cookact");
+                            Intent in = new Intent("intentAction");
                             in.putExtra("user", userFilter);
                             in.putExtra("actv", activityTypeFilter);
                             in.putExtra("activityDuration", lastactivityduration);
                             in.putStringArrayListExtra("starttimearraylist", startList);
                             in.putStringArrayListExtra("endtimearraylist", endList);
                             in.putStringArrayListExtra("durationarraylist", durationList);
+                            in.putStringArrayListExtra("datelist", dateList);
+
 
                             // Broadcast the intent
                             sendBroadcast(in);
@@ -213,56 +227,6 @@ public class userreport extends Service {
                     }
 
 
-                            /** IMPORTANT **/
-//                            managenotifications not = new managenotifications(context);
-////                            not.notice(endtime);
-                            /** IMPORTANT **/
-
-//                            String cookingduration = String.valueOf(Integer.parseInt(activityDuration)/ (60 * 1000));
-//
-//                            Log.d("duration of cooking", "" + cookingduration);
-//                            Log.d("start time for cooking", "" + starttime);
-//
-//
-//
-//
-//                            for (int index=0; index<jsonActivities.length(); ++index){
-//                                JSONObject currentFriend = jsonActivities.getJSONObject(index);
-//                                String ida = currentFriend.getString("duration");
-//                                String durr = String.valueOf((Integer.parseInt(ida)/ (60 * 1000)));
-//                                in.putExtra("duration", durr);
-//                                durationList.add(durr);
-//                            }
-//
-//
-//                            //do date manipulation here and get only required value from json
-//                            for (int index=0; index<jsonActivities.length(); ++index){
-//
-//                                JSONObject currentFriend1 = jsonActivities.getJSONObject(index);
-//                                String id1 = currentFriend1.getString("actv");
-//                                String ida1 = currentFriend1.getString("end_time");
-//                                if (id1.equals("Cook")){
-//                                    in.putExtra("endtime", ida1);
-//                                    Log.d(" of cooking", "" + ida1);
-//                                    endlist.add(ida1);
-//                                    in.putStringArrayListExtra("endtimearraylist",endlist);
-//                                }
-//                            }
-//                            for (int index=0; index<jsonActivities.length(); ++index){
-//
-//                                JSONObject currentFriend2 = jsonActivities.getJSONObject(index);
-//                                String id2 = currentFriend2.getString("actv");
-//                                String ida2 = currentFriend2.getString("start_time");
-//                                if (id2.equals("Lunch")){
-//                                    in.putExtra("starttime", ida2);
-//                                    Log.d(" of cooking", "" + ida2);
-//                                    startlist.add(ida2);
-//                                    in.putStringArrayListExtra("starttimearraylist",startlist);
-//                                }
-//                            }
-//
-//
-//                            sendBroadcast(in);
                 } catch (final JSONException | ParseException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {

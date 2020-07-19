@@ -102,10 +102,9 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="64dp"
                     android:layout_marginBottom="8dp"
-                    android:text="Time"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
-                    android:textSize="10sp" />
+                    android:textSize="12sp" />
 
                 <ImageView
                     android:id="@+id/image1"
@@ -215,10 +214,9 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="64dp"
                     android:layout_marginBottom="8dp"
-                    android:text="Time"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
-                    android:textSize="10sp" />
+                    android:textSize="12sp" />
 
                 <ImageView
                     android:id="@+id/image2"
@@ -324,10 +322,9 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="64dp"
                     android:layout_marginBottom="8dp"
-                    android:text="Time"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
-                    android:textSize="10sp" />
+                    android:textSize="12sp" />
 
                 <ImageView
                     android:id="@+id/image3"
@@ -433,10 +430,9 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="64dp"
                     android:layout_marginBottom="8dp"
-                    android:text="Time"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
-                    android:textSize="10sp" />
+                    android:textSize="12sp" />
 
                 <ImageView
                     android:id="@+id/image4"
@@ -543,10 +539,9 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="64dp"
                     android:layout_marginBottom="8dp"
-                    android:text="Time"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
-                    android:textSize="10sp" />
+                    android:textSize="12sp" />
 
                 <ImageView
                     android:id="@+id/image5"
@@ -653,10 +648,9 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="64dp"
                     android:layout_marginBottom="8dp"
-                    android:text="Time"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
-                    android:textSize="10sp" />
+                    android:textSize="12sp" />
 
                 <ImageView
                     android:id="@+id/image6"
@@ -763,10 +757,9 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="64dp"
                     android:layout_marginBottom="8dp"
-                    android:text="Time"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
-                    android:textSize="10sp" />
+                    android:textSize="12sp" />
 
                 <ImageView
                     android:id="@+id/image7"

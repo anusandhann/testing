@@ -43,7 +43,6 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".MyXAxisValueFormatter"/>
     <activity
             android:name=".signingup"
             android:screenOrientation="portrait" />

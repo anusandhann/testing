@@ -3,6 +3,7 @@ package com.example.testing;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -47,6 +49,15 @@ public class select extends AppCompatActivity {
             }
         };
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+           // getApplicationContext().startForegroundService(new Intent(getApplicationContext(), userreport.class));
+            ContextCompat.startForegroundService(this, new Intent(getApplicationContext(), userreport.class));
+
+        } else {
+          //  getApplicationContext().startService(new Intent(getApplicationContext(), userreport.class));
+            ContextCompat.startForegroundService(this, new Intent(getApplicationContext(), userreport.class));
+
+        }
       isMyServiceRunning(userreport.class);
       startService(new Intent(this, userreport.class));
         Log.d("", "service runing check 1");

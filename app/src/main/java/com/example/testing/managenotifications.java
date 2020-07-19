@@ -28,8 +28,6 @@ public class managenotifications extends JobIntentService {
 
     Context context;
 
-    public managenotifications() { }
-
     public managenotifications(Context context) {
         this.context = context;
     }
