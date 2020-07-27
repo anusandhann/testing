@@ -132,6 +132,8 @@ public class userreport extends Service {
                             ArrayList<String>  endList = new ArrayList<>();
                             ArrayList<String>  dateList = new ArrayList<>();
                             ArrayList<String>  durationList = new ArrayList<>();
+                            ArrayList<String>  endtimeList = new ArrayList<>();
+
 
                             // Find all actvities in the activity map list that match our filters
                             for (HashMap<String, String> activityMap : activityMapList) {
@@ -149,6 +151,7 @@ public class userreport extends Service {
                                 // Fill up the array lists using values from each activity map
                                 startList.add( activityMap.get("start_time")  );
                                 endList.add( activityMap.get("end_time")  );
+                                endtimeList.add( activityMap.get("end_time")  );
                                 durationList.add( activityMap.get("duration")  );
                                 dateList.add(activityMap.get("date"));
 
@@ -186,16 +189,12 @@ public class userreport extends Service {
 
                                 @SuppressLint("SimpleDateFormat") String currentTime = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
 
-                               // Log.d("testing endtime array", (endTimeMinutes));
-                                //Log.d("testing currenttime array", (currentTime));
-
 
                                 if (endTimeMinutes.equals(currentTime)) {
                                     managenotifications sendNotification = new managenotifications(context);
                                     sendNotification.notice(currentTime);
                                     Log.d("testing for notification", currentTime);
                                 }
-
                                 // Replace the original list item
                                 endList.set(i, endTimeVal);
                             }
@@ -218,6 +217,8 @@ public class userreport extends Service {
                             in.putStringArrayListExtra("endtimearraylist", endList);
                             in.putStringArrayListExtra("durationarraylist", durationList);
                             in.putStringArrayListExtra("datelist", dateList);
+                            in.putStringArrayListExtra("endtimeList", endtimeList);
+
 
 
                             // Broadcast the intent

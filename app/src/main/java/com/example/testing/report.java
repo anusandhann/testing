@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,7 +17,6 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,17 +36,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
@@ -56,22 +51,24 @@ import java.util.Objects;
 //this is the main class..i read the dataset, create graph, and provoke notifications from this class.
 public class report extends AppCompatActivity {
 
-    public CandleStickChart chart2, chart3, chart4, chart5, chart6, chart7;
-    public CandleStickChart chart1;
+    public CandleStickChart chart1, chart2, chart3, chart4, chart5, chart6, chart7;
     public TextView text1, text2, text3, text4, text5, text6, text7, durationTextview;
     RadioButton sleep, shower, bf, lunch, dinner, medication, tv;
-    private RadioGroup sleepradio, showerradio, breakfastradio, medicationradio, lunchradio, tvradio, dinnerradio;
+    private RadioGroup sleepradio, showerradio, breakfastradio, medicationradio, lunchradio, tvradio, dinnerradio, thisRadiogp;
     Button submitreport;
     private String TAG = csvread.class.getSimpleName();
 
     ArrayList<HashMap<String, String>> contactList;
-    public CardView card1, card2, card3, card4, card5, card6, card7;
+    public CardView card1, card2, card3, card4, card5, card6, card7, thisCard;
 
-    private HashMap<String, TextView> TextHash = new HashMap<>();
+    private HashMap<String, TextView> textHash = new HashMap<>();
+
+    private HashMap<String, CardView> cardHash = new HashMap<>();
+
+    private HashMap<String, RadioGroup> radioHash = new HashMap<>();
 
     private HashMap<String, CandleStickChart> activityChartMap = new HashMap<>();
     private String userStr = null;
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,12 +85,12 @@ public class report extends AppCompatActivity {
         chart7 = (CandleStickChart) findViewById(R.id.dinnerLinechart);
 
         YAxis sleepleft = chart1.getAxisLeft();
-        sleepleft.setAxisMaximum((float) 24.0);
+        sleepleft.setAxisMaximum((float) 26.0);
         sleepleft.setAxisMinimum(4);
 
         YAxis showerleft = chart2.getAxisLeft();
         showerleft.setAxisMaximum((float) 24.0);
-        showerleft.setAxisMinimum(15);
+        showerleft.setAxisMinimum(9);
 
         YAxis bfleft = chart3.getAxisLeft();
         bfleft.setAxisMaximum((float) 11.0);
@@ -132,13 +129,13 @@ public class report extends AppCompatActivity {
         text7 = (TextView) findViewById(R.id.text7);
 
 
-        TextHash.put("Sleep", text1);
-        TextHash.put("Bath", text2);
-        TextHash.put("Breakfast", text3);
-        TextHash.put("medicine ", text4); // TODO Remove the space at end next time
-        TextHash.put("Lunch", text5);
-        TextHash.put("TV", text6);
-        TextHash.put("Dinner", text7);
+        textHash.put("Sleep", text1);
+        textHash.put("Bath", text2);
+        textHash.put("Breakfast", text3);
+        textHash.put("medicine ", text4); // TODO Remove the space at end next time
+        textHash.put("Lunch", text5);
+        textHash.put("TV", text6);
+        textHash.put("Dinner", text7);
 
 
         card1 = (CardView) findViewById(R.id.sleepcard);
@@ -149,6 +146,29 @@ public class report extends AppCompatActivity {
         card6 = (CardView) findViewById(R.id.tvcard);
         card7 = (CardView) findViewById(R.id.dinnercard);
 
+        cardHash.put("Sleep", card1);
+        cardHash.put("Bath", card2);
+        cardHash.put("Breakfast", card3);
+        cardHash.put("medicine ", card4);
+        cardHash.put("Lunch", card5);
+        cardHash.put("TV", card6);
+        cardHash.put("Dinner", card7);
+
+        lunchradio = (RadioGroup) findViewById(R.id.lunchbutton);
+        dinnerradio = (RadioGroup) findViewById(R.id.dinnerbutton);
+        tvradio = (RadioGroup) findViewById(R.id.tvbutton);
+        medicationradio = (RadioGroup) findViewById(R.id.medicationbutton);
+        breakfastradio = (RadioGroup) findViewById(R.id.breakfastbutton);
+        showerradio = (RadioGroup) findViewById(R.id.showerbutton);
+        sleepradio = (RadioGroup) findViewById(R.id.sleepbutton);
+
+        radioHash.put("Sleep", sleepradio);
+        radioHash.put("Bath", showerradio);
+        radioHash.put("Breakfast", breakfastradio);
+        radioHash.put("medicine ", medicationradio);
+        radioHash.put("Lunch", lunchradio);
+        radioHash.put("TV", tvradio);
+        radioHash.put("Dinner", dinnerradio);
 
         contactList = new ArrayList<>();
 
@@ -205,20 +225,24 @@ public class report extends AppCompatActivity {
                     ArrayList<String> datearray = intent.getStringArrayListExtra("datelist");
                     Log.d("datearray", String.valueOf((datearray)));
 
+                    ArrayList<String> endtimeArray = intent.getStringArrayListExtra("endtimeList");
+                    Log.d("endtimeList array", String.valueOf((endtimeArray)));
+
                     String activityType = intent.getStringExtra("actv");
                     Log.d("getting activity from service", activityType);
 
                     submitbutton(username);
 
-                   // LocalDate startDate = LocalDate.of(2019, Month.JUNE, 5);
-
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Setting date format
 
-                   // LocalDate endDate = LocalDate.of(2019, Month.JUNE, 8);
+                    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // Setting time format
 
                     LocalDate startDate = LocalDate.parse(datearray.get(0));
 
                     LocalDate today = LocalDate.now();
+                    LocalTime currentTime = LocalTime.now();
+
+                    Log.d("current localtime", String.valueOf(currentTime));
 
                     Log.d("startdatelocal", String.valueOf(startDate));
                     Log.d("dayoftheyear", String.valueOf(today.getDayOfYear()));
@@ -227,20 +251,17 @@ public class report extends AppCompatActivity {
                     String activitydur = durarray.get(enddateindex);
                     Log.d("activitydur", String.valueOf(activitydur));
 
-
                     LocalDate endDate = LocalDate.parse(datearray.get(enddateindex));
                     Log.d("enddatelocal", String.valueOf(endDate));
 
-
-//                    LocalDate startDate = endDate.minusDays(endDate.getDayOfWeek().ordinal()); // start Date
-
                     Log.d("startttt", String.valueOf(endDate.getDayOfWeek().ordinal()));
-
 
                     ArrayList<String> modStartArray = new ArrayList<>();
                     ArrayList<String> modEndArray = new ArrayList<>();
+                    ArrayList<String> prevModStartArray = new ArrayList<>();
+                    ArrayList<String> prevModEndArray = new ArrayList<>();
 
-
+                    //for graph where activity has been completed already for today
                     for(int i = 0; i < datearray.size(); i++){
                         String datestr = datearray.get(i);
                         LocalDate d = LocalDate.parse(datestr, formatter);
@@ -249,32 +270,67 @@ public class report extends AppCompatActivity {
                             modStartArray.add(startarray.get(i));
                         }
                     }
+                    //for graph where activity has not been completed for today (one less than Today's data)
+                    for(int i = 0; i < datearray.size(); i++){
+                        LocalDate PrevEndDate = LocalDate.parse(datearray.get(enddateindex-1));
+                        Log.d("PrevEndDate", String.valueOf(PrevEndDate));
+                        String datestr = datearray.get(i);
+                        LocalDate d = LocalDate.parse(datestr, formatter);
+                        if((d.isAfter(startDate) || d.isEqual(startDate)) && (d.isBefore(PrevEndDate)|| d.isEqual(PrevEndDate))){
+                            prevModEndArray.add(endarray.get(i));
+                            prevModStartArray.add(startarray.get(i));
+                        }
+                    }
+
+                    durationTextview = textHash.get(activityType);
+                    thisRadiogp = radioHash.get(activityType);
+                    thisCard = cardHash.get(activityType);
 
                     if (Float.parseFloat(activitydur) >= 60) {
 
                         String durationOfActivity = Long.parseLong(activitydur) / 60 % 24 + " Hours" + ":  " + Long.parseLong(activitydur) % 60 + "  Minutes";
-
-                        durationTextview = TextHash.get(activityType);
-
                         assert durationTextview != null;
-                        durationTextview.setText("Duration of Activity :  " + durationOfActivity);
-
                         Log.d("durationOfActivity", (durationOfActivity));
 
-                        drawchart(modStartArray, modEndArray, datearray, activityType);
+                        String actvTime = endtimeArray.get(enddateindex);
+                        Log.d("compareactivitytime", (actvTime));
 
-                    } else {
-                        durationTextview = TextHash.get(activityType);
+                        LocalDateTime lct = LocalDateTime.parse(actvTime, timeFormatter);
+                        LocalTime actTime = lct.toLocalTime(); //get activity completion time in localtime format
+
+                        if (currentTime.isAfter(actTime)) {
+                            thisCard.setVisibility(View.VISIBLE);
+                            drawchart(modStartArray, modEndArray, datearray, activityType);
+                            durationTextview.setText("Duration of Activity :  " + durationOfActivity);
+                            }
+                        else {
+                            thisRadiogp.setVisibility(View.GONE);
+                            }
+                    }
+                    else {
 
                         long durationOfActivity = Long.parseLong(activitydur);
+                        assert durationTextview != null;
 
                         Log.d("durationOfActivity", String.valueOf(durationOfActivity));
 
-                        durationTextview.setText("Duration of Activity :  " + activitydur + "  minutes");
+                        String actvTime = endtimeArray.get(enddateindex);
+                        Log.d("compareactivitytime2", (actvTime));
 
-                        drawchart(modStartArray, modEndArray, datearray, activityType);
+                        LocalDateTime lct = LocalDateTime.parse(actvTime,timeFormatter);
+                        LocalTime actTime = lct.toLocalTime(); //get activity completion time in localtime format
+
+                        if(currentTime.isAfter(actTime)){
+                            thisCard.setVisibility(View.VISIBLE);
+                            durationTextview.setText("Duration of Activity :  " + activitydur + "  minutes");
+                            drawchart(modStartArray, modEndArray, datearray, activityType);
+                            }
+                            else
+                            {
+                                thisRadiogp.setVisibility(View.INVISIBLE);
+                                drawchart(prevModStartArray , prevModEndArray, datearray, activityType);
+                            }
                     }
-
                 }
             }
         }
@@ -352,13 +408,6 @@ public class report extends AppCompatActivity {
 
             final String x = name;
 
-            lunchradio = (RadioGroup) findViewById(R.id.lunchbutton);
-            dinnerradio = (RadioGroup) findViewById(R.id.dinnerbutton);
-            tvradio = (RadioGroup) findViewById(R.id.tvbutton);
-            medicationradio = (RadioGroup) findViewById(R.id.medicationbutton);
-            breakfastradio = (RadioGroup) findViewById(R.id.breakfastbutton);
-            showerradio = (RadioGroup) findViewById(R.id.showerbutton);
-            sleepradio = (RadioGroup) findViewById(R.id.sleepbutton);
 
             final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
             final FirebaseUser thisuser = FirebaseAuth.getInstance().getCurrentUser();
@@ -400,103 +449,47 @@ public class report extends AppCompatActivity {
                     tv = (RadioButton) findViewById(tvstate);
 
 
-                    if (sleep.getText().equals("Normal")) {
-                        Log.d("value    ", String.valueOf(sleep.getText()));
+                    if (sleepradio.isEnabled()){
+                        Log.d("value   ", String.valueOf(sleep.getText()));
                         sleepmap.put("Sleep state", userdr);
-                        ref.child(x).child("Sleep").child(String.valueOf(sleep.getText())).child(id).updateChildren(sleepmap);
-                    } else if (sleep.getText().equals("Suspicious")) {
-                        Log.d("value    ", String.valueOf(sleep.getText()));
-                        sleepmap.put("Sleep state", userdr);
-                        ref.child(x).child("Sleep").child(String.valueOf(sleep.getText())).child(id).updateChildren(sleepmap);
-                    }
-//                else if(!sleepradio.isSelected()) {
-//                    Toast.makeText(getApplicationContext(), "Please check selection1" , Toast.LENGTH_LONG).show();
-//                }
+                        ref.child(x).child("Sleep").child(String.valueOf(sleep.getText())).child(id).updateChildren(sleepmap); }
 
-                    if (shower.getText().equals("Normal")) {
-                        Log.d("value    ", String.valueOf(shower.getText()));
-                        showermap.put("Shower state", userdr);
-                        ref.child(x).child("Shower").child(String.valueOf(shower.getText())).child(id).updateChildren(showermap);
-                    } else if (shower.getText().equals("Suspicious")) {
-                        Log.d("value    ", String.valueOf(shower.getText()));
+                    else if (showerradio.isEnabled()){
+                        Log.d("value ", String.valueOf(shower.getText()));
                         showermap.put("Shower state", userdr);
                         ref.child(x).child("Shower").child(String.valueOf(shower.getText())).child(id).updateChildren(showermap);
                     }
-//                else if(!showerradio.isSelected()) {
-//                    Toast.makeText(getApplicationContext(), "Please check selection2" , Toast.LENGTH_LONG).show();
-//                }
-
-                    if (bf.getText().equals("Normal")) {
-                        Log.d("value    ", String.valueOf(bf.getText()));
-                        bfmap.put("Breakfast state", userdr);
-                        ref.child(x).child("Breakfast").child(String.valueOf(bf.getText())).child(id).updateChildren(bfmap);
-                    } else if (bf.getText().equals("Suspicious")) {
-                        Log.d("value    ", String.valueOf(bf.getText()));
+                    else if (breakfastradio.isEnabled()){
+                        Log.d("value   ", String.valueOf(bf.getText()));
                         bfmap.put("Breakfast state", userdr);
                         ref.child(x).child("Breakfast").child(String.valueOf(bf.getText())).child(id).updateChildren(bfmap);
                     }
-//                else if(!breakfastradio.isSelected()) {
-//                    Toast.makeText(getApplicationContext(), "Please check selection4" , Toast.LENGTH_LONG).show();
-//                }
-
-                    if (medication.getText().equals("Normal")) {
-                        Log.d("value    ", String.valueOf(medication.getText()));
-                        medmap.put("Medication state", userdr);
-                        ref.child(x).child("Medication").child(String.valueOf(medication.getText())).child(id).updateChildren(medmap);
-
-                    } else if (medication.getText().equals("Suspicious")) {
-                        Log.d("value    ", String.valueOf(medication.getText()));
+                    else if (medicationradio.isEnabled()){
+                        Log.d("value   ", String.valueOf(medication.getText()));
                         medmap.put("Medication state", userdr);
                         ref.child(x).child("Medication").child(String.valueOf(medication.getText())).child(id).updateChildren(medmap);
                     }
-//                else if(!medicationradio.isSelected()) {
-//                    Toast.makeText(getApplicationContext(), "Please check selection3" , Toast.LENGTH_LONG).show();
-//                }
-
-                    if (lunch.getText().equals("Normal")) {
-                        Log.d("value    ", String.valueOf(lunch.getText()));
+                    else if (lunchradio.isEnabled()){
+                        Log.d("value   ", String.valueOf(lunch.getText()));
                         lunchmap.put("lunch state", userdr);
                         ref.child(x).child("Lunch").child(String.valueOf(lunch.getText())).child(id).updateChildren(lunchmap);
-                    } else if (lunch.getText().equals("Suspicious")) {
-                        Log.d("value    ", String.valueOf(bf.getText()));
-                        lunchmap.put("lunch state", userdr);
-                        ref.child(x).child("Lunch").child(String.valueOf(bf.getText())).child(id).updateChildren(lunchmap);
                     }
-//                else  if(!lunchradio.isSelected()) {
-//                    Toast.makeText(getApplicationContext(), "Please check selection5" , Toast.LENGTH_LONG).show();
-//                }
-
-                    if (tv.getText().equals("Normal")) {
-                        Log.d("value    ", String.valueOf(tv.getText()));
+                    else if (tvradio.isEnabled()){
+                        Log.d("value   ", String.valueOf(tv.getText()));
                         tvmap.put("TV state", userdr);
                         ref.child(x).child("TV").child(String.valueOf(tv.getText())).child(id).updateChildren(tvmap);
-                    } else if (tv.getText().equals("Suspicious")) {
-                        Log.d("value    ", String.valueOf(tv.getText()));
-                        tvmap.put("TV state", userdr);
-                        ref.child(x).child("TV ").child(String.valueOf(tv.getText())).child(id).updateChildren(tvmap);
                     }
-//                else if (!tvradio.isSelected()) {
-//                    Toast.makeText(getApplicationContext(), "Please check selection7" , Toast.LENGTH_LONG).show();
-//                }
-                    if (dinner.getText().equals("Normal")) {
-                        Log.d("value    ", String.valueOf(dinner.getText()));
-                        dinnermap.put("dinner state", userdr);
-                        ref.child(x).child("Dinner").child(String.valueOf(dinner.getText())).child(id).updateChildren(dinnermap);
-                    } else if (dinner.getText().equals("Suspicious")) {
-                        Log.d("value    ", String.valueOf(dinner.getText()));
+                    else if (dinnerradio.isEnabled()){
+                        Log.d("value   ", String.valueOf(dinner.getText()));
                         dinnermap.put("dinner state", userdr);
                         ref.child(x).child("Dinner").child(String.valueOf(dinner.getText())).child(id).updateChildren(dinnermap);
                     }
-//                else if(!dinnerradio.isSelected()) {
-//                    Toast.makeText(getApplicationContext(), "Please check selection6" , Toast.LENGTH_LONG).show();
-//                }
 
                     Intent newintent = new Intent(report.this, select.class);
                     startActivity(newintent);
                 }
             });
         }
-
 
         private class MyYAxisValueFormatter implements IAxisValueFormatter {
             public MyYAxisValueFormatter() {

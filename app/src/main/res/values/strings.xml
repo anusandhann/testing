@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">testing</string>
+    <string name="app_name">MutualMonitor</string>
     <string name="activity_report">Activity Report</string>
     <string name="report">Submit Report</string>
     <string name="normal">Normal</string>
