@@ -304,8 +304,10 @@ public class report extends AppCompatActivity {
                             durationTextview.setText("Duration of Activity :  " + durationOfActivity);
                             }
                         else {
-                            thisRadiogp.setVisibility(View.GONE);
-                            }
+                           // thisRadiogp.setVisibility(View.GONE);
+                            drawchart(prevModStartArray , prevModEndArray, datearray, activityType);
+                            durationTextview.setVisibility(View.INVISIBLE);
+                        }
                     }
                     else {
 
@@ -326,8 +328,7 @@ public class report extends AppCompatActivity {
                             drawchart(modStartArray, modEndArray, datearray, activityType);
                             }
                             else
-                            {
-                                thisRadiogp.setVisibility(View.INVISIBLE);
+                            { //thisRadiogp.setVisibility(View.INVISIBLE);
                                 drawchart(prevModStartArray , prevModEndArray, datearray, activityType);
                             }
                     }
@@ -440,7 +441,6 @@ public class report extends AppCompatActivity {
                     final int tvstate = tvradio.getCheckedRadioButtonId();
 
 
-                    sleep = (RadioButton) findViewById(sleepstate);
                     shower = (RadioButton) findViewById(showerstate);
                     medication = (RadioButton) findViewById(medstate);
                     bf = (RadioButton) findViewById(bfstate);
@@ -448,38 +448,38 @@ public class report extends AppCompatActivity {
                     dinner = (RadioButton) findViewById(dinnerstate);
                     tv = (RadioButton) findViewById(tvstate);
 
-
-                    if (sleepradio.isEnabled()){
+                    if (sleepradio!=null && sleepradio.isEnabled() && sleepstate!= -1){
+                        sleep = (RadioButton) findViewById(sleepstate);
                         Log.d("value   ", String.valueOf(sleep.getText()));
                         sleepmap.put("Sleep state", userdr);
                         ref.child(x).child("Sleep").child(String.valueOf(sleep.getText())).child(id).updateChildren(sleepmap); }
 
-                    else if (showerradio.isEnabled()){
+                     if (showerradio!=null && showerradio.isEnabled() && showerstate!= -1){
                         Log.d("value ", String.valueOf(shower.getText()));
                         showermap.put("Shower state", userdr);
                         ref.child(x).child("Shower").child(String.valueOf(shower.getText())).child(id).updateChildren(showermap);
                     }
-                    else if (breakfastradio.isEnabled()){
+                     if (breakfastradio!=null && breakfastradio.isEnabled() && bfstate!= -1){
                         Log.d("value   ", String.valueOf(bf.getText()));
                         bfmap.put("Breakfast state", userdr);
                         ref.child(x).child("Breakfast").child(String.valueOf(bf.getText())).child(id).updateChildren(bfmap);
                     }
-                    else if (medicationradio.isEnabled()){
+                     if (medicationradio!=null && medicationradio.isEnabled() && medstate!= -1){
                         Log.d("value   ", String.valueOf(medication.getText()));
                         medmap.put("Medication state", userdr);
                         ref.child(x).child("Medication").child(String.valueOf(medication.getText())).child(id).updateChildren(medmap);
                     }
-                    else if (lunchradio.isEnabled()){
+                     if (lunchradio!=null && lunchradio.isEnabled() && lunchstate!= -1){
                         Log.d("value   ", String.valueOf(lunch.getText()));
                         lunchmap.put("lunch state", userdr);
                         ref.child(x).child("Lunch").child(String.valueOf(lunch.getText())).child(id).updateChildren(lunchmap);
                     }
-                    else if (tvradio.isEnabled()){
+                     if (tvradio!=null && tvradio.isEnabled() && tvstate!= -1){
                         Log.d("value   ", String.valueOf(tv.getText()));
                         tvmap.put("TV state", userdr);
                         ref.child(x).child("TV").child(String.valueOf(tv.getText())).child(id).updateChildren(tvmap);
                     }
-                    else if (dinnerradio.isEnabled()){
+                     if (dinnerradio!=null && dinnerradio.isEnabled() && dinnerstate!= -1){
                         Log.d("value   ", String.valueOf(dinner.getText()));
                         dinnermap.put("dinner state", userdr);
                         ref.child(x).child("Dinner").child(String.valueOf(dinner.getText())).child(id).updateChildren(dinnermap);
