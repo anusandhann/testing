@@ -112,7 +112,7 @@ public class userreport extends Service {
                             usernameList.add(activityMap.get("user"));
                         }
                     }
-                    Log.d("usernameList array", String.valueOf((usernameList)));
+                   // Log.d("usernameList array", String.valueOf((usernameList)));
 
                     // Find all activity types
                     ArrayList<String> activityTypeList = new ArrayList<>();
@@ -121,7 +121,7 @@ public class userreport extends Service {
                             activityTypeList.add(activityMap.get("actv"));
                         }
                     }
-                    Log.d("activityTypeList array", String.valueOf((activityTypeList)));
+                  //  Log.d("activityTypeList array", String.valueOf((activityTypeList)));
 
                     // Loop through all users
                     for ( String userFilter : usernameList ) {
@@ -137,7 +137,7 @@ public class userreport extends Service {
 
                             // Find all actvities in the activity map list that match our filters
                             for (HashMap<String, String> activityMap : activityMapList) {
-                                Log.d("User/Activity", activityMap.get("user") + " " + activityMap.get("actv"));
+//                                Log.d("User/Activity", activityMap.get("user") + " " + activityMap.get("actv"));
                                 // Check if the user does not match the filter
                                 if (!activityMap.get("user").equals(userFilter)) {
                                     continue;
@@ -156,9 +156,9 @@ public class userreport extends Service {
                                 dateList.add(activityMap.get("date"));
 
                             }
-                            Log.d("startList array", String.valueOf((startList)));
-                            Log.d("endList array", String.valueOf((endList)));
-                            Log.d("durationList array", String.valueOf((durationList)));
+//                            Log.d("startList array", String.valueOf((startList)));
+//                            Log.d("endList array", String.valueOf((endList)));
+//                            Log.d("durationList array", String.valueOf((durationList)));
 
                             // Correct the format of the start times in the start time list
                             for ( int i = 0; i < startList.size(); i++ ) {
@@ -169,7 +169,7 @@ public class userreport extends Service {
                                 String startTimeChartVal = String.valueOf(cal.get(Calendar.HOUR_OF_DAY) + ((float)(cal.get(Calendar.MINUTE)) / 60.0));
 
 
-                                Log.d("testing newtime array", (startTimeChartVal));
+//                                Log.d("testing newtime array", (startTimeChartVal));
                                 // Replace the original list item
                                 startList.set(i, startTimeChartVal);
                             }
@@ -218,8 +218,6 @@ public class userreport extends Service {
                             in.putStringArrayListExtra("durationarraylist", durationList);
                             in.putStringArrayListExtra("datelist", dateList);
                             in.putStringArrayListExtra("endtimeList", endtimeList);
-
-
 
                             // Broadcast the intent
                             sendBroadcast(in);

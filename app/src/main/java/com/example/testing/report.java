@@ -214,22 +214,23 @@ public class report extends AppCompatActivity {
                     String activityDuration = intent.getStringExtra("activityDuration"); //text
 
                     ArrayList<String> endarray = intent.getStringArrayListExtra("endtimearraylist");
-                    Log.d("endtime array", String.valueOf((endarray)));
+//                    Log.d("endtime array", String.valueOf((endarray)));
 
                     ArrayList<String> durarray = intent.getStringArrayListExtra("durationarraylist");
-                    Log.d("duration array", String.valueOf((durarray)));
+//                    Log.d("duration array", String.valueOf((durarray)));
 
                     ArrayList<String> startarray = intent.getStringArrayListExtra("starttimearraylist");
-                    Log.d("starttime array", String.valueOf((startarray)));
+//                    Log.d("starttime array", String.valueOf((startarray)));
 
                     ArrayList<String> datearray = intent.getStringArrayListExtra("datelist");
-                    Log.d("datearray", String.valueOf((datearray)));
+//                    Log.d("datearray", String.valueOf((datearray)));
 
                     ArrayList<String> endtimeArray = intent.getStringArrayListExtra("endtimeList");
-                    Log.d("endtimeList array", String.valueOf((endtimeArray)));
+//                    Log.d("endtimeList array", String.valueOf((endtimeArray)));
 
                     String activityType = intent.getStringExtra("actv");
-                    Log.d("getting activity from service", activityType);
+//                    Log.d("getting activity from service", activityType);
+
 
                     submitbutton(username);
 
@@ -237,24 +238,25 @@ public class report extends AppCompatActivity {
 
                     DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // Setting time format
 
+                    assert datearray != null;
                     LocalDate startDate = LocalDate.parse(datearray.get(0));
 
                     LocalDate today = LocalDate.now();
                     LocalTime currentTime = LocalTime.now();
 
-                    Log.d("current localtime", String.valueOf(currentTime));
-
-                    Log.d("startdatelocal", String.valueOf(startDate));
-                    Log.d("dayoftheyear", String.valueOf(today.getDayOfYear()));
+//                    Log.d("current localtime", String.valueOf(currentTime));
+//
+//                    Log.d("startdatelocal", String.valueOf(startDate));
+//                    Log.d("dayoftheyear", String.valueOf(today.getDayOfYear()));
 
                     int enddateindex = (today.getDayOfYear() % (datearray.size()-2)) + 2;
                     String activitydur = durarray.get(enddateindex);
-                    Log.d("activitydur", String.valueOf(activitydur));
+//                    Log.d("activitydur", String.valueOf(activitydur));
 
                     LocalDate endDate = LocalDate.parse(datearray.get(enddateindex));
-                    Log.d("enddatelocal", String.valueOf(endDate));
+//                    Log.d("enddatelocal", String.valueOf(endDate));
 
-                    Log.d("startttt", String.valueOf(endDate.getDayOfWeek().ordinal()));
+//                    Log.d("startttt", String.valueOf(endDate.getDayOfWeek().ordinal()));
 
                     ArrayList<String> modStartArray = new ArrayList<>();
                     ArrayList<String> modEndArray = new ArrayList<>();
@@ -290,8 +292,9 @@ public class report extends AppCompatActivity {
 
                         String durationOfActivity = Long.parseLong(activitydur) / 60 % 24 + " Hours" + ":  " + Long.parseLong(activitydur) % 60 + "  Minutes";
                         assert durationTextview != null;
-                        Log.d("durationOfActivity", (durationOfActivity));
+//                        Log.d("durationOfActivity", (durationOfActivity));
 
+                        assert endtimeArray != null;
                         String actvTime = endtimeArray.get(enddateindex);
                         Log.d("compareactivitytime", (actvTime));
 
@@ -300,12 +303,12 @@ public class report extends AppCompatActivity {
 
                         if (currentTime.isAfter(actTime)) {
                             thisCard.setVisibility(View.VISIBLE);
-                            drawchart(modStartArray, modEndArray, datearray, activityType);
+                            drawchart(modStartArray, modEndArray, activityType);
                             durationTextview.setText("Duration of Activity :  " + durationOfActivity);
                             }
                         else {
-                           // thisRadiogp.setVisibility(View.GONE);
-                            drawchart(prevModStartArray , prevModEndArray, datearray, activityType);
+                            thisRadiogp.setVisibility(View.GONE);
+                            drawchart(prevModStartArray , prevModEndArray, activityType);
                             durationTextview.setVisibility(View.INVISIBLE);
                         }
                     }
@@ -316,6 +319,7 @@ public class report extends AppCompatActivity {
 
                         Log.d("durationOfActivity", String.valueOf(durationOfActivity));
 
+                        assert endtimeArray != null;
                         String actvTime = endtimeArray.get(enddateindex);
                         Log.d("compareactivitytime2", (actvTime));
 
@@ -325,11 +329,12 @@ public class report extends AppCompatActivity {
                         if(currentTime.isAfter(actTime)){
                             thisCard.setVisibility(View.VISIBLE);
                             durationTextview.setText("Duration of Activity :  " + activitydur + "  minutes");
-                            drawchart(modStartArray, modEndArray, datearray, activityType);
+                            drawchart(modStartArray, modEndArray, activityType);
                             }
                             else
-                            { //thisRadiogp.setVisibility(View.INVISIBLE);
-                                drawchart(prevModStartArray , prevModEndArray, datearray, activityType);
+                            {
+                                thisRadiogp.setVisibility(View.INVISIBLE);
+                                drawchart(prevModStartArray , prevModEndArray, activityType);
                             }
                     }
                 }
@@ -337,11 +342,12 @@ public class report extends AppCompatActivity {
         }
 
 
-        public void drawchart(ArrayList<String> x, ArrayList<String> y, ArrayList<String> z, String activityType) {
+        public void drawchart(ArrayList<String> x, ArrayList<String> y, String activityType) {
 
             ArrayList<CandleEntry> candleEntryTry = new ArrayList<CandleEntry>();
 
             for (int i = 0; i < x.size(); i++) {
+
                 candleEntryTry.add(new CandleEntry(i, 23, 0, Float.parseFloat(x.get(i)), Float.parseFloat(y.get(i))));
                 Log.d("graph thing", x.get(i));
             }
@@ -362,7 +368,7 @@ public class report extends AppCompatActivity {
             selectedChart.setBorderColor(getResources().getColor((R.color.borderofGraph)));
 
             XAxis xAxis = selectedChart.getXAxis();
-            xAxis.setValueFormatter(new MyXAxisValueFormatter(z));
+            xAxis.setValueFormatter(new MyXAxisValueFormatter());
 
             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
@@ -370,7 +376,7 @@ public class report extends AppCompatActivity {
             xAxis.setDrawLabels(true);
             xAxis.setGranularityEnabled(true);
             xAxis.setGranularity(1f);
-            xAxis.setAvoidFirstLastClipping(true);
+            //xAxis.setLabelRotationAngle(45f);
 
             YAxis leftAxis = selectedChart.getAxisLeft();
             YAxis rightAxis = selectedChart.getAxisRight();
@@ -497,23 +503,22 @@ public class report extends AppCompatActivity {
 
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-                //return mFormat.format(value) + "am";
                 return (int) value + ":00";
             }
         }
 
         private class MyXAxisValueFormatter implements IAxisValueFormatter {
-            private ArrayList<String> mValues;
+            private ArrayList<String> mValues = new ArrayList<>();
 
 
-            public MyXAxisValueFormatter(ArrayList<String> values) {
-                this.mValues = values;
+            public MyXAxisValueFormatter() {
 
-                for(int i =0; i< mValues.size();i++){
-                    String newval = mValues.get(i).replace("2019-", "");
-                    mValues.set(i, newval);
+                for(int i =1; i< 15;i++){
+
+                    mValues.add("8/"+ i);
                }
             }
+
 
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
