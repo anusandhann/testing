@@ -1,10 +1,12 @@
 package com.example.testing;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
@@ -34,6 +36,10 @@ public class userreport extends Service {
     public void onCreate() {
         super.onCreate();
         context = getBaseContext();
+        int NOTIFICATION_ID = (int) (System.currentTimeMillis()%10000);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForeground(NOTIFICATION_ID, new Notification.Builder(this).build());
+        }
     }
 
     @Override

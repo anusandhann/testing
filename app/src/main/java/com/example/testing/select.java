@@ -25,7 +25,7 @@ public class select extends AppCompatActivity {
     private FirebaseAuth firebaseauth;
 
     ListView simpleList;
-    String[] countryList = {"", "Target 1", "Target 2", "Target 3"};
+    String[] targetList = {"", "Target 1", "Target 2", "Target 3"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,6 @@ public class select extends AppCompatActivity {
         setContentView(R.layout.select);
 
         firebaseauth= FirebaseAuth.getInstance();
-
         fbauth =new FirebaseAuth.AuthStateListener(){
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
@@ -49,24 +48,23 @@ public class select extends AppCompatActivity {
             }
         };
 
+        Intent si = new Intent(select.this, userreport.class);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-           // getApplicationContext().startForegroundService(new Intent(getApplicationContext(), userreport.class));
-            ContextCompat.startForegroundService(this, new Intent(getApplicationContext(), userreport.class));
+            select.this.startForegroundService(si);
+            //ContextCompat.startForegroundService(this, new Intent(getApplicationContext(), userreport.class));
 
         } else {
-          //  getApplicationContext().startService(new Intent(getApplicationContext(), userreport.class));
-            ContextCompat.startForegroundService(this, new Intent(getApplicationContext(), userreport.class));
-
+            //ContextCompat.startForegroundService(this, new Intent(getApplicationContext(), userreport.class));
+            startService(si);
         }
       isMyServiceRunning(userreport.class);
-      startService(new Intent(this, userreport.class));
-        Log.d("", "service runing check 1");
-
+     // startService(new Intent(this, userreport.class));
+        Log.d("", "service running check 1");
 
     };
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
-        Log.d("", "service runing check");
+        Log.d("", "service running check");
 
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
@@ -77,9 +75,6 @@ public class select extends AppCompatActivity {
         return false;
     }
 
-//    public void signOut(){
-//        firebaseauth.signOut();
-//    }
 
     @Override
     public void onStart(){
@@ -96,7 +91,7 @@ public class select extends AppCompatActivity {
     public void choosetarget () {
 
         simpleList = (ListView) findViewById(R.id.list);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.listings, R.id.textView, countryList);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.listings, R.id.textView, targetList);
         simpleList.setAdapter(arrayAdapter);
 
         simpleList.setOnItemClickListener(
@@ -109,7 +104,12 @@ public class select extends AppCompatActivity {
 
                     }
 
-
                 });
+    }
+
+    public void signout(View view) {
+        Intent intent = new Intent(this, mainactivity.class);
+        firebaseauth.signOut();
+        startActivity(intent);
     }
 }

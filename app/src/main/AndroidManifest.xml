@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.testing">
     <uses-permission android:name="android.permission.INTERNET"/>
-
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <application
         android:allowBackup="true"
@@ -23,29 +23,24 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity android:name =".report"
+            android:enabled="true"
             android:screenOrientation = "portrait">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN"/>
-        </intent-filter>
         </activity>
 
         <receiver android:name=".report$breceiver"
             android:enabled="true"
             android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
         </receiver>
 
-    <activity
+        <activity
             android:name=".signingup"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".signingin"
             android:screenOrientation="portrait" />
@@ -54,8 +49,6 @@
             android:exported="false"
             android:enabled="true">
         </service>
-
-        <activity android:name=".csvread"/>
 
         <activity android:name=".HttpHandler"/>
 

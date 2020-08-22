@@ -18,6 +18,7 @@ import java.util.Calendar;
 
 public class mainactivity extends Activity {
     private PendingIntent alarmIntent;
+    AlarmManager alarmManager;
 
     private final String TAG = "Main";
     public static final int JOB_ID = 1;
@@ -31,6 +32,13 @@ public class mainactivity extends Activity {
 
         Intent notificationIntent = new Intent(this, receiver.class);
         notificationIntent.putExtra("notifId", 1);
+
+        alarmIntent = PendingIntent.getBroadcast(this, 1, notificationIntent, 0);
+
+        Calendar calendar = Calendar.getInstance();
+
+        alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),  10 * 60 * 1000, alarmIntent);
 
         alarmIntent = PendingIntent.getBroadcast(this, 1, notificationIntent, 0);
 

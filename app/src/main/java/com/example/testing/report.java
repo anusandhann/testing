@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
@@ -36,14 +37,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
@@ -53,10 +51,9 @@ public class report extends AppCompatActivity {
 
     public CandleStickChart chart1, chart2, chart3, chart4, chart5, chart6, chart7;
     public TextView text1, text2, text3, text4, text5, text6, text7, durationTextview;
-    RadioButton sleep, shower, bf, lunch, dinner, medication, tv;
+    RadioButton sleep, shower, breakfast, lunch, dinner, medication, tv;
     private RadioGroup sleepradio, showerradio, breakfastradio, medicationradio, lunchradio, tvradio, dinnerradio, thisRadiogp;
     Button submitreport;
-    private String TAG = csvread.class.getSimpleName();
 
     ArrayList<HashMap<String, String>> contactList;
     public CardView card1, card2, card3, card4, card5, card6, card7, thisCard;
@@ -69,7 +66,11 @@ public class report extends AppCompatActivity {
 
     private HashMap<String, CandleStickChart> activityChartMap = new HashMap<>();
     private String userStr = null;
+    public static final String mypreference = "mypref";
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -177,15 +178,15 @@ public class report extends AppCompatActivity {
         breceiver ar = new breceiver();
         IntentFilter filter = new IntentFilter("intentAction");
         registerReceiver(ar, filter);
-        // unregisterReceiver(ar);
+        unregisterReceiver(ar);
 
         Intent passedIntent = getIntent();
         userStr = passedIntent.getStringExtra("user");
 
-       startService(new Intent(this, userreport.class));
+        startService(new Intent(this, userreport.class));
         Log.d("", "service running check which might be the cause for error");
-    }
 
+    }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         Log.d("", "service runing check in acitivy");
@@ -195,13 +196,19 @@ public class report extends AppCompatActivity {
             if (serviceClass.getName().equals(service.service.getClassName())) {
                 return true;
             }
+            Log.d("", "userreport runs even when moved from Select where it is called to Report ");
         }
         return false;
     }
 
-    public class breceiver extends BroadcastReceiver {
+    @RequiresApi(api = Build.VERSION_CODES.O)
+
+    public class breceiver extends BroadcastReceiver{
         @RequiresApi(api = Build.VERSION_CODES.O)
         @SuppressLint({"SimpleDateFormat", "SetTextI18n"})
+        final FirebaseUser thisuser = FirebaseAuth.getInstance().getCurrentUser();
+        final String useremail = thisuser.getEmail();
+
         @Override
         public void onReceive(Context context, Intent intent) {
             if (Objects.equals(intent.getAction(), "intentAction")) {
@@ -231,8 +238,120 @@ public class report extends AppCompatActivity {
                     String activityType = intent.getStringExtra("actv");
 //                    Log.d("getting activity from service", activityType);
 
-
                     submitbutton(username);
+
+                    preferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+                    editor= preferences.edit();
+
+                    String sleepusername = preferences.getString("sleepPrefuser","");
+                    String sleepmonitor = preferences.getString("sleepPrefmonitor", "");
+                    String sleepresponsedate = preferences.getString("sleepPrefdate","");
+                    String sleepresponse = preferences.getString("sleepPrefresponse","");
+
+                    String showerusername = preferences.getString("showerPrefuser","");
+                    String showermonitor = preferences.getString("showerPrefmonitor", "");
+                    String showerresponsedate = preferences.getString("showerPrefdate","");
+                    String showerresponse = preferences.getString("showerPrefresponse","");
+
+                    String medicationusername = preferences.getString("medicationPrefuser","");
+                    String medicationmonitor = preferences.getString("medicationPrefmonitor", "");
+                    String medicationresponsedate = preferences.getString("medicationPrefdate","");
+                    String medicationresponse = preferences.getString("medicationPrefresponse","");
+
+                    String breakfastusername = preferences.getString("breakfastPrefuser","");
+                    String breakfastmonitor = preferences.getString("breakfastPrefmonitor", "");
+                    String breakfastresponsedate = preferences.getString("breakfastPrefdate","");
+                    String breakfastresponse = preferences.getString("breakfastPrefresponse","");
+
+                    String lunchusername = preferences.getString("lunchPrefuser","");
+                    String lunchmonitor = preferences.getString("lunchPrefmonitor", "");
+                    String lunchresponsedate = preferences.getString("lunchPrefdate","");
+                    String lunchresponse = preferences.getString("lunchPrefresponse","");
+
+                    String tvusername = preferences.getString("tvPrefuser","");
+                    String tvmonitor = preferences.getString("tvPrefmonitor", "");
+                    String tvresponsedate = preferences.getString("tvPrefdate","");
+                    String tvresponse = preferences.getString("tvPrefresponse","");
+
+                    String dinnerusername = preferences.getString("dinnerPrefuser","");
+                    String dinnermonitor = preferences.getString("dinnerPrefmonitor", "");
+                    String dinnerresponsedate = preferences.getString("dinnerPrefdate","");
+                    String dinnerresponse = preferences.getString("dinnerPrefresponse","");
+
+                    String thisdate = String.valueOf(LocalDate.now());
+                    Log.d("harihari localdate  ", thisdate);
+                    Log.d("harihari monitor name  ", useremail);
+
+
+                    if((thisdate.equals( sleepresponsedate )) && username.equals(sleepusername) && useremail.equals(sleepmonitor)) {
+                        if ((preferences.contains("sleepPrefresponse"))){
+                            Log.d("checking sleep shared preference   ", sleepresponse);
+                            sleepradio.setVisibility(View.GONE);
+                        }
+                    }
+                    else {
+                        Log.d("checking if date not same shared preference   ", sleepusername);
+                    }
+
+                    if((thisdate.equals( showerresponsedate )) && username.equals(showerusername) && useremail.equals(showermonitor)) {
+                        if ((preferences.contains("sleepPrefresponse"))){
+                            Log.d("checking shower shared preference   ", showerresponse);
+                            showerradio.setVisibility(View.GONE);
+                        }
+                    }
+                    else {
+                        Log.d("checking if date not same shower shared preference   ", sleepusername);
+                    }
+
+                    if((thisdate.equals( medicationresponsedate )) && username.equals(medicationusername) && useremail.equals(medicationmonitor)) {
+                        if ((preferences.contains("medicationPrefresponse"))){
+                            Log.d("checking medication shared preference   ", medicationresponse);
+                            medicationradio.setVisibility(View.GONE);
+                        }
+                    }
+                    else {
+                        Log.d("checking if date not same med shared preference   ", medicationusername);
+                    }
+
+                    if((thisdate.equals( breakfastresponsedate )) && username.equals(breakfastusername) && useremail.equals(breakfastmonitor)) {
+                        if ((preferences.contains("breakfastPrefresponse"))){
+                            Log.d("checking breakfast shared preference   ", breakfastresponse);
+                            breakfastradio.setVisibility(View.GONE);
+                        }
+                    }
+                    else {
+                        Log.d("checking if date not same breakfast shared preference   ", breakfastusername);
+                    }
+
+                    if((thisdate.equals( lunchresponsedate )) && username.equals(lunchusername) && useremail.equals(lunchmonitor)) {
+                        if ((preferences.contains("lunchPrefresponse"))){
+                            Log.d("checking lunch shared preference   ", lunchresponse);
+                            lunchradio.setVisibility(View.GONE);
+                        }
+                    }
+                    else {
+                        Log.d("checking if date not same lunch shared preference   ", lunchusername);
+                    }
+
+                    if((thisdate.equals( tvresponsedate )) && username.equals(tvusername) && useremail.equals(tvmonitor)) {
+                        if ((preferences.contains("tvPrefresponse"))){
+                            Log.d("checking tv shared preference   ", tvresponse);
+                            tvradio.setVisibility(View.GONE);
+                        }
+                    }
+                    else {
+                        Log.d("checking if date not same tv shared preference   ", tvusername);
+                    }
+
+                    if((thisdate.equals( dinnerresponsedate )) && username.equals(dinnerusername) && useremail.equals(dinnermonitor)) {
+                        if ((preferences.contains("dinnerPrefresponse"))){
+                            Log.d("checking dinner shared preference   ", dinnerresponse);
+                            dinnerradio.setVisibility(View.GONE);
+                        }
+                    }
+                    else {
+                        Log.d("checking if date not same dinner shared preference   ", dinnerusername);
+                    }
 
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Setting date format
 
@@ -309,7 +428,7 @@ public class report extends AppCompatActivity {
                         else {
                             thisRadiogp.setVisibility(View.GONE);
                             drawchart(prevModStartArray , prevModEndArray, activityType);
-                            durationTextview.setVisibility(View.INVISIBLE);
+                            durationTextview.setVisibility(View.GONE);
                         }
                     }
                     else {
@@ -341,17 +460,15 @@ public class report extends AppCompatActivity {
             }
         }
 
-
         public void drawchart(ArrayList<String> x, ArrayList<String> y, String activityType) {
+
 
             ArrayList<CandleEntry> candleEntryTry = new ArrayList<CandleEntry>();
 
             for (int i = 0; i < x.size(); i++) {
-
                 candleEntryTry.add(new CandleEntry(i, 23, 0, Float.parseFloat(x.get(i)), Float.parseFloat(y.get(i))));
                 Log.d("graph thing", x.get(i));
             }
-
 
             CandleStickChart selectedChart = activityChartMap.get(activityType);
             assert selectedChart != null;
@@ -405,16 +522,13 @@ public class report extends AppCompatActivity {
             set1.setDrawValues(false);
             CandleData data = new CandleData(set1);
             selectedChart.setData(data);
-
             selectedChart.invalidate();
         }
 
 //practice code to submit into Firebase
-
         private void submitbutton(String name) {
 
-            final String x = name;
-
+            final String username = name;
 
             final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
             final FirebaseUser thisuser = FirebaseAuth.getInstance().getCurrentUser();
@@ -423,6 +537,7 @@ public class report extends AppCompatActivity {
             final Object userdr = email + "  " + new Date();
 
             submitreport.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
                 public void onClick(View view) {
 
@@ -434,7 +549,8 @@ public class report extends AppCompatActivity {
                     HashMap<String, Object> dinnermap = new HashMap<>();
                     HashMap<String, Object> tvmap = new HashMap<>();
 
-                    Log.d(TAG, email);
+                    assert email != null;
+                    Log.d("", email);
                     String id = ref.push().getKey();
                     assert id != null;
 
@@ -447,50 +563,103 @@ public class report extends AppCompatActivity {
                     final int tvstate = tvradio.getCheckedRadioButtonId();
 
 
-                    shower = (RadioButton) findViewById(showerstate);
-                    medication = (RadioButton) findViewById(medstate);
-                    bf = (RadioButton) findViewById(bfstate);
-                    lunch = (RadioButton) findViewById(lunchstate);
-                    dinner = (RadioButton) findViewById(dinnerstate);
-                    tv = (RadioButton) findViewById(tvstate);
-
                     if (sleepradio!=null && sleepradio.isEnabled() && sleepstate!= -1){
                         sleep = (RadioButton) findViewById(sleepstate);
                         Log.d("value   ", String.valueOf(sleep.getText()));
                         sleepmap.put("Sleep state", userdr);
-                        ref.child(x).child("Sleep").child(String.valueOf(sleep.getText())).child(id).updateChildren(sleepmap); }
+                        ref.child(username).child("Sleep").child(String.valueOf(sleep.getText())).child(id).updateChildren(sleepmap);
 
-                     if (showerradio!=null && showerradio.isEnabled() && showerstate!= -1){
+                        editor.putString("sleepPrefuser", username);
+                        editor.putString("sleepPrefmonitor", email);
+                        editor.putString("sleepPrefresponse", String.valueOf(sleep.getText()));
+                        editor.putString("sleepPrefdate", String.valueOf(LocalDate.now()));
+
+                        editor.apply(); //to get it back, need to do, preferences.getString("same key", )
+                    }
+
+                    if (showerradio!=null && showerradio.isEnabled() && showerstate!= -1){
+                        shower = (RadioButton) findViewById(showerstate);
                         Log.d("value ", String.valueOf(shower.getText()));
                         showermap.put("Shower state", userdr);
-                        ref.child(x).child("Shower").child(String.valueOf(shower.getText())).child(id).updateChildren(showermap);
+                        ref.child(username).child("Shower").child(String.valueOf(shower.getText())).child(id).updateChildren(showermap);
+
+                        editor.putString("showerPrefuser", username);
+                        editor.putString("showerPrefmonitor", email);
+                        editor.putString("showerPrefresponse", String.valueOf(shower.getText()));
+                        editor.putString("showerPrefdate", String.valueOf(LocalDate.now()));
+
+                        editor.apply();
                     }
                      if (breakfastradio!=null && breakfastradio.isEnabled() && bfstate!= -1){
-                        Log.d("value   ", String.valueOf(bf.getText()));
-                        bfmap.put("Breakfast state", userdr);
-                        ref.child(x).child("Breakfast").child(String.valueOf(bf.getText())).child(id).updateChildren(bfmap);
-                    }
-                     if (medicationradio!=null && medicationradio.isEnabled() && medstate!= -1){
-                        Log.d("value   ", String.valueOf(medication.getText()));
-                        medmap.put("Medication state", userdr);
-                        ref.child(x).child("Medication").child(String.valueOf(medication.getText())).child(id).updateChildren(medmap);
-                    }
-                     if (lunchradio!=null && lunchradio.isEnabled() && lunchstate!= -1){
-                        Log.d("value   ", String.valueOf(lunch.getText()));
-                        lunchmap.put("lunch state", userdr);
-                        ref.child(x).child("Lunch").child(String.valueOf(lunch.getText())).child(id).updateChildren(lunchmap);
-                    }
-                     if (tvradio!=null && tvradio.isEnabled() && tvstate!= -1){
-                        Log.d("value   ", String.valueOf(tv.getText()));
-                        tvmap.put("TV state", userdr);
-                        ref.child(x).child("TV").child(String.valueOf(tv.getText())).child(id).updateChildren(tvmap);
-                    }
-                     if (dinnerradio!=null && dinnerradio.isEnabled() && dinnerstate!= -1){
-                        Log.d("value   ", String.valueOf(dinner.getText()));
-                        dinnermap.put("dinner state", userdr);
-                        ref.child(x).child("Dinner").child(String.valueOf(dinner.getText())).child(id).updateChildren(dinnermap);
-                    }
+                         breakfast = (RadioButton) findViewById(bfstate);
+                         Log.d("value   ", String.valueOf(breakfast.getText()));
+                         bfmap.put("Breakfast state", userdr);
+                         ref.child(username).child("Breakfast").child(String.valueOf(breakfast.getText())).child(id).updateChildren(bfmap);
 
+                         editor.putString("breakfastPrefuser", username);
+                         editor.putString("breakfastPrefmonitor", email);
+                         editor.putString("breakfastPrefresponse", String.valueOf(breakfast.getText()));
+                         editor.putString("breakfastPrefdate", String.valueOf(LocalDate.now()));
+
+                         editor.apply();
+
+                     }
+                     if (medicationradio!=null && medicationradio.isEnabled() && medstate!= -1){
+                         medication = (RadioButton) findViewById(medstate);
+                         Log.d("value   ", String.valueOf(medication.getText()));
+                        medmap.put("Medication state", userdr);
+                        ref.child(username).child("Medication").child(String.valueOf(medication.getText())).child(id).updateChildren(medmap);
+
+                         editor.putString("medicationPrefuser", username);
+                         editor.putString("medicationPrefmonitor", email);
+                         editor.putString("medicationPrefresponse", String.valueOf(medication.getText()));
+                         editor.putString("medicationPrefdate", String.valueOf(LocalDate.now()));
+
+                         editor.apply();
+
+                     }
+                     if (lunchradio!=null && lunchradio.isEnabled() && lunchstate!= -1){
+                         lunch = (RadioButton) findViewById(lunchstate);
+                         Log.d("value   ", String.valueOf(lunch.getText()));
+                        lunchmap.put("lunch state", userdr);
+                        ref.child(username).child("Lunch").child(String.valueOf(lunch.getText())).child(id).updateChildren(lunchmap);
+
+                         editor.putString("lunchPrefuser", username);
+                         editor.putString("lunchPrefmonitor", email);
+                         editor.putString("lunchPrefresponse", String.valueOf(lunch.getText()));
+                         editor.putString("lunchPrefdate", String.valueOf(LocalDate.now()));
+
+                         editor.apply();
+
+                     }
+                     if (tvradio!=null && tvradio.isEnabled() && tvstate!= -1){
+                         tv = (RadioButton) findViewById(tvstate);
+                         Log.d("value   ", String.valueOf(tv.getText()));
+                        tvmap.put("TV state", userdr);
+                        ref.child(username).child("TV").child(String.valueOf(tv.getText())).child(id).updateChildren(tvmap);
+
+                         editor.putString("tvPrefuser", username);
+                         editor.putString("tvPrefmonitor", email);
+                         editor.putString("tvPrefresponse", String.valueOf(tv.getText()));
+                         editor.putString("tvPrefdate", String.valueOf(LocalDate.now()));
+
+                         editor.apply();
+
+                     }
+                     if (dinnerradio!=null && dinnerradio.isEnabled() && dinnerstate!= -1){
+                         dinner = (RadioButton) findViewById(dinnerstate);
+                         Log.d("value   ", String.valueOf(dinner.getText()));
+                        dinnermap.put("dinner state", userdr);
+                        ref.child(username).child("Dinner").child(String.valueOf(dinner.getText())).child(id).updateChildren(dinnermap);
+
+                         editor.putString("dinnerPrefuser", username);
+                         editor.putString("dinnerPrefmonitor", email);
+                         editor.putString("dinnerPrefresponse", String.valueOf(dinner.getText()));
+                         editor.putString("dinnerPrefdate", String.valueOf(LocalDate.now()));
+
+                         editor.apply();
+
+                     }
                     Intent newintent = new Intent(report.this, select.class);
                     startActivity(newintent);
                 }
@@ -510,16 +679,13 @@ public class report extends AppCompatActivity {
         private class MyXAxisValueFormatter implements IAxisValueFormatter {
             private ArrayList<String> mValues = new ArrayList<>();
 
-
             public MyXAxisValueFormatter() {
 
-                for(int i =1; i< 15;i++){
+                for(int i =10; i< 25;i++){
 
                     mValues.add("8/"+ i);
                }
             }
-
-
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
                 return mValues.get((int) value);
