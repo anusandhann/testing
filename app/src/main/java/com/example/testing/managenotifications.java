@@ -51,28 +51,33 @@ public class managenotifications extends JobIntentService {
 
     public void createNotification(String aMessage, String newtitle, Context context, Class newclass, String id) {
         final int NOTIFY_ID = 0; // ID of notification
-        NotificationManager notifManager;
         String groupsNotification = "com.example.testing";
 
-        String CHANNEL_ID = "";
+        String CHANNEL_ID = "com.example.testing";
         Intent intent;
         PendingIntent pendingIntent;
         NotificationCompat.Builder builder;
-       // notifManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notifManager = getSystemService(NotificationManager.class);
+        Log.d("why crash", Context.NOTIFICATION_SERVICE);
+
+        //NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // notifManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        //notifManager = getSystemService(NotificationManager.class);
         builder = new NotificationCompat.Builder(context, id);
         builder.setChannelId("id");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, newtitle, importance);
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
+
             builder = new NotificationCompat.Builder(context, id);
             intent = new Intent(context, newclass);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
-            builder.setContentTitle(newtitle)                            // required
+            Notification notification = builder.setOngoing(true)
+                    .setContentTitle(newtitle)                            // required
                     .setSmallIcon(R.drawable.icon)   // required
                     .setContentText(aMessage) // required
                     .setDefaults(Notification.DEFAULT_ALL)
@@ -81,8 +86,9 @@ public class managenotifications extends JobIntentService {
                     .setTicker(aMessage)
                     .setGroup(groupsNotification)
                     .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400})
-                    .setPriority(Notification.PRIORITY_HIGH);
-
+                    .setPriority(Notification.PRIORITY_HIGH)
+                    .build();
+            startForeground(1,notification);
         }
 
 
@@ -128,7 +134,7 @@ public class managenotifications extends JobIntentService {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             Notification notification = builder.build();
-            notifManager.notify(NOTIFY_ID, notification);
+            notificationManager.notify(NOTIFY_ID, notification);
 
         } else
             {

@@ -37,9 +37,9 @@ public class userreport extends Service {
         super.onCreate();
         context = getBaseContext();
         int NOTIFICATION_ID = (int) (System.currentTimeMillis()%10000);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForeground(NOTIFICATION_ID, new Notification.Builder(this).build());
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            startForeground(NOTIFICATION_ID, new Notification.Builder(this).build());
+//        }
     }
 
     @Override

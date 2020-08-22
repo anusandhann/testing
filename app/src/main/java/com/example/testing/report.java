@@ -69,6 +69,7 @@ public class report extends AppCompatActivity {
     public static final String mypreference = "mypref";
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
+    breceiver ar = new breceiver();
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,16 +176,21 @@ public class report extends AppCompatActivity {
 
         isMyServiceRunning(userreport.class);
 
-        breceiver ar = new breceiver();
         IntentFilter filter = new IntentFilter("intentAction");
         registerReceiver(ar, filter);
-        unregisterReceiver(ar);
 
         Intent passedIntent = getIntent();
         userStr = passedIntent.getStringExtra("user");
 
         startService(new Intent(this, userreport.class));
         Log.d("", "service running check which might be the cause for error");
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(ar);
+        super.onDestroy();
 
     }
 
