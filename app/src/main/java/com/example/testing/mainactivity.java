@@ -2,6 +2,7 @@ package com.example.testing;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -10,15 +11,24 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
+
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Calendar;
 
-public class mainactivity extends Activity {
+import static android.app.Service.START_NOT_STICKY;
+import static com.example.testing.tes.CHANNEL_1_ID;
+
+public class mainactivity extends AppCompatActivity {
     private PendingIntent alarmIntent;
     AlarmManager alarmManager;
+    private NotificationManagerCompat notManager;
 
     private final String TAG = "Main";
     public static final int JOB_ID = 1;
@@ -30,20 +40,15 @@ public class mainactivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.start);
 
-        Intent notificationIntent = new Intent(this, receiver.class);
-        notificationIntent.putExtra("notifId", 1);
+        Intent notificationIntent = new Intent(this, servicecheck.class);
+        notificationIntent.putExtra("serviceCheck", 32);
+        ContextCompat.startForegroundService(this,notificationIntent );
 
-        alarmIntent = PendingIntent.getBroadcast(this, 1, notificationIntent, 0);
+        Intent userReportIntent = new Intent(this, userreport.class);
+        userReportIntent.putExtra("userReportId", 23);
+        ContextCompat.startForegroundService(this,userReportIntent );
 
-        Calendar calendar = Calendar.getInstance();
-
-        alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),  10 * 60 * 1000, alarmIntent);
-
-        alarmIntent = PendingIntent.getBroadcast(this, 1, notificationIntent, 0);
-
-
-       FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             // User is signed in
             Intent i = new Intent(this, select.class);
@@ -65,6 +70,7 @@ public class mainactivity extends Activity {
     public void signin(View view) {
         Intent intent= new Intent(this, signingin.class);
         startActivity(intent);
+
     }
 }
 

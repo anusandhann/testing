@@ -2,6 +2,7 @@ package com.example.testing;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -9,9 +10,11 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.RemoteViews;
 import android.widget.Toast;
 
 
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 import org.json.JSONArray;
@@ -28,18 +31,16 @@ import java.util.Date;
 import java.util.HashMap;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
+import static com.example.testing.tes.CHANNEL_1_ID;
 
 public class userreport extends Service {
-
+public static final int notifid =0;
     Context context;
     @Override
     public void onCreate() {
         super.onCreate();
         context = getBaseContext();
-        int NOTIFICATION_ID = (int) (System.currentTimeMillis()%10000);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            startForeground(NOTIFICATION_ID, new Notification.Builder(this).build());
-//        }
+
     }
 
     @Override
@@ -53,9 +54,19 @@ public class userreport extends Service {
         Log.d("", "start of the usereport service");
         final getactivitydata task = new getactivitydata();
         task.execute();
-        return super.onStartCommand(intent, flags, startId);
-    }
 
+//        return super.onStartCommand(intent, flags, startId);
+
+        String input = intent.getStringExtra("userReportId");
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
+                .setContentTitle(".")
+                .setContentText(input)
+                .setSmallIcon(R.drawable.icon)
+                .build();
+        startForeground(1, notification);
+
+        return START_STICKY;
+    }
 
     @Override
     public void onDestroy() {
@@ -197,11 +208,16 @@ public class userreport extends Service {
 
 
                                 if (endTimeMinutes.equals(currentTime)) {
-                                    managenotifications sendNotification = new managenotifications(context);
-                                    sendNotification.notice(currentTime);
+
+                                    Intent notificationIntent = new Intent(userreport.this, notificationGenerator.class);
+                                    notificationIntent.putExtra("userReportId", 23);
+                                    ContextCompat.startForegroundService(userreport.this,notificationIntent );
+                                    //startService(notificationIntent);
+
                                     Log.d("testing for notification", currentTime);
                                 }
                                 // Replace the original list item
+
                                 endList.set(i, endTimeVal);
                             }
 
@@ -230,7 +246,11 @@ public class userreport extends Service {
 
                         }
                     }
-
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        stopForeground(true);
+                    } else {
+                        stopSelf();
+                    }
 
                 } catch (final JSONException | ParseException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
@@ -266,6 +286,7 @@ public class userreport extends Service {
             super.onPostExecute(result);
         }
     }
+
 }
 
 

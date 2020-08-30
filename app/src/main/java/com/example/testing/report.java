@@ -22,6 +22,7 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import com.github.mikephil.charting.charts.CandleStickChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -77,6 +78,7 @@ public class report extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.report);
         submitreport = (Button) findViewById(R.id.submitreport);
+
 
         chart1 = (CandleStickChart) findViewById(R.id.sleepLinechart);
         chart2 = (CandleStickChart) findViewById(R.id.ShowerLinechart);
@@ -174,7 +176,7 @@ public class report extends AppCompatActivity {
 
         contactList = new ArrayList<>();
 
-        isMyServiceRunning(userreport.class);
+        //isMyServiceRunning(userreport.class);
 
         IntentFilter filter = new IntentFilter("intentAction");
         registerReceiver(ar, filter);
@@ -182,7 +184,12 @@ public class report extends AppCompatActivity {
         Intent passedIntent = getIntent();
         userStr = passedIntent.getStringExtra("user");
 
-        startService(new Intent(this, userreport.class));
+        //why do i need to call userreport class in this class..doesnt work if i dont!!
+        Intent userReportIntent = new Intent(this, userreport.class);
+        userReportIntent.putExtra("userReportId", "");
+        ContextCompat.startForegroundService(this,userReportIntent );
+
+       // startService(new Intent(this, userreport.class));
         Log.d("", "service running check which might be the cause for error");
 
     }
@@ -427,7 +434,6 @@ public class report extends AppCompatActivity {
                         LocalTime actTime = lct.toLocalTime(); //get activity completion time in localtime format
 
                         if (currentTime.isAfter(actTime)) {
-                            thisCard.setVisibility(View.VISIBLE);
                             drawchart(modStartArray, modEndArray, activityType);
                             durationTextview.setText("Duration of Activity :  " + durationOfActivity);
                             }

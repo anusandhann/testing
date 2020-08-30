@@ -27,6 +27,8 @@ public class select extends AppCompatActivity {
     ListView simpleList;
     String[] targetList = {"", "Target 1", "Target 2", "Target 3"};
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,15 +50,17 @@ public class select extends AppCompatActivity {
             }
         };
 
-        Intent si = new Intent(select.this, userreport.class);
+      //  Intent si = new Intent(select.this, userreport.class);
+      //  startService(new Intent(this, userreport.class));
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            select.this.startForegroundService(si);
+           // select.this.startForegroundService(si);
             //ContextCompat.startForegroundService(this, new Intent(getApplicationContext(), userreport.class));
 
         } else {
             //ContextCompat.startForegroundService(this, new Intent(getApplicationContext(), userreport.class));
-            startService(si);
+           // startService(si);
         }
       isMyServiceRunning(userreport.class);
      // startService(new Intent(this, userreport.class));
@@ -81,6 +85,7 @@ public class select extends AppCompatActivity {
     public void onStart(){
         super.onStart();
         firebaseauth.addAuthStateListener(fbauth);
+
     }
     @Override
     public void onStop() {

@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <application
+        android:name=".tes"
         android:allowBackup="true"
         android:hardwareAccelerated="false"
         android:largeHeap="true"
@@ -27,15 +28,16 @@
             </intent-filter>
         </activity>
 
+        <service android:name=".servicecheck" />
         <activity android:name =".report"
             android:enabled="true"
             android:screenOrientation = "portrait">
         </activity>
 
-        <receiver android:name=".report$breceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
+<!--        <receiver android:name=".report$breceiver"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="false">-->
+<!--        </receiver>-->
 
         <activity
             android:name=".signingup"
@@ -52,24 +54,7 @@
 
         <activity android:name=".HttpHandler"/>
 
-        <service android:name=".managenotifications"
-            android:exported="false"
-            android:enabled="true"
-            android:permission="android.permission.BIND_JOB_SERVICE">
-        </service>
-
-        <receiver
-            android:name=".receiver"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
-                <action android:name="YES_ACTION"/>
-                <action android:name="NO_ACTION"/>
-                <action android:name="android.intent.action.CLOSE_SYSTEM_DIALOGS" />
-            </intent-filter>
-        </receiver>
+        <service android:name=".notificationGenerator"/>
 
     </application>
 
