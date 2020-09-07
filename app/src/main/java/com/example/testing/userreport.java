@@ -2,45 +2,57 @@ package com.example.testing;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
-import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.app.job.JobParameters;
+import android.app.job.JobService;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.RemoteViews;
 import android.widget.Toast;
 
 
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Objects;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
-import static com.example.testing.tes.CHANNEL_1_ID;
+import static com.example.testing.notificationGenerator.CHANNEL_ID;
 
 public class userreport extends Service {
-public static final int notifid =0;
+    public static final String CHANNEL_1_ID = "trying";
+    private NotificationManagerCompat notifManager;
     Context context;
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
     @Override
     public void onCreate() {
         super.onCreate();
         context = getBaseContext();
 
+        notifManager = NotificationManagerCompat.from(this);
     }
 
     @Override
@@ -48,24 +60,21 @@ public static final int notifid =0;
         return null;
     }
 
-
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("", "start of the usereport service");
-        final getactivitydata task = new getactivitydata();
+        final getActivityData task = new getActivityData();
         task.execute();
 
-//        return super.onStartCommand(intent, flags, startId);
-
-        String input = intent.getStringExtra("userReportId");
+        String input = intent.getStringExtra("userrport");
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
-                .setContentTitle(".")
+                .setContentTitle("ThankYou for Checking the Elderly!!")
                 .setContentText(input)
                 .setSmallIcon(R.drawable.icon)
                 .build();
-        startForeground(1, notification);
+        startForeground(100, notification);
 
-        return START_STICKY;
+        return START_NOT_STICKY;
     }
 
     @Override
@@ -73,12 +82,12 @@ public static final int notifid =0;
         super.onDestroy();
     }
 
-    private class getactivitydata extends AsyncTask<Void, Void, Void> {
+    private class getActivityData extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
         }
-        @SuppressLint("SetTextI18n")
+        @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
@@ -107,7 +116,6 @@ public static final int notifid =0;
                         String activityDuration = c.getString("duration");
                         String activityDate = c.getString("date");
 
-
                         // tmp hash map for single activityMap
                         HashMap<String, String> activityMap = new HashMap<>();
                         // adding each child node to HashMap key => value
@@ -121,6 +129,8 @@ public static final int notifid =0;
                         activityMapList.add(activityMap);
                     }
 
+
+                    // String f = dateForNot.get(enddateindex);
                     // Find all users
                     ArrayList<String> usernameList = new ArrayList<>();
                     for ( HashMap<String, String> activityMap : activityMapList ) {
@@ -156,12 +166,12 @@ public static final int notifid =0;
                             for (HashMap<String, String> activityMap : activityMapList) {
 //                                Log.d("User/Activity", activityMap.get("user") + " " + activityMap.get("actv"));
                                 // Check if the user does not match the filter
-                                if (!activityMap.get("user").equals(userFilter)) {
+                                if (!Objects.equals(activityMap.get("user"), userFilter)) {
                                     continue;
                                 }
 
                                 // Check if the activity type does not match the filter
-                                if (!activityMap.get("actv").equals(activityTypeFilter)) {
+                                if (!Objects.equals(activityMap.get("actv"), activityTypeFilter)) {
                                     continue;
                                 }
 
@@ -174,7 +184,7 @@ public static final int notifid =0;
 
                             }
 //                            Log.d("startList array", String.valueOf((startList)));
-//                            Log.d("endList array", String.valueOf((endList)));
+                           // Log.d("endList array", String.valueOf((endtimeList)));
 //                            Log.d("durationList array", String.valueOf((durationList)));
 
                             // Correct the format of the start times in the start time list
@@ -182,6 +192,7 @@ public static final int notifid =0;
                                 // Convert the timestamp format to numeric values that can be graphed
                                 @SuppressLint("SimpleDateFormat") Date newtime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(startList.get(i));
                                 Calendar cal = Calendar.getInstance();
+                                assert newtime != null;
                                 cal.setTime(newtime);
                                 String startTimeChartVal = String.valueOf(cal.get(Calendar.HOUR_OF_DAY) + ((float)(cal.get(Calendar.MINUTE)) / 60.0));
 
@@ -197,28 +208,65 @@ public static final int notifid =0;
 
                                 @SuppressLint("SimpleDateFormat") Date newtime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(endList.get(i));
                                 Calendar cal = Calendar.getInstance();
+                                assert newtime != null;
                                 cal.setTime(newtime);
-                                String endTimeVal = String.valueOf(cal.get(Calendar.HOUR_OF_DAY) + ((float)(cal.get(Calendar.MINUTE)) / 60.0));
+                                String endTimeVal = String.valueOf(cal.get(Calendar.HOUR_OF_DAY) + ((float) (cal.get(Calendar.MINUTE)) / 60.0));
 
-                                @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-                                String endtime = sdf.format(newtime);
-                                String endTimeMinutes = String.valueOf(endtime);
-
-                                @SuppressLint("SimpleDateFormat") String currentTime = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
-
-
-                                if (endTimeMinutes.equals(currentTime)) {
-
-                                    Intent notificationIntent = new Intent(userreport.this, notificationGenerator.class);
-                                    notificationIntent.putExtra("userReportId", 23);
-                                    ContextCompat.startForegroundService(userreport.this,notificationIntent );
-                                    //startService(notificationIntent);
-
-                                    Log.d("testing for notification", currentTime);
-                                }
                                 // Replace the original list item
 
                                 endList.set(i, endTimeVal);
+                            }
+
+                           // Log.d("endList array", String.valueOf((endList)));
+
+                            LocalDate today = LocalDate.now();
+                            int enddateindex = (today.getDayOfYear() % (dateList.size()-2)) + 2;
+
+                            String endOfEachForToday = endtimeList.get(enddateindex);  //this is the end time of each activity for one particular day, the day defined by the index
+
+                            LocalDate endDate = LocalDate.parse(dateList.get(enddateindex));
+
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                            Date thisDate = sdf.parse(endOfEachForToday);
+                            sdf.applyPattern("HH:mm");
+                            String endActivityTime =sdf.format(thisDate);
+                            Log.d("end time for activity ", ((endActivityTime)));
+
+                           // showsNotification(endActivityTime);
+
+
+                            String currentTime = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
+                            Calendar cal2 = Calendar.getInstance();
+                            Date d = new SimpleDateFormat("HH:mm").parse(currentTime);
+                            assert d != null;
+                            cal2.setTime(d);
+                            Log.d("timefortodaycurrent", (currentTime));
+
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+
+                            for(int i = 0; i < dateList.size(); i++){
+                                String datestr = dateList.get(i);
+
+                                LocalDate localOne = LocalDate.parse(datestr, formatter);
+
+                                if(localOne.isEqual(endDate)){
+                                   Log.d("datefornotification", String.valueOf((localOne)));
+
+                                    for (int y = 0; y <= 60 * 24; y++){
+                                          cal2.add(Calendar.MINUTE, 1);
+                                         @SuppressLint("SimpleDateFormat") String increasedTime = new SimpleDateFormat("HH:mm").format(cal2.getTime());
+                                         // Log.d("increased time", increasedTime);
+
+                                          if (increasedTime.equals(endActivityTime)){
+                                              Log.d("sametimefornot", increasedTime);
+
+                                              //send notification from here, at increased time, at that moment
+                                              showsNotification(increasedTime);
+                                          }
+                                    }
+                                   // showsNotification(endActivityTime);
+                                }
                             }
 
                             // Correct the format of the duration in the duration list
@@ -287,6 +335,32 @@ public static final int notifid =0;
         }
     }
 
+    private void showsNotification(String nTime) {
+
+        Intent notificationIntent = new Intent(this, select.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,
+                0, notificationIntent, 0);
+
+
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle("MutualMonitor")
+                .setContentText("Please Check the Recent Activity of the Elderly")
+                .setSmallIcon(R.drawable.icon)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setContentIntent(pendingIntent)
+                .build();
+
+       // notifManager.notify(12, notification);
+
+        String exactTime = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
+
+        if(exactTime.equals(nTime)){
+            notifManager.notify(12, notification);
+            Log.d(TAG, "notification is sent");
+
+        }
+    }
 }
 
 

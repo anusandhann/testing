@@ -1,5 +1,6 @@
 package com.example.testing;
 
+import android.app.Activity;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +15,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
-public class HttpHandler  {
+public class HttpHandler {
     private static final String TAG = HttpHandler.class.getSimpleName();
 
     public HttpHandler() {

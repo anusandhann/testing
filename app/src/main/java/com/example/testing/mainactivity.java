@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.Window;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
@@ -20,18 +19,10 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.Calendar;
-
-import static android.app.Service.START_NOT_STICKY;
-import static com.example.testing.tes.CHANNEL_1_ID;
-
 public class mainactivity extends AppCompatActivity {
     private PendingIntent alarmIntent;
     AlarmManager alarmManager;
     private NotificationManagerCompat notManager;
-
-    private final String TAG = "Main";
-    public static final int JOB_ID = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +37,10 @@ public class mainactivity extends AppCompatActivity {
 
         Intent userReportIntent = new Intent(this, userreport.class);
         userReportIntent.putExtra("userReportId", 23);
-        ContextCompat.startForegroundService(this,userReportIntent );
+       // ContextCompat.startForegroundService(this,userReportIntent );
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String TAG = "Main";
         if (user != null) {
             // User is signed in
             Intent i = new Intent(this, select.class);

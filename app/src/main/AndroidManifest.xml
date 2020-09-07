@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <application
-        android:name=".tes"
+        android:name=".notificationGenerator"
         android:allowBackup="true"
         android:hardwareAccelerated="false"
         android:largeHeap="true"
@@ -53,8 +53,6 @@
         </service>
 
         <activity android:name=".HttpHandler"/>
-
-        <service android:name=".notificationGenerator"/>
 
     </application>
 

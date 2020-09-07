@@ -48,6 +48,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 //this is the main class..i read the dataset, create graph, and provoke notifications from this class.
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class report extends AppCompatActivity {
 
     public CandleStickChart chart1, chart2, chart3, chart4, chart5, chart6, chart7;
@@ -176,7 +177,7 @@ public class report extends AppCompatActivity {
 
         contactList = new ArrayList<>();
 
-        //isMyServiceRunning(userreport.class);
+        isMyServiceRunning();
 
         IntentFilter filter = new IntentFilter("intentAction");
         registerReceiver(ar, filter);
@@ -185,9 +186,9 @@ public class report extends AppCompatActivity {
         userStr = passedIntent.getStringExtra("user");
 
         //why do i need to call userreport class in this class..doesnt work if i dont!!
-        Intent userReportIntent = new Intent(this, userreport.class);
-        userReportIntent.putExtra("userReportId", "");
-        ContextCompat.startForegroundService(this,userReportIntent );
+//        Intent userReportIntent = new Intent(this, userreport.class);
+       // userReportIntent.putExtra("userReportId", "");
+       // ContextCompat.startForegroundService(this,userReportIntent );
 
        // startService(new Intent(this, userreport.class));
         Log.d("", "service running check which might be the cause for error");
@@ -201,17 +202,21 @@ public class report extends AppCompatActivity {
 
     }
 
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
-        Log.d("", "service runing check in acitivy");
+    private void isMyServiceRunning() {
+        Log.d("", "service runing check in activity");
 
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
+            if (userreport.class.getName().equals(service.service.getClassName())) {
+                Log.d("", "yes it is running");
+                return;
             }
-            Log.d("", "userreport runs even when moved from Select where it is called to Report ");
+            else{
+                Intent userReportIntent = new Intent(this, userreport.class);
+                ContextCompat.startForegroundService(this,userReportIntent );
+                Log.d("", "no it is not running");
+            }
         }
-        return false;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -243,7 +248,7 @@ public class report extends AppCompatActivity {
 //                    Log.d("starttime array", String.valueOf((startarray)));
 
                     ArrayList<String> datearray = intent.getStringArrayListExtra("datelist");
-//                    Log.d("datearray", String.valueOf((datearray)));
+                    Log.d("datearray", String.valueOf((datearray)));
 
                     ArrayList<String> endtimeArray = intent.getStringArrayListExtra("endtimeList");
 //                    Log.d("endtimeList array", String.valueOf((endtimeArray)));
@@ -386,7 +391,7 @@ public class report extends AppCompatActivity {
 //                    Log.d("activitydur", String.valueOf(activitydur));
 
                     LocalDate endDate = LocalDate.parse(datearray.get(enddateindex));
-//                    Log.d("enddatelocal", String.valueOf(endDate));
+                    Log.d("enddatelocal", String.valueOf(endDate));
 
 //                    Log.d("startttt", String.valueOf(endDate.getDayOfWeek().ordinal()));
 
@@ -424,7 +429,6 @@ public class report extends AppCompatActivity {
 
                         String durationOfActivity = Long.parseLong(activitydur) / 60 % 24 + " Hours" + ":  " + Long.parseLong(activitydur) % 60 + "  Minutes";
                         assert durationTextview != null;
-//                        Log.d("durationOfActivity", (durationOfActivity));
 
                         assert endtimeArray != null;
                         String actvTime = endtimeArray.get(enddateindex);

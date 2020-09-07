@@ -27,8 +27,6 @@ public class select extends AppCompatActivity {
     ListView simpleList;
     String[] targetList = {"", "Target 1", "Target 2", "Target 3"};
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,37 +47,7 @@ public class select extends AppCompatActivity {
                 }
             }
         };
-
-      //  Intent si = new Intent(select.this, userreport.class);
-      //  startService(new Intent(this, userreport.class));
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-           // select.this.startForegroundService(si);
-            //ContextCompat.startForegroundService(this, new Intent(getApplicationContext(), userreport.class));
-
-        } else {
-            //ContextCompat.startForegroundService(this, new Intent(getApplicationContext(), userreport.class));
-           // startService(si);
-        }
-      isMyServiceRunning(userreport.class);
-     // startService(new Intent(this, userreport.class));
-        Log.d("", "service running check 1");
-
     };
-
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
-        Log.d("", "service running check");
-
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     @Override
     public void onStart(){
@@ -107,9 +75,7 @@ public class select extends AppCompatActivity {
                         Intent intent = new Intent(select.this, report.class);
                         intent.putExtra("user", String.valueOf(position));
                         startActivity(intent);
-
                     }
-
                 });
     }
 
