@@ -43,6 +43,8 @@ import static com.example.testing.notificationGenerator.CHANNEL_ID;
 
 public class userreport extends Service {
     public static final String CHANNEL_1_ID = "trying";
+    public static final int notification_id = 1;
+
     private NotificationManagerCompat notifManager;
     Context context;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
@@ -129,8 +131,6 @@ public class userreport extends Service {
                         activityMapList.add(activityMap);
                     }
 
-
-                    // String f = dateForNot.get(enddateindex);
                     // Find all users
                     ArrayList<String> usernameList = new ArrayList<>();
                     for ( HashMap<String, String> activityMap : activityMapList ) {
@@ -139,8 +139,6 @@ public class userreport extends Service {
                             usernameList.add(activityMap.get("user"));
                         }
                     }
-                   // Log.d("usernameList array", String.valueOf((usernameList)));
-
                     // Find all activity types
                     ArrayList<String> activityTypeList = new ArrayList<>();
                     for ( HashMap<String, String> activityMap : activityMapList ) {
@@ -148,7 +146,6 @@ public class userreport extends Service {
                             activityTypeList.add(activityMap.get("actv"));
                         }
                     }
-                  //  Log.d("activityTypeList array", String.valueOf((activityTypeList)));
 
                     // Loop through all users
                     for ( String userFilter : usernameList ) {
@@ -164,7 +161,7 @@ public class userreport extends Service {
 
                             // Find all actvities in the activity map list that match our filters
                             for (HashMap<String, String> activityMap : activityMapList) {
-//                                Log.d("User/Activity", activityMap.get("user") + " " + activityMap.get("actv"));
+
                                 // Check if the user does not match the filter
                                 if (!Objects.equals(activityMap.get("user"), userFilter)) {
                                     continue;
@@ -183,9 +180,6 @@ public class userreport extends Service {
                                 dateList.add(activityMap.get("date"));
 
                             }
-//                            Log.d("startList array", String.valueOf((startList)));
-                           // Log.d("endList array", String.valueOf((endtimeList)));
-//                            Log.d("durationList array", String.valueOf((durationList)));
 
                             // Correct the format of the start times in the start time list
                             for ( int i = 0; i < startList.size(); i++ ) {
@@ -196,8 +190,6 @@ public class userreport extends Service {
                                 cal.setTime(newtime);
                                 String startTimeChartVal = String.valueOf(cal.get(Calendar.HOUR_OF_DAY) + ((float)(cal.get(Calendar.MINUTE)) / 60.0));
 
-
-//                                Log.d("testing newtime array", (startTimeChartVal));
                                 // Replace the original list item
                                 startList.set(i, startTimeChartVal);
                             }
@@ -217,8 +209,6 @@ public class userreport extends Service {
                                 endList.set(i, endTimeVal);
                             }
 
-                           // Log.d("endList array", String.valueOf((endList)));
-
                             LocalDate today = LocalDate.now();
                             int enddateindex = (today.getDayOfYear() % (dateList.size()-2)) + 2;
 
@@ -234,7 +224,6 @@ public class userreport extends Service {
 
                            // showsNotification(endActivityTime);
 
-
                             String currentTime = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
                             Calendar cal2 = Calendar.getInstance();
                             Date d = new SimpleDateFormat("HH:mm").parse(currentTime);
@@ -244,28 +233,26 @@ public class userreport extends Service {
 
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+                            for (int y = 0; y <= 60 * 24; y++){
 
-                            for(int i = 0; i < dateList.size(); i++){
-                                String datestr = dateList.get(i);
+                                cal2.add(Calendar.MINUTE, 1);
+                                @SuppressLint("SimpleDateFormat") String increasedTime = new SimpleDateFormat("HH:mm").format(cal2.getTime());
+                                // Log.d("increased time", increasedTime);
+                                Log.d("sametimefornot", increasedTime);
 
-                                LocalDate localOne = LocalDate.parse(datestr, formatter);
+                                if ((increasedTime.equals(endActivityTime))){
 
-                                if(localOne.isEqual(endDate)){
-                                   Log.d("datefornotification", String.valueOf((localOne)));
+                                    for(int i = 0; i < dateList.size(); i++){
+                                    String datestr = dateList.get(i);
+                                    LocalDate localOne = LocalDate.parse(datestr, formatter);
 
-                                    for (int y = 0; y <= 60 * 24; y++){
-                                          cal2.add(Calendar.MINUTE, 1);
-                                         @SuppressLint("SimpleDateFormat") String increasedTime = new SimpleDateFormat("HH:mm").format(cal2.getTime());
-                                         // Log.d("increased time", increasedTime);
-
-                                          if (increasedTime.equals(endActivityTime)){
-                                              Log.d("sametimefornot", increasedTime);
+                                    if(localOne.isEqual(endDate)){
+                                        Log.d("datefornotification", String.valueOf((localOne)));
 
                                               //send notification from here, at increased time, at that moment
                                               showsNotification(increasedTime);
                                           }
                                     }
-                                   // showsNotification(endActivityTime);
                                 }
                             }
 
@@ -341,6 +328,7 @@ public class userreport extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
                 0, notificationIntent, 0);
 
+        Log.d(TAG, "timeValueisSentHere");
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("MutualMonitor")
@@ -354,9 +342,11 @@ public class userreport extends Service {
        // notifManager.notify(12, notification);
 
         String exactTime = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
+        Log.d( "timeValueisSentHere", exactTime);
+        Log.d(TAG, "received time" + "      " + nTime);
 
         if(exactTime.equals(nTime)){
-            notifManager.notify(12, notification);
+            notifManager.notify(notification_id, notification);
             Log.d(TAG, "notification is sent");
 
         }

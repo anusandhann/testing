@@ -34,11 +34,6 @@
             android:screenOrientation = "portrait">
         </activity>
 
-<!--        <receiver android:name=".report$breceiver"-->
-<!--            android:enabled="true"-->
-<!--            android:exported="false">-->
-<!--        </receiver>-->
-
         <activity
             android:name=".signingup"
             android:screenOrientation="portrait" />

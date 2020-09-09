@@ -214,7 +214,6 @@ public class report extends AppCompatActivity {
             else{
                 Intent userReportIntent = new Intent(this, userreport.class);
                 ContextCompat.startForegroundService(this,userReportIntent );
-                Log.d("", "no it is not running");
             }
         }
     }
@@ -381,19 +380,13 @@ public class report extends AppCompatActivity {
                     LocalDate today = LocalDate.now();
                     LocalTime currentTime = LocalTime.now();
 
-//                    Log.d("current localtime", String.valueOf(currentTime));
-//
-//                    Log.d("startdatelocal", String.valueOf(startDate));
-//                    Log.d("dayoftheyear", String.valueOf(today.getDayOfYear()));
-
                     int enddateindex = (today.getDayOfYear() % (datearray.size()-2)) + 2;
                     String activitydur = durarray.get(enddateindex);
+
 //                    Log.d("activitydur", String.valueOf(activitydur));
 
                     LocalDate endDate = LocalDate.parse(datearray.get(enddateindex));
                     Log.d("enddatelocal", String.valueOf(endDate));
-
-//                    Log.d("startttt", String.valueOf(endDate.getDayOfWeek().ordinal()));
 
                     ArrayList<String> modStartArray = new ArrayList<>();
                     ArrayList<String> modEndArray = new ArrayList<>();
