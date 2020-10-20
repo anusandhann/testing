@@ -1,7 +1,11 @@
 package com.example.testing;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.IntentService;
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.app.job.JobParameters;
@@ -15,9 +19,14 @@ import android.util.Log;
 import android.widget.Toast;
 
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.app.JobIntentService;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,29 +43,25 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
-import static com.example.testing.notificationGenerator.CHANNEL_ID;
 
-public class userreport extends Service {
+public class userreport extends JobIntentService {
     public static final String CHANNEL_1_ID = "trying";
     public static final int notification_id = 1;
-
     private NotificationManagerCompat notifManager;
     Context context;
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+    public static void enqueueWork(Context context, Intent intent) {
+        enqueueWork(context, userreport.class,notification_id,intent);
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
         context = getBaseContext();
-
         notifManager = NotificationManagerCompat.from(this);
     }
-
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -65,12 +70,12 @@ public class userreport extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("", "start of the usereport service");
-        final getActivityData task = new getActivityData();
+        getActivityData task = new getActivityData();
         task.execute();
 
         String input = intent.getStringExtra("userrport");
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
-                .setContentTitle("ThankYou for Checking the Elderly!!")
+                .setContentTitle("Thank You for Checking the Elderly!!")
                 .setContentText(input)
                 .setSmallIcon(R.drawable.icon)
                 .build();
@@ -80,8 +85,12 @@ public class userreport extends Service {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroy() { super.onDestroy();
+    }
+
+    @Override
+    protected void onHandleWork(@NonNull Intent intent) {
+        //showsNotification();
     }
 
     private class getActivityData extends AsyncTask<Void, Void, Void> {
@@ -89,6 +98,7 @@ public class userreport extends Service {
         protected void onPreExecute() {
             super.onPreExecute();
         }
+
         @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         protected Void doInBackground(Void... arg0) {
@@ -152,11 +162,11 @@ public class userreport extends Service {
 
                         // Loop through all activity types
                         for (String activityTypeFilter : activityTypeList) {
-                            ArrayList<String>  startList = new ArrayList<>();
-                            ArrayList<String>  endList = new ArrayList<>();
-                            ArrayList<String>  dateList = new ArrayList<>();
-                            ArrayList<String>  durationList = new ArrayList<>();
-                            ArrayList<String>  endtimeList = new ArrayList<>();
+                            ArrayList<String> startList = new ArrayList<>();
+                            ArrayList<String> endList = new ArrayList<>();
+                            ArrayList<String> dateList = new ArrayList<>();
+                            ArrayList<String> durationList = new ArrayList<>();
+                            ArrayList<String> endtimeList = new ArrayList<>();
 
 
                             // Find all actvities in the activity map list that match our filters
@@ -173,29 +183,29 @@ public class userreport extends Service {
                                 }
 
                                 // Fill up the array lists using values from each activity map
-                                startList.add( activityMap.get("start_time")  );
-                                endList.add( activityMap.get("end_time")  );
-                                endtimeList.add( activityMap.get("end_time")  );
-                                durationList.add( activityMap.get("duration")  );
+                                startList.add(activityMap.get("start_time"));
+                                endList.add(activityMap.get("end_time"));
+                                endtimeList.add(activityMap.get("end_time"));
+                                durationList.add(activityMap.get("duration"));
                                 dateList.add(activityMap.get("date"));
 
                             }
 
                             // Correct the format of the start times in the start time list
-                            for ( int i = 0; i < startList.size(); i++ ) {
+                            for (int i = 0; i < startList.size(); i++) {
                                 // Convert the timestamp format to numeric values that can be graphed
                                 @SuppressLint("SimpleDateFormat") Date newtime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(startList.get(i));
                                 Calendar cal = Calendar.getInstance();
                                 assert newtime != null;
                                 cal.setTime(newtime);
-                                String startTimeChartVal = String.valueOf(cal.get(Calendar.HOUR_OF_DAY) + ((float)(cal.get(Calendar.MINUTE)) / 60.0));
+                                String startTimeChartVal = String.valueOf(cal.get(Calendar.HOUR_OF_DAY) + ((float) (cal.get(Calendar.MINUTE)) / 60.0));
 
                                 // Replace the original list item
                                 startList.set(i, startTimeChartVal);
                             }
 
                             // Correct the format of the end times in the end time list
-                            for ( int i = 0; i < endList.size(); i++ ) {
+                            for (int i = 0; i < endList.size(); i++) {
                                 // Convert the timestamp format to numeric values that can be graphed
 
                                 @SuppressLint("SimpleDateFormat") Date newtime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(endList.get(i));
@@ -209,8 +219,9 @@ public class userreport extends Service {
                                 endList.set(i, endTimeVal);
                             }
 
+                            //to get the end time of activities for each day for all users
                             LocalDate today = LocalDate.now();
-                            int enddateindex = (today.getDayOfYear() % (dateList.size()-2)) + 2;
+                            int enddateindex = (today.getDayOfYear() % (dateList.size() - 2)) + 2;
 
                             String endOfEachForToday = endtimeList.get(enddateindex);  //this is the end time of each activity for one particular day, the day defined by the index
 
@@ -219,10 +230,12 @@ public class userreport extends Service {
                             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                             Date thisDate = sdf.parse(endOfEachForToday);
                             sdf.applyPattern("HH:mm");
-                            String endActivityTime =sdf.format(thisDate);
+                            String endActivityTime = sdf.format(thisDate);
                             Log.d("end time for activity ", ((endActivityTime)));
 
-                           // showsNotification(endActivityTime);
+                            // showsNotification(endActivityTime);
+
+                            //to get the current time in same format as end time, to compare and send notification if both are same
 
                             String currentTime = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
                             Calendar cal2 = Calendar.getInstance();
@@ -233,28 +246,29 @@ public class userreport extends Service {
 
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-                            for (int y = 0; y <= 60 * 24; y++){
+                            for (int i = 0; i < dateList.size(); i++) {
 
-                                cal2.add(Calendar.MINUTE, 1);
-                                @SuppressLint("SimpleDateFormat") String increasedTime = new SimpleDateFormat("HH:mm").format(cal2.getTime());
-                                // Log.d("increased time", increasedTime);
-                                Log.d("sametimefornot", increasedTime);
+                                String datestr = dateList.get(i);
+                                LocalDate localOne = LocalDate.parse(datestr, formatter);
 
-                                if ((increasedTime.equals(endActivityTime))){
+                                if(localOne.isEqual(endDate)){
+                                    Log.d("datefornotification", String.valueOf((localOne)));
 
-                                    for(int i = 0; i < dateList.size(); i++){
-                                    String datestr = dateList.get(i);
-                                    LocalDate localOne = LocalDate.parse(datestr, formatter);
+                                    for (int y = 0; y <= 60 * 24; y++){
+                                        cal2.add(Calendar.MINUTE, 1);
+                                        @SuppressLint("SimpleDateFormat") String increasedTime = new SimpleDateFormat("HH:mm").format(cal2.getTime());
+                                        // Log.d("increased time", increasedTime);
 
-                                    if(localOne.isEqual(endDate)){
-                                        Log.d("datefornotification", String.valueOf((localOne)));
+                                        if ((increasedTime.equals(endActivityTime)) && (increasedTime.equals(currentTime))){
+                                            Log.d("sametimefornot", increasedTime);
+                                            //send notification from here at that moment when increased time value equals end time of activity
 
-                                              //send notification from here, at increased time, at that moment
-                                              showsNotification(increasedTime);
-                                          }
+                                            showsNotification(increasedTime);
+                                            manageNotifications testingReceiver = new manageNotifications();
+                                            testingReceiver.notice(increasedTime);
+                                        }
                                     }
-                                }
-                            }
+                            }}
 
                             // Correct the format of the duration in the duration list
                             for ( int i = 0; i < durationList.size(); i++ ) {
@@ -324,13 +338,14 @@ public class userreport extends Service {
 
     private void showsNotification(String nTime) {
 
+        createNotificationChannel();
+
+
         Intent notificationIntent = new Intent(this, select.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
                 0, notificationIntent, 0);
 
-        Log.d(TAG, "timeValueisSentHere");
-
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
                 .setContentTitle("MutualMonitor")
                 .setContentText("Please Check the Recent Activity of the Elderly")
                 .setSmallIcon(R.drawable.icon)
@@ -339,16 +354,25 @@ public class userreport extends Service {
                 .setContentIntent(pendingIntent)
                 .build();
 
-       // notifManager.notify(12, notification);
+        //notifManager.notify(12, notification);
+
+        //checking current time, and comparing it to received time from method call, if same send
 
         String exactTime = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
-        Log.d( "timeValueisSentHere", exactTime);
-        Log.d(TAG, "received time" + "      " + nTime);
+        Log.d( "timeValueHere", exactTime);
+        Log.d(TAG, "received time" + "     " + nTime);
 
-        if(exactTime.equals(nTime)){
+        if (exactTime.equals(nTime)) {
             notifManager.notify(notification_id, notification);
             Log.d(TAG, "notification is sent");
-
+        }
+    }
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(CHANNEL_1_ID, "Reminding users", NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("This is temporary"); //to show to Users That the app is running
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(channel);
         }
     }
 }

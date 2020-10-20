@@ -212,6 +212,8 @@ public class report extends AppCompatActivity {
                 return;
             }
             else{
+                Log.d("", "No the service isnt running");
+
                 Intent userReportIntent = new Intent(this, userreport.class);
                 ContextCompat.startForegroundService(this,userReportIntent );
             }
@@ -247,7 +249,7 @@ public class report extends AppCompatActivity {
 //                    Log.d("starttime array", String.valueOf((startarray)));
 
                     ArrayList<String> datearray = intent.getStringArrayListExtra("datelist");
-                    Log.d("datearray", String.valueOf((datearray)));
+                    //Log.d("datearray", String.valueOf((datearray)));
 
                     ArrayList<String> endtimeArray = intent.getStringArrayListExtra("endtimeList");
 //                    Log.d("endtimeList array", String.valueOf((endtimeArray)));
@@ -386,7 +388,7 @@ public class report extends AppCompatActivity {
 //                    Log.d("activitydur", String.valueOf(activitydur));
 
                     LocalDate endDate = LocalDate.parse(datearray.get(enddateindex));
-                    Log.d("enddatelocal", String.valueOf(endDate));
+                   // Log.d("enddatelocal", String.valueOf(endDate));
 
                     ArrayList<String> modStartArray = new ArrayList<>();
                     ArrayList<String> modEndArray = new ArrayList<>();
@@ -425,7 +427,7 @@ public class report extends AppCompatActivity {
 
                         assert endtimeArray != null;
                         String actvTime = endtimeArray.get(enddateindex);
-                        Log.d("compareactivitytime", (actvTime));
+                       // Log.d("compareactivitytime", (actvTime));
 
                         LocalDateTime lct = LocalDateTime.parse(actvTime, timeFormatter);
                         LocalTime actTime = lct.toLocalTime(); //get activity completion time in localtime format
@@ -445,11 +447,11 @@ public class report extends AppCompatActivity {
                         long durationOfActivity = Long.parseLong(activitydur);
                         assert durationTextview != null;
 
-                        Log.d("durationOfActivity", String.valueOf(durationOfActivity));
+                       // Log.d("durationOfActivity", String.valueOf(durationOfActivity));
 
                         assert endtimeArray != null;
                         String actvTime = endtimeArray.get(enddateindex);
-                        Log.d("compareactivitytime2", (actvTime));
+                      //  Log.d("compareactivitytime2", (actvTime));
 
                         LocalDateTime lct = LocalDateTime.parse(actvTime,timeFormatter);
                         LocalTime actTime = lct.toLocalTime(); //get activity completion time in localtime format
@@ -476,7 +478,7 @@ public class report extends AppCompatActivity {
 
             for (int i = 0; i < x.size(); i++) {
                 candleEntryTry.add(new CandleEntry(i, 23, 0, Float.parseFloat(x.get(i)), Float.parseFloat(y.get(i))));
-                Log.d("graph thing", x.get(i));
+               // Log.d("graph thing", x.get(i));
             }
 
             CandleStickChart selectedChart = activityChartMap.get(activityType);
@@ -692,7 +694,7 @@ public class report extends AppCompatActivity {
 
                 for(int i =10; i< 25;i++){
 
-                    mValues.add("8/"+ i);
+                    mValues.add("9/"+ i);
                }
             }
             @Override

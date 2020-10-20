@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <application
-        android:name=".notificationGenerator"
         android:allowBackup="true"
         android:hardwareAccelerated="false"
         android:largeHeap="true"
@@ -28,7 +27,6 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".servicecheck" />
         <activity android:name =".report"
             android:enabled="true"
             android:screenOrientation = "portrait">
@@ -42,12 +40,20 @@
             android:name=".signingin"
             android:screenOrientation="portrait" />
 
+        <activity android:name=".HttpHandler"/>
+
+        <receiver android:name=".notificationGenerator"/>
+
+        <service android:name=".manageNotifications"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
+
+        <service android:name=".servicecheck" />
+
         <service android:name=".userreport"
             android:exported="false"
-            android:enabled="true">
+            android:enabled="true"
+            android:permission="android.permission.BIND_JOB_SERVICE">
         </service>
-
-        <activity android:name=".HttpHandler"/>
 
     </application>
 

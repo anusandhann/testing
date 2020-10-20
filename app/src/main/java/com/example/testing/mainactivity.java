@@ -19,6 +19,8 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Calendar;
+
 public class mainactivity extends AppCompatActivity {
     private PendingIntent alarmIntent;
     AlarmManager alarmManager;
@@ -33,11 +35,17 @@ public class mainactivity extends AppCompatActivity {
 
         Intent notificationIntent = new Intent(this, servicecheck.class);
         notificationIntent.putExtra("serviceCheck", 32);
-        ContextCompat.startForegroundService(this,notificationIntent );
+       // ContextCompat.startForegroundService(this,notificationIntent );
 
         Intent userReportIntent = new Intent(this, userreport.class);
         userReportIntent.putExtra("userReportId", 23);
-       // ContextCompat.startForegroundService(this,userReportIntent );
+        ContextCompat.startForegroundService(this,userReportIntent );
+
+        Intent notificationReceiverIntent = new Intent(this,notificationGenerator.class);
+        notificationReceiverIntent.putExtra("notifID", 191);
+        alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+        alarmIntent = PendingIntent.getBroadcast(this, 1, notificationReceiverIntent, 0);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(),5 * 1000, alarmIntent);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String TAG = "Main";
