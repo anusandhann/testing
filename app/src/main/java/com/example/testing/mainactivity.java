@@ -1,10 +1,7 @@
 package com.example.testing;
 
-import android.app.Activity;
 import android.app.AlarmManager;
-import android.app.Notification;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,8 +19,8 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Calendar;
 
 public class mainactivity extends AppCompatActivity {
-    private PendingIntent alarmIntent;
-    AlarmManager alarmManager;
+    private PendingIntent alarmIntent, alarmIntent2;
+    AlarmManager alarmManager, alarmManager2;
     private NotificationManagerCompat notManager;
 
     @Override
@@ -35,13 +32,13 @@ public class mainactivity extends AppCompatActivity {
 
         Intent notificationIntent = new Intent(this, servicecheck.class);
         notificationIntent.putExtra("serviceCheck", 32);
-       // ContextCompat.startForegroundService(this,notificationIntent );
+        ContextCompat.startForegroundService(this,notificationIntent );
 
         Intent userReportIntent = new Intent(this, userreport.class);
         userReportIntent.putExtra("userReportId", 23);
         ContextCompat.startForegroundService(this,userReportIntent );
 
-        Intent notificationReceiverIntent = new Intent(this,notificationGenerator.class);
+        Intent notificationReceiverIntent = new Intent(this,notificationGeneratorBR.class);
         notificationReceiverIntent.putExtra("notifID", 191);
         alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
         alarmIntent = PendingIntent.getBroadcast(this, 1, notificationReceiverIntent, 0);

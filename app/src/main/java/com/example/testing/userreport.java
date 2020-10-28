@@ -45,26 +45,33 @@ import java.util.HashMap;
 import java.util.Objects;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
+import static com.example.testing.servicecheck.CHANNEL_1_ID;
 
 public class userreport extends JobIntentService {
-    public static final String CHANNEL_1_ID = "trying";
+    public static final String CHANNEL_2_ID = "channel2";
+    public static final String CHANNEL_delete_ID = "deletethischannel";
+
+
     public static final int notification_id = 1;
     private NotificationManagerCompat notifManager;
     Context context;
 
     public static void enqueueWork(Context context, Intent intent) {
         enqueueWork(context, userreport.class,notification_id,intent);
+        Log.d(TAG, "enqueueWork: userreport");
     }
+
+    @Override
+    protected void onHandleWork(@NonNull Intent Tintent) {
+        Log.d(TAG, "onHandleWork: for enque");    }
+
 
     @Override
     public void onCreate() {
         super.onCreate();
         context = getBaseContext();
         notifManager = NotificationManagerCompat.from(this);
-    }
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
+        Log.d(TAG, "onCreate: userreport");
     }
 
     @Override
@@ -73,8 +80,11 @@ public class userreport extends JobIntentService {
         getActivityData task = new getActivityData();
         task.execute();
 
-        String input = intent.getStringExtra("userrport");
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
+        String input = intent.getStringExtra("userreport");
+
+        createNotificationChannel();
+
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_delete_ID)
                 .setContentTitle("Thank You for Checking the Elderly!!")
                 .setContentText(input)
                 .setSmallIcon(R.drawable.icon)
@@ -88,12 +98,9 @@ public class userreport extends JobIntentService {
     public void onDestroy() { super.onDestroy();
     }
 
-    @Override
-    protected void onHandleWork(@NonNull Intent intent) {
-        //showsNotification();
-    }
 
     private class getActivityData extends AsyncTask<Void, Void, Void> {
+        
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -231,9 +238,9 @@ public class userreport extends JobIntentService {
                             Date thisDate = sdf.parse(endOfEachForToday);
                             sdf.applyPattern("HH:mm");
                             String endActivityTime = sdf.format(thisDate);
-                            Log.d("end time for activity ", ((endActivityTime)));
+                            Log.d("endtime for activity ", ((endActivityTime)));
 
-                            // showsNotification(endActivityTime);
+                             showsNotification(endActivityTime);
 
                             //to get the current time in same format as end time, to compare and send notification if both are same
 
@@ -262,10 +269,7 @@ public class userreport extends JobIntentService {
                                         if ((increasedTime.equals(endActivityTime)) && (increasedTime.equals(currentTime))){
                                             Log.d("sametimefornot", increasedTime);
                                             //send notification from here at that moment when increased time value equals end time of activity
-
-                                            showsNotification(increasedTime);
-                                            manageNotifications testingReceiver = new manageNotifications();
-                                            testingReceiver.notice(increasedTime);
+                                           // showsNotification(increasedTime);
                                         }
                                     }
                             }}
@@ -338,14 +342,13 @@ public class userreport extends JobIntentService {
 
     private void showsNotification(String nTime) {
 
-        createNotificationChannel();
-
+        createNotificationChannel2();
 
         Intent notificationIntent = new Intent(this, select.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
                 0, notificationIntent, 0);
 
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_2_ID)
                 .setContentTitle("MutualMonitor")
                 .setContentText("Please Check the Recent Activity of the Elderly")
                 .setSmallIcon(R.drawable.icon)
@@ -355,6 +358,7 @@ public class userreport extends JobIntentService {
                 .build();
 
         //notifManager.notify(12, notification);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         //checking current time, and comparing it to received time from method call, if same send
 
@@ -363,14 +367,22 @@ public class userreport extends JobIntentService {
         Log.d(TAG, "received time" + "     " + nTime);
 
         if (exactTime.equals(nTime)) {
-            notifManager.notify(notification_id, notification);
+            notificationManager.notify(notification_id, notification);
             Log.d(TAG, "notification is sent");
         }
     }
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(CHANNEL_1_ID, "Reminding users", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel channel = new NotificationChannel(CHANNEL_delete_ID, "Temporary", NotificationManager.IMPORTANCE_DEFAULT);
             channel.setDescription("This is temporary"); //to show to Users That the app is running
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+    private void createNotificationChannel2() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(CHANNEL_2_ID, "Reminding users", NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("This is main"); //to show to Users That the app is running
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.createNotificationChannel(channel);
         }

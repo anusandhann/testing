@@ -186,11 +186,11 @@ public class report extends AppCompatActivity {
         userStr = passedIntent.getStringExtra("user");
 
         //why do i need to call userreport class in this class..doesnt work if i dont!!
-//        Intent userReportIntent = new Intent(this, userreport.class);
-       // userReportIntent.putExtra("userReportId", "");
+        Intent userReportIntent = new Intent(this, userreport.class);
+        userReportIntent.putExtra("userReportId", "");
        // ContextCompat.startForegroundService(this,userReportIntent );
 
-       // startService(new Intent(this, userreport.class));
+        startService(new Intent(this, userreport.class));
         Log.d("", "service running check which might be the cause for error");
 
     }
@@ -298,8 +298,8 @@ public class report extends AppCompatActivity {
                     String dinnerresponse = preferences.getString("dinnerPrefresponse","");
 
                     String thisdate = String.valueOf(LocalDate.now());
-                    Log.d("harihari localdate  ", thisdate);
-                    Log.d("harihari monitor name  ", useremail);
+//                    Log.d("harihari localdate  ", thisdate);
+//                    Log.d("harihari monitor name  ", useremail);
 
 
                     if((thisdate.equals( sleepresponsedate )) && username.equals(sleepusername) && useremail.equals(sleepmonitor)) {

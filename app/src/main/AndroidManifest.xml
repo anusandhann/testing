@@ -13,6 +13,9 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network"
+
         tools:ignore="GoogleAppIndexingWarning,LockedOrientationActivity">
 
         <activity android:name=".select"
@@ -42,10 +45,13 @@
 
         <activity android:name=".HttpHandler"/>
 
-        <receiver android:name=".notificationGenerator"/>
+        <receiver android:name=".notificationGeneratorBR">
+        <intent-filter>
+            <action android:name="android.media.action.DISPLAY_NOTIFICATION" />
 
-        <service android:name=".manageNotifications"
-            android:permission="android.permission.BIND_JOB_SERVICE"/>
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+        </receiver>
 
         <service android:name=".servicecheck" />
 
