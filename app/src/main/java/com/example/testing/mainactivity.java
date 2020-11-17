@@ -1,7 +1,9 @@
 package com.example.testing;
 
+import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,19 +32,21 @@ public class mainactivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.start);
 
+        isMyServiceRunning();
+
         Intent notificationIntent = new Intent(this, servicecheck.class);
         notificationIntent.putExtra("serviceCheck", 32);
-        ContextCompat.startForegroundService(this,notificationIntent );
+       // ContextCompat.startForegroundService(this,notificationIntent );
 
         Intent userReportIntent = new Intent(this, userreport.class);
         userReportIntent.putExtra("userReportId", 23);
-        ContextCompat.startForegroundService(this,userReportIntent );
+      //  ContextCompat.startForegroundService(this,userReportIntent );
 
         Intent notificationReceiverIntent = new Intent(this,notificationGeneratorBR.class);
         notificationReceiverIntent.putExtra("notifID", 191);
         alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
         alarmIntent = PendingIntent.getBroadcast(this, 1, notificationReceiverIntent, 0);
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(),5 * 1000, alarmIntent);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(),50 * 1000, alarmIntent);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String TAG = "Main";
@@ -68,6 +72,23 @@ public class mainactivity extends AppCompatActivity {
         Intent intent= new Intent(this, signingin.class);
         startActivity(intent);
 
+    }
+    private void isMyServiceRunning() {
+        Log.d("", "checkingService run for Permanent notification");
+
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (servicecheck.class.getName().equals(service.service.getClassName())) {
+                Log.d("", "yes permanent service running");
+                return;
+            }
+            else{
+                Log.d("", "No the permanent service isnt running");
+
+                Intent serviceCheckIntent = new Intent(this, servicecheck.class);
+                ContextCompat.startForegroundService(this,serviceCheckIntent );
+            }
+        }
     }
 }
 

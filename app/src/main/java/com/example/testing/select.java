@@ -25,7 +25,7 @@ public class select extends AppCompatActivity {
     private FirebaseAuth firebaseauth;
 
     ListView simpleList;
-    String[] targetList = {"", "Target 1", "Target 2", "Target 3"};
+    String[] targetList = {"","Target 1", "Target 2", "Target 3"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

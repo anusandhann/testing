@@ -32,8 +32,10 @@
             android:layout_marginTop="132dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:background="#954C4C"
+            android:background="@android:color/transparent"
             android:fontFamily="serif"
+            android:gravity="center"
+            android:orientation="vertical"
             android:text="@string/activity_report"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#0F1010"
@@ -41,12 +43,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.6"
-            app:layout_constraintVertical_bias="0.212"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:orientation="vertical"
-            android:gravity="center"
-            />
+            app:layout_constraintVertical_bias="0.212" />
 
         <View
             android:layout_width="match_parent"
@@ -94,7 +93,7 @@
 
                 <TextView
                     android:id="@+id/text1"
-                    android:layout_width="183dp"
+                    android:layout_width="200dp"
                     android:layout_height="30dp"
                     android:layout_below="@+id/sleepLinechart"
                     android:layout_alignParentEnd="true"

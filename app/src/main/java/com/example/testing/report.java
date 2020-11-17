@@ -422,7 +422,7 @@ public class report extends AppCompatActivity {
 
                     if (Float.parseFloat(activitydur) >= 60) {
 
-                        String durationOfActivity = Long.parseLong(activitydur) / 60 % 24 + " Hours" + ":  " + Long.parseLong(activitydur) % 60 + "  Minutes";
+                        String durationOfActivity = Long.parseLong(activitydur) / 60 % 24 + " Hours" + " & " + Long.parseLong(activitydur) % 60 + "  Minutes";
                         assert durationTextview != null;
 
                         assert endtimeArray != null;
@@ -487,6 +487,9 @@ public class report extends AppCompatActivity {
             selectedChart.getDescription().setEnabled(false);
             selectedChart.setTouchEnabled(false);
 
+//            selectedChart.setVisibleXRangeMaximum(2);
+//            selectedChart.setVisibleXRangeMaximum(2);
+
             selectedChart.notifyDataSetChanged();
 
             selectedChart.getAxisRight().setDrawLabels(true);
@@ -505,11 +508,11 @@ public class report extends AppCompatActivity {
             xAxis.setGranularityEnabled(true);
             xAxis.setGranularity(1f);
             //xAxis.setLabelRotationAngle(45f);
+            xAxis.setLabelCount(4);
 
             YAxis leftAxis = selectedChart.getAxisLeft();
             YAxis rightAxis = selectedChart.getAxisRight();
             leftAxis.setValueFormatter(new MyYAxisValueFormatter());
-
 
             rightAxis.setTextColor(Color.WHITE);
             leftAxis.setDrawGridLines(false);
@@ -525,6 +528,7 @@ public class report extends AppCompatActivity {
             set1.setColor(Color.rgb(80, 80, 80));
             set1.setShadowColor(getResources().getColor(R.color.textforApp));  //need to change to WHITE later
             set1.setShadowWidth(0.8f);
+            set1.setFormSize(7);
             set1.setDecreasingColor(getResources().getColor(R.color.colorinGraph));
             set1.setDecreasingPaintStyle(Paint.Style.FILL);
             set1.setIncreasingColor(getResources().getColor(R.color.colorinGraph));
@@ -533,6 +537,7 @@ public class report extends AppCompatActivity {
             set1.setDrawValues(false);
             CandleData data = new CandleData(set1);
             selectedChart.setData(data);
+           // selectedChart.setMinimumWidth(9);
             selectedChart.invalidate();
         }
 
@@ -692,9 +697,9 @@ public class report extends AppCompatActivity {
 
             public MyXAxisValueFormatter() {
 
-                for(int i =10; i< 25;i++){
+                for(int i =9; i< 25;i++){
 
-                    mValues.add("9/"+ i);
+                    mValues.add("11/"+ i);
                }
             }
             @Override

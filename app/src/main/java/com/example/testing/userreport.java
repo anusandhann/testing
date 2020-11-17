@@ -45,7 +45,6 @@ import java.util.HashMap;
 import java.util.Objects;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
-import static com.example.testing.servicecheck.CHANNEL_1_ID;
 
 public class userreport extends JobIntentService {
     public static final String CHANNEL_2_ID = "channel2";
@@ -111,7 +110,7 @@ public class userreport extends JobIntentService {
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
             // Making a request to url and getting response
-            String url = "http://163.221.68.248:8080/api";
+            String url = "http://ec2-18-177-160-75.ap-northeast-1.compute.amazonaws.com/api";
             String jsonStr = sh.makeServiceCall(url);
             ArrayList<HashMap<String, String>> activityMapList = new ArrayList<>();
 
@@ -174,6 +173,7 @@ public class userreport extends JobIntentService {
                             ArrayList<String> dateList = new ArrayList<>();
                             ArrayList<String> durationList = new ArrayList<>();
                             ArrayList<String> endtimeList = new ArrayList<>();
+                            ArrayList<String> userList = new ArrayList<>();
 
 
                             // Find all actvities in the activity map list that match our filters
@@ -195,6 +195,7 @@ public class userreport extends JobIntentService {
                                 endtimeList.add(activityMap.get("end_time"));
                                 durationList.add(activityMap.get("duration"));
                                 dateList.add(activityMap.get("date"));
+                                userList.add(activityMap.get("user"));
 
                             }
 
@@ -240,7 +241,7 @@ public class userreport extends JobIntentService {
                             String endActivityTime = sdf.format(thisDate);
                             Log.d("endtime for activity ", ((endActivityTime)));
 
-                             showsNotification(endActivityTime);
+                           //  showsNotification(endActivityTime);
 
                             //to get the current time in same format as end time, to compare and send notification if both are same
 
@@ -269,7 +270,7 @@ public class userreport extends JobIntentService {
                                         if ((increasedTime.equals(endActivityTime)) && (increasedTime.equals(currentTime))){
                                             Log.d("sametimefornot", increasedTime);
                                             //send notification from here at that moment when increased time value equals end time of activity
-                                           // showsNotification(increasedTime);
+                                            showsNotification(increasedTime);
                                         }
                                     }
                             }}
@@ -280,6 +281,11 @@ public class userreport extends JobIntentService {
                                 String durationVal = String.valueOf(Integer.parseInt(durationList.get(i))/ (60 * 1000));
                                 // Replace the original list item
                                 durationList.set(i, durationVal);
+                            }
+
+                            for (int i = 0; i < userList.size(); i++) {
+                                String thisUser = String.valueOf(userList.get(i));
+                                userList.set(i,thisUser);
                             }
 
                             // Build the intent
@@ -293,6 +299,7 @@ public class userreport extends JobIntentService {
                             in.putStringArrayListExtra("durationarraylist", durationList);
                             in.putStringArrayListExtra("datelist", dateList);
                             in.putStringArrayListExtra("endtimeList", endtimeList);
+                            in.putStringArrayListExtra("thisUser", userList);
 
                             // Broadcast the intent
                             sendBroadcast(in);
@@ -344,7 +351,9 @@ public class userreport extends JobIntentService {
 
         createNotificationChannel2();
 
+
         Intent notificationIntent = new Intent(this, select.class);
+        //notificationIntent.putExtra("user",username );
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
                 0, notificationIntent, 0);
 
