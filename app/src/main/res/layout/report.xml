@@ -395,7 +395,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="5dp"
+            android:layout_height="10dp"
             />
 
         <androidx.cardview.widget.CardView
@@ -602,7 +602,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="10dp"
             />
 
         <View
@@ -711,7 +711,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="10dp"
             />
 
         <View

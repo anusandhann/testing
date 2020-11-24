@@ -5,12 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +25,7 @@ public class select extends AppCompatActivity {
 
     private FirebaseAuth.AuthStateListener fbauth;
     private FirebaseAuth firebaseauth;
+    boolean doubleBackToExitPressedOnce = false;
 
     ListView simpleList;
     String[] targetList = {"","Target 1", "Target 2", "Target 3"};
@@ -84,4 +87,10 @@ public class select extends AppCompatActivity {
         firebaseauth.signOut();
         startActivity(intent);
     }
+
+    @Override
+    public void onBackPressed() {
+       finishAffinity();
+    }
+
 }

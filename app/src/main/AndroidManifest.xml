@@ -44,6 +44,7 @@
             android:screenOrientation="portrait" />
 
         <activity android:name=".HttpHandler"/>
+        <activity android:name=".thankYou"/>
 
         <receiver android:name=".notificationGeneratorBR">
         <intent-filter>

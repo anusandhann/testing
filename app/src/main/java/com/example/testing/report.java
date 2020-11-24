@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -58,6 +59,7 @@ public class report extends AppCompatActivity {
     Button submitreport;
 
     ArrayList<HashMap<String, String>> contactList;
+
     public CardView card1, card2, card3, card4, card5, card6, card7, thisCard;
 
     private HashMap<String, TextView> textHash = new HashMap<>();
@@ -67,6 +69,7 @@ public class report extends AppCompatActivity {
     private HashMap<String, RadioGroup> radioHash = new HashMap<>();
 
     private HashMap<String, CandleStickChart> activityChartMap = new HashMap<>();
+
     private String userStr = null;
     public static final String mypreference = "mypref";
     SharedPreferences preferences;
@@ -90,8 +93,8 @@ public class report extends AppCompatActivity {
         chart7 = (CandleStickChart) findViewById(R.id.dinnerLinechart);
 
         YAxis sleepleft = chart1.getAxisLeft();
-        sleepleft.setAxisMaximum((float) 26.0);
-        sleepleft.setAxisMinimum(4);
+        sleepleft.setAxisMaximum((float) 35.0);
+        sleepleft.setAxisMinimum(16);
 
         YAxis showerleft = chart2.getAxisLeft();
         showerleft.setAxisMaximum((float) 24.0);
@@ -188,9 +191,9 @@ public class report extends AppCompatActivity {
         //why do i need to call userreport class in this class..doesnt work if i dont!!
         Intent userReportIntent = new Intent(this, userreport.class);
         userReportIntent.putExtra("userReportId", "");
-       // ContextCompat.startForegroundService(this,userReportIntent );
+        ContextCompat.startForegroundService(this,userReportIntent );
 
-        startService(new Intent(this, userreport.class));
+//        startService(new Intent(this, userreport.class));
         Log.d("", "service running check which might be the cause for error");
 
     }
@@ -208,11 +211,11 @@ public class report extends AppCompatActivity {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (userreport.class.getName().equals(service.service.getClassName())) {
-                Log.d("", "yes it is running");
+                Log.d("", "checking from report class: yes it is running");
                 return;
             }
             else{
-                Log.d("", "No the service isnt running");
+                Log.d("", "checking from report class: No the service isnt running");
 
                 Intent userReportIntent = new Intent(this, userreport.class);
                 ContextCompat.startForegroundService(this,userReportIntent );
@@ -298,8 +301,6 @@ public class report extends AppCompatActivity {
                     String dinnerresponse = preferences.getString("dinnerPrefresponse","");
 
                     String thisdate = String.valueOf(LocalDate.now());
-//                    Log.d("harihari localdate  ", thisdate);
-//                    Log.d("harihari monitor name  ", useremail);
 
 
                     if((thisdate.equals( sleepresponsedate )) && username.equals(sleepusername) && useremail.equals(sleepmonitor)) {
@@ -382,6 +383,7 @@ public class report extends AppCompatActivity {
                     LocalDate today = LocalDate.now();
                     LocalTime currentTime = LocalTime.now();
 
+                    //this index helps to start the graph at a aprticular date: pref after 3 days of data. Is in 2 places, userreport 232
                     int enddateindex = (today.getDayOfYear() % (datearray.size()-2)) + 2;
                     String activitydur = durarray.get(enddateindex);
 
@@ -463,7 +465,7 @@ public class report extends AppCompatActivity {
                             }
                             else
                             {
-                                thisRadiogp.setVisibility(View.INVISIBLE);
+                                thisRadiogp.setVisibility(View.GONE);
                                 drawchart(prevModStartArray , prevModEndArray, activityType);
                             }
                     }
@@ -473,13 +475,15 @@ public class report extends AppCompatActivity {
 
         public void drawchart(ArrayList<String> x, ArrayList<String> y, String activityType) {
 
-
+            ArrayList<CandleEntry> sleepCandleEntry = new ArrayList<CandleEntry>();
             ArrayList<CandleEntry> candleEntryTry = new ArrayList<CandleEntry>();
 
             for (int i = 0; i < x.size(); i++) {
-                candleEntryTry.add(new CandleEntry(i, 23, 0, Float.parseFloat(x.get(i)), Float.parseFloat(y.get(i))));
-               // Log.d("graph thing", x.get(i));
+                int shift = activityType.equals("Sleep") && !x.get(i).equals(y.get(i)) ? 24 : 0;
+                candleEntryTry.add(new CandleEntry(i, 35, 0, Float.parseFloat(x.get(i)), Float.parseFloat(y.get(i))+ shift));
+                Log.d("graph thing", x.get(i));
             }
+
 
             CandleStickChart selectedChart = activityChartMap.get(activityType);
             assert selectedChart != null;
@@ -535,9 +539,17 @@ public class report extends AppCompatActivity {
             set1.setIncreasingPaintStyle(Paint.Style.FILL);
             set1.setNeutralColor(Color.LTGRAY);
             set1.setDrawValues(false);
+
+//            set1.setValueTextSize(8f);
+//            set1.setValueTextColor(R.color.graphValue);
+
+
             CandleData data = new CandleData(set1);
-            selectedChart.setData(data);
+
            // selectedChart.setMinimumWidth(9);
+
+            selectedChart.setData(data);
+
             selectedChart.invalidate();
         }
 
@@ -578,117 +590,153 @@ public class report extends AppCompatActivity {
                     final int dinnerstate = dinnerradio.getCheckedRadioButtonId();
                     final int tvstate = tvradio.getCheckedRadioButtonId();
 
+//                    if (!sleepradio.isEnabled() && !showerradio.isEnabled() && !breakfastradio.isEnabled()&& !medicationradio.isEnabled() && !lunchradio.isEnabled()
+//                            && !tvradio.isEnabled() && !dinnerradio.isEnabled()){
+//
+//                        Toast.makeText(getApplicationContext(), "NOOOO", Toast.LENGTH_LONG).show();
+//                    }
 
-                    if (sleepradio!=null && sleepradio.isEnabled() && sleepstate!= -1){
-                        sleep = (RadioButton) findViewById(sleepstate);
-                        Log.d("value   ", String.valueOf(sleep.getText()));
-                        sleepmap.put("Sleep state", userdr);
-                        ref.child(username).child("Sleep").child(String.valueOf(sleep.getText())).child(id).updateChildren(sleepmap);
 
-                        editor.putString("sleepPrefuser", username);
-                        editor.putString("sleepPrefmonitor", email);
-                        editor.putString("sleepPrefresponse", String.valueOf(sleep.getText()));
-                        editor.putString("sleepPrefdate", String.valueOf(LocalDate.now()));
+//                    if (((sleepradio==null && !sleepradio.isEnabled() && sleepstate == -1)
+//                    && (showerradio==null && !showerradio.isEnabled() && showerstate== -1)
+//                    && (breakfastradio==null && !breakfastradio.isEnabled() && bfstate== -1)
+//                    && (medicationradio==null && !medicationradio.isEnabled() && medstate== -1)
+//                    && (lunchradio==null && !lunchradio.isEnabled() && lunchstate== -1)
+//                    && (tvradio==null && !tvradio.isEnabled() && tvstate== -1)
+//                    && (dinnerradio==null && !dinnerradio.isEnabled() && dinnerstate== -1)))
+//                    {
+//                        Toast.makeText(getApplicationContext(), "NOOOO", Toast.LENGTH_LONG).show();
+//                    }
 
-                        editor.apply(); //to get it back, need to do, preferences.getString("same key", )
+                    if ( sleepstate == -1
+                            && showerstate == -1
+                            &&  bfstate == -1
+                            && medstate == -1
+                            && lunchstate == -1
+                            && tvstate == -1
+                            && dinnerstate == -1)
+                    {
+                        Toast.makeText(getApplicationContext(), "Seems like you have missed selecting!! ", Toast.LENGTH_LONG).show();
                     }
+                    else {
 
-                    if (showerradio!=null && showerradio.isEnabled() && showerstate!= -1){
-                        shower = (RadioButton) findViewById(showerstate);
-                        Log.d("value ", String.valueOf(shower.getText()));
-                        showermap.put("Shower state", userdr);
-                        ref.child(username).child("Shower").child(String.valueOf(shower.getText())).child(id).updateChildren(showermap);
+                        if (sleepradio != null && sleepradio.isEnabled() && sleepstate != -1) {
+                            sleep = (RadioButton) findViewById(sleepstate);
+                            Log.d("value   ", String.valueOf(sleep.getText()));
+                            sleepmap.put("Sleep state", userdr);
+                            ref.child(username).child("Sleep").child(String.valueOf(sleep.getText())).child(id).updateChildren(sleepmap);
 
-                        editor.putString("showerPrefuser", username);
-                        editor.putString("showerPrefmonitor", email);
-                        editor.putString("showerPrefresponse", String.valueOf(shower.getText()));
-                        editor.putString("showerPrefdate", String.valueOf(LocalDate.now()));
+                            editor.putString("sleepPrefuser", username);
+                            editor.putString("sleepPrefmonitor", email);
+                            editor.putString("sleepPrefresponse", String.valueOf(sleep.getText()));
+                            editor.putString("sleepPrefdate", String.valueOf(LocalDate.now()));
 
-                        editor.apply();
+                            editor.apply(); //to get it back, need to do, preferences.getString("same key", )
+                        }
+
+                        if (showerradio != null && showerradio.isEnabled() && showerstate != -1) {
+                            shower = (RadioButton) findViewById(showerstate);
+                            Log.d("value ", String.valueOf(shower.getText()));
+                            showermap.put("Shower state", userdr);
+                            ref.child(username).child("Shower").child(String.valueOf(shower.getText())).child(id).updateChildren(showermap);
+
+                            editor.putString("showerPrefuser", username);
+                            editor.putString("showerPrefmonitor", email);
+                            editor.putString("showerPrefresponse", String.valueOf(shower.getText()));
+                            editor.putString("showerPrefdate", String.valueOf(LocalDate.now()));
+
+                            editor.apply();
+                        }
+                        if (breakfastradio != null && breakfastradio.isEnabled() && bfstate != -1) {
+                            breakfast = (RadioButton) findViewById(bfstate);
+                            Log.d("value   ", String.valueOf(breakfast.getText()));
+                            bfmap.put("Breakfast state", userdr);
+                            ref.child(username).child("Breakfast").child(String.valueOf(breakfast.getText())).child(id).updateChildren(bfmap);
+
+                            editor.putString("breakfastPrefuser", username);
+                            editor.putString("breakfastPrefmonitor", email);
+                            editor.putString("breakfastPrefresponse", String.valueOf(breakfast.getText()));
+                            editor.putString("breakfastPrefdate", String.valueOf(LocalDate.now()));
+
+                            editor.apply();
+
+                        }
+                        if (medicationradio != null && medicationradio.isEnabled() && medstate != -1) {
+                            medication = (RadioButton) findViewById(medstate);
+                            Log.d("value   ", String.valueOf(medication.getText()));
+                            medmap.put("Medication state", userdr);
+                            ref.child(username).child("Medication").child(String.valueOf(medication.getText())).child(id).updateChildren(medmap);
+
+                            editor.putString("medicationPrefuser", username);
+                            editor.putString("medicationPrefmonitor", email);
+                            editor.putString("medicationPrefresponse", String.valueOf(medication.getText()));
+                            editor.putString("medicationPrefdate", String.valueOf(LocalDate.now()));
+
+                            editor.apply();
+
+                        }
+                        if (lunchradio != null && lunchradio.isEnabled() && lunchstate != -1) {
+                            lunch = (RadioButton) findViewById(lunchstate);
+                            Log.d("value   ", String.valueOf(lunch.getText()));
+                            lunchmap.put("lunch state", userdr);
+                            ref.child(username).child("Lunch").child(String.valueOf(lunch.getText())).child(id).updateChildren(lunchmap);
+
+                            editor.putString("lunchPrefuser", username);
+                            editor.putString("lunchPrefmonitor", email);
+                            editor.putString("lunchPrefresponse", String.valueOf(lunch.getText()));
+                            editor.putString("lunchPrefdate", String.valueOf(LocalDate.now()));
+
+                            editor.apply();
+
+                        }
+                        if (tvradio != null && tvradio.isEnabled() && tvstate != -1) {
+                            tv = (RadioButton) findViewById(tvstate);
+                            Log.d("value   ", String.valueOf(tv.getText()));
+                            tvmap.put("TV state", userdr);
+                            ref.child(username).child("TV").child(String.valueOf(tv.getText())).child(id).updateChildren(tvmap);
+
+                            editor.putString("tvPrefuser", username);
+                            editor.putString("tvPrefmonitor", email);
+                            editor.putString("tvPrefresponse", String.valueOf(tv.getText()));
+                            editor.putString("tvPrefdate", String.valueOf(LocalDate.now()));
+
+                            editor.apply();
+
+                        }
+                        if (dinnerradio != null && dinnerradio.isEnabled() && dinnerstate != -1) {
+                            dinner = (RadioButton) findViewById(dinnerstate);
+                            Log.d("value   ", String.valueOf(dinner.getText()));
+                            dinnermap.put("dinner state", userdr);
+                            ref.child(username).child("Dinner").child(String.valueOf(dinner.getText())).child(id).updateChildren(dinnermap);
+
+                            editor.putString("dinnerPrefuser", username);
+                            editor.putString("dinnerPrefmonitor", email);
+                            editor.putString("dinnerPrefresponse", String.valueOf(dinner.getText()));
+                            editor.putString("dinnerPrefdate", String.valueOf(LocalDate.now()));
+
+                            editor.apply();
+
+                        }
+
+
+                        Intent newintent = new Intent(report.this, thankYou.class);
+                        startActivity(newintent);
                     }
-                     if (breakfastradio!=null && breakfastradio.isEnabled() && bfstate!= -1){
-                         breakfast = (RadioButton) findViewById(bfstate);
-                         Log.d("value   ", String.valueOf(breakfast.getText()));
-                         bfmap.put("Breakfast state", userdr);
-                         ref.child(username).child("Breakfast").child(String.valueOf(breakfast.getText())).child(id).updateChildren(bfmap);
-
-                         editor.putString("breakfastPrefuser", username);
-                         editor.putString("breakfastPrefmonitor", email);
-                         editor.putString("breakfastPrefresponse", String.valueOf(breakfast.getText()));
-                         editor.putString("breakfastPrefdate", String.valueOf(LocalDate.now()));
-
-                         editor.apply();
-
-                     }
-                     if (medicationradio!=null && medicationradio.isEnabled() && medstate!= -1){
-                         medication = (RadioButton) findViewById(medstate);
-                         Log.d("value   ", String.valueOf(medication.getText()));
-                        medmap.put("Medication state", userdr);
-                        ref.child(username).child("Medication").child(String.valueOf(medication.getText())).child(id).updateChildren(medmap);
-
-                         editor.putString("medicationPrefuser", username);
-                         editor.putString("medicationPrefmonitor", email);
-                         editor.putString("medicationPrefresponse", String.valueOf(medication.getText()));
-                         editor.putString("medicationPrefdate", String.valueOf(LocalDate.now()));
-
-                         editor.apply();
-
-                     }
-                     if (lunchradio!=null && lunchradio.isEnabled() && lunchstate!= -1){
-                         lunch = (RadioButton) findViewById(lunchstate);
-                         Log.d("value   ", String.valueOf(lunch.getText()));
-                        lunchmap.put("lunch state", userdr);
-                        ref.child(username).child("Lunch").child(String.valueOf(lunch.getText())).child(id).updateChildren(lunchmap);
-
-                         editor.putString("lunchPrefuser", username);
-                         editor.putString("lunchPrefmonitor", email);
-                         editor.putString("lunchPrefresponse", String.valueOf(lunch.getText()));
-                         editor.putString("lunchPrefdate", String.valueOf(LocalDate.now()));
-
-                         editor.apply();
-
-                     }
-                     if (tvradio!=null && tvradio.isEnabled() && tvstate!= -1){
-                         tv = (RadioButton) findViewById(tvstate);
-                         Log.d("value   ", String.valueOf(tv.getText()));
-                        tvmap.put("TV state", userdr);
-                        ref.child(username).child("TV").child(String.valueOf(tv.getText())).child(id).updateChildren(tvmap);
-
-                         editor.putString("tvPrefuser", username);
-                         editor.putString("tvPrefmonitor", email);
-                         editor.putString("tvPrefresponse", String.valueOf(tv.getText()));
-                         editor.putString("tvPrefdate", String.valueOf(LocalDate.now()));
-
-                         editor.apply();
-
-                     }
-                     if (dinnerradio!=null && dinnerradio.isEnabled() && dinnerstate!= -1){
-                         dinner = (RadioButton) findViewById(dinnerstate);
-                         Log.d("value   ", String.valueOf(dinner.getText()));
-                        dinnermap.put("dinner state", userdr);
-                        ref.child(username).child("Dinner").child(String.valueOf(dinner.getText())).child(id).updateChildren(dinnermap);
-
-                         editor.putString("dinnerPrefuser", username);
-                         editor.putString("dinnerPrefmonitor", email);
-                         editor.putString("dinnerPrefresponse", String.valueOf(dinner.getText()));
-                         editor.putString("dinnerPrefdate", String.valueOf(LocalDate.now()));
-
-                         editor.apply();
-
-                     }
-                    Intent newintent = new Intent(report.this, select.class);
-                    startActivity(newintent);
                 }
             });
         }
 
         private class MyYAxisValueFormatter implements IAxisValueFormatter {
             public MyYAxisValueFormatter() {
+
             }
 
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-                return (int) value + ":00";
+                //return (int) value + ":00";
+                if(value>23) { return ((int) value-24) + " "; }
+                return (int) value + " ";
+
             }
         }
 
@@ -707,5 +755,13 @@ public class report extends AppCompatActivity {
                 return mValues.get((int) value);
             }
         }
+    }
+    @Override
+    public void onBackPressed() {
+        Log.d("CDA", "onBackPressed Called");
+        Intent setIntent = new Intent(this, select.class);
+        setIntent.addCategory(Intent.CATEGORY_HOME);
+        setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(setIntent);
     }
 }

@@ -6,5 +6,7 @@
     <color name="borderofGraph">#FFEB3B</color>
     <color name="graphBackground">#F8F5F5</color>
     <color name="Transparent80">#80000000</color>
+    <color name="graphValue">#000000</color>
+
 
 </resources>

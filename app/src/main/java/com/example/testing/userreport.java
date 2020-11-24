@@ -250,7 +250,7 @@ public class userreport extends JobIntentService {
                             Date d = new SimpleDateFormat("HH:mm").parse(currentTime);
                             assert d != null;
                             cal2.setTime(d);
-                            Log.d("timefortodaycurrent", (currentTime));
+                           // Log.d("timefortodaycurrent", (currentTime));
 
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -260,7 +260,7 @@ public class userreport extends JobIntentService {
                                 LocalDate localOne = LocalDate.parse(datestr, formatter);
 
                                 if(localOne.isEqual(endDate)){
-                                    Log.d("datefornotification", String.valueOf((localOne)));
+                                  //  Log.d("datefornotification", String.valueOf((localOne)));
 
                                     for (int y = 0; y <= 60 * 24; y++){
                                         cal2.add(Calendar.MINUTE, 1);
@@ -360,10 +360,11 @@ public class userreport extends JobIntentService {
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_2_ID)
                 .setContentTitle("MutualMonitor")
                 .setContentText("Please Check the Recent Activity of the Elderly")
-                .setSmallIcon(R.drawable.icon)
+                .setSmallIcon(R.drawable.notificationlogo)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
                 .build();
 
         //notifManager.notify(12, notification);
