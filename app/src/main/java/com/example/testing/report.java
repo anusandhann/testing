@@ -80,7 +80,7 @@ public class report extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.report);
+        setContentView(R.layout.testingreport);
         submitreport = (Button) findViewById(R.id.submitreport);
 
 
@@ -475,7 +475,6 @@ public class report extends AppCompatActivity {
 
         public void drawchart(ArrayList<String> x, ArrayList<String> y, String activityType) {
 
-            ArrayList<CandleEntry> sleepCandleEntry = new ArrayList<CandleEntry>();
             ArrayList<CandleEntry> candleEntryTry = new ArrayList<CandleEntry>();
 
             for (int i = 0; i < x.size(); i++) {
@@ -540,9 +539,6 @@ public class report extends AppCompatActivity {
             set1.setNeutralColor(Color.LTGRAY);
             set1.setDrawValues(false);
 
-//            set1.setValueTextSize(8f);
-//            set1.setValueTextColor(R.color.graphValue);
-
 
             CandleData data = new CandleData(set1);
 
@@ -590,24 +586,6 @@ public class report extends AppCompatActivity {
                     final int dinnerstate = dinnerradio.getCheckedRadioButtonId();
                     final int tvstate = tvradio.getCheckedRadioButtonId();
 
-//                    if (!sleepradio.isEnabled() && !showerradio.isEnabled() && !breakfastradio.isEnabled()&& !medicationradio.isEnabled() && !lunchradio.isEnabled()
-//                            && !tvradio.isEnabled() && !dinnerradio.isEnabled()){
-//
-//                        Toast.makeText(getApplicationContext(), "NOOOO", Toast.LENGTH_LONG).show();
-//                    }
-
-
-//                    if (((sleepradio==null && !sleepradio.isEnabled() && sleepstate == -1)
-//                    && (showerradio==null && !showerradio.isEnabled() && showerstate== -1)
-//                    && (breakfastradio==null && !breakfastradio.isEnabled() && bfstate== -1)
-//                    && (medicationradio==null && !medicationradio.isEnabled() && medstate== -1)
-//                    && (lunchradio==null && !lunchradio.isEnabled() && lunchstate== -1)
-//                    && (tvradio==null && !tvradio.isEnabled() && tvstate== -1)
-//                    && (dinnerradio==null && !dinnerradio.isEnabled() && dinnerstate== -1)))
-//                    {
-//                        Toast.makeText(getApplicationContext(), "NOOOO", Toast.LENGTH_LONG).show();
-//                    }
-
                     if ( sleepstate == -1
                             && showerstate == -1
                             &&  bfstate == -1
@@ -616,7 +594,7 @@ public class report extends AppCompatActivity {
                             && tvstate == -1
                             && dinnerstate == -1)
                     {
-                        Toast.makeText(getApplicationContext(), "Seems like you have missed selecting!! ", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Seems like you have missed selecting!! ", Toast.LENGTH_SHORT).show();
                     }
                     else {
 
