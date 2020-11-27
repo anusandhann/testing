@@ -273,7 +273,7 @@ public class userreport extends JobIntentService {
                                         if ((increasedTime.equals(endActivityTime)) && (increasedTime.equals(currentTime))){
 //                                            Log.d("sametimefornot", increasedTime);
                                             //send notification from here at that moment when increased time value equals end time of activity
-                                            showsNotification(increasedTime);
+                                            showsNotification(increasedTime, userFilter);
                                         }
                                     }
                             }}
@@ -350,14 +350,20 @@ public class userreport extends JobIntentService {
         }
     }
 
-    private void showsNotification(String nTime) {
+    private void showsNotification(String nTime, String user) {
 
         createNotificationChannel2();
 
-        Intent notificationIntent = new Intent(this, select.class);
-        //notificationIntent.putExtra("user",username );
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,
-                0, notificationIntent, 0);
+        Intent notificationIntent = new Intent(this, report.class);
+        notificationIntent.putExtra("user", user);
+
+        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+
+//        PendingIntent pendingIntent = PendingIntent.getActivity(this,
+//                0, notificationIntent, 0);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_2_ID)
                 .setContentTitle("MutualMonitor")

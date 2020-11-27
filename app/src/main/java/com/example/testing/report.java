@@ -189,7 +189,7 @@ public class report extends AppCompatActivity {
 
         //why do i need to call userreport class in this class..doesnt work if i dont!!
         Intent userReportIntent = new Intent(this, userreport.class);
-        userReportIntent.putExtra("userReportId", "");
+        userReportIntent.putExtra("user", userStr);
         ContextCompat.startForegroundService(this,userReportIntent );
 
 //        startService(new Intent(this, userreport.class));
@@ -235,7 +235,6 @@ public class report extends AppCompatActivity {
             if (Objects.equals(intent.getAction(), "intentAction")) {
                 // Get username from intent
                 String username = intent.getStringExtra("user");
-//                Log.d("getting username from service", username);
 
                 // Check if this is the username we want
                 if (userStr.equals(username)) {
@@ -541,8 +540,6 @@ public class report extends AppCompatActivity {
 
             CandleData data = new CandleData(set1);
 
-           // selectedChart.setMinimumWidth(9);
-
             selectedChart.setData(data);
 
             selectedChart.invalidate();
@@ -721,7 +718,6 @@ public class report extends AppCompatActivity {
             private ArrayList<String> mValues = new ArrayList<>();
 
             public MyXAxisValueFormatter() {
-                mValues.add("11/" + "28");
                 mValues.add("11/" + "29");
                 mValues.add("11/" + "30");
                 mValues.add("12/" + "1");
@@ -732,6 +728,7 @@ public class report extends AppCompatActivity {
                 mValues.add("12/" + "6");
                 mValues.add("12/" + "7");
                 mValues.add("12/" + "8");
+                mValues.add("12/" + "9");
 
 //                for(int i = 1; i< 12;i++){
 //
