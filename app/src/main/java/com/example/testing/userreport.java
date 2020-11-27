@@ -57,12 +57,13 @@ public class userreport extends JobIntentService {
 
     public static void enqueueWork(Context context, Intent intent) {
         enqueueWork(context, userreport.class,notification_id,intent);
-        Log.d(TAG, "enqueueWork: userreport");
+//        Log.d(TAG, "enqueueWork: userreport");
     }
 
     @Override
     protected void onHandleWork(@NonNull Intent Tintent) {
-        Log.d(TAG, "onHandleWork: for enque");    }
+//        Log.d(TAG, "onHandleWork: for enque");
+        }
 
 
     @Override
@@ -70,12 +71,12 @@ public class userreport extends JobIntentService {
         super.onCreate();
         context = getBaseContext();
         notifManager = NotificationManagerCompat.from(this);
-        Log.d(TAG, "onCreate: userreport");
+//        Log.d(TAG, "onCreate: userreport");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d("", "start of the usereport service");
+//        Log.d("", "start of the usereport service");
         getActivityData task = new getActivityData();
         task.execute();
 
@@ -114,7 +115,7 @@ public class userreport extends JobIntentService {
             String jsonStr = sh.makeServiceCall(url);
             ArrayList<HashMap<String, String>> activityMapList = new ArrayList<>();
 
-            Log.e(TAG, "Response from url: " + jsonStr);
+//            Log.e(TAG, "Response from url: " + jsonStr);
             if (jsonStr != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(jsonStr.substring(jsonStr.indexOf("{"), jsonStr.lastIndexOf("}") + 1));
@@ -253,7 +254,7 @@ public class userreport extends JobIntentService {
                            // Log.d("timefortodaycurrent", (currentTime));
 
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                            Log.d(TAG, "doInBackground:" + currentTime );
+//                            Log.d(TAG, "doInBackground:" + currentTime );
 
 
                             for (int i = 0; i < dateList.size(); i++) {
@@ -270,7 +271,7 @@ public class userreport extends JobIntentService {
                                         // Log.d("increased time", increasedTime);
 
                                         if ((increasedTime.equals(endActivityTime)) && (increasedTime.equals(currentTime))){
-                                            Log.d("sametimefornot", increasedTime);
+//                                            Log.d("sametimefornot", increasedTime);
                                             //send notification from here at that moment when increased time value equals end time of activity
                                             showsNotification(increasedTime);
                                         }
@@ -374,12 +375,12 @@ public class userreport extends JobIntentService {
         //checking current time, and comparing it to received time from method call, if same send
 
         String exactTime = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
-        Log.d( "timeValueHere", exactTime);
-        Log.d(TAG, "received time" + "     " + nTime);
+//        Log.d( "timeValueHere", exactTime);
+//        Log.d(TAG, "received time" + "     " + nTime);
 
         if (exactTime.equals(nTime)) {
             notificationManager.notify(notification_id, notification);
-            Log.d(TAG, "notification is sent");
+//            Log.d(TAG, "notification is sent");
         }
     }
     private void createNotificationChannel() {

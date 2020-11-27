@@ -55,11 +55,11 @@ public class mainactivity extends AppCompatActivity {
             Intent i = new Intent(this, select.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
-            Log.d(TAG, "logged in");
+//            Log.d(TAG, "logged in");
 
         } else {
             // User is signed out
-            Log.d(TAG, "onAuthStateChanged:signed_out");
+//            Log.d(TAG, "onAuthStateChanged:signed_out");
         }
 
    }
@@ -74,16 +74,16 @@ public class mainactivity extends AppCompatActivity {
 
     }
     private void isMyServiceRunning() {
-        Log.d("", "checkingService run for Permanent notification");
+//        Log.d("", "checkingService run for Permanent notification");
 
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (servicecheck.class.getName().equals(service.service.getClassName())) {
-                Log.d("", "yes permanent service running");
+//                Log.d("", "yes permanent service running");
                 return;
             }
             else{
-                Log.d("", "No the permanent service isnt running");
+//                Log.d("", "No the permanent service isnt running");
 
                 Intent serviceCheckIntent = new Intent(this, servicecheck.class);
                 ContextCompat.startForegroundService(this,serviceCheckIntent );

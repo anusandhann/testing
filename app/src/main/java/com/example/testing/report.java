@@ -193,7 +193,7 @@ public class report extends AppCompatActivity {
         ContextCompat.startForegroundService(this,userReportIntent );
 
 //        startService(new Intent(this, userreport.class));
-        Log.d("", "service running check which might be the cause for error");
+//        Log.d("", "service running check which might be the cause for error");
 
     }
 
@@ -205,16 +205,16 @@ public class report extends AppCompatActivity {
     }
 
     private void isMyServiceRunning() {
-        Log.d("", "service runing check in activity");
+//        Log.d("", "service runing check in activity");
 
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (userreport.class.getName().equals(service.service.getClassName())) {
-                Log.d("", "checking from report class: yes it is running");
+//                Log.d("", "checking from report class: yes it is running");
                 return;
             }
             else{
-                Log.d("", "checking from report class: No the service isnt running");
+//                Log.d("", "checking from report class: No the service isnt running");
 
                 Intent userReportIntent = new Intent(this, userreport.class);
                 ContextCompat.startForegroundService(this,userReportIntent );
@@ -235,7 +235,7 @@ public class report extends AppCompatActivity {
             if (Objects.equals(intent.getAction(), "intentAction")) {
                 // Get username from intent
                 String username = intent.getStringExtra("user");
-                Log.d("getting username from service", username);
+//                Log.d("getting username from service", username);
 
                 // Check if this is the username we want
                 if (userStr.equals(username)) {
@@ -304,72 +304,72 @@ public class report extends AppCompatActivity {
 
                     if((thisdate.equals( sleepresponsedate )) && username.equals(sleepusername) && useremail.equals(sleepmonitor)) {
                         if ((preferences.contains("sleepPrefresponse"))){
-                            Log.d("checking sleep shared preference   ", sleepresponse);
+//                            Log.d("checking sleep shared preference   ", sleepresponse);
                             sleepradio.setVisibility(View.GONE);
                         }
                     }
                     else {
-                        Log.d("checking if date not same shared preference   ", sleepusername);
+//                        Log.d("checking if date not same shared preference   ", sleepusername);
                     }
 
                     if((thisdate.equals( showerresponsedate )) && username.equals(showerusername) && useremail.equals(showermonitor)) {
                         if ((preferences.contains("sleepPrefresponse"))){
-                            Log.d("checking shower shared preference   ", showerresponse);
+//                            Log.d("checking shower shared preference   ", showerresponse);
                             showerradio.setVisibility(View.GONE);
                         }
                     }
                     else {
-                        Log.d("checking if date not same shower shared preference   ", sleepusername);
+//                        Log.d("checking if date not same shower shared preference   ", sleepusername);
                     }
 
                     if((thisdate.equals( medicationresponsedate )) && username.equals(medicationusername) && useremail.equals(medicationmonitor)) {
                         if ((preferences.contains("medicationPrefresponse"))){
-                            Log.d("checking medication shared preference   ", medicationresponse);
+//                            Log.d("checking medication shared preference   ", medicationresponse);
                             medicationradio.setVisibility(View.GONE);
                         }
                     }
                     else {
-                        Log.d("checking if date not same med shared preference   ", medicationusername);
+//                        Log.d("checking if date not same med shared preference   ", medicationusername);
                     }
 
                     if((thisdate.equals( breakfastresponsedate )) && username.equals(breakfastusername) && useremail.equals(breakfastmonitor)) {
                         if ((preferences.contains("breakfastPrefresponse"))){
-                            Log.d("checking breakfast shared preference   ", breakfastresponse);
+//                            Log.d("checking breakfast shared preference   ", breakfastresponse);
                             breakfastradio.setVisibility(View.GONE);
                         }
                     }
                     else {
-                        Log.d("checking if date not same breakfast shared preference   ", breakfastusername);
+//                        Log.d("checking if date not same breakfast shared preference   ", breakfastusername);
                     }
 
                     if((thisdate.equals( lunchresponsedate )) && username.equals(lunchusername) && useremail.equals(lunchmonitor)) {
                         if ((preferences.contains("lunchPrefresponse"))){
-                            Log.d("checking lunch shared preference   ", lunchresponse);
+//                            Log.d("checking lunch shared preference   ", lunchresponse);
                             lunchradio.setVisibility(View.GONE);
                         }
                     }
                     else {
-                        Log.d("checking if date not same lunch shared preference   ", lunchusername);
+//                        Log.d("checking if date not same lunch shared preference   ", lunchusername);
                     }
 
                     if((thisdate.equals( tvresponsedate )) && username.equals(tvusername) && useremail.equals(tvmonitor)) {
                         if ((preferences.contains("tvPrefresponse"))){
-                            Log.d("checking tv shared preference   ", tvresponse);
+//                            Log.d("checking tv shared preference   ", tvresponse);
                             tvradio.setVisibility(View.GONE);
                         }
                     }
                     else {
-                        Log.d("checking if date not same tv shared preference   ", tvusername);
+//                        Log.d("checking if date not same tv shared preference   ", tvusername);
                     }
 
                     if((thisdate.equals( dinnerresponsedate )) && username.equals(dinnerusername) && useremail.equals(dinnermonitor)) {
                         if ((preferences.contains("dinnerPrefresponse"))){
-                            Log.d("checking dinner shared preference   ", dinnerresponse);
+//                            Log.d("checking dinner shared preference   ", dinnerresponse);
                             dinnerradio.setVisibility(View.GONE);
                         }
                     }
                     else {
-                        Log.d("checking if date not same dinner shared preference   ", dinnerusername);
+//                        Log.d("checking if date not same dinner shared preference   ", dinnerusername);
                     }
 
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Setting date format
@@ -408,7 +408,7 @@ public class report extends AppCompatActivity {
                     //for graph where activity has not been completed for today (one less than Today's data)
                     for(int i = 0; i < datearray.size(); i++){
                         LocalDate PrevEndDate = LocalDate.parse(datearray.get(enddateindex-1));
-                        Log.d("PrevEndDate", String.valueOf(PrevEndDate));
+//                        Log.d("PrevEndDate", String.valueOf(PrevEndDate));
                         String datestr = datearray.get(i);
                         LocalDate d = LocalDate.parse(datestr, formatter);
                         if((d.isAfter(startDate) || d.isEqual(startDate)) && (d.isBefore(PrevEndDate)|| d.isEqual(PrevEndDate))){
@@ -599,7 +599,7 @@ public class report extends AppCompatActivity {
 
                         if (sleepradio != null && sleepradio.isEnabled() && sleepstate != -1) {
                             sleep = (RadioButton) findViewById(sleepstate);
-                            Log.d("value   ", String.valueOf(sleep.getText()));
+//                            Log.d("value   ", String.valueOf(sleep.getText()));
                             sleepmap.put("Sleep state", userdr);
                             ref.child(username).child("Sleep").child(String.valueOf(sleep.getText())).child(id).updateChildren(sleepmap);
 
@@ -613,7 +613,7 @@ public class report extends AppCompatActivity {
 
                         if (showerradio != null && showerradio.isEnabled() && showerstate != -1) {
                             shower = (RadioButton) findViewById(showerstate);
-                            Log.d("value ", String.valueOf(shower.getText()));
+//                            Log.d("value ", String.valueOf(shower.getText()));
                             showermap.put("Shower state", userdr);
                             ref.child(username).child("Shower").child(String.valueOf(shower.getText())).child(id).updateChildren(showermap);
 
@@ -626,7 +626,7 @@ public class report extends AppCompatActivity {
                         }
                         if (breakfastradio != null && breakfastradio.isEnabled() && bfstate != -1) {
                             breakfast = (RadioButton) findViewById(bfstate);
-                            Log.d("value   ", String.valueOf(breakfast.getText()));
+//                            Log.d("value   ", String.valueOf(breakfast.getText()));
                             bfmap.put("Breakfast state", userdr);
                             ref.child(username).child("Breakfast").child(String.valueOf(breakfast.getText())).child(id).updateChildren(bfmap);
 
@@ -640,7 +640,7 @@ public class report extends AppCompatActivity {
                         }
                         if (medicationradio != null && medicationradio.isEnabled() && medstate != -1) {
                             medication = (RadioButton) findViewById(medstate);
-                            Log.d("value   ", String.valueOf(medication.getText()));
+//                            Log.d("value   ", String.valueOf(medication.getText()));
                             medmap.put("Medication state", userdr);
                             ref.child(username).child("Medication").child(String.valueOf(medication.getText())).child(id).updateChildren(medmap);
 
@@ -654,7 +654,7 @@ public class report extends AppCompatActivity {
                         }
                         if (lunchradio != null && lunchradio.isEnabled() && lunchstate != -1) {
                             lunch = (RadioButton) findViewById(lunchstate);
-                            Log.d("value   ", String.valueOf(lunch.getText()));
+//                            Log.d("value   ", String.valueOf(lunch.getText()));
                             lunchmap.put("lunch state", userdr);
                             ref.child(username).child("Lunch").child(String.valueOf(lunch.getText())).child(id).updateChildren(lunchmap);
 
@@ -668,7 +668,7 @@ public class report extends AppCompatActivity {
                         }
                         if (tvradio != null && tvradio.isEnabled() && tvstate != -1) {
                             tv = (RadioButton) findViewById(tvstate);
-                            Log.d("value   ", String.valueOf(tv.getText()));
+//                            Log.d("value   ", String.valueOf(tv.getText()));
                             tvmap.put("TV state", userdr);
                             ref.child(username).child("TV").child(String.valueOf(tv.getText())).child(id).updateChildren(tvmap);
 
@@ -682,7 +682,7 @@ public class report extends AppCompatActivity {
                         }
                         if (dinnerradio != null && dinnerradio.isEnabled() && dinnerstate != -1) {
                             dinner = (RadioButton) findViewById(dinnerstate);
-                            Log.d("value   ", String.valueOf(dinner.getText()));
+//                            Log.d("value   ", String.valueOf(dinner.getText()));
                             dinnermap.put("dinner state", userdr);
                             ref.child(username).child("Dinner").child(String.valueOf(dinner.getText())).child(id).updateChildren(dinnermap);
 
@@ -746,7 +746,7 @@ public class report extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        Log.d("CDA", "onBackPressed Called");
+//        Log.d("CDA", "onBackPressed Called");
         Intent setIntent = new Intent(this, select.class);
         setIntent.addCategory(Intent.CATEGORY_HOME);
         setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

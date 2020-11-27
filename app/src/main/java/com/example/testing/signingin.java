@@ -40,7 +40,7 @@ public class signingin extends AppCompatActivity {
 
         } else {
             // User is signed out
-            Log.d("", "onAuthStateChanged:signed_out");
+//            Log.d("", "onAuthStateChanged:signed_out");
         }
 
         emailinput = (EditText) findViewById(R.id.email);
