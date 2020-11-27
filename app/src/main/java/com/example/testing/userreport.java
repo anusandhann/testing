@@ -253,6 +253,8 @@ public class userreport extends JobIntentService {
                            // Log.d("timefortodaycurrent", (currentTime));
 
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                            Log.d(TAG, "doInBackground:" + currentTime );
+
 
                             for (int i = 0; i < dateList.size(); i++) {
 
@@ -350,7 +352,6 @@ public class userreport extends JobIntentService {
     private void showsNotification(String nTime) {
 
         createNotificationChannel2();
-
 
         Intent notificationIntent = new Intent(this, select.class);
         //notificationIntent.putExtra("user",username );

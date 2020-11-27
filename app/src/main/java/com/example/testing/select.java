@@ -77,7 +77,12 @@ public class select extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                         Intent intent = new Intent(select.this, report.class);
                         intent.putExtra("user", String.valueOf(position));
-                        startActivity(intent);
+
+                        if(position ==0) {
+
+                        }
+                        else{
+                        startActivity(intent);}
                     }
                 });
     }

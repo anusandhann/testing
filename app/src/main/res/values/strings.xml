@@ -2,7 +2,7 @@
     <string name="app_name">MutualMonitor</string>
     <string name="activity_report">Activity Report</string>
     <string name="report">Submit Report</string>
-    <string name="normal">Normal</string>
-    <string name="suspicious">Suspicious</string>
     <string name="todo">TODO</string>
+    <string name="normalbutton">Normal/ 正常</string>
+    <string name="suspiciousbutton">Suspicious/ 不審</string>
 </resources>

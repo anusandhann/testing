@@ -83,7 +83,6 @@ public class report extends AppCompatActivity {
         setContentView(R.layout.testingreport);
         submitreport = (Button) findViewById(R.id.submitreport);
 
-
         chart1 = (CandleStickChart) findViewById(R.id.sleepLinechart);
         chart2 = (CandleStickChart) findViewById(R.id.ShowerLinechart);
         chart3 = (CandleStickChart) findViewById(R.id.breakfastLinechart);
@@ -480,7 +479,7 @@ public class report extends AppCompatActivity {
             for (int i = 0; i < x.size(); i++) {
                 int shift = activityType.equals("Sleep") && !x.get(i).equals(y.get(i)) ? 24 : 0;
                 candleEntryTry.add(new CandleEntry(i, 35, 0, Float.parseFloat(x.get(i)), Float.parseFloat(y.get(i))+ shift));
-                Log.d("graph thing", x.get(i));
+//                Log.d("graph thing", x.get(i));
             }
 
 
@@ -722,11 +721,22 @@ public class report extends AppCompatActivity {
             private ArrayList<String> mValues = new ArrayList<>();
 
             public MyXAxisValueFormatter() {
+                mValues.add("11/" + "28");
+                mValues.add("11/" + "29");
+                mValues.add("11/" + "30");
+                mValues.add("12/" + "1");
+                mValues.add("12/" + "2");
+                mValues.add("12/" + "3");
+                mValues.add("12/" + "4");
+                mValues.add("12/" + "5");
+                mValues.add("12/" + "6");
+                mValues.add("12/" + "7");
+                mValues.add("12/" + "8");
 
-                for(int i =9; i< 25;i++){
-
-                    mValues.add("11/"+ i);
-               }
+//                for(int i = 1; i< 12;i++){
+//
+//                    mValues.add("12/"+ i);
+//               }
             }
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
