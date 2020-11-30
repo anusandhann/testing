@@ -56,10 +56,10 @@ public class signingup extends Activity {
                 firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(signingup.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete( Task<AuthResult> task) {
-                        Toast.makeText(signingup.this, "User Created -> " + "" + task.isSuccessful(), Toast.LENGTH_LONG).show();
+//                        Toast.makeText(signingup.this, "User Created -> " + "" + task.isSuccessful(), Toast.LENGTH_LONG).show();
 
                         if (!task.isSuccessful()) {
-                            Toast.makeText(signingup.this, "Authentication failed." + task.getException(),
+                            Toast.makeText(signingup.this, "Please try again with proper credentials",
                                     Toast.LENGTH_SHORT).show();
                         } else {
 
@@ -90,4 +90,12 @@ public class signingup extends Activity {
         startActivity(intent);
     }
 
+    @Override
+    public void onBackPressed() {
+//        Log.d("CDA", "onBackPressed Called");
+        Intent setIntent = new Intent(this, mainactivity.class);
+        setIntent.addCategory(Intent.CATEGORY_HOME);
+        setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(setIntent);
+    }
 }

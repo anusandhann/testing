@@ -13,7 +13,7 @@
 
         <EditText
             android:id="@+id/email"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:hint="Enter email"
@@ -21,7 +21,7 @@
 
         <EditText
             android:id="@+id/password"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:hint="Enter password"
@@ -29,21 +29,21 @@
 
         <Button
             android:id="@+id/buttonsignin"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
 
             android:background="#954C4C"
             android:onClick="signin"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#0F1010"
+            android:textColor="@color/buttonText"
             android:textSize="25sp"
 
             android:text="Sign in" />
 
         <Button
             android:id="@+id/signup"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:onClick="signup"

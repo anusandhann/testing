@@ -7,14 +7,14 @@
    >
 
     <LinearLayout
-        android:layout_width="392dp"
+        android:layout_width="match_parent"
         android:layout_height="463dp"
         android:layout_centerVertical="true"
         android:orientation="vertical">
 
         <EditText
             android:id="@+id/email"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:hint="Enter email"
@@ -22,7 +22,7 @@
 
         <EditText
             android:id="@+id/password"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:hint="Enter password"
@@ -30,19 +30,19 @@
 
         <Button
             android:id="@+id/buttonsignup"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:background="#954C4C"
             android:onClick="signin"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#0F1010"
+            android:textColor="@color/buttonText"
             android:textSize="25sp"
             android:text="Sign up" />
 
         <Button
             android:id="@+id/loginoption"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:background="@color/common_google_signin_btn_text_dark_default"

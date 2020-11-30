@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -24,6 +25,8 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.github.mikephil.charting.charts.CandleStickChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -50,7 +53,7 @@ import java.util.Objects;
 
 //this is the main class..i read the dataset, create graph, and provoke notifications from this class.
 @RequiresApi(api = Build.VERSION_CODES.O)
-public class report extends AppCompatActivity {
+public class report  extends AppCompatActivity {
 
     public CandleStickChart chart1, chart2, chart3, chart4, chart5, chart6, chart7;
     public TextView text1, text2, text3, text4, text5, text6, text7, durationTextview;
@@ -76,12 +79,15 @@ public class report extends AppCompatActivity {
     SharedPreferences.Editor editor;
     breceiver ar = new breceiver();
 
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.testingreport);
+
         submitreport = (Button) findViewById(R.id.submitreport);
+
 
         chart1 = (CandleStickChart) findViewById(R.id.sleepLinechart);
         chart2 = (CandleStickChart) findViewById(R.id.ShowerLinechart);
@@ -470,7 +476,6 @@ public class report extends AppCompatActivity {
                 }
             }
         }
-
         public void drawchart(ArrayList<String> x, ArrayList<String> y, String activityType) {
 
             ArrayList<CandleEntry> candleEntryTry = new ArrayList<CandleEntry>();

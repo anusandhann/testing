@@ -87,5 +87,12 @@ public class signingin extends AppCompatActivity {
         Intent intent= new Intent(this, signingup.class);
         startActivity(intent);
     }
-
+    @Override
+    public void onBackPressed() {
+//        Log.d("CDA", "onBackPressed Called");
+        Intent setIntent = new Intent(this, mainactivity.class);
+        setIntent.addCategory(Intent.CATEGORY_HOME);
+        setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(setIntent);
+    }
 }

@@ -240,7 +240,7 @@ public class userreport extends JobIntentService {
                             Date thisDate = sdf.parse(endOfEachForToday);
                             sdf.applyPattern("HH:mm");
                             String endActivityTime = sdf.format(thisDate);
-                            Log.d("endtime for activity ", ((endActivityTime)));
+                            Log.d("endtime for activity ", ((endActivityTime) + "  " + activityTypeFilter + "  user " + userFilter));
 
                            //  showsNotification(endActivityTime);
 
@@ -367,7 +367,7 @@ public class userreport extends JobIntentService {
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_2_ID)
                 .setContentTitle("MutualMonitor")
-                .setContentText("Please Check the Recent Activity of the Elderly" + "  " + user)
+                .setContentText("Please Check the Recent Activity of the Elderly")
                 .setSmallIcon(R.drawable.notificationlogo)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
