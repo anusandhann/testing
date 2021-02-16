@@ -49,7 +49,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 //this is the main class..i read the dataset, create graph, and provoke notifications from this class.
 @RequiresApi(api = Build.VERSION_CODES.O)
@@ -60,6 +62,7 @@ public class report  extends AppCompatActivity {
     RadioButton sleep, shower, breakfast, lunch, dinner, medication, tv;
     private RadioGroup sleepradio, showerradio, breakfastradio, medicationradio, lunchradio, tvradio, dinnerradio, thisRadiogp;
     Button submitreport;
+//    TextView activityReport;
 
     ArrayList<HashMap<String, String>> contactList;
 
@@ -75,6 +78,7 @@ public class report  extends AppCompatActivity {
 
     private String userStr = null;
     public static final String mypreference = "mypref";
+
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     breceiver ar = new breceiver();
@@ -87,7 +91,7 @@ public class report  extends AppCompatActivity {
         setContentView(R.layout.testingreport);
 
         submitreport = (Button) findViewById(R.id.submitreport);
-
+//        activityReport = (TextView) findViewById(R.id.report);
 
         chart1 = (CandleStickChart) findViewById(R.id.sleepLinechart);
         chart2 = (CandleStickChart) findViewById(R.id.ShowerLinechart);
@@ -266,49 +270,55 @@ public class report  extends AppCompatActivity {
 
                     submitbutton(username);
 
+//                    activityReport.setText("Activity Report of - " + "  " + "Target" + " " + username );
+
                     preferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
                     editor= preferences.edit();
+                    //editor.apply();
 
-                    String sleepusername = preferences.getString("sleepPrefuser","");
-                    String sleepmonitor = preferences.getString("sleepPrefmonitor", "");
-                    String sleepresponsedate = preferences.getString("sleepPrefdate","");
-                    String sleepresponse = preferences.getString("sleepPrefresponse","");
 
-                    String showerusername = preferences.getString("showerPrefuser","");
-                    String showermonitor = preferences.getString("showerPrefmonitor", "");
-                    String showerresponsedate = preferences.getString("showerPrefdate","");
-                    String showerresponse = preferences.getString("showerPrefresponse","");
+                    String sleepusername = preferences.getString("sleepPrefuser_" + username + LocalDate.now(),"");
+                    String sleepmonitor = preferences.getString("sleepPrefmonitor_" + username + LocalDate.now(), "");
+                    String sleepresponsedate = preferences.getString("sleepPrefdate_" + username + LocalDate.now(),"");
+                    String sleepresponse = preferences.getString("sleepPrefresponse_" + username + LocalDate.now(),"");
 
-                    String medicationusername = preferences.getString("medicationPrefuser","");
-                    String medicationmonitor = preferences.getString("medicationPrefmonitor", "");
-                    String medicationresponsedate = preferences.getString("medicationPrefdate","");
-                    String medicationresponse = preferences.getString("medicationPrefresponse","");
 
-                    String breakfastusername = preferences.getString("breakfastPrefuser","");
-                    String breakfastmonitor = preferences.getString("breakfastPrefmonitor", "");
-                    String breakfastresponsedate = preferences.getString("breakfastPrefdate","");
-                    String breakfastresponse = preferences.getString("breakfastPrefresponse","");
+                    String showerusername = preferences.getString("showerPrefuser_" + username + LocalDate.now(),"");
+                    String showermonitor = preferences.getString("showerPrefmonitor_" + username + LocalDate.now(), "");
+                    String showerresponsedate = preferences.getString("showerPrefdate_" + username + LocalDate.now(),"");
+                    String showerresponse = preferences.getString("showerPrefresponse_" + username + LocalDate.now(),"");
 
-                    String lunchusername = preferences.getString("lunchPrefuser","");
-                    String lunchmonitor = preferences.getString("lunchPrefmonitor", "");
-                    String lunchresponsedate = preferences.getString("lunchPrefdate","");
-                    String lunchresponse = preferences.getString("lunchPrefresponse","");
+                    String medicationusername = preferences.getString("medicationPrefuser_" + username + LocalDate.now(),"");
+                    String medicationmonitor = preferences.getString("medicationPrefmonitor_" + username + LocalDate.now(), "");
+                    String medicationresponsedate = preferences.getString("medicationPrefdate_" + username + LocalDate.now(),"");
+                    String medicationresponse = preferences.getString("medicationPrefresponse_" + username + LocalDate.now(),"");
 
-                    String tvusername = preferences.getString("tvPrefuser","");
-                    String tvmonitor = preferences.getString("tvPrefmonitor", "");
-                    String tvresponsedate = preferences.getString("tvPrefdate","");
-                    String tvresponse = preferences.getString("tvPrefresponse","");
+                    String breakfastusername = preferences.getString("breakfastPrefuser_" + username + LocalDate.now(),"");
+                    String breakfastmonitor = preferences.getString("breakfastPrefmonitor_" + username + LocalDate.now(), "");
+                    String breakfastresponsedate = preferences.getString("breakfastPrefdate_" + username + LocalDate.now(),"");
+                    String breakfastresponse = preferences.getString("breakfastPrefresponse_" + username + LocalDate.now(),"");
 
-                    String dinnerusername = preferences.getString("dinnerPrefuser","");
-                    String dinnermonitor = preferences.getString("dinnerPrefmonitor", "");
-                    String dinnerresponsedate = preferences.getString("dinnerPrefdate","");
-                    String dinnerresponse = preferences.getString("dinnerPrefresponse","");
+                    String lunchusername = preferences.getString("lunchPrefuser_" + username + LocalDate.now(),"");
+                    String lunchmonitor = preferences.getString("lunchPrefmonitor_" + username + LocalDate.now(), "");
+                    String lunchresponsedate = preferences.getString("lunchPrefdate_" + username + LocalDate.now(),"");
+                    String lunchresponse = preferences.getString("lunchPrefresponse_" + username + LocalDate.now(),"");
+
+                    String tvusername = preferences.getString("tvPrefuser_" + username + LocalDate.now(),"");
+                    String tvmonitor = preferences.getString("tvPrefmonitor_" + username + LocalDate.now(), "");
+                    String tvresponsedate = preferences.getString("tvPrefdate_" + username + LocalDate.now(),"");
+                    String tvresponse = preferences.getString("tvPrefresponse_" + username + LocalDate.now(),"");
+
+                    String dinnerusername = preferences.getString("dinnerPrefuser_" + username + LocalDate.now(),"");
+                    String dinnermonitor = preferences.getString("dinnerPrefmonitor_" + username + LocalDate.now(), "");
+                    String dinnerresponsedate = preferences.getString("dinnerPrefdate_" + username + LocalDate.now(),"");
+                    String dinnerresponse = preferences.getString("dinnerPrefresponse_" + username + LocalDate.now(),"");
 
                     String thisdate = String.valueOf(LocalDate.now());
 
 
+                    assert useremail != null;
                     if((thisdate.equals( sleepresponsedate )) && username.equals(sleepusername) && useremail.equals(sleepmonitor)) {
-                        if ((preferences.contains("sleepPrefresponse"))){
+                        if ((preferences.contains("sleepPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking sleep shared preference   ", sleepresponse);
                             sleepradio.setVisibility(View.GONE);
                         }
@@ -318,7 +328,7 @@ public class report  extends AppCompatActivity {
                     }
 
                     if((thisdate.equals( showerresponsedate )) && username.equals(showerusername) && useremail.equals(showermonitor)) {
-                        if ((preferences.contains("sleepPrefresponse"))){
+                        if ((preferences.contains("showerPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking shower shared preference   ", showerresponse);
                             showerradio.setVisibility(View.GONE);
                         }
@@ -328,7 +338,7 @@ public class report  extends AppCompatActivity {
                     }
 
                     if((thisdate.equals( medicationresponsedate )) && username.equals(medicationusername) && useremail.equals(medicationmonitor)) {
-                        if ((preferences.contains("medicationPrefresponse"))){
+                        if ((preferences.contains("medicationPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking medication shared preference   ", medicationresponse);
                             medicationradio.setVisibility(View.GONE);
                         }
@@ -338,7 +348,7 @@ public class report  extends AppCompatActivity {
                     }
 
                     if((thisdate.equals( breakfastresponsedate )) && username.equals(breakfastusername) && useremail.equals(breakfastmonitor)) {
-                        if ((preferences.contains("breakfastPrefresponse"))){
+                        if ((preferences.contains("breakfastPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking breakfast shared preference   ", breakfastresponse);
                             breakfastradio.setVisibility(View.GONE);
                         }
@@ -348,7 +358,7 @@ public class report  extends AppCompatActivity {
                     }
 
                     if((thisdate.equals( lunchresponsedate )) && username.equals(lunchusername) && useremail.equals(lunchmonitor)) {
-                        if ((preferences.contains("lunchPrefresponse"))){
+                        if ((preferences.contains("lunchPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking lunch shared preference   ", lunchresponse);
                             lunchradio.setVisibility(View.GONE);
                         }
@@ -357,8 +367,9 @@ public class report  extends AppCompatActivity {
 //                        Log.d("checking if date not same lunch shared preference   ", lunchusername);
                     }
 
+                    assert useremail != null;
                     if((thisdate.equals( tvresponsedate )) && username.equals(tvusername) && useremail.equals(tvmonitor)) {
-                        if ((preferences.contains("tvPrefresponse"))){
+                        if ((preferences.contains("tvPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking tv shared preference   ", tvresponse);
                             tvradio.setVisibility(View.GONE);
                         }
@@ -368,7 +379,7 @@ public class report  extends AppCompatActivity {
                     }
 
                     if((thisdate.equals( dinnerresponsedate )) && username.equals(dinnerusername) && useremail.equals(dinnermonitor)) {
-                        if ((preferences.contains("dinnerPrefresponse"))){
+                        if ((preferences.contains("dinnerPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking dinner shared preference   ", dinnerresponse);
                             dinnerradio.setVisibility(View.GONE);
                         }
@@ -491,10 +502,12 @@ public class report  extends AppCompatActivity {
             assert selectedChart != null;
             selectedChart.setBackgroundColor(Color.WHITE);
             selectedChart.getDescription().setEnabled(false);
-            selectedChart.setTouchEnabled(false);
-
-//            selectedChart.setVisibleXRangeMaximum(2);
-//            selectedChart.setVisibleXRangeMaximum(2);
+            selectedChart.setTouchEnabled(true);
+//            selectedChart.setDoubleTapToZoomEnabled(false);
+//            selectedChart.setPinchZoom(false);
+//
+//            selectedChart.setVisibleXRangeMaximum(7);
+//            selectedChart.setVisibleXRangeMaximum(7);
 
             selectedChart.notifyDataSetChanged();
 
@@ -587,6 +600,7 @@ public class report  extends AppCompatActivity {
                     final int dinnerstate = dinnerradio.getCheckedRadioButtonId();
                     final int tvstate = tvradio.getCheckedRadioButtonId();
 
+
                     if ( sleepstate == -1
                             && showerstate == -1
                             &&  bfstate == -1
@@ -605,10 +619,11 @@ public class report  extends AppCompatActivity {
                             sleepmap.put("Sleep state", userdr);
                             ref.child(username).child("Sleep").child(String.valueOf(sleep.getText())).child(id).updateChildren(sleepmap);
 
-                            editor.putString("sleepPrefuser", username);
-                            editor.putString("sleepPrefmonitor", email);
-                            editor.putString("sleepPrefresponse", String.valueOf(sleep.getText()));
-                            editor.putString("sleepPrefdate", String.valueOf(LocalDate.now()));
+                            editor.putString("sleepPrefuser_" + username + LocalDate.now(), username);
+                            editor.putString("sleepPrefmonitor_" + username + LocalDate.now(), email);
+                            editor.putString("sleepPrefresponse_" + username + LocalDate.now(), String.valueOf(sleep.getText()));
+                            editor.putString("sleepPrefdate_" + username + LocalDate.now(), String.valueOf(LocalDate.now()));
+
 
                             editor.apply(); //to get it back, need to do, preferences.getString("same key", )
                         }
@@ -617,12 +632,12 @@ public class report  extends AppCompatActivity {
                             shower = (RadioButton) findViewById(showerstate);
 //                            Log.d("value ", String.valueOf(shower.getText()));
                             showermap.put("Shower state", userdr);
-                            ref.child(username).child("Shower").child(String.valueOf(shower.getText())).child(id).updateChildren(showermap);
+                            ref.child("testing for FB").child(username).child("Shower").child(String.valueOf(shower.getText())).child(id).updateChildren(showermap);
 
-                            editor.putString("showerPrefuser", username);
-                            editor.putString("showerPrefmonitor", email);
-                            editor.putString("showerPrefresponse", String.valueOf(shower.getText()));
-                            editor.putString("showerPrefdate", String.valueOf(LocalDate.now()));
+                            editor.putString("showerPrefuser_" + username+ LocalDate.now(), username);
+                            editor.putString("showerPrefmonitor_" + username+ LocalDate.now(), email);
+                            editor.putString("showerPrefresponse_" + username+ LocalDate.now(), String.valueOf(shower.getText()));
+                            editor.putString("showerPrefdate_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
                         }
@@ -632,10 +647,10 @@ public class report  extends AppCompatActivity {
                             bfmap.put("Breakfast state", userdr);
                             ref.child(username).child("Breakfast").child(String.valueOf(breakfast.getText())).child(id).updateChildren(bfmap);
 
-                            editor.putString("breakfastPrefuser", username);
-                            editor.putString("breakfastPrefmonitor", email);
-                            editor.putString("breakfastPrefresponse", String.valueOf(breakfast.getText()));
-                            editor.putString("breakfastPrefdate", String.valueOf(LocalDate.now()));
+                            editor.putString("breakfastPrefuser_" + username+ LocalDate.now(), username);
+                            editor.putString("breakfastPrefmonitor_" + username+ LocalDate.now(), email);
+                            editor.putString("breakfastPrefresponse_" + username+ LocalDate.now(), String.valueOf(breakfast.getText()));
+                            editor.putString("breakfastPrefdate_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
 
@@ -646,10 +661,10 @@ public class report  extends AppCompatActivity {
                             medmap.put("Medication state", userdr);
                             ref.child(username).child("Medication").child(String.valueOf(medication.getText())).child(id).updateChildren(medmap);
 
-                            editor.putString("medicationPrefuser", username);
-                            editor.putString("medicationPrefmonitor", email);
-                            editor.putString("medicationPrefresponse", String.valueOf(medication.getText()));
-                            editor.putString("medicationPrefdate", String.valueOf(LocalDate.now()));
+                            editor.putString("medicationPrefuser_" + username+ LocalDate.now(), username);
+                            editor.putString("medicationPrefmonitor_" + username+ LocalDate.now(), email);
+                            editor.putString("medicationPrefresponse_" + username+ LocalDate.now(), String.valueOf(medication.getText()));
+                            editor.putString("medicationPrefdate_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
 
@@ -660,10 +675,10 @@ public class report  extends AppCompatActivity {
                             lunchmap.put("lunch state", userdr);
                             ref.child(username).child("Lunch").child(String.valueOf(lunch.getText())).child(id).updateChildren(lunchmap);
 
-                            editor.putString("lunchPrefuser", username);
-                            editor.putString("lunchPrefmonitor", email);
-                            editor.putString("lunchPrefresponse", String.valueOf(lunch.getText()));
-                            editor.putString("lunchPrefdate", String.valueOf(LocalDate.now()));
+                            editor.putString("lunchPrefuser_" + username+ LocalDate.now(), username);
+                            editor.putString("lunchPrefmonitor_" + username+ LocalDate.now(), email);
+                            editor.putString("lunchPrefresponse_" + username+ LocalDate.now(), String.valueOf(lunch.getText()));
+                            editor.putString("lunchPrefdate_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
 
@@ -674,10 +689,10 @@ public class report  extends AppCompatActivity {
                             tvmap.put("TV state", userdr);
                             ref.child(username).child("TV").child(String.valueOf(tv.getText())).child(id).updateChildren(tvmap);
 
-                            editor.putString("tvPrefuser", username);
-                            editor.putString("tvPrefmonitor", email);
-                            editor.putString("tvPrefresponse", String.valueOf(tv.getText()));
-                            editor.putString("tvPrefdate", String.valueOf(LocalDate.now()));
+                            editor.putString("tvPrefuser_" + username+ LocalDate.now(), username);
+                            editor.putString("tvPrefmonitor_" + username+ LocalDate.now(), email);
+                            editor.putString("tvPrefresponse_" + username+ LocalDate.now(), String.valueOf(tv.getText()));
+                            editor.putString("tvPrefdate_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
 
@@ -688,15 +703,14 @@ public class report  extends AppCompatActivity {
                             dinnermap.put("dinner state", userdr);
                             ref.child(username).child("Dinner").child(String.valueOf(dinner.getText())).child(id).updateChildren(dinnermap);
 
-                            editor.putString("dinnerPrefuser", username);
-                            editor.putString("dinnerPrefmonitor", email);
-                            editor.putString("dinnerPrefresponse", String.valueOf(dinner.getText()));
-                            editor.putString("dinnerPrefdate", String.valueOf(LocalDate.now()));
+                            editor.putString("dinnerPrefuser_" + username+ LocalDate.now(), username);
+                            editor.putString("dinnerPrefmonitor_" + username+ LocalDate.now(), email);
+                            editor.putString("dinnerPrefresponse_" + username+ LocalDate.now(), String.valueOf(dinner.getText()));
+                            editor.putString("dinnerPrefdate_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
 
                         }
-
 
                         Intent newintent = new Intent(report.this, thankYou.class);
                         startActivity(newintent);
