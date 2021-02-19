@@ -5,4 +5,10 @@
     <string name="todo">TODO</string>
     <string name="normalbutton">Normal/ 正常</string>
     <string name="suspiciousbutton">Suspicious/ 不審</string>
+    <string name="currentStatus">Current Status</string>
+    <string name="endtime">End Time</string>
+    <string name="duration">Duration</string>
+    <string name="target1">Taro</string>
+    <string name="target2">Francis</string>
+    <string name="target3">Hyuckjin</string>
 </resources>

@@ -111,7 +111,9 @@ public class userreport extends JobIntentService {
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
             // Making a request to url and getting response
-            String url = "http://ec2-18-177-160-75.ap-northeast-1.compute.amazonaws.com/api";
+//            String url = "http://ec2-18-177-160-75.ap-northeast-1.compute.amazonaws.com/api";
+            String url = "http://163.221.68.248:8080/api";
+
             String jsonStr = sh.makeServiceCall(url);
             ArrayList<HashMap<String, String>> activityMapList = new ArrayList<>();
 

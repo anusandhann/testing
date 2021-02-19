@@ -58,7 +58,7 @@ import java.util.Set;
 public class report  extends AppCompatActivity {
 
     public CandleStickChart chart1, chart2, chart3, chart4, chart5, chart6, chart7;
-    public TextView text1, text2, text3, text4, text5, text6, text7, durationTextview;
+    public TextView text1, text2, text3, text4, text5, text6, text7, durationTextview, activityReport;
     RadioButton sleep, shower, breakfast, lunch, dinner, medication, tv;
     private RadioGroup sleepradio, showerradio, breakfastradio, medicationradio, lunchradio, tvradio, dinnerradio, thisRadiogp;
     Button submitreport;
@@ -88,10 +88,10 @@ public class report  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.testingreport);
+        setContentView(R.layout.newreportlayout);
 
         submitreport = (Button) findViewById(R.id.submitreport);
-//        activityReport = (TextView) findViewById(R.id.report);
+        activityReport = (TextView) findViewById(R.id.report);
 
         chart1 = (CandleStickChart) findViewById(R.id.sleepLinechart);
         chart2 = (CandleStickChart) findViewById(R.id.ShowerLinechart);
@@ -270,6 +270,22 @@ public class report  extends AppCompatActivity {
 
                     submitbutton(username);
 
+                    String targetName = null;
+
+                    if (username.equals("1")){
+                        targetName = getResources().getString(R.string.target1);
+                    }
+                    if (username.equals("2")){
+                        targetName = getResources().getString(R.string.target2);
+
+                    }if (username.equals("3")){
+                        targetName = getResources().getString(R.string.target3);
+                        ;
+                    }
+
+                    activityReport.setText("Activity Report - " + " " + targetName );
+
+
 //                    activityReport.setText("Activity Report of - " + "  " + "Target" + " " + username );
 
                     preferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
@@ -321,6 +337,7 @@ public class report  extends AppCompatActivity {
                         if ((preferences.contains("sleepPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking sleep shared preference   ", sleepresponse);
                             sleepradio.setVisibility(View.GONE);
+                            card1.setCardBackgroundColor(getColor(R.color.colorinGraph));
                         }
                     }
                     else {
@@ -331,6 +348,8 @@ public class report  extends AppCompatActivity {
                         if ((preferences.contains("showerPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking shower shared preference   ", showerresponse);
                             showerradio.setVisibility(View.GONE);
+                            card2.setCardBackgroundColor(getColor(R.color.colorinGraph));
+
                         }
                     }
                     else {
@@ -341,6 +360,8 @@ public class report  extends AppCompatActivity {
                         if ((preferences.contains("medicationPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking medication shared preference   ", medicationresponse);
                             medicationradio.setVisibility(View.GONE);
+                            card3.setCardBackgroundColor(getColor(R.color.colorinGraph));
+
                         }
                     }
                     else {
@@ -351,6 +372,8 @@ public class report  extends AppCompatActivity {
                         if ((preferences.contains("breakfastPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking breakfast shared preference   ", breakfastresponse);
                             breakfastradio.setVisibility(View.GONE);
+                            card4.setCardBackgroundColor(getColor(R.color.colorinGraph));
+
                         }
                     }
                     else {
@@ -361,6 +384,8 @@ public class report  extends AppCompatActivity {
                         if ((preferences.contains("lunchPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking lunch shared preference   ", lunchresponse);
                             lunchradio.setVisibility(View.GONE);
+                            card5.setCardBackgroundColor(getColor(R.color.colorinGraph));
+
                         }
                     }
                     else {
@@ -372,6 +397,8 @@ public class report  extends AppCompatActivity {
                         if ((preferences.contains("tvPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking tv shared preference   ", tvresponse);
                             tvradio.setVisibility(View.GONE);
+                            card6.setCardBackgroundColor(getColor(R.color.colorinGraph));
+
                         }
                     }
                     else {
@@ -382,6 +409,8 @@ public class report  extends AppCompatActivity {
                         if ((preferences.contains("dinnerPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking dinner shared preference   ", dinnerresponse);
                             dinnerradio.setVisibility(View.GONE);
+                            card7.setCardBackgroundColor(getColor(R.color.colorinGraph));
+
                         }
                     }
                     else {
@@ -439,7 +468,7 @@ public class report  extends AppCompatActivity {
 
                     if (Float.parseFloat(activitydur) >= 60) {
 
-                        String durationOfActivity = Long.parseLong(activitydur) / 60 % 24 + " Hours" + " & " + Long.parseLong(activitydur) % 60 + "  Minutes";
+                        String durationOfActivity = Long.parseLong(activitydur) / 60 % 24 + " Hours" + " & " + Long.parseLong(activitydur) % 60 + " Minutes";
                         assert durationTextview != null;
 
                         assert endtimeArray != null;
@@ -451,12 +480,16 @@ public class report  extends AppCompatActivity {
 
                         if (currentTime.isAfter(actTime)) {
                             drawchart(modStartArray, modEndArray, activityType);
-                            durationTextview.setText("Duration of Activity :  " + durationOfActivity);
-                            }
+                            durationTextview.setText(durationOfActivity);
+                            thisCard.setCardBackgroundColor(getColor(R.color.activityComplete));
+
+                        }
                         else {
                             thisRadiogp.setVisibility(View.GONE);
                             drawchart(prevModStartArray , prevModEndArray, activityType);
                             durationTextview.setVisibility(View.GONE);
+                            thisCard.setCardBackgroundColor(getColor(R.color.appTheme));
+
                         }
                     }
                     else {
@@ -475,13 +508,17 @@ public class report  extends AppCompatActivity {
 
                         if(currentTime.isAfter(actTime)){
                             thisCard.setVisibility(View.VISIBLE);
-                            durationTextview.setText("Duration of Activity :  " + activitydur + "  minutes");
+                            durationTextview.setText(activitydur);
                             drawchart(modStartArray, modEndArray, activityType);
-                            }
+                            thisCard.setCardBackgroundColor(getColor(R.color.activityComplete));
+
+                        }
                             else
                             {
                                 thisRadiogp.setVisibility(View.GONE);
                                 drawchart(prevModStartArray , prevModEndArray, activityType);
+                                thisCard.setCardBackgroundColor(getColor(R.color.appTheme));
+
                             }
                     }
                 }

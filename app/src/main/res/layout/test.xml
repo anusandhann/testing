@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/theme"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/sleepcard"
+        android:layout_width="fill_parent"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        app:cardBackgroundColor="#954C4C"
+        card_view:cardCornerRadius="4dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="5dp">
+
+            <ImageView
+                android:id="@+id/hourglass"
+                android:layout_width="47dp"
+                android:layout_height="44dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="215dp"
+                android:layout_marginEnd="94dp"
+                android:layout_marginBottom="41dp"
+                card_view:srcCompat="@drawable/hourglass" />
+
+            <TextView
+                android:id="@+id/sleepstatus"
+                android:layout_width="135dp"
+                android:layout_height="25dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="265dp"
+                android:layout_marginEnd="291dp"
+                android:layout_marginBottom="10dp"
+                android:text="incomplete"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/sleepstatus2"
+                android:layout_width="wrap_content"
+                android:layout_height="39dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="253dp"
+                android:layout_marginTop="253dp"
+                android:layout_marginEnd="9dp"
+                android:layout_marginBottom="8dp"
+                android:text="10 hours and 20 minutes"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/sleeptime"
+                android:layout_width="77dp"
+                android:layout_height="23dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="135dp"
+                android:layout_marginTop="267dp"
+                android:layout_marginEnd="206dp"
+                android:layout_marginBottom="10dp"
+                android:text="22:30"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/time"
+                android:layout_width="33dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="246dp"
+                android:layout_marginBottom="42dp"
+                card_view:srcCompat="@drawable/endtime" />
+
+            <TextView
+                android:id="@+id/endtime3"
+                android:layout_width="79dp"
+                android:layout_height="32dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="115dp"
+                android:layout_marginTop="216dp"
+                android:layout_marginEnd="157dp"
+                android:layout_marginBottom="52dp"
+                android:layout_toEndOf="@+id/statusimage"
+                android:text="end time"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="136dp"
+                android:layout_height="32dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="-5dp"
+                android:layout_marginEnd="225dp"
+                android:layout_marginBottom="44dp"
+                android:layout_toEndOf="@+id/statusimage"
+                android:text="@string/currentStatus"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/endtime4"
+                android:layout_width="82dp"
+                android:layout_height="31dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="260dp"
+                android:layout_marginTop="214dp"
+                android:layout_marginEnd="9dp"
+                android:layout_marginBottom="55dp"
+                android:layout_toEndOf="@+id/statusimage"
+                android:text="Duration"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/statusimage"
+                android:layout_width="49dp"
+                android:layout_height="45dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="221dp"
+                android:layout_marginBottom="34dp"
+                card_view:srcCompat="@drawable/currentstatus" />
+
+            <ImageView
+                android:id="@+id/sleepimage"
+                android:layout_width="116dp"
+                android:layout_height="123dp"
+                android:layout_below="@+id/sleep"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginEnd="9dp"
+                android:layout_marginBottom="128dp"
+                android:layout_toStartOf="@+id/sleepLinechart"
+                card_view:srcCompat="@drawable/sll" />
+
+            <TextView
+                android:id="@+id/sleep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="284dp"
+                android:gravity="start"
+                android:orientation="horizontal"
+                android:text="Sleep"
+                android:textColor="#ffffff"
+                android:textSize="22sp" />
+
+            <com.github.mikephil.charting.charts.CandleStickChart
+                android:id="@+id/sleepLinechart"
+                android:layout_width="273dp"
+                android:layout_height="193dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="13dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/sleepcard"
+                app:layout_constraintVertical_bias="0.019"
+                tools:ignore="NotSibling">
+
+            </com.github.mikephil.charting.charts.CandleStickChart>
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>

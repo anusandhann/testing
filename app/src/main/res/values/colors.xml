@@ -3,11 +3,13 @@
     <color name="appTheme">#954c4c</color>
     <color name="textforApp">#0f1010</color>
     <color name="colorinGraph">#03525c</color>
-    <color name="borderofGraph">#FFEB3B</color>
+    <color name="borderofGraph">#CAB609</color>
     <color name="graphBackground">#F8F5F5</color>
     <color name="Transparent80">#80000000</color>
     <color name="graphValue">#000000</color>
     <color name="buttonText">#FFFFFF</color>
+    <color name="activityComplete">#CCB602</color>
+
 
 
 </resources>
