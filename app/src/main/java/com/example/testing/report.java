@@ -468,7 +468,7 @@ public class report  extends AppCompatActivity {
 
                     if (Float.parseFloat(activitydur) >= 60) {
 
-                        String durationOfActivity = Long.parseLong(activitydur) / 60 % 24 + " Hours" + " & " + Long.parseLong(activitydur) % 60 + " Minutes";
+                        String durationOfActivity = Long.parseLong(activitydur) / 60 % 24 + " Hrs" + " & " + Long.parseLong(activitydur) % 60 + " Min";
                         assert durationTextview != null;
 
                         assert endtimeArray != null;
