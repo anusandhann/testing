@@ -177,6 +177,8 @@ public class userreport extends JobIntentService {
                             ArrayList<String> durationList = new ArrayList<>();
                             ArrayList<String> endtimeList = new ArrayList<>();
                             ArrayList<String> userList = new ArrayList<>();
+                            ArrayList<String> endtimeList2 = new ArrayList<>();
+
 
 
                             // Find all actvities in the activity map list that match our filters
@@ -199,6 +201,8 @@ public class userreport extends JobIntentService {
                                 durationList.add(activityMap.get("duration"));
                                 dateList.add(activityMap.get("date"));
                                 userList.add(activityMap.get("user"));
+                                endtimeList2.add(activityMap.get("end_time"));
+
 
                             }
 
@@ -247,6 +251,18 @@ public class userreport extends JobIntentService {
                            //  showsNotification(endActivityTime);
 
                             //to get the current time in same format as end time, to compare and send notification if both are same
+
+                            for (int i = 0; i < endtimeList.size(); i++) {
+
+                                SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+                                @SuppressLint("SimpleDateFormat") Date newtimes = sdf2.parse(endtimeList2.get(i));
+                                sdf2.applyPattern("HH:mm");
+                                String endActivityTimes = sdf2.format(newtimes);
+
+                                endtimeList2.set(i, endActivityTimes);
+                            }
+
 
                             String currentTime = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
                             Calendar cal2 = Calendar.getInstance();
@@ -305,6 +321,8 @@ public class userreport extends JobIntentService {
                             in.putStringArrayListExtra("datelist", dateList);
                             in.putStringArrayListExtra("endtimeList", endtimeList);
                             in.putStringArrayListExtra("thisUser", userList);
+                            in.putStringArrayListExtra("endtimeList2", endtimeList2);
+
 
                             // Broadcast the intent
                             sendBroadcast(in);

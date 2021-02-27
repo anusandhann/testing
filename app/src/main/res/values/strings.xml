@@ -8,6 +8,8 @@
     <string name="currentStatus">Current Status</string>
     <string name="endtime">End Time</string>
     <string name="duration">Duration</string>
+    <string name="minutes"> Minutes</string>
+
     <string name="target1">Taro</string>
     <string name="target2">Francis</string>
     <string name="target3">Hyuckjin</string>

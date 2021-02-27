@@ -11,7 +11,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -25,8 +24,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.github.mikephil.charting.charts.CandleStickChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -47,11 +44,10 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 //this is the main class..i read the dataset, create graph, and provoke notifications from this class.
 @RequiresApi(api = Build.VERSION_CODES.O)
@@ -59,16 +55,22 @@ public class report  extends AppCompatActivity {
 
     public CandleStickChart chart1, chart2, chart3, chart4, chart5, chart6, chart7;
     public TextView text1, text2, text3, text4, text5, text6, text7, durationTextview, activityReport;
+    public TextView sleepEndtime, bfEndtime, medicineEndtime, lunchEndtime, tvEndtime, dinnerEndtime, showerEndtime, endTimeTextview;
+    public TextView sleepState, showerState, bfState, medicationState, lunchState, tvState, dinnerState, stateTextview;
     RadioButton sleep, shower, breakfast, lunch, dinner, medication, tv;
     private RadioGroup sleepradio, showerradio, breakfastradio, medicationradio, lunchradio, tvradio, dinnerradio, thisRadiogp;
     Button submitreport;
-//    TextView activityReport;
+    String TAG = "ttyl";
 
     ArrayList<HashMap<String, String>> contactList;
 
-    public CardView card1, card2, card3, card4, card5, card6, card7, thisCard;
+    public CardView sleepCard, showerCard, bfCard, medicineCard, lunchCard, tvCard, dinnerCard, thisCard;
 
-    private HashMap<String, TextView> textHash = new HashMap<>();
+    private final HashMap<String, TextView> durationtextHash = new HashMap<>();
+
+    private HashMap<String, TextView> endTimetextHash = new HashMap<>();
+
+    private HashMap<String, TextView> activitystateHash = new HashMap<>();
 
     private HashMap<String, CardView> cardHash = new HashMap<>();
 
@@ -94,9 +96,9 @@ public class report  extends AppCompatActivity {
         activityReport = (TextView) findViewById(R.id.report);
 
         chart1 = (CandleStickChart) findViewById(R.id.sleepLinechart);
-        chart2 = (CandleStickChart) findViewById(R.id.ShowerLinechart);
+        chart2 = (CandleStickChart) findViewById(R.id.showerLinechart);
         chart3 = (CandleStickChart) findViewById(R.id.breakfastLinechart);
-        chart4 = (CandleStickChart) findViewById(R.id.medicineLinechart);
+        chart4 = (CandleStickChart) findViewById(R.id.medicationLinechart);
         chart5 = (CandleStickChart) findViewById(R.id.lunchLinechart);
         chart6 = (CandleStickChart) findViewById(R.id.tvLinechart);
         chart7 = (CandleStickChart) findViewById(R.id.dinnerLinechart);
@@ -145,31 +147,62 @@ public class report  extends AppCompatActivity {
         text6 = (TextView) findViewById(R.id.text6);
         text7 = (TextView) findViewById(R.id.text7);
 
+        sleepEndtime = (TextView) findViewById(R.id.sleeptime);
+        bfEndtime = (TextView) findViewById(R.id.breakfasttime);
+        medicineEndtime = (TextView) findViewById(R.id.medicationtime);
+        lunchEndtime = (TextView) findViewById(R.id.lunchtime);
+        tvEndtime = (TextView) findViewById(R.id.tvtime);
+        dinnerEndtime = (TextView) findViewById(R.id.dinnertime);
+        showerEndtime = (TextView) findViewById(R.id.showertime);
 
-        textHash.put("Sleep", text1);
-        textHash.put("Bath", text2);
-        textHash.put("Breakfast", text3);
-        textHash.put("medicine ", text4); // TODO Remove the space at end next time
-        textHash.put("Lunch", text5);
-        textHash.put("TV", text6);
-        textHash.put("Dinner", text7);
+        sleepState = (TextView) findViewById(R.id.sleepstatus);
+        bfState = (TextView) findViewById(R.id.breakfaststatus);
+        medicationState = (TextView) findViewById(R.id.medicationstatus);
+        lunchState = (TextView) findViewById(R.id.lunchstatus);
+        tvState = (TextView) findViewById(R.id.tvstatus);
+        dinnerState = (TextView) findViewById(R.id.dinnerstatus);
+        showerState = (TextView) findViewById(R.id.showerstatus);
+
+        activitystateHash.put("Sleep", sleepState);
+        activitystateHash.put("Bath", showerState);
+        activitystateHash.put("Breakfast", bfState);
+        activitystateHash.put("medicine ", medicationState); // TODO Remove the space at end next time
+        activitystateHash.put("Lunch", lunchState);
+        activitystateHash.put("TV", tvState);
+        activitystateHash.put("Dinner", dinnerState);
+
+        endTimetextHash.put("Sleep", sleepEndtime);
+        endTimetextHash.put("Bath", showerEndtime);
+        endTimetextHash.put("Breakfast", bfEndtime);
+        endTimetextHash.put("medicine ", medicineEndtime); // TODO Remove the space at end next time
+        endTimetextHash.put("Lunch", lunchEndtime);
+        endTimetextHash.put("TV", tvEndtime);
+        endTimetextHash.put("Dinner", dinnerEndtime);
+
+        durationtextHash.put("Sleep", text1);
+        durationtextHash.put("Bath", text2);
+        durationtextHash.put("Breakfast", text3);
+        durationtextHash.put("medicine ", text4); // TODO Remove the space at end next time
+        durationtextHash.put("Lunch", text5);
+        durationtextHash.put("TV", text6);
+        durationtextHash.put("Dinner", text7);
 
 
-        card1 = (CardView) findViewById(R.id.sleepcard);
-        card2 = (CardView) findViewById(R.id.showercard);
-        card3 = (CardView) findViewById(R.id.breakfastcard);
-        card4 = (CardView) findViewById(R.id.medicationcard);
-        card5 = (CardView) findViewById(R.id.lunchcard);
-        card6 = (CardView) findViewById(R.id.tvcard);
-        card7 = (CardView) findViewById(R.id.dinnercard);
+        sleepCard = (CardView) findViewById(R.id.sleepcard);
+        showerCard = (CardView) findViewById(R.id.showercard);
+        bfCard = (CardView) findViewById(R.id.breakfastcard);
+        medicineCard = (CardView) findViewById(R.id.medicationcard);
+        lunchCard = (CardView) findViewById(R.id.lunchcard);
+        tvCard = (CardView) findViewById(R.id.tvcard);
+        dinnerCard = (CardView) findViewById(R.id.dinnercard);
 
-        cardHash.put("Sleep", card1);
-        cardHash.put("Bath", card2);
-        cardHash.put("Breakfast", card3);
-        cardHash.put("medicine ", card4);
-        cardHash.put("Lunch", card5);
-        cardHash.put("TV", card6);
-        cardHash.put("Dinner", card7);
+        cardHash.put("Sleep", sleepCard);
+        cardHash.put("Bath", showerCard);
+        cardHash.put("Breakfast", bfCard);
+        cardHash.put("medicine ", medicineCard);
+        cardHash.put("Lunch", lunchCard);
+        cardHash.put("TV", tvCard);
+        cardHash.put("Dinner", dinnerCard);
 
         lunchradio = (RadioGroup) findViewById(R.id.lunchbutton);
         dinnerradio = (RadioGroup) findViewById(R.id.dinnerbutton);
@@ -263,7 +296,10 @@ public class report  extends AppCompatActivity {
                     //Log.d("datearray", String.valueOf((datearray)));
 
                     ArrayList<String> endtimeArray = intent.getStringArrayListExtra("endtimeList");
-//                    Log.d("endtimeList array", String.valueOf((endtimeArray)));
+
+                    ArrayList<String> endtimeArray2 = intent.getStringArrayListExtra("endtimeList2");
+
+//                   Log.d("endtimeList array22", String.valueOf((endtimeArray2)));
 
                     String activityType = intent.getStringExtra("actv");
 //                    Log.d("getting activity from service", activityType);
@@ -278,7 +314,8 @@ public class report  extends AppCompatActivity {
                     if (username.equals("2")){
                         targetName = getResources().getString(R.string.target2);
 
-                    }if (username.equals("3")){
+                    }
+                    if (username.equals("3")){
                         targetName = getResources().getString(R.string.target3);
                         ;
                     }
@@ -337,7 +374,7 @@ public class report  extends AppCompatActivity {
                         if ((preferences.contains("sleepPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking sleep shared preference   ", sleepresponse);
                             sleepradio.setVisibility(View.GONE);
-                            card1.setCardBackgroundColor(getColor(R.color.colorinGraph));
+                            sleepCard.setCardBackgroundColor(getColor(R.color.reportComplete));
                         }
                     }
                     else {
@@ -348,7 +385,7 @@ public class report  extends AppCompatActivity {
                         if ((preferences.contains("showerPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking shower shared preference   ", showerresponse);
                             showerradio.setVisibility(View.GONE);
-                            card2.setCardBackgroundColor(getColor(R.color.colorinGraph));
+                            showerCard.setCardBackgroundColor(getColor(R.color.reportComplete));
 
                         }
                     }
@@ -360,7 +397,7 @@ public class report  extends AppCompatActivity {
                         if ((preferences.contains("medicationPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking medication shared preference   ", medicationresponse);
                             medicationradio.setVisibility(View.GONE);
-                            card3.setCardBackgroundColor(getColor(R.color.colorinGraph));
+                            medicineCard.setCardBackgroundColor(getColor(R.color.reportComplete));
 
                         }
                     }
@@ -372,7 +409,7 @@ public class report  extends AppCompatActivity {
                         if ((preferences.contains("breakfastPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking breakfast shared preference   ", breakfastresponse);
                             breakfastradio.setVisibility(View.GONE);
-                            card4.setCardBackgroundColor(getColor(R.color.colorinGraph));
+                            bfCard.setCardBackgroundColor(getColor(R.color.reportComplete));
 
                         }
                     }
@@ -384,7 +421,7 @@ public class report  extends AppCompatActivity {
                         if ((preferences.contains("lunchPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking lunch shared preference   ", lunchresponse);
                             lunchradio.setVisibility(View.GONE);
-                            card5.setCardBackgroundColor(getColor(R.color.colorinGraph));
+                            lunchCard.setCardBackgroundColor(getColor(R.color.reportComplete));
 
                         }
                     }
@@ -397,7 +434,7 @@ public class report  extends AppCompatActivity {
                         if ((preferences.contains("tvPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking tv shared preference   ", tvresponse);
                             tvradio.setVisibility(View.GONE);
-                            card6.setCardBackgroundColor(getColor(R.color.colorinGraph));
+                            tvCard.setCardBackgroundColor(getColor(R.color.reportComplete));
 
                         }
                     }
@@ -409,7 +446,7 @@ public class report  extends AppCompatActivity {
                         if ((preferences.contains("dinnerPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking dinner shared preference   ", dinnerresponse);
                             dinnerradio.setVisibility(View.GONE);
-                            card7.setCardBackgroundColor(getColor(R.color.colorinGraph));
+                            dinnerCard.setCardBackgroundColor(getColor(R.color.reportComplete));
 
                         }
                     }
@@ -462,9 +499,11 @@ public class report  extends AppCompatActivity {
                         }
                     }
 
-                    durationTextview = textHash.get(activityType);
+                    durationTextview = durationtextHash.get(activityType);
+                    endTimeTextview = endTimetextHash.get(activityType);
                     thisRadiogp = radioHash.get(activityType);
                     thisCard = cardHash.get(activityType);
+                    stateTextview = activitystateHash.get(activityType);
 
                     if (Float.parseFloat(activitydur) >= 60) {
 
@@ -478,17 +517,25 @@ public class report  extends AppCompatActivity {
                         LocalDateTime lct = LocalDateTime.parse(actvTime, timeFormatter);
                         LocalTime actTime = lct.toLocalTime(); //get activity completion time in localtime format
 
+                        String endtimeText = endtimeArray2.get(enddateindex);
+
                         if (currentTime.isAfter(actTime)) {
+
+                            thisCard.setCardBackgroundColor(getColor(R.color.activityComplete));
                             drawchart(modStartArray, modEndArray, activityType);
                             durationTextview.setText(durationOfActivity);
-                            thisCard.setCardBackgroundColor(getColor(R.color.activityComplete));
+                            endTimeTextview.setText(endtimeText);
+                            stateTextview.setText("Complete");
 
                         }
                         else {
+
+                            thisCard.setCardBackgroundColor(getColor(R.color.appTheme));
                             thisRadiogp.setVisibility(View.GONE);
                             drawchart(prevModStartArray , prevModEndArray, activityType);
                             durationTextview.setVisibility(View.GONE);
-                            thisCard.setCardBackgroundColor(getColor(R.color.appTheme));
+                            endTimeTextview.setVisibility(View.GONE);
+                            stateTextview.setText("Incomplete");
 
                         }
                     }
@@ -506,19 +553,25 @@ public class report  extends AppCompatActivity {
                         LocalDateTime lct = LocalDateTime.parse(actvTime,timeFormatter);
                         LocalTime actTime = lct.toLocalTime(); //get activity completion time in localtime format
 
+                        String endtimeText = endtimeArray2.get(enddateindex);
+
                         if(currentTime.isAfter(actTime)){
-                            thisCard.setVisibility(View.VISIBLE);
-                            durationTextview.setText(activitydur);
-                            drawchart(modStartArray, modEndArray, activityType);
+
                             thisCard.setCardBackgroundColor(getColor(R.color.activityComplete));
+                            durationTextview.setText(activitydur + " Minutes");
+                            endTimeTextview.setText(endtimeText);
+                            stateTextview.setText("Complete");
+                            drawchart(modStartArray, modEndArray, activityType);
 
                         }
                             else
                             {
-                                thisRadiogp.setVisibility(View.GONE);
-                                drawchart(prevModStartArray , prevModEndArray, activityType);
                                 thisCard.setCardBackgroundColor(getColor(R.color.appTheme));
-
+                                thisRadiogp.setVisibility(View.GONE);
+                                stateTextview.setText("Incomplete");
+                                durationTextview.setVisibility(View.GONE);
+                                endTimeTextview.setVisibility(View.GONE);
+                                drawchart(prevModStartArray, prevModEndArray, activityType);
                             }
                     }
                 }
@@ -534,7 +587,6 @@ public class report  extends AppCompatActivity {
 //                Log.d("graph thing", x.get(i));
             }
 
-
             CandleStickChart selectedChart = activityChartMap.get(activityType);
             assert selectedChart != null;
             selectedChart.setBackgroundColor(Color.WHITE);
@@ -547,9 +599,7 @@ public class report  extends AppCompatActivity {
 //            selectedChart.setVisibleXRangeMaximum(7);
 
             selectedChart.notifyDataSetChanged();
-
             selectedChart.getAxisRight().setDrawLabels(true);
-
             selectedChart.setDrawBorders(true);
             selectedChart.setHighlightPerDragEnabled(true);
             selectedChart.setBorderColor(getResources().getColor((R.color.borderofGraph)));
@@ -581,23 +631,82 @@ public class report  extends AppCompatActivity {
 
             CandleDataSet set1 = new CandleDataSet(candleEntryTry, "DataSet");
 
-            set1.setColor(Color.rgb(80, 80, 80));
+            int[] colors = new int[set1.getEntryCount()];
+
+            int sizeofEntries = x.size();
+
+            Log.d("TAG", "drawchart: " + sizeofEntries);
+
+            for (int i = 0; i < (colors.length) - 1; i++) {
+                colors[i] = Color.parseColor("#03525c");
+                set1.setDecreasingColor(colors[i]);
+                set1.setIncreasingColor(colors[i]);
+            }
+            colors[colors.length -1] = Color.parseColor("#954c4c");
+
+            set1.setColors(colors);
+
             set1.setShadowColor(getResources().getColor(R.color.textforApp));  //need to change to WHITE later
             set1.setShadowWidth(0.8f);
             set1.setFormSize(7);
-            set1.setDecreasingColor(getResources().getColor(R.color.colorinGraph));
-            set1.setDecreasingPaintStyle(Paint.Style.FILL);
-            set1.setIncreasingColor(getResources().getColor(R.color.colorinGraph));
-            set1.setIncreasingPaintStyle(Paint.Style.FILL);
-            set1.setNeutralColor(Color.LTGRAY);
+
+            //set1.setDecreasingPaintStyle(Paint.Style.FILL_AND_STROKE);
+
+           set1.setIncreasingPaintStyle(Paint.Style.STROKE);
+           // set1.setNeutralColor(Color.LTGRAY);
             set1.setDrawValues(false);
 
+//            for (int i = 0; i < sizeofEntries ; i++) {
+//
+//                set1.setShadowColor(getResources().getColor(R.color.textforApp));  //need to change to WHITE later
+//                set1.setShadowWidth(0.8f);
+//                set1.setFormSize(7);
+//
+//                if(i == (sizeofEntries-1))
+//                {
+//                    Log.d(TAG, "drawchart: " + i);
+//
+//                    colors[i] = Color.parseColor("#03525c");  //this is green
+//
+//                    set1.setDecreasingColor(colors[i]);
+//                    set1.setDecreasingPaintStyle(Paint.Style.FILL);
+//                    set1.setIncreasingColor(getResources().getColor(R.color.colorinGraph));
+//                    set1.setIncreasingPaintStyle(Paint.Style.FILL);
+//                    set1.setColor(colors[i]);
+//                    set1.setNeutralColor(Color.LTGRAY);
+//                    set1.setDrawValues(false);
+//
+//                }
+//                else
+//                {
+//                  //  colors[i] = Color.parseColor("#954c4c"); //this is red
+//
+//                    set1.setDecreasingColor(getResources().getColor(R.color.appTheme));
+//                    set1.setDecreasingPaintStyle(Paint.Style.FILL);
+//                    set1.setIncreasingColor(getResources().getColor(R.color.appTheme));
+//                    set1.setIncreasingPaintStyle(Paint.Style.FILL);
+//                   // set1.setColor(colors[i]);
+//                    set1.setNeutralColor(Color.LTGRAY);
+//                    set1.setDrawValues(false);
+//                }
+//            }
+//            set1.setColor(Color.rgb(80, 80, 80));
+//            set1.setShadowColor(getResources().getColor(R.color.textforApp));  //need to change to WHITE later
+//            set1.setShadowWidth(0.8f);
+//            set1.setFormSize(7);
+//            set1.setDecreasingColor(getResources().getColor(R.color.colorinGraph));
+//            set1.setDecreasingPaintStyle(Paint.Style.FILL);
+//            set1.setIncreasingColor(getResources().getColor(R.color.colorinGraph));
+//            set1.setIncreasingPaintStyle(Paint.Style.FILL);
+//            set1.setNeutralColor(Color.LTGRAY);
+//            set1.setDrawValues(false);
 
             CandleData data = new CandleData(set1);
 
             selectedChart.setData(data);
 
             selectedChart.invalidate();
+
         }
 
 //practice code to submit into Firebase
@@ -661,8 +770,8 @@ public class report  extends AppCompatActivity {
                             editor.putString("sleepPrefresponse_" + username + LocalDate.now(), String.valueOf(sleep.getText()));
                             editor.putString("sleepPrefdate_" + username + LocalDate.now(), String.valueOf(LocalDate.now()));
 
-
                             editor.apply(); //to get it back, need to do, preferences.getString("same key", )
+
                         }
 
                         if (showerradio != null && showerradio.isEnabled() && showerstate != -1) {
