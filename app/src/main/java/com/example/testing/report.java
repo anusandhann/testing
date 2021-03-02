@@ -631,75 +631,17 @@ public class report  extends AppCompatActivity {
 
             CandleDataSet set1 = new CandleDataSet(candleEntryTry, "DataSet");
 
-            int[] colors = new int[set1.getEntryCount()];
 
-            int sizeofEntries = x.size();
-
-            Log.d("TAG", "drawchart: " + sizeofEntries);
-
-            for (int i = 0; i < (colors.length) - 1; i++) {
-                colors[i] = Color.parseColor("#03525c");
-                set1.setDecreasingColor(colors[i]);
-                set1.setIncreasingColor(colors[i]);
-            }
-            colors[colors.length -1] = Color.parseColor("#954c4c");
-
-            set1.setColors(colors);
-
+            set1.setColor(Color.rgb(80, 80, 80));
             set1.setShadowColor(getResources().getColor(R.color.textforApp));  //need to change to WHITE later
             set1.setShadowWidth(0.8f);
             set1.setFormSize(7);
-
-            //set1.setDecreasingPaintStyle(Paint.Style.FILL_AND_STROKE);
-
-           set1.setIncreasingPaintStyle(Paint.Style.STROKE);
-           // set1.setNeutralColor(Color.LTGRAY);
+            set1.setDecreasingColor(getResources().getColor(R.color.colorinGraph));
+            set1.setDecreasingPaintStyle(Paint.Style.FILL);
+            set1.setIncreasingColor(getResources().getColor(R.color.colorinGraph));
+            set1.setIncreasingPaintStyle(Paint.Style.FILL);
+            set1.setNeutralColor(Color.LTGRAY);
             set1.setDrawValues(false);
-
-//            for (int i = 0; i < sizeofEntries ; i++) {
-//
-//                set1.setShadowColor(getResources().getColor(R.color.textforApp));  //need to change to WHITE later
-//                set1.setShadowWidth(0.8f);
-//                set1.setFormSize(7);
-//
-//                if(i == (sizeofEntries-1))
-//                {
-//                    Log.d(TAG, "drawchart: " + i);
-//
-//                    colors[i] = Color.parseColor("#03525c");  //this is green
-//
-//                    set1.setDecreasingColor(colors[i]);
-//                    set1.setDecreasingPaintStyle(Paint.Style.FILL);
-//                    set1.setIncreasingColor(getResources().getColor(R.color.colorinGraph));
-//                    set1.setIncreasingPaintStyle(Paint.Style.FILL);
-//                    set1.setColor(colors[i]);
-//                    set1.setNeutralColor(Color.LTGRAY);
-//                    set1.setDrawValues(false);
-//
-//                }
-//                else
-//                {
-//                  //  colors[i] = Color.parseColor("#954c4c"); //this is red
-//
-//                    set1.setDecreasingColor(getResources().getColor(R.color.appTheme));
-//                    set1.setDecreasingPaintStyle(Paint.Style.FILL);
-//                    set1.setIncreasingColor(getResources().getColor(R.color.appTheme));
-//                    set1.setIncreasingPaintStyle(Paint.Style.FILL);
-//                   // set1.setColor(colors[i]);
-//                    set1.setNeutralColor(Color.LTGRAY);
-//                    set1.setDrawValues(false);
-//                }
-//            }
-//            set1.setColor(Color.rgb(80, 80, 80));
-//            set1.setShadowColor(getResources().getColor(R.color.textforApp));  //need to change to WHITE later
-//            set1.setShadowWidth(0.8f);
-//            set1.setFormSize(7);
-//            set1.setDecreasingColor(getResources().getColor(R.color.colorinGraph));
-//            set1.setDecreasingPaintStyle(Paint.Style.FILL);
-//            set1.setIncreasingColor(getResources().getColor(R.color.colorinGraph));
-//            set1.setIncreasingPaintStyle(Paint.Style.FILL);
-//            set1.setNeutralColor(Color.LTGRAY);
-//            set1.setDrawValues(false);
 
             CandleData data = new CandleData(set1);
 

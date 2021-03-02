@@ -6,8 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:background="@drawable/theme"
-    android:screenOrientation="portrait"
-    tools:context="com.example.testing.mainactivity">
+    android:screenOrientation="portrait">
 
     <Button
         android:id="@+id/goback"
@@ -29,7 +28,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/Thankyou"
+        android:id="@+id/thankyou"
         android:layout_width="fill_parent"
         android:layout_height="80dp"
         android:background="#954C4C"

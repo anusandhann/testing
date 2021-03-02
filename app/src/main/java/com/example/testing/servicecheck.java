@@ -15,16 +15,21 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
+import static android.content.ContentValues.TAG;
+
 
 public class servicecheck extends Service {
 
 
     public static final String CHANNEL_1_ID = "trying";
 
+
+
     @Override //atstart
     public void onCreate() {
         super.onCreate();
     }
+
 
     @Override //everytimewecalltheservice
     public int onStartCommand(Intent intent, int flags, int startId) {

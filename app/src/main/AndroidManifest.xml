@@ -54,7 +54,20 @@
         </intent-filter>
         </receiver>
 
-        <service android:name=".servicecheck" />
+        <receiver android:name=".recurringNotificationGeneratorBR">
+        <intent-filter>
+            <action android:name="android.media.action.DISPLAY_NOTIFICATION" />
+
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+         </receiver>
+
+
+    <service android:name=".servicecheck" />
+
+        <service android:name=".recurringnotification"
+            android:exported="false"
+            android:enabled="true"/>
 
         <service android:name=".userreport"
             android:exported="false"

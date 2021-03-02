@@ -6,9 +6,9 @@
     <color name="borderofGraph">#CAB609</color>
     <color name="graphBackground">#F8F5F5</color>
     <color name="Transparent80">#80000000</color>
-<!--    <color name="graphValue">#000000</color>-->
+<!--    <color name="graphValue">#b39c00</color>-->
     <color name="buttonText">#FFFFFF</color>
-    <color name="activityComplete">#b39c00</color>
+    <color name="activityComplete">#8d5805</color>
     <color name="reportComplete">#03525c</color>
 
     <color name="graphValue">#FAF0E6</color>

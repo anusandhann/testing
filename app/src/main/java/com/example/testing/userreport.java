@@ -49,8 +49,10 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 public class userreport extends JobIntentService {
     public static final String CHANNEL_2_ID = "channel2";
     public static final String CHANNEL_delete_ID = "deletethischannel";
+    public static final String CHANNEL_recurring_ID = "recurringNotification";
 
-
+    AlarmManager alarmManager;
+    private PendingIntent alarmIntent;
     public static final int notification_id = 1;
     private NotificationManagerCompat notifManager;
     Context context;
@@ -83,6 +85,7 @@ public class userreport extends JobIntentService {
         String input = intent.getStringExtra("userreport");
 
         createNotificationChannel();
+//        createRecurringNotificationChannel();
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_delete_ID)
                 .setContentTitle("Thank You for Checking the Elderly!!")
@@ -93,6 +96,7 @@ public class userreport extends JobIntentService {
 
         return START_NOT_STICKY;
     }
+
 
     @Override
     public void onDestroy() { super.onDestroy();
@@ -425,6 +429,17 @@ public class userreport extends JobIntentService {
             notificationManager.createNotificationChannel(channel);
         }
     }
+
+//    private void createRecurringNotificationChannel() {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            NotificationChannel channel = new NotificationChannel(CHANNEL_recurring_ID, "Recurring Notification", NotificationManager.IMPORTANCE_DEFAULT);
+//            channel.setDescription("This is recurring"); //to show to Users That the app is running
+//            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//            notificationManager.createNotificationChannel(channel);
+//        }
+//
+//    }
+
 }
 
 
