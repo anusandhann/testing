@@ -12,6 +12,7 @@ import android.app.job.JobParameters;
 import android.app.job.JobService;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.IBinder;
@@ -409,6 +410,8 @@ public class userreport extends JobIntentService {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setContentIntent(pendingIntent)
+                .setColor(getColor(R.color.appTheme))
+                .setDefaults(Notification.DEFAULT_SOUND)
                 .setAutoCancel(true)
                 .build();
 

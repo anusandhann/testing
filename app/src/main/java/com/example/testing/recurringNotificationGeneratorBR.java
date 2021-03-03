@@ -39,12 +39,12 @@ public class recurringNotificationGeneratorBR extends BroadcastReceiver {
             manager.createNotificationChannel(notificationChannel);
         }
 
-        Intent buttonIntent = new Intent(context, recurringnotification.class);
-        buttonIntent.putExtra("notificationId", NOTIFICATION_ID);
+        Intent recurringIntent = new Intent(context, select.class);
+        recurringIntent.putExtra("recurring_notificationId", NOTIFICATION_ID);
 
         //Pass  PendingIntent to addAction method of Intent Builder
         NotificationCompat.Builder notif = new NotificationCompat.Builder(context, CHANNEL_RecurringNotification_ID);
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, new Intent(), 0);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, recurringIntent, 0);
 
         notif.setSmallIcon(R.drawable.notificationlogo);
         notif.setContentText("Please check recent activity of the elderly!!");
