@@ -78,14 +78,15 @@ public class userreport extends JobIntentService {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-//        Log.d("", "start of the usereport service");
+
+        Log.d("", "start of the usereport service");
+
         getActivityData task = new getActivityData();
         task.execute();
 
         String input = intent.getStringExtra("userreport");
 
         createNotificationChannel();
-//        createRecurringNotificationChannel();
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_delete_ID)
                 .setContentTitle("Thank You for Checking the Elderly!!")
@@ -267,7 +268,6 @@ public class userreport extends JobIntentService {
                                 endtimeList2.set(i, endActivityTimes);
                             }
 
-
                             String currentTime = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
                             Calendar cal2 = Calendar.getInstance();
                             Date d = new SimpleDateFormat("HH:mm").parse(currentTime);
@@ -295,7 +295,7 @@ public class userreport extends JobIntentService {
                                         if ((increasedTime.equals(endActivityTime)) && (increasedTime.equals(currentTime))){
 //                                            Log.d("sametimefornot", increasedTime);
                                             //send notification from here at that moment when increased time value equals end time of activity
-                                            showsNotification(increasedTime, userFilter);
+                                            showsNotification(increasedTime, userFilter, activityTypeFilter);
                                         }
                                     }
                             }}
@@ -374,7 +374,7 @@ public class userreport extends JobIntentService {
         }
     }
 
-    private void showsNotification(String nTime, String user) {
+    private void showsNotification(String nTime, String user, String whichActivity) {
 
         createNotificationChannel2();
 
@@ -389,9 +389,22 @@ public class userreport extends JobIntentService {
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+        String targetName = null;
+
+        if (user.equals("1")){
+            targetName = getResources().getString(R.string.target1);
+        }
+        if (user.equals("2")){
+            targetName = getResources().getString(R.string.target2);
+        }
+        if (user.equals("3")){
+            targetName = getResources().getString(R.string.target3);
+        }
+
+
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_2_ID)
                 .setContentTitle("MutualMonitor")
-                .setContentText("Please Check the Recent Activity of the Elderly")
+                .setContentText("Please Check,  " + targetName + "  just finished  " + whichActivity + " activity")
                 .setSmallIcon(R.drawable.notificationlogo)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
@@ -429,17 +442,6 @@ public class userreport extends JobIntentService {
             notificationManager.createNotificationChannel(channel);
         }
     }
-
-//    private void createRecurringNotificationChannel() {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            NotificationChannel channel = new NotificationChannel(CHANNEL_recurring_ID, "Recurring Notification", NotificationManager.IMPORTANCE_DEFAULT);
-//            channel.setDescription("This is recurring"); //to show to Users That the app is running
-//            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-//            notificationManager.createNotificationChannel(channel);
-//        }
-//
-//    }
-
 }
 
 

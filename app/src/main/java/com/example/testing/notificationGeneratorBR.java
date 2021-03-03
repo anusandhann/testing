@@ -17,7 +17,8 @@ public class notificationGeneratorBR extends BroadcastReceiver {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onReceive(Context context, Intent intent) {
-//        Log.d(TAG, "this receiver for usereport works");
+
+        Log.d(TAG, "this receiver for usereport works");
 //        userreport.enqueueWork(context, new Intent());
         Intent intent1 = new Intent(context,userreport.class);
         context.startForegroundService(intent1);

@@ -235,6 +235,9 @@ public class report  extends AppCompatActivity {
         userReportIntent.putExtra("user", userStr);
         ContextCompat.startForegroundService(this,userReportIntent );
 
+        Intent recurringNotifIntent = new Intent(this, recurringnotification.class);
+        ContextCompat.startForegroundService(this,recurringNotifIntent );
+
 //        startService(new Intent(this, userreport.class));
 //        Log.d("", "service running check which might be the cause for error");
 

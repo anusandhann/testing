@@ -51,7 +51,7 @@ public class mainactivity extends AppCompatActivity {
         Intent recurringNotificationIntent = new Intent(this,recurringNotificationGeneratorBR.class);
         recurringNotificationIntent.putExtra("regularnotifID", 196);
         alarmManager2 = (AlarmManager)getSystemService(ALARM_SERVICE);
-        alarmIntent2 = PendingIntent.getBroadcast(this, 12, recurringNotificationIntent, 0);
+        alarmIntent2 = PendingIntent.getBroadcast(this, 2, recurringNotificationIntent, 0);
         alarmManager2.setInexactRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(),20 * 1000, alarmIntent2);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

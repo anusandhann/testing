@@ -77,7 +77,6 @@
         android:gravity="center"
         android:orientation="vertical"
         android:text="Signout"
-        android:onClick="signout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

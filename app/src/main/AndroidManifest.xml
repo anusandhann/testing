@@ -44,9 +44,11 @@
             android:screenOrientation="portrait" />
 
         <activity android:name=".HttpHandler"/>
+
         <activity android:name=".thankYou"/>
 
         <receiver android:name=".notificationGeneratorBR">
+
         <intent-filter>
             <action android:name="android.media.action.DISPLAY_NOTIFICATION" />
 
@@ -62,12 +64,12 @@
         </intent-filter>
          </receiver>
 
+        <service android:name=".servicecheck" />
 
-    <service android:name=".servicecheck" />
-
-        <service android:name=".recurringnotification"
+        <receiver android:name=".recurringnotification"
             android:exported="false"
-            android:enabled="true"/>
+            android:enabled="true"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
 
         <service android:name=".userreport"
             android:exported="false"
