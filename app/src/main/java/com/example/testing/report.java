@@ -103,6 +103,17 @@ public class report  extends AppCompatActivity {
         chart6 = (CandleStickChart) findViewById(R.id.tvLinechart);
         chart7 = (CandleStickChart) findViewById(R.id.dinnerLinechart);
 
+
+
+        String timeOfOpeningofReport = String.valueOf(LocalTime.now());
+
+        Log.e(TAG, "onCreate: for report opening time" + "--> " + String.valueOf(timeOfOpeningofReport));
+
+//        Bundle bundle = getIntent().getExtras();
+//        String checkingTime = bundle.getString("time_isPrecious");
+//        Log.e(TAG, "onResume: time testing" + "  ^_^  " + checkingTime );
+
+
         YAxis sleepleft = chart1.getAxisLeft();
         sleepleft.setAxisMaximum((float) 35.0);
         sleepleft.setAxisMinimum(16);
@@ -244,6 +255,24 @@ public class report  extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        Log.e(TAG, "onResume: " + "hari om" );
+
+        Intent recurringNotIntent = getIntent();
+
+        if (recurringNotIntent.hasExtra("recurring_notificationClickTime")){
+            String recNotClicktime = recurringNotIntent.getExtras().getString("recurring_notificationClickTime");
+            Log.e(TAG, "time in report activity" + "  " + recNotClicktime);
+        }
+
+//        Bundle bundle = getIntent().getExtras();
+//        String checkingTime = bundle.getString("time_isPrecious");
+//        Log.e(TAG, "onResume: time testing" + "  ^_^  " + checkingTime );
+    }
+
+    @Override
     protected void onDestroy() {
         unregisterReceiver(ar);
         super.onDestroy();
@@ -377,7 +406,7 @@ public class report  extends AppCompatActivity {
                         if ((preferences.contains("sleepPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking sleep shared preference   ", sleepresponse);
                             sleepradio.setVisibility(View.GONE);
-                            sleepCard.setCardBackgroundColor(getColor(R.color.reportComplete));
+                            sleepCard.setCardBackgroundColor(getColor(R.color.trafficGreen));
                         }
                     }
                     else {
@@ -517,28 +546,32 @@ public class report  extends AppCompatActivity {
                         String actvTime = endtimeArray.get(enddateindex);
                        // Log.d("compareactivitytime", (actvTime));
 
+
                         LocalDateTime lct = LocalDateTime.parse(actvTime, timeFormatter);
                         LocalTime actTime = lct.toLocalTime(); //get activity completion time in localtime format
+
 
                         String endtimeText = endtimeArray2.get(enddateindex);
 
                         if (currentTime.isAfter(actTime)) {
 
-                            thisCard.setCardBackgroundColor(getColor(R.color.activityComplete));
+                            thisCard.setCardBackgroundColor(getColor(R.color.trafficYellow));
                             drawchart(modStartArray, modEndArray, activityType);
                             durationTextview.setText(durationOfActivity);
                             endTimeTextview.setText(endtimeText);
                             stateTextview.setText("Complete");
 
+
                         }
                         else {
 
-                            thisCard.setCardBackgroundColor(getColor(R.color.appTheme));
+                            thisCard.setCardBackgroundColor(getColor(R.color.trafficRed));
                             thisRadiogp.setVisibility(View.GONE);
                             drawchart(prevModStartArray , prevModEndArray, activityType);
                             durationTextview.setVisibility(View.GONE);
                             endTimeTextview.setVisibility(View.GONE);
                             stateTextview.setText("Incomplete");
+
 
                         }
                     }
@@ -560,21 +593,23 @@ public class report  extends AppCompatActivity {
 
                         if(currentTime.isAfter(actTime)){
 
-                            thisCard.setCardBackgroundColor(getColor(R.color.activityComplete));
+                            thisCard.setCardBackgroundColor(getColor(R.color.trafficYellow));
                             durationTextview.setText(activitydur + " Minutes");
                             endTimeTextview.setText(endtimeText);
                             stateTextview.setText("Complete");
                             drawchart(modStartArray, modEndArray, activityType);
 
+
                         }
                             else
                             {
-                                thisCard.setCardBackgroundColor(getColor(R.color.appTheme));
+                                thisCard.setCardBackgroundColor(getColor(R.color.trafficRed));
                                 thisRadiogp.setVisibility(View.GONE);
                                 stateTextview.setText("Incomplete");
                                 durationTextview.setVisibility(View.GONE);
                                 endTimeTextview.setVisibility(View.GONE);
                                 drawchart(prevModStartArray, prevModEndArray, activityType);
+
                             }
                     }
                 }
@@ -659,6 +694,14 @@ public class report  extends AppCompatActivity {
 
             final String username = name;
 
+            Bundle bundle = getIntent().getExtras();
+            String checkingTime = bundle.getString("time_isPrecious");
+
+            if (checkingTime!= null){
+            Log.e(TAG, "onResume: testing in submit method" + "  ^_^  " + checkingTime );}
+
+           // Log.d(TAG, "submitbutton: " + actvEndTime);
+
             final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
             final FirebaseUser thisuser = FirebaseAuth.getInstance().getCurrentUser();
             assert thisuser != null;
@@ -690,6 +733,13 @@ public class report  extends AppCompatActivity {
                     final int lunchstate = lunchradio.getCheckedRadioButtonId();
                     final int dinnerstate = dinnerradio.getCheckedRadioButtonId();
                     final int tvstate = tvradio.getCheckedRadioButtonId();
+
+//                    Intent recurringNotIntent = getIntent();
+//
+//                    if (recurringNotIntent.hasExtra("recurring_notificationTime")){
+//                        String recNotClicktime = recurringNotIntent.getExtras().getString("recurring_notificationTime");
+//                        Log.d(TAG, "onClick: recurring notification click time" + "  " + recNotClicktime);
+//                    }
 
 
                     if ( sleepstate == -1

@@ -7,11 +7,16 @@
     <color name="graphBackground">#F8F5F5</color>
     <color name="Transparent80">#80000000</color>
 <!--    <color name="graphValue">#b39c00</color>-->
+    <color name="black">#000000</color>
+
     <color name="buttonText">#FFFFFF</color>
     <color name="activityComplete">#8d5805</color>
     <color name="reportComplete">#03525c</color>
-
+    <color name="overall">#053a8d</color>
     <color name="graphValue">#FAF0E6</color>
+    <color name="trafficRed">#C34942</color>
+    <color name="trafficGreen">#008450</color>
+    <color name="trafficYellow">#EFB700</color>
 
 
 

@@ -7,7 +7,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_gravity="center"
-    android:background="@drawable/theme"
+    android:background="@drawable/theme3"
     android:orientation="vertical">
 
     <LinearLayout
@@ -34,7 +34,7 @@
             android:gravity="center"
             android:orientation="vertical"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#0F1010"
+            android:textColor="@color/appTheme"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -91,7 +91,7 @@
                             android:layout_marginBottom="4dp"
                             android:layout_toStartOf="@+id/sleeptime"
                             android:textAlignment="center"
-                            android:textColor="@color/cardview_light_background"
+                            android:textColor="@color/black"
                             android:textSize="18sp" />
 
                         <TextView
@@ -107,7 +107,7 @@
                             android:layout_marginEnd="0dp"
                             android:layout_marginBottom="3dp"
                             android:textAlignment="textStart"
-                            android:textColor="@color/cardview_light_background"
+                            android:textColor="@color/black"
                             android:textSize="16sp" />
 
 
@@ -125,7 +125,7 @@
                             android:layout_marginBottom="9dp"
                             android:layout_toStartOf="@+id/text1"
                             android:textAlignment="center"
-                            android:textColor="@color/cardview_light_background"
+                            android:textColor="@color/black"
                             android:textSize="18sp" />
 
                         <TextView
@@ -143,7 +143,7 @@
                             android:layout_toStartOf="@+id/sleeptimeheader"
                             android:text="@string/currentStatus"
                             android:textAlignment="center"
-                            android:textColor="@color/graphValue"
+                            android:textColor="@color/black"
                             android:textSize="14sp" />
 
                         <ImageView
@@ -191,7 +191,7 @@
                             android:layout_marginBottom="57dp"
                             android:text="@string/duration"
                             android:textAlignment="center"
-                            android:textColor="@color/graphValue"
+                            android:textColor="@color/black"
                             android:textSize="14sp" />
 
                         <ImageView
@@ -242,7 +242,7 @@
                             android:layout_toStartOf="@+id/sleephourglass"
                             android:text="@string/endtime"
                             android:textAlignment="center"
-                            android:textColor="@color/graphValue"
+                            android:textColor="@color/black"
                             android:textSize="14sp" />
 
                         <TextView
@@ -256,7 +256,7 @@
                             android:gravity="start"
                             android:orientation="horizontal"
                             android:text="Sleep"
-                            android:textColor="#ffffff"
+                            android:textColor="@color/black"
                             android:textSize="22sp" />
 
                         <com.github.mikephil.charting.charts.CandleStickChart
@@ -942,7 +942,7 @@
                             android:layout_marginEnd="9dp"
                             android:layout_marginBottom="128dp"
                             android:layout_toStartOf="@+id/lunchLinechart"
-                            card_view:srcCompat="@drawable/sll" />
+                            card_view:srcCompat="@drawable/eating" />
 
 
                         <ImageView
@@ -1465,7 +1465,7 @@
                             android:layout_marginEnd="9dp"
                             android:layout_marginBottom="128dp"
                             android:layout_toStartOf="@+id/dinnerLinechart"
-                            card_view:srcCompat="@drawable/sll" />
+                            card_view:srcCompat="@drawable/eating" />
 
 
                         <ImageView
@@ -1918,7 +1918,7 @@
                             android:layout_marginBottom="439dp"
                             app:layout_constraintBottom_toTopOf="@id/overallCardHeader"
                             android:text="Overall"
-                            android:textColor="#ffffff"
+                            android:textColor="@color/buttonText"
                             android:textSize="30sp" />
 
                         <ImageView
@@ -1953,7 +1953,7 @@
                             android:fontFamily="sans-serif"
                             android:textAlignment = "center"
                             android:text="What do you think is the overall status of the elderly?"
-                            android:textColor="#ffffff"
+                            android:textColor="@color/buttonText"
                             android:textSize="30sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"

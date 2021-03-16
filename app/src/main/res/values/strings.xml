@@ -3,8 +3,10 @@
     <string name="activity_report">Activity Report</string>
     <string name="report">Submit Report</string>
     <string name="todo">TODO</string>
+
     <string name="normalbutton">Normal/ 正常</string>
     <string name="suspiciousbutton">Suspicious/ 不審</string>
+
     <string name="currentStatus">Current Status</string>
     <string name="endtime">End Time</string>
     <string name="duration">Duration</string>

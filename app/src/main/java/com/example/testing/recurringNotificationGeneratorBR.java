@@ -9,12 +9,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
+import java.time.LocalTime;
 import java.util.Calendar;
+import java.util.UUID;
 
 import static android.content.ContentValues.TAG;
 import static android.content.Context.*;
@@ -39,12 +42,25 @@ public class recurringNotificationGeneratorBR extends BroadcastReceiver {
             manager.createNotificationChannel(notificationChannel);
         }
 
+        String currentTime = String.valueOf(LocalTime.now());
+
         Intent recurringIntent = new Intent(context, select.class);
-        recurringIntent.putExtra("recurring_notificationId", NOTIFICATION_ID);
+
+        recurringIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        recurringIntent.putExtra("recurring_notificationGeneratedTime", currentTime);
 
         //Pass  PendingIntent to addAction method of Intent Builder
         NotificationCompat.Builder notif = new NotificationCompat.Builder(context, CHANNEL_RecurringNotification_ID);
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, recurringIntent, 0);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, UUID.randomUUID().hashCode(), recurringIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+
+        //context.startActivity(recurringIntent);
+
+
+       // Log.e(TAG, "checkingIntent    : " + recurringIntent.getStringExtra("recurring_notificationTime"));
+
+      //  Log.e(TAG, "checkingNotOpenTime     : " + currentTime);
 
         notif.setSmallIcon(R.drawable.notificationlogo);
         notif.setContentText("Please check recent activity of the elderly!!");
@@ -58,7 +74,7 @@ public class recurringNotificationGeneratorBR extends BroadcastReceiver {
 
         if (timeOfDay >= 0 && timeOfDay < 6) {
 
-            Log.d("hu", String.valueOf(timeOfDay));
+            Log.d("No notification", String.valueOf(timeOfDay));
         }
 
         else {

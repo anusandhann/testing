@@ -404,7 +404,7 @@ public class userreport extends JobIntentService {
 
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_2_ID)
-                .setContentTitle("MutualMonitor")
+
                 .setContentText("Please Check,  " + targetName + "  just finished  " + whichActivity + " activity")
                 .setSmallIcon(R.drawable.notificationlogo)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
