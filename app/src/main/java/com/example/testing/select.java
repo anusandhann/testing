@@ -32,7 +32,7 @@ public class select extends AppCompatActivity {
     private FirebaseAuth firebaseauth;
 
     ListView simpleList;
-    String[] targetList = {"","Target 1", "Target 2", "Target 3"};
+    String[] targetList = {"","Taro", "Francis", "Hyuckjin"};
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -41,15 +41,6 @@ public class select extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.select);
-
-//        String recNotClicktime = recurringNotIntent.getStringExtra("recurring_notificationTime");
-//        Log.d("TAG", "recurring notification click time" + "  " + recNotClicktime + LocalDate.now());
-//
-//        if (recurringNotIntent.hasExtra("recurringNotificationTime")){
-//            String recNotClicktime = recurringNotIntent.getStringExtra("recurring_notificationTime");
-//            Log.d("TAG", "recurring notification click time" + "  " + recNotClicktime);
-//        }
-
 
         firebaseauth= FirebaseAuth.getInstance();
         fbauth =new FirebaseAuth.AuthStateListener(){
@@ -87,7 +78,7 @@ public class select extends AppCompatActivity {
         Log.e("TAG", "--------------->>");
 
         Intent recurringNotIntent = getIntent();
-        String recNotClicktime = recurringNotIntent.getStringExtra("recurring_notificationGeneratedTime");
+        String recNotificationGeneratedTime = recurringNotIntent.getStringExtra("recurring_notificationGeneratedTime");
 
         if (recurringNotIntent.hasExtra("recurring_notificationGeneratedTime")){
 
@@ -95,12 +86,9 @@ public class select extends AppCompatActivity {
 
         recurringIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        recurringIntent.putExtra("recurring_notificationClickTime", recNotClicktime + " &  " + Calendar.getInstance().getTime() );
+        recurringIntent.putExtra("recurring_notificationClickTime", recNotificationGeneratedTime + " &  " + Calendar.getInstance().getTime() );
 
-        String recNotClicktimeX = recurringIntent.getStringExtra("recurring_notificationClickTime");
-
-
-        //startActivity(recurringIntent);
+        final String recNotClicktimeX = recurringIntent.getStringExtra("recurring_notificationClickTime");
 
         Log.e("TAG", "recurring notification click time" + " --> " + recNotClicktimeX);
 
@@ -127,15 +115,16 @@ public class select extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
                         Intent recurringNotIntent = getIntent();
-                        String recNotClicktime = recurringNotIntent.getStringExtra("recurring_notificationGeneratedTime");
-                        Log.e("TAG", "this is to test : " + " generated time -->" + recNotClicktime + "  clicked time -->" + Calendar.getInstance().getTime());
+                        String recNotificationGeneratedtime = recurringNotIntent.getStringExtra("recurring_notificationGeneratedTime");
+                        Log.e("TAG", "this is to test : " + " notification generated time -->" + recNotificationGeneratedtime + "  clicked time -->" + Calendar.getInstance().getTime());
 
+                        //here for rN opening
                         if (recurringNotIntent.hasExtra("recurring_notificationGeneratedTime")) {
 
-                            String recNotificationClickTime = recNotClicktime + "  -->  " + Calendar.getInstance().getTime();
+                            String recNotificationClickTime = recNotificationGeneratedtime + "  -->  " + Calendar.getInstance().getTime();
 
                             Bundle nClicktime = new Bundle();
-                            nClicktime.putString("time_isPrecious", recNotificationClickTime);
+                            nClicktime.putString("recurringNotification_generatedANDclick", recNotificationClickTime);
 
                             Intent intent = new Intent(select.this, report.class);
                             intent.putExtras(nClicktime);
@@ -148,6 +137,30 @@ public class select extends AppCompatActivity {
                                 startActivity(intent);
                             }
                         }
+                        else
+                        {
+                            String freeWillOpeningTime = String.valueOf(Calendar.getInstance().getTime());
+
+                            Bundle freeWillOpen = new Bundle();
+                            freeWillOpen.putString("FreeWillOpeningMutualMonitor", freeWillOpeningTime);
+
+                            Log.e("TAG", "onItemClick: freewillopening " +  freeWillOpeningTime );
+
+                            Intent intent = new Intent(select.this, report.class);
+                            intent.putExtras(freeWillOpen);
+
+                            intent.putExtra("user", String.valueOf(position));
+
+                            if (position == 0) {
+
+                            } else {
+                                startActivity(intent);
+                            }
+                        }
+
+                        //here for abN opening
+
+                        //here for free will opening
                     }
                 });
     }

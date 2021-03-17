@@ -44,6 +44,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.UUID;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -379,16 +380,25 @@ public class userreport extends JobIntentService {
 
         createNotificationChannel2();
 
-        Intent notificationIntent = new Intent(this, report.class);
-        notificationIntent.putExtra("user", user);
+        String abNotificationTime = String.valueOf(Calendar.getInstance().getTime());
 
-        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Intent activityBasedNotificationIntent = new Intent(this, report.class);
 
+        activityBasedNotificationIntent.putExtra("user", user);
+
+        activityBasedNotificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        activityBasedNotificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+
+        activityBasedNotificationIntent.putExtra("activityBased_notificationGeneratedTime", abNotificationTime);
 
 //        PendingIntent pendingIntent = PendingIntent.getActivity(this,
 //                0, notificationIntent, 0);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Log.e(TAG, "showsNotification: currentTimeforActivitybasedNotification  -> " + abNotificationTime );
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, UUID.randomUUID().hashCode(), activityBasedNotificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         String targetName = null;
 
