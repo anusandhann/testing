@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ public class select extends AppCompatActivity {
 
     private FirebaseAuth.AuthStateListener fbauth;
     private FirebaseAuth firebaseauth;
+
 
     ListView simpleList;
     String[] targetList = {"","Taro", "Francis", "Hyuckjin"};
@@ -65,8 +67,6 @@ public class select extends AppCompatActivity {
     public void onStart(){
         super.onStart();
         firebaseauth.addAuthStateListener(fbauth);
-
-
 
     }
 
@@ -121,7 +121,7 @@ public class select extends AppCompatActivity {
                         //here for rN opening
                         if (recurringNotIntent.hasExtra("recurring_notificationGeneratedTime")) {
 
-                            String recNotificationClickTime = recNotificationGeneratedtime + "  -->  " + Calendar.getInstance().getTime();
+                            String recNotificationClickTime = recNotificationGeneratedtime;
 
                             Bundle nClicktime = new Bundle();
                             nClicktime.putString("recurringNotification_generatedANDclick", recNotificationClickTime);

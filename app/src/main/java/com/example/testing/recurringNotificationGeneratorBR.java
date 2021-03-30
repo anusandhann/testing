@@ -58,7 +58,7 @@ public class recurringNotificationGeneratorBR extends BroadcastReceiver {
 
       //  Log.e(TAG, "checkingNotOpenTime     : " + currentTime);
 
-        notif.setSmallIcon(R.drawable.notificationlogo);
+        notif.setSmallIcon(R.drawable.ic_stat_name);
         notif.setContentText("Please check recent activity of the elderly!!");
         notif.setWhen(System.currentTimeMillis());
         notif.setColor(Color.BLUE);

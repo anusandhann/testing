@@ -416,7 +416,7 @@ public class userreport extends JobIntentService {
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_2_ID)
 
                 .setContentText("Please Check,  " + targetName + "  just finished  " + whichActivity + " activity")
-                .setSmallIcon(R.drawable.notificationlogo)
+                .setSmallIcon(R.drawable.ic_stat_name)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setContentIntent(pendingIntent)

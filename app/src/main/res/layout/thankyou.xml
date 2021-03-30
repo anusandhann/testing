@@ -17,7 +17,7 @@
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:orientation="vertical"
-        android:text="Go back"
+        android:text = "@string/Goback"
         android:onClick="goback"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/buttonText"

@@ -20,6 +20,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -36,8 +37,11 @@ import com.github.mikephil.charting.data.CandleEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -86,7 +90,7 @@ public class report  extends AppCompatActivity {
     SharedPreferences.Editor editor;
     breceiver ar = new breceiver();
 
-    String timeOfOpeningofReport = String.valueOf(Calendar.getInstance().getTime());
+    String timeOfOpeningofReport = "ReportOpeningTime ->  " + String.valueOf(Calendar.getInstance().getTime());
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -693,18 +697,18 @@ public class report  extends AppCompatActivity {
 
             if (bundle.getString("recurringNotification_generatedANDclick")!=null)
             {
-                checkingTime = bundle.getString("recurringNotification_generatedANDclick");
+                checkingTime = "RecurringNotificationTime ->  " + bundle.getString("recurringNotification_generatedANDclick");
 
             }
 
             else if (actBasedNotIntent.hasExtra("activityBased_notificationGeneratedTime"))
             {
-                checkingTime = actBasedNotIntent.getStringExtra("activityBased_notificationGeneratedTime");
+                checkingTime = "ActivityBasedNotificationTime ->  " + actBasedNotIntent.getStringExtra("activityBased_notificationGeneratedTime");
             }
 
             else
                 {
-                checkingTime = bundle.getString("FreeWillOpeningMutualMonitor");
+                checkingTime = "FreeWillApplicationOpeningTime ->  " + bundle.getString("FreeWillOpeningMutualMonitor");
             }
 
 
@@ -714,8 +718,7 @@ public class report  extends AppCompatActivity {
             final FirebaseUser thisuser = FirebaseAuth.getInstance().getCurrentUser();
             assert thisuser != null;
             final String email = thisuser.getEmail();
-            final Object userdr = email + "  " + new Date();
-
+            final Object userdr = email; //change date format here
 
             String finalCheckingTime = checkingTime;
           //  Log.e(TAG, "submitbutton: aaaaaaaa" + " :" + finalCheckingTime);
@@ -736,7 +739,7 @@ public class report  extends AppCompatActivity {
 
 
                     assert email != null;
-                    Log.d("", email);
+                    Log.d("EdVanWood", email);
                     String id = ref.push().getKey();
                     assert id != null;
 
@@ -749,6 +752,7 @@ public class report  extends AppCompatActivity {
                     final int tvstate = tvradio.getCheckedRadioButtonId();
                     final int overallstate = overallradio.getCheckedRadioButtonId();
 
+                    String timeValues = " Time values  ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime();
 
                     if ( sleepstate == -1
                             && showerstate == -1
@@ -767,6 +771,7 @@ public class report  extends AppCompatActivity {
                             sleep = (RadioButton) findViewById(sleepstate);
 //                            Log.d("value   ", String.valueOf(sleep.getText()));
                             sleepmap.put("Sleep state", userdr);
+
                             ref.child(username).child("Sleep").child(String.valueOf(sleep.getText())).child(id).updateChildren(sleepmap);
 
                             editor.putString("sleepPrefuser_" + username + LocalDate.now(), username);
@@ -776,8 +781,8 @@ public class report  extends AppCompatActivity {
 
                             editor.apply(); //to get it back, need to do, preferences.getString("same key", )
 
-                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " --> " + timeOfOpeningofReport + " -> LT  " + Calendar.getInstance().getTime() );
-
+                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime() );
+                            Log.e(TAG, "onClick: testing if local time is varied" +  "  " + timeValues );
                         }
 
                         if (showerradio != null && showerradio.isEnabled() && showerstate != -1) {
@@ -792,7 +797,7 @@ public class report  extends AppCompatActivity {
                             editor.putString("showerPrefdate_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
-                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " --> " + timeOfOpeningofReport + " -> LT  " + Calendar.getInstance().getTime() );
+                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime() );
 
                         }
                         if (breakfastradio != null && breakfastradio.isEnabled() && bfstate != -1) {
@@ -807,7 +812,7 @@ public class report  extends AppCompatActivity {
                             editor.putString("breakfastPrefdate_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
-                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " --> " + timeOfOpeningofReport + " -> LT  " + Calendar.getInstance().getTime() );
+                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime() );
 
 
                         }
@@ -823,7 +828,7 @@ public class report  extends AppCompatActivity {
                             editor.putString("medicationPrefdate_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
-                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " --> " + timeOfOpeningofReport+ " -> LT  " + Calendar.getInstance().getTime() );
+                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport+ "  ReportingTime ->  " + Calendar.getInstance().getTime() );
 
 
                         }
@@ -839,7 +844,7 @@ public class report  extends AppCompatActivity {
                             editor.putString("lunchPrefdate_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
-                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " --> " + timeOfOpeningofReport+ " -> LT  " + Calendar.getInstance().getTime() );
+                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport+ "  ReportingTime ->  " + Calendar.getInstance().getTime() );
 
 
                         }
@@ -855,7 +860,7 @@ public class report  extends AppCompatActivity {
                             editor.putString("tvPrefdate_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
-                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " --> " + timeOfOpeningofReport+ " -> LT  " + Calendar.getInstance().getTime() );
+                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport+ "  ReportingTime ->  " + Calendar.getInstance().getTime() );
 
                         }
                         if (dinnerradio != null && dinnerradio.isEnabled() && dinnerstate != -1) {
@@ -870,7 +875,7 @@ public class report  extends AppCompatActivity {
                             editor.putString("dinnerPrefdate_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
-                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " --> " + timeOfOpeningofReport + " -> LT  " + Calendar.getInstance().getTime() );
+                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime() );
 
                         }
                         if (overallradio != null && overallradio.isEnabled() && overallstate != -1) {
@@ -887,7 +892,7 @@ public class report  extends AppCompatActivity {
 
                             editor.apply(); //to get it back, need to do, preferences.getString("same key", )
 
-                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " --> " + timeOfOpeningofReport+ " -> LT  " + Calendar.getInstance().getTime() );
+                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport+ "  ReportingTime ->  " + Calendar.getInstance().getTime() );
 
                         }
 

@@ -27,7 +27,7 @@
         android:layout_width="fill_parent"
         android:layout_height="300dp"
         android:layout_gravity="center"
-        app:cardBackgroundColor="@color/activityComplete"
+        app:cardBackgroundColor="@color/trafficGreen"
         card_view:cardCornerRadius="4dp">
 
         <RelativeLayout
@@ -100,7 +100,7 @@
                 android:layout_toStartOf="@+id/sleeptimeheader"
                 android:text="@string/currentStatus"
                 android:textAlignment="center"
-                android:textColor="@color/graphValue"
+                android:textColor="@color/black"
                 android:textSize="14sp" />
 
             <ImageView
@@ -121,7 +121,7 @@
             <ImageView
                 android:id="@+id/sleephourglass"
                 android:layout_width="wrap_content"
-                android:layout_height="39dp"
+                android:layout_height="35dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
@@ -132,7 +132,8 @@
                 android:layout_marginBottom="45dp"
                 android:layout_toStartOf="@+id/sleepduration"
                 android:scaleType="fitCenter"
-                card_view:srcCompat="@drawable/hourglass" />
+                app:srcCompat="@drawable/ic_hour"
+                app:tint="#F4EEEE" />
 
             <TextView
                 android:id="@+id/sleepduration"
@@ -148,7 +149,7 @@
                 android:layout_marginBottom="57dp"
                 android:text="@string/duration"
                 android:textAlignment="center"
-                android:textColor="@color/graphValue"
+                android:textColor="@color/black"
                 android:textSize="14sp" />
 
             <ImageView
@@ -165,12 +166,13 @@
                 android:layout_marginBottom="41dp"
                 android:scaleType="fitCenter"
                 android:layout_toStartOf="@+id/sleepstatusheader"
-                card_view:srcCompat="@drawable/currentstatus" />
+                app:srcCompat="@drawable/ic_currentstatus"
+                app:tint="#F4EEEE"/>
 
             <ImageView
                 android:id="@+id/sleeptimeheader"
                 android:layout_width="fill_parent"
-                android:layout_height="46dp"
+                android:layout_height="35dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
@@ -182,7 +184,8 @@
                 android:layout_toStartOf="@+id/sleependtime"
 
                 android:scaleType="fitCenter"
-                card_view:srcCompat="@drawable/endtime" />
+                app:srcCompat="@drawable/ic_endtime"
+                app:tint="#F4EEEE" />
 
             <TextView
                 android:id="@+id/sleependtime"
@@ -199,7 +202,7 @@
                 android:layout_toStartOf="@+id/sleephourglass"
                 android:text="@string/endtime"
                 android:textAlignment="center"
-                android:textColor="@color/graphValue"
+                android:textColor="@color/black"
                 android:textSize="14sp" />
 
             <TextView

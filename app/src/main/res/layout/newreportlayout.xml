@@ -67,7 +67,7 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/sleepcard"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_gravity="center"
                     card_view:cardCornerRadius="4dp">
@@ -75,11 +75,12 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:backgroundTint="#F4F4F4"
                         android:paddingStart="5dp">
 
                         <TextView
                             android:id="@+id/sleepstatus"
-                            android:layout_width="fill_parent"
+                            android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
@@ -90,36 +91,36 @@
                             android:layout_marginEnd="265dp"
                             android:layout_marginBottom="4dp"
                             android:layout_toStartOf="@+id/sleeptime"
-                            android:textAlignment="center"
+                            android:textAlignment="gravity"
                             android:textColor="@color/black"
                             android:textSize="18sp" />
 
                         <TextView
                             android:id="@+id/text1"
-                            android:layout_width="fill_parent"
+                            android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentBottom="true"
-                            android:layout_marginStart="260dp"
+                            android:layout_marginStart="265dp"
                             android:layout_marginTop="260dp"
                             android:layout_marginEnd="0dp"
                             android:layout_marginBottom="3dp"
-                            android:textAlignment="textStart"
+                            android:textAlignment="center"
                             android:textColor="@color/black"
                             android:textSize="16sp" />
 
 
                         <TextView
                             android:id="@+id/sleeptime"
-                            android:layout_width="fill_parent"
+                            android:layout_width="match_parent"
                             android:layout_height="35dp"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentBottom="true"
-                            android:layout_marginStart="159dp"
+                            android:layout_marginStart="150dp"
                             android:layout_marginTop="260dp"
                             android:layout_marginEnd="180dp"
                             android:layout_marginBottom="9dp"
@@ -130,7 +131,7 @@
 
                         <TextView
                             android:id="@+id/sleepstatusheader"
-                            android:layout_width="fill_parent"
+                            android:layout_width="match_parent"
                             android:layout_height="56dp"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
@@ -148,7 +149,7 @@
 
                         <ImageView
                             android:id="@+id/sleepimage"
-                            android:layout_width="fill_parent"
+                            android:layout_width="match_parent"
                             android:layout_height="123dp"
                             android:layout_below="@+id/sleep"
                             android:layout_alignParentStart="true"
@@ -163,8 +164,8 @@
 
                         <ImageView
                             android:id="@+id/sleephourglass"
-                            android:layout_width="wrap_content"
-                            android:layout_height="39dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="24dp"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentEnd="true"
@@ -175,11 +176,12 @@
                             android:layout_marginBottom="45dp"
                             android:layout_toStartOf="@+id/sleepduration"
                             android:scaleType="fitCenter"
-                            card_view:srcCompat="@drawable/hourglass" />
+                            app:srcCompat="@drawable/ic_baseline_hourglass_bottom_24"
+                            app:tint="#FFFFFF" />
 
                         <TextView
                             android:id="@+id/sleepduration"
-                            android:layout_width="fill_parent"
+                            android:layout_width="match_parent"
                             android:layout_height="26dp"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
@@ -196,40 +198,39 @@
 
                         <ImageView
                             android:id="@+id/sleepstatusimage"
-                            android:layout_width="fill_parent"
-                            android:layout_height="35dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentBottom="true"
                             android:layout_marginStart="-5dp"
                             android:layout_marginTop="210dp"
-                            android:layout_marginEnd="344dp"
-                            android:layout_marginBottom="41dp"
-                            android:scaleType="fitCenter"
+                            android:layout_marginEnd="340dp"
+                            android:layout_marginBottom="35dp"
                             android:layout_toStartOf="@+id/sleepstatusheader"
-                            card_view:srcCompat="@drawable/currentstatus" />
+                            app:srcCompat="@drawable/currentstatusvector" />
 
                         <ImageView
                             android:id="@+id/sleeptimeheader"
-                            android:layout_width="fill_parent"
-                            android:layout_height="46dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="24dp"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentBottom="true"
-                            android:layout_marginStart="145dp"
-                            android:layout_marginTop="210dp"
-                            android:layout_marginEnd="210dp"
-                            android:layout_marginBottom="38dp"
+                            android:layout_marginStart="147dp"
+                            android:layout_marginTop="216dp"
+                            android:layout_marginEnd="215dp"
+                            android:layout_marginBottom="48dp"
                             android:layout_toStartOf="@+id/sleependtime"
-
                             android:scaleType="fitCenter"
-                            card_view:srcCompat="@drawable/endtime" />
+                            app:srcCompat="@drawable/ic_baseline_timer_24"
+                            app:tint="#FFFFFF" />
 
                         <TextView
                             android:id="@+id/sleependtime"
-                            android:layout_width="fill_parent"
+                            android:layout_width="match_parent"
                             android:layout_height="38dp"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
@@ -285,7 +286,7 @@
                 <RadioGroup
 
                     android:id="@+id/sleepbutton"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="39dp"
                     android:gravity="center"
                     android:orientation="horizontal">
@@ -422,7 +423,7 @@
                             android:layout_marginEnd="9dp"
                             android:layout_marginBottom="128dp"
                             android:layout_toStartOf="@+id/breakfastLinechart"
-                            card_view:srcCompat="@drawable/eating" />
+                            app:srcCompat="@drawable/eating" />
 
 
                         <ImageView
@@ -439,7 +440,7 @@
                             android:layout_marginBottom="45dp"
                             android:layout_toStartOf="@+id/breakfastduration"
                             android:scaleType="fitCenter"
-                            card_view:srcCompat="@drawable/hourglass" />
+                            app:srcCompat="@drawable/hourglass" />
 
                         <TextView
                             android:id="@+id/breakfastduration"
@@ -472,12 +473,12 @@
                             android:layout_marginBottom="41dp"
                             android:scaleType="fitCenter"
                             android:layout_toStartOf="@+id/breakfaststatusheader"
-                            card_view:srcCompat="@drawable/currentstatus" />
+                            app:srcCompat="@drawable/currentstatus" />
 
                         <ImageView
                             android:id="@+id/breakfasttimeheader"
-                            android:layout_width="fill_parent"
-                            android:layout_height="46dp"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentEnd="true"
@@ -489,7 +490,7 @@
                             android:layout_toStartOf="@+id/breakfastendtime"
 
                             android:scaleType="fitCenter"
-                            card_view:srcCompat="@drawable/endtime" />
+                            app:srcCompat="@drawable/endtime" />
 
                         <TextView
                             android:id="@+id/breakfastendtime"
