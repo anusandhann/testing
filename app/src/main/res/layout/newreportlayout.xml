@@ -75,126 +75,56 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:backgroundTint="#F4F4F4"
-                        android:paddingStart="5dp">
+                        android:paddingStart="5dp"
+                        android:paddingEnd="10dp">
 
                         <TextView
-                            android:id="@+id/sleepstatus"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:id="@+id/sleep"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
                             android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="3dp"
-                            android:layout_marginTop="260dp"
-                            android:layout_marginEnd="272dp"
-                            android:layout_marginBottom="4dp"
-                            android:layout_toStartOf="@+id/sleeptime"
-                            android:textAlignment="gravity"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/text1"
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="265dp"
-                            android:layout_marginTop="260dp"
-                            android:layout_marginEnd="0dp"
-                            android:layout_marginBottom="3dp"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textSize="16sp" />
-
-
-                        <TextView
-                            android:id="@+id/sleeptime"
-                            android:layout_width="match_parent"
-                            android:layout_height="35dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="150dp"
-                            android:layout_marginTop="260dp"
-                            android:layout_marginEnd="180dp"
-                            android:layout_marginBottom="9dp"
-                            android:layout_toStartOf="@+id/text1"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/sleepstatusheader"
-                            android:layout_width="match_parent"
-                            android:layout_height="56dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="40dp"
-                            android:layout_marginTop="222dp"
-                            android:layout_marginEnd="246dp"
-                            android:layout_marginBottom="25dp"
-                            android:layout_toStartOf="@+id/sleeptimeheader"
-                            android:text="@string/currentStatus"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textSize="14sp" />
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="285dp"
+                            android:layout_marginTop="5dp"
+                            android:gravity="start"
+                            android:orientation="horizontal"
+                            android:text="Sleep"
+                            android:textColor="@color/buttonText"
+                            android:textSize="22sp" />
 
                         <ImageView
                             android:id="@+id/sleepimage"
                             android:layout_width="match_parent"
-                            android:layout_height="123dp"
-                            android:layout_below="@+id/sleep"
+                            android:layout_height="125dp"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentBottom="true"
                             android:layout_marginStart="0dp"
                             android:layout_marginTop="19dp"
                             android:layout_marginEnd="9dp"
-                            android:layout_marginBottom="128dp"
-                            android:layout_toStartOf="@+id/sleepLinechart"
+                            android:layout_marginBottom="100dp"
+                            android:layout_alignTop="@id/sleep"
+                            android:layout_toStartOf="@id/sleepLinechart"
                             card_view:srcCompat="@drawable/sll" />
 
 
-                        <ImageView
-                            android:id="@+id/sleephourglass"
-                            android:layout_width="match_parent"
-                            android:layout_height="24dp"
-                            android:layout_alignParentStart="true"
+                        <com.github.mikephil.charting.charts.CandleStickChart
+                            android:id="@+id/sleepLinechart"
+                            android:layout_width="280dp"
+                            android:layout_height="190dp"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentBottom="true"
-                            android:layout_marginStart="260dp"
-                            android:layout_marginTop="216dp"
-                            android:layout_marginEnd="300dp"
-                            android:layout_marginBottom="35dp"
-                            android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/ic_baseline_hourglass_bottom_24"
-                            app:tint="#FFFFFF" />
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="100dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/sleepcard"
+                            tools:ignore="NotSibling">
 
-                        <TextView
-                            android:id="@+id/sleepduration"
-                            android:layout_width="match_parent"
-                            android:layout_height="26dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="272dp"
-                            android:layout_marginTop="222dp"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginBottom="57dp"
-                            android:text="@string/duration"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textSize="14sp" />
+                        </com.github.mikephil.charting.charts.CandleStickChart>
 
                         <ImageView
                             android:id="@+id/sleepstatusimage"
@@ -205,11 +135,30 @@
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentBottom="true"
                             android:layout_marginStart="0dp"
-                            android:layout_marginEnd="350dp"
-                            android:layout_marginTop="216dp"
-                            android:layout_marginBottom="35dp"
-                            android:layout_toStartOf="@+id/sleepstatusheader"
+                            android:layout_marginEnd="340dp"
+                            android:layout_marginTop="210dp"
+                            android:layout_marginBottom="45dp"
+                            android:layout_below="@id/sleepimage"
                             app:srcCompat="@drawable/currentstatusvector" />
+
+                        <TextView
+                            android:id="@+id/sleepstatusheader"
+                            android:layout_width="fill_parent"
+                            android:layout_height="60dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="40dp"
+                            android:layout_marginEnd="240dp"
+                            android:layout_marginTop="225dp"
+                            android:layout_marginBottom="35dp"
+                            android:text="@string/currentStatus"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/black"
+                            android:layout_alignBaseline="@id/sleepstatusimage"
+                            android:layout_alignStart="@id/sleepstatusimage"
+                            android:textSize="14sp" />
 
                         <ImageView
                             android:id="@+id/sleeptimeheader"
@@ -219,65 +168,126 @@
                             android:layout_alignParentTop="true"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentBottom="true"
-                            android:layout_marginStart="145dp"
-                            android:layout_marginTop="216dp"
-                            android:layout_marginEnd="205dp"
-                            android:layout_marginBottom="35dp"
-                            android:layout_toStartOf="@+id/sleependtime"
-                            android:scaleType="fitCenter"
+                            android:layout_marginStart="140dp"
+                            android:layout_marginTop="210dp"
+                            android:layout_marginEnd="200dp"
+                            android:layout_marginBottom="45dp"
+                            android:layout_alignBaseline="@id/sleepstatusimage"
+                            android:layout_alignStart="@id/sleepstatusheader"
                             app:srcCompat="@drawable/ic_baseline_timer_24"
                             app:tint="#FFFFFF" />
 
                         <TextView
                             android:id="@+id/sleependtime"
-                            android:layout_width="wrap_content"
-                            android:layout_height="34dp"
+                            android:layout_width="fill_parent"
+                            android:layout_height="38dp"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentBottom="true"
-                            android:layout_marginStart="190dp"
-                            android:layout_marginTop="226dp"
-                            android:layout_marginEnd="139dp"
-                            android:layout_marginBottom="40dp"
-                            android:layout_toStartOf="@+id/sleephourglass"
+                            android:layout_marginStart="180dp"
+                            android:layout_marginTop="225dp"
+                            android:layout_marginEnd="100dp"
+                            android:layout_marginBottom="35dp"
                             android:text="@string/endtime"
-                            android:textAlignment="center"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/black"
+                            android:layout_alignBaseline="@id/sleepstatusheader"
+                            android:layout_toStartOf="@id/sleeptimeheader"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:id="@+id/sleephourglass"
+                            android:layout_width="match_parent"
+                            android:layout_height="24dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="250dp"
+                            android:layout_marginTop="210dp"
+                            android:layout_marginEnd="90dp"
+                            android:layout_marginBottom="45dp"
+                            app:srcCompat="@drawable/ic_baseline_hourglass_bottom_24"
+                            android:layout_alignBaseline="@id/sleepstatusimage"
+                            android:layout_toStartOf="@id/sleeptimeheader"
+                            app:tint="#FFFFFF" />
+
+                        <TextView
+                            android:id="@+id/sleepduration"
+                            android:layout_width="fill_parent"
+                            android:layout_height="50dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="290dp"
+                            android:layout_marginTop="225dp"
+                            android:layout_marginEnd="4dp"
+                            android:layout_marginBottom="35dp"
+                            android:text="@string/duration"
+                            android:textAlignment="viewStart"
+                            android:layout_alignBaseline="@id/sleepstatusimage"
+                            android:layout_toStartOf="@id/sleephourglass"
                             android:textColor="@color/black"
                             android:textSize="14sp" />
 
                         <TextView
-                            android:id="@+id/sleep"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:id="@+id/sleepstatus"
+                            android:layout_width="fill_parent"
+                            android:layout_height="50dp"
                             android:layout_alignParentStart="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginEnd="284dp"
-                            android:gravity="start"
-                            android:orientation="horizontal"
-                            android:text="Sleep"
-                            android:textColor="@color/black"
-                            android:textSize="22sp" />
-
-                        <com.github.mikephil.charting.charts.CandleStickChart
-                            android:id="@+id/sleepLinechart"
-                            android:layout_width="273dp"
-                            android:layout_height="193dp"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentEnd="true"
-                            android:layout_marginTop="14dp"
-                            android:layout_marginEnd="13dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.3"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/sleepcard"
-                            app:layout_constraintVertical_bias="0.019"
-                            tools:ignore="NotSibling">
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="260dp"
+                            android:layout_marginEnd="270dp"
+                            android:layout_marginBottom="5dp"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/black"
+                            android:layout_below="@id/sleepstatusheader"
+                            android:textStyle="bold"
 
-                        </com.github.mikephil.charting.charts.CandleStickChart>
+                            android:textSize="18sp" />
 
+                        <TextView
+                            android:id="@+id/sleeptime"
+                            android:layout_width="fill_parent"
+                            android:layout_height="50dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="145dp"
+                            android:layout_marginTop="260dp"
+                            android:layout_marginEnd="180dp"
+                            android:layout_marginBottom="5dp"
+                            android:textAlignment="viewStart"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:layout_toStartOf="@id/sleepstatus"
+                            android:layout_alignBaseline="@id/sleepstatus"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/text1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="260dp"
+                            android:layout_marginTop="260dp"
+                            android:layout_marginEnd="0dp"
+                            android:layout_marginBottom="5dp"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:layout_toStartOf="@id/sleeptime"
+                            android:layout_alignBaseline="@id/sleeptime"/>
 
                     </RelativeLayout>
 
@@ -340,7 +350,8 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:paddingStart="5dp">
+                        android:paddingStart="5dp"
+                        android:paddingEnd="10dp">
 
                         <TextView
                             android:id="@+id/breakfaststatus"
