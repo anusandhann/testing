@@ -90,6 +90,8 @@
                             android:gravity="start"
                             android:orientation="horizontal"
                             android:text="Sleep"
+                            android:textStyle="bold"
+
                             android:textColor="@color/buttonText"
                             android:textSize="22sp" />
 
@@ -97,10 +99,11 @@
                             android:id="@+id/sleepimage"
                             android:layout_width="match_parent"
                             android:layout_height="125dp"
+                            android:layout_below="@+id/sleep"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentBottom="true"
                             android:layout_marginStart="0dp"
-                            android:layout_marginTop="19dp"
+                            android:layout_marginTop="20dp"
                             android:layout_marginEnd="9dp"
                             android:layout_marginBottom="100dp"
                             android:layout_alignTop="@id/sleep"
@@ -126,168 +129,154 @@
 
                         </com.github.mikephil.charting.charts.CandleStickChart>
 
-                        <ImageView
-                            android:id="@+id/sleepstatusimage"
+
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="24dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="0dp"
-                            android:layout_marginEnd="340dp"
-                            android:layout_marginTop="210dp"
-                            android:layout_marginBottom="45dp"
-                            android:layout_below="@id/sleepimage"
-                            app:srcCompat="@drawable/currentstatusvector" />
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="205dp"
+                            android:layout_marginBottom="50dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            >
 
-                        <TextView
-                            android:id="@+id/sleepstatusheader"
-                            android:layout_width="fill_parent"
-                            android:layout_height="60dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="40dp"
-                            android:layout_marginEnd="240dp"
-                            android:layout_marginTop="225dp"
-                            android:layout_marginBottom="35dp"
-                            android:text="@string/currentStatus"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/black"
-                            android:layout_alignBaseline="@id/sleepstatusimage"
-                            android:layout_alignStart="@id/sleepstatusimage"
-                            android:textSize="14sp" />
+                            <ImageView
+                                android:id="@+id/sleepstatusimage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/currentstatusvector" />
 
-                        <ImageView
-                            android:id="@+id/sleeptimeheader"
+                            <TextView
+                                android:id="@+id/sleepstatusheader"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/currentStatus"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <ImageView
+                                android:id="@+id/sleeptimeheader"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/ic_baseline_timer_24"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:id="@+id/sleependtime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/endtime"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <ImageView
+                                android:id="@+id/sleephourglass"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/ic_baseline_hourglass_bottom_24"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:id="@+id/sleepduration"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/duration"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="24dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="140dp"
-                            android:layout_marginTop="210dp"
-                            android:layout_marginEnd="200dp"
-                            android:layout_marginBottom="45dp"
-                            android:layout_alignBaseline="@id/sleepstatusimage"
-                            android:layout_alignStart="@id/sleepstatusheader"
-                            app:srcCompat="@drawable/ic_baseline_timer_24"
-                            app:tint="#FFFFFF" />
-
-                        <TextView
-                            android:id="@+id/sleependtime"
-                            android:layout_width="fill_parent"
-                            android:layout_height="38dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="180dp"
-                            android:layout_marginTop="225dp"
-                            android:layout_marginEnd="100dp"
-                            android:layout_marginBottom="35dp"
-                            android:text="@string/endtime"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/black"
-                            android:layout_alignBaseline="@id/sleepstatusheader"
-                            android:layout_toStartOf="@id/sleeptimeheader"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            android:id="@+id/sleephourglass"
-                            android:layout_width="match_parent"
-                            android:layout_height="24dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="250dp"
-                            android:layout_marginTop="210dp"
-                            android:layout_marginEnd="90dp"
-                            android:layout_marginBottom="45dp"
-                            app:srcCompat="@drawable/ic_baseline_hourglass_bottom_24"
-                            android:layout_alignBaseline="@id/sleepstatusimage"
-                            android:layout_toStartOf="@id/sleeptimeheader"
-                            app:tint="#FFFFFF" />
-
-                        <TextView
-                            android:id="@+id/sleepduration"
-                            android:layout_width="fill_parent"
-                            android:layout_height="50dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="290dp"
-                            android:layout_marginTop="225dp"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginBottom="35dp"
-                            android:text="@string/duration"
-                            android:textAlignment="viewStart"
-                            android:layout_alignBaseline="@id/sleepstatusimage"
-                            android:layout_toStartOf="@id/sleephourglass"
-                            android:textColor="@color/black"
-                            android:textSize="14sp" />
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="250dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="15dp"
+                            >
 
                         <TextView
                             android:id="@+id/sleepstatus"
-                            android:layout_width="fill_parent"
-                            android:layout_height="50dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginTop="260dp"
-                            android:layout_marginEnd="270dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_marginTop="0dp"
                             android:layout_marginBottom="5dp"
-                            android:textAlignment="viewStart"
+                            android:textAlignment="center"
                             android:textColor="@color/black"
-                            android:layout_below="@id/sleepstatusheader"
                             android:textStyle="bold"
 
                             android:textSize="18sp" />
+
+                            <Space
+                                android:layout_width="10dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
 
                         <TextView
                             android:id="@+id/sleeptime"
-                            android:layout_width="fill_parent"
-                            android:layout_height="50dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="145dp"
-                            android:layout_marginTop="260dp"
-                            android:layout_marginEnd="180dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="0dp"
                             android:layout_marginBottom="5dp"
-                            android:textAlignment="viewStart"
+                            android:textAlignment="center"
                             android:textStyle="bold"
                             android:textColor="@color/black"
-                            android:layout_toStartOf="@id/sleepstatus"
-                            android:layout_alignBaseline="@id/sleepstatus"
+
                             android:textSize="18sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
 
                         <TextView
                             android:id="@+id/text1"
                             android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="260dp"
-                            android:layout_marginTop="260dp"
-                            android:layout_marginEnd="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="0dp"
                             android:layout_marginBottom="5dp"
-                            android:textAlignment="viewStart"
+                            android:textAlignment="center"
                             android:textColor="@color/black"
                             android:textStyle="bold"
                             android:textSize="16sp"
-                            android:layout_toStartOf="@id/sleeptime"
-                            android:layout_alignBaseline="@id/sleeptime"/>
+                           />
+
+                        </LinearLayout>
 
                     </RelativeLayout>
 
@@ -342,7 +331,7 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/breakfastcard"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_gravity="center"
                     card_view:cardCornerRadius="4dp">
@@ -354,209 +343,209 @@
                         android:paddingEnd="10dp">
 
                         <TextView
-                            android:id="@+id/breakfaststatus"
-                            android:layout_width="fill_parent"
-                            android:layout_height="40dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginTop="260dp"
-                            android:layout_marginEnd="265dp"
-                            android:layout_marginBottom="4dp"
-                            android:layout_toStartOf="@+id/breakfasttime"
-                            android:textAlignment="center"
-                            android:textColor="@color/cardview_light_background"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/text3"
-                            android:layout_width="fill_parent"
-                            android:layout_height="45dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="275dp"
-                            android:layout_marginTop="260dp"
-                            android:layout_marginEnd="0dp"
-                            android:layout_marginBottom="3dp"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/cardview_light_background"
-                            android:textSize="18sp" />
-
-
-                        <TextView
-                            android:id="@+id/breakfasttime"
-                            android:layout_width="fill_parent"
-                            android:layout_height="35dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="159dp"
-                            android:layout_marginTop="260dp"
-                            android:layout_marginEnd="180dp"
-                            android:layout_marginBottom="9dp"
-                            android:layout_toStartOf="@+id/text3"
-                            android:textAlignment="center"
-                            android:textColor="@color/cardview_light_background"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/breakfaststatusheader"
-                            android:layout_width="fill_parent"
-                            android:layout_height="56dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="40dp"
-                            android:layout_marginTop="222dp"
-                            android:layout_marginEnd="246dp"
-                            android:layout_marginBottom="25dp"
-                            android:layout_toStartOf="@+id/breakfasttimeheader"
-                            android:text="@string/currentStatus"
-                            android:textAlignment="center"
-                            android:textColor="@color/graphValue"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            android:id="@+id/breakfastimage"
-                            android:layout_width="fill_parent"
-                            android:layout_height="123dp"
-                            android:layout_below="@+id/breakfast"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="0dp"
-                            android:layout_marginTop="19dp"
-                            android:layout_marginEnd="9dp"
-                            android:layout_marginBottom="128dp"
-                            android:layout_toStartOf="@+id/breakfastLinechart"
-                            app:srcCompat="@drawable/eating" />
-
-
-                        <ImageView
-                            android:id="@+id/breakfasthourglass"
-                            android:layout_width="wrap_content"
-                            android:layout_height="39dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="260dp"
-                            android:layout_marginTop="216dp"
-                            android:layout_marginEnd="93dp"
-                            android:layout_marginBottom="45dp"
-                            android:layout_toStartOf="@+id/breakfastduration"
-                            android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/hourglass" />
-
-                        <TextView
-                            android:id="@+id/breakfastduration"
-                            android:layout_width="fill_parent"
-                            android:layout_height="26dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="272dp"
-                            android:layout_marginTop="222dp"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginBottom="57dp"
-                            android:text="@string/duration"
-                            android:textAlignment="center"
-                            android:textColor="@color/graphValue"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            android:id="@+id/breakfaststatusimage"
-                            android:layout_width="fill_parent"
-                            android:layout_height="35dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="-5dp"
-                            android:layout_marginTop="210dp"
-                            android:layout_marginEnd="344dp"
-                            android:layout_marginBottom="41dp"
-                            android:scaleType="fitCenter"
-                            android:layout_toStartOf="@+id/breakfaststatusheader"
-                            app:srcCompat="@drawable/currentstatus" />
-
-                        <ImageView
-                            android:id="@+id/breakfasttimeheader"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="145dp"
-                            android:layout_marginTop="210dp"
-                            android:layout_marginEnd="210dp"
-                            android:layout_marginBottom="38dp"
-                            android:layout_toStartOf="@+id/breakfastendtime"
-
-                            android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/endtime" />
-
-                        <TextView
-                            android:id="@+id/breakfastendtime"
-                            android:layout_width="fill_parent"
-                            android:layout_height="38dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="185dp"
-                            android:layout_marginTop="222dp"
-                            android:layout_marginEnd="139dp"
-                            android:layout_marginBottom="40dp"
-                            android:layout_toStartOf="@+id/breakfasthourglass"
-                            android:text="@string/endtime"
-                            android:textAlignment="center"
-                            android:textColor="@color/graphValue"
-                            android:textSize="14sp" />
-
-                        <TextView
                             android:id="@+id/breakfast"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentEnd="true"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginEnd="284dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="285dp"
+                            android:layout_marginTop="5dp"
                             android:gravity="start"
                             android:orientation="horizontal"
                             android:text="Breakfast"
-                            android:textColor="#ffffff"
-                            android:textSize="22sp" />
+                            android:textStyle="bold"
+
+                            android:textColor="@color/buttonText"
+                            android:textSize="20sp" />
+
+                        <ImageView
+                            android:id="@+id/breakfastimage"
+                            android:layout_width="match_parent"
+                            android:layout_height="125dp"
+                            android:layout_below="@+id/breakfast"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="9dp"
+                            android:layout_marginBottom="100dp"
+                            android:layout_alignTop="@id/breakfast"
+                            android:layout_toStartOf="@id/breakfastLinechart"
+                            card_view:srcCompat="@drawable/sll" />
+
 
                         <com.github.mikephil.charting.charts.CandleStickChart
                             android:id="@+id/breakfastLinechart"
-                            android:layout_width="273dp"
-                            android:layout_height="193dp"
+                            android:layout_width="280dp"
+                            android:layout_height="190dp"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentEnd="true"
-                            android:layout_marginTop="14dp"
-                            android:layout_marginEnd="13dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="100dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.3"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="@id/breakfastcard"
-                            app:layout_constraintVertical_bias="0.019"
                             tools:ignore="NotSibling">
 
                         </com.github.mikephil.charting.charts.CandleStickChart>
 
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="205dp"
+                            android:layout_marginBottom="50dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            >
+
+                            <ImageView
+                                android:id="@+id/breakfaststatusimage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/currentstatusvector" />
+
+                            <TextView
+                                android:id="@+id/breakfaststatusheader"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/currentStatus"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <ImageView
+                                android:id="@+id/breakfasttimeheader"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/ic_baseline_timer_24"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:id="@+id/breakfastendtime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/endtime"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <ImageView
+                                android:id="@+id/breakfasthourglass"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/ic_baseline_hourglass_bottom_24"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:id="@+id/breakfastduration"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/duration"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="250dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="15dp"
+                            >
+
+                            <TextView
+                                android:id="@+id/breakfaststatus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+
+                                android:textSize="18sp" />
+
+                            <Space
+                                android:layout_width="10dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <TextView
+                                android:id="@+id/breakfasttime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:textAlignment="center"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+
+                                android:textSize="18sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <TextView
+                                android:id="@+id/text3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:textSize="16sp"
+                                />
+
+                        </LinearLayout>
+
                     </RelativeLayout>
 
                 </androidx.cardview.widget.CardView>
+
 
 
                 <RadioGroup
@@ -603,7 +592,7 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/medicationcard"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_gravity="center"
                     card_view:cardCornerRadius="4dp">
@@ -611,208 +600,206 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:paddingStart="5dp">
+                        android:paddingStart="5dp"
+                        android:paddingEnd="10dp">
 
                         <TextView
-                            android:id="@+id/medicationstatus"
-                            android:layout_width="fill_parent"
-                            android:layout_height="40dp"
+                            android:id="@+id/medication"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
                             android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginTop="260dp"
-                            android:layout_marginEnd="265dp"
-                            android:layout_marginBottom="4dp"
-                            android:layout_toStartOf="@+id/medicationtime"
-                            android:textAlignment="center"
-                            android:textColor="@color/cardview_light_background"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginEnd="285dp"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center"
+                            android:text="Medication"
+                            android:textStyle="bold"
+                            android:textColor="@color/buttonText"
                             android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/text4"
-                            android:layout_width="fill_parent"
-                            android:layout_height="45dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="275dp"
-                            android:layout_marginTop="260dp"
-                            android:layout_marginEnd="0dp"
-                            android:layout_marginBottom="3dp"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/cardview_light_background"
-                            android:textSize="18sp" />
-
-
-                        <TextView
-                            android:id="@+id/medicationtime"
-                            android:layout_width="fill_parent"
-                            android:layout_height="35dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="159dp"
-                            android:layout_marginTop="260dp"
-                            android:layout_marginEnd="180dp"
-                            android:layout_marginBottom="9dp"
-                            android:layout_toStartOf="@+id/text4"
-                            android:textAlignment="center"
-                            android:textColor="@color/cardview_light_background"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/medicationstatusheader"
-                            android:layout_width="fill_parent"
-                            android:layout_height="56dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="40dp"
-                            android:layout_marginTop="222dp"
-                            android:layout_marginEnd="246dp"
-                            android:layout_marginBottom="25dp"
-                            android:layout_toStartOf="@+id/medicationtimeheader"
-                            android:text="@string/currentStatus"
-                            android:textAlignment="center"
-                            android:textColor="@color/graphValue"
-                            android:textSize="14sp" />
 
                         <ImageView
                             android:id="@+id/medicationimage"
-                            android:layout_width="fill_parent"
-                            android:layout_height="123dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="125dp"
                             android:layout_below="@+id/medication"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentBottom="true"
                             android:layout_marginStart="0dp"
-                            android:layout_marginTop="19dp"
+                            android:layout_marginTop="20dp"
                             android:layout_marginEnd="9dp"
-                            android:layout_marginBottom="128dp"
-                            android:layout_toStartOf="@+id/medicationLinechart"
-                            card_view:srcCompat="@drawable/medicine" />
+                            android:layout_marginBottom="100dp"
+                            android:layout_alignTop="@id/medication"
+                            android:layout_toStartOf="@id/medicationLinechart"
+                            card_view:srcCompat="@drawable/sll" />
 
-
-                        <ImageView
-                            android:id="@+id/medicationhourglass"
-                            android:layout_width="wrap_content"
-                            android:layout_height="39dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="260dp"
-                            android:layout_marginTop="216dp"
-                            android:layout_marginEnd="93dp"
-                            android:layout_marginBottom="45dp"
-                            android:layout_toStartOf="@+id/medicationduration"
-                            android:scaleType="fitCenter"
-                            card_view:srcCompat="@drawable/hourglass" />
-
-                        <TextView
-                            android:id="@+id/medicationduration"
-                            android:layout_width="fill_parent"
-                            android:layout_height="26dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="272dp"
-                            android:layout_marginTop="222dp"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginBottom="57dp"
-                            android:text="@string/duration"
-                            android:textAlignment="center"
-                            android:textColor="@color/graphValue"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            android:id="@+id/medicationstatusimage"
-                            android:layout_width="fill_parent"
-                            android:layout_height="35dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="-5dp"
-                            android:layout_marginTop="210dp"
-                            android:layout_marginEnd="344dp"
-                            android:layout_marginBottom="41dp"
-                            android:scaleType="fitCenter"
-                            android:layout_toStartOf="@+id/medicationstatusheader"
-                            card_view:srcCompat="@drawable/currentstatus" />
-
-                        <ImageView
-                            android:id="@+id/medicationtimeheader"
-                            android:layout_width="fill_parent"
-                            android:layout_height="46dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="145dp"
-                            android:layout_marginTop="210dp"
-                            android:layout_marginEnd="210dp"
-                            android:layout_marginBottom="38dp"
-                            android:layout_toStartOf="@+id/medicationendtime"
-
-                            android:scaleType="fitCenter"
-                            card_view:srcCompat="@drawable/endtime" />
-
-                        <TextView
-                            android:id="@+id/medicationendtime"
-                            android:layout_width="fill_parent"
-                            android:layout_height="38dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="185dp"
-                            android:layout_marginTop="222dp"
-                            android:layout_marginEnd="139dp"
-                            android:layout_marginBottom="40dp"
-                            android:layout_toStartOf="@+id/medicationhourglass"
-                            android:text="@string/endtime"
-                            android:textAlignment="center"
-                            android:textColor="@color/graphValue"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/medication"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginEnd="284dp"
-                            android:gravity= "start"
-                            android:orientation="horizontal"
-                            android:text="Medicine"
-                            android:textColor="#ffffff"
-                            android:textSize="22sp" />
 
                         <com.github.mikephil.charting.charts.CandleStickChart
                             android:id="@+id/medicationLinechart"
-                            android:layout_width="273dp"
-                            android:layout_height="193dp"
+                            android:layout_width="280dp"
+                            android:layout_height="190dp"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentEnd="true"
-                            android:layout_marginTop="14dp"
-                            android:layout_marginEnd="13dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="100dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.3"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/breakfastcard"
-                            app:layout_constraintVertical_bias="0.019"
+                            app:layout_constraintTop_toTopOf="@id/medicationcard"
                             tools:ignore="NotSibling">
 
                         </com.github.mikephil.charting.charts.CandleStickChart>
 
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="205dp"
+                            android:layout_marginBottom="50dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            >
+
+                            <ImageView
+                                android:id="@+id/medicationstatusimage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/currentstatusvector" />
+
+                            <TextView
+                                android:id="@+id/medicationstatusheader"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/currentStatus"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <ImageView
+                                android:id="@+id/medicationtimeheader"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/ic_baseline_timer_24"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:id="@+id/medicationendtime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/endtime"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <ImageView
+                                android:id="@+id/medicationhourglass"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/ic_baseline_hourglass_bottom_24"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:id="@+id/medicationduration"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/duration"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="250dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="15dp"
+                            >
+
+                            <TextView
+                                android:id="@+id/medicationstatus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+
+                                android:textSize="18sp" />
+
+                            <Space
+                                android:layout_width="10dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <TextView
+                                android:id="@+id/medicationtime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:textAlignment="viewStart"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+
+                                android:textSize="18sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <TextView
+                                android:id="@+id/text4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:textSize="16sp"
+                                />
+
+                        </LinearLayout>
 
                     </RelativeLayout>
 
@@ -863,7 +850,7 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/lunchcard"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_gravity="center"
                     card_view:cardCornerRadius="4dp">
@@ -871,175 +858,8 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:paddingStart="5dp">
-
-                        <TextView
-                            android:id="@+id/lunchstatus"
-                            android:layout_width="fill_parent"
-                            android:layout_height="40dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginTop="260dp"
-                            android:layout_marginEnd="265dp"
-                            android:layout_marginBottom="4dp"
-                            android:layout_toStartOf="@+id/lunchtime"
-                            android:textAlignment="center"
-                            android:textColor="@color/cardview_light_background"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/text5"
-                            android:layout_width="fill_parent"
-                            android:layout_height="45dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="275dp"
-                            android:layout_marginTop="260dp"
-                            android:layout_marginEnd="0dp"
-                            android:layout_marginBottom="3dp"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/cardview_light_background"
-                            android:textSize="18sp" />
-
-
-                        <TextView
-                            android:id="@+id/lunchtime"
-                            android:layout_width="fill_parent"
-                            android:layout_height="35dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="159dp"
-                            android:layout_marginTop="260dp"
-                            android:layout_marginEnd="180dp"
-                            android:layout_marginBottom="9dp"
-                            android:layout_toStartOf="@+id/text5"
-                            android:textAlignment="center"
-                            android:textColor="@color/cardview_light_background"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/lunchstatusheader"
-                            android:layout_width="fill_parent"
-                            android:layout_height="56dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="40dp"
-                            android:layout_marginTop="222dp"
-                            android:layout_marginEnd="246dp"
-                            android:layout_marginBottom="25dp"
-                            android:layout_toStartOf="@+id/lunchtimeheader"
-                            android:text="@string/currentStatus"
-                            android:textAlignment="center"
-                            android:textColor="@color/graphValue"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            android:id="@+id/lunchimage"
-                            android:layout_width="fill_parent"
-                            android:layout_height="123dp"
-                            android:layout_below="@+id/lunch"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="0dp"
-                            android:layout_marginTop="19dp"
-                            android:layout_marginEnd="9dp"
-                            android:layout_marginBottom="128dp"
-                            android:layout_toStartOf="@+id/lunchLinechart"
-                            card_view:srcCompat="@drawable/eating" />
-
-
-                        <ImageView
-                            android:id="@+id/lunchhourglass"
-                            android:layout_width="wrap_content"
-                            android:layout_height="39dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="260dp"
-                            android:layout_marginTop="216dp"
-                            android:layout_marginEnd="93dp"
-                            android:layout_marginBottom="45dp"
-                            android:layout_toStartOf="@+id/lunchduration"
-                            android:scaleType="fitCenter"
-                            card_view:srcCompat="@drawable/hourglass" />
-
-                        <TextView
-                            android:id="@+id/lunchduration"
-                            android:layout_width="fill_parent"
-                            android:layout_height="26dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="272dp"
-                            android:layout_marginTop="222dp"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginBottom="57dp"
-                            android:text="@string/duration"
-                            android:textAlignment="center"
-                            android:textColor="@color/graphValue"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            android:id="@+id/lunchstatusimage"
-                            android:layout_width="fill_parent"
-                            android:layout_height="35dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="-5dp"
-                            android:layout_marginTop="210dp"
-                            android:layout_marginEnd="344dp"
-                            android:layout_marginBottom="41dp"
-                            android:scaleType="fitCenter"
-                            android:layout_toStartOf="@+id/lunchstatusheader"
-                            card_view:srcCompat="@drawable/currentstatus" />
-
-                        <ImageView
-                            android:id="@+id/lunchtimeheader"
-                            android:layout_width="fill_parent"
-                            android:layout_height="46dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="145dp"
-                            android:layout_marginTop="210dp"
-                            android:layout_marginEnd="210dp"
-                            android:layout_marginBottom="38dp"
-                            android:layout_toStartOf="@+id/lunchendtime"
-
-                            android:scaleType="fitCenter"
-                            card_view:srcCompat="@drawable/endtime" />
-
-                        <TextView
-                            android:id="@+id/lunchendtime"
-                            android:layout_width="fill_parent"
-                            android:layout_height="38dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="185dp"
-                            android:layout_marginTop="222dp"
-                            android:layout_marginEnd="139dp"
-                            android:layout_marginBottom="40dp"
-                            android:layout_toStartOf="@+id/lunchhourglass"
-                            android:text="@string/endtime"
-                            android:textAlignment="center"
-                            android:textColor="@color/graphValue"
-                            android:textSize="14sp" />
+                        android:paddingStart="5dp"
+                        android:paddingEnd="10dp">
 
                         <TextView
                             android:id="@+id/lunch"
@@ -1047,32 +867,199 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentEnd="true"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginEnd="284dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="285dp"
+                            android:layout_marginTop="5dp"
                             android:gravity="start"
                             android:orientation="horizontal"
                             android:text="Lunch"
-                            android:textColor="#ffffff"
+                            android:textStyle="bold"
+
+                            android:textColor="@color/buttonText"
                             android:textSize="22sp" />
+
+                        <ImageView
+                            android:id="@+id/lunchimage"
+                            android:layout_width="match_parent"
+                            android:layout_height="125dp"
+                            android:layout_below="@+id/lunch"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="9dp"
+                            android:layout_marginBottom="100dp"
+                            android:layout_alignTop="@id/lunch"
+                            android:layout_toStartOf="@id/lunchLinechart"
+                            card_view:srcCompat="@drawable/sll" />
+
 
                         <com.github.mikephil.charting.charts.CandleStickChart
                             android:id="@+id/lunchLinechart"
-                            android:layout_width="273dp"
-                            android:layout_height="193dp"
+                            android:layout_width="280dp"
+                            android:layout_height="190dp"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentEnd="true"
-                            android:layout_marginTop="14dp"
-                            android:layout_marginEnd="13dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="100dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.3"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="@id/lunchcard"
-                            app:layout_constraintVertical_bias="0.019"
                             tools:ignore="NotSibling">
 
                         </com.github.mikephil.charting.charts.CandleStickChart>
 
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="205dp"
+                            android:layout_marginBottom="50dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            >
+
+                            <ImageView
+                                android:id="@+id/lunchstatusimage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/currentstatusvector" />
+
+                            <TextView
+                                android:id="@+id/lunchstatusheader"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/currentStatus"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <ImageView
+                                android:id="@+id/lunchtimeheader"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/ic_baseline_timer_24"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:id="@+id/lunchendtime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/endtime"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <ImageView
+                                android:id="@+id/lunchhourglass"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/ic_baseline_hourglass_bottom_24"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:id="@+id/lunchduration"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/duration"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="250dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="10dp"
+                            >
+
+                            <TextView
+                                android:id="@+id/lunchstatus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+
+                                android:textSize="18sp" />
+
+                            <Space
+                                android:layout_width="10dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <TextView
+                                android:id="@+id/lunchtime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:textAlignment="viewStart"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+
+                                android:textSize="18sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <TextView
+                                android:id="@+id/text5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:textSize="16sp"
+                                />
+
+                        </LinearLayout>
 
                     </RelativeLayout>
 
@@ -1124,7 +1111,7 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/tvcard"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_gravity="center"
                     card_view:cardCornerRadius="4dp">
@@ -1132,175 +1119,8 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:paddingStart="5dp">
-
-                        <TextView
-                            android:id="@+id/tvstatus"
-                            android:layout_width="fill_parent"
-                            android:layout_height="40dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginTop="260dp"
-                            android:layout_marginEnd="265dp"
-                            android:layout_marginBottom="4dp"
-                            android:layout_toStartOf="@+id/tvtime"
-                            android:textAlignment="center"
-                            android:textColor="@color/cardview_light_background"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/text6"
-                            android:layout_width="fill_parent"
-                            android:layout_height="45dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="275dp"
-                            android:layout_marginTop="260dp"
-                            android:layout_marginEnd="0dp"
-                            android:layout_marginBottom="3dp"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/cardview_light_background"
-                            android:textSize="18sp" />
-
-
-                        <TextView
-                            android:id="@+id/tvtime"
-                            android:layout_width="fill_parent"
-                            android:layout_height="35dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="159dp"
-                            android:layout_marginTop="260dp"
-                            android:layout_marginEnd="180dp"
-                            android:layout_marginBottom="9dp"
-                            android:layout_toStartOf="@+id/text6"
-                            android:textAlignment="center"
-                            android:textColor="@color/cardview_light_background"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/tvstatusheader"
-                            android:layout_width="fill_parent"
-                            android:layout_height="56dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="40dp"
-                            android:layout_marginTop="222dp"
-                            android:layout_marginEnd="246dp"
-                            android:layout_marginBottom="25dp"
-                            android:layout_toStartOf="@+id/tvtimeheader"
-                            android:text="@string/currentStatus"
-                            android:textAlignment="center"
-                            android:textColor="@color/graphValue"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            android:id="@+id/tvimage"
-                            android:layout_width="fill_parent"
-                            android:layout_height="123dp"
-                            android:layout_below="@+id/tv"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="0dp"
-                            android:layout_marginTop="19dp"
-                            android:layout_marginEnd="9dp"
-                            android:layout_marginBottom="128dp"
-                            android:layout_toStartOf="@+id/tvLinechart"
-                            card_view:srcCompat="@drawable/pc" />
-
-
-                        <ImageView
-                            android:id="@+id/tvhourglass"
-                            android:layout_width="wrap_content"
-                            android:layout_height="39dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="260dp"
-                            android:layout_marginTop="216dp"
-                            android:layout_marginEnd="93dp"
-                            android:layout_marginBottom="45dp"
-                            android:layout_toStartOf="@+id/tvduration"
-                            android:scaleType="fitCenter"
-                            card_view:srcCompat="@drawable/hourglass" />
-
-                        <TextView
-                            android:id="@+id/tvduration"
-                            android:layout_width="fill_parent"
-                            android:layout_height="26dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="272dp"
-                            android:layout_marginTop="222dp"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginBottom="57dp"
-                            android:text="@string/duration"
-                            android:textAlignment="center"
-                            android:textColor="@color/graphValue"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            android:id="@+id/tvstatusimage"
-                            android:layout_width="fill_parent"
-                            android:layout_height="35dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="-5dp"
-                            android:layout_marginTop="210dp"
-                            android:layout_marginEnd="344dp"
-                            android:layout_marginBottom="41dp"
-                            android:scaleType="fitCenter"
-                            android:layout_toStartOf="@+id/tvstatusheader"
-                            card_view:srcCompat="@drawable/currentstatus" />
-
-                        <ImageView
-                            android:id="@+id/tvtimeheader"
-                            android:layout_width="fill_parent"
-                            android:layout_height="46dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="145dp"
-                            android:layout_marginTop="210dp"
-                            android:layout_marginEnd="210dp"
-                            android:layout_marginBottom="38dp"
-                            android:layout_toStartOf="@+id/tvendtime"
-
-                            android:scaleType="fitCenter"
-                            card_view:srcCompat="@drawable/endtime" />
-
-                        <TextView
-                            android:id="@+id/tvendtime"
-                            android:layout_width="fill_parent"
-                            android:layout_height="38dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="185dp"
-                            android:layout_marginTop="222dp"
-                            android:layout_marginEnd="139dp"
-                            android:layout_marginBottom="40dp"
-                            android:layout_toStartOf="@+id/tvhourglass"
-                            android:text="@string/endtime"
-                            android:textAlignment="center"
-                            android:textColor="@color/graphValue"
-                            android:textSize="14sp" />
+                        android:paddingStart="5dp"
+                        android:paddingEnd="10dp">
 
                         <TextView
                             android:id="@+id/tv"
@@ -1308,37 +1128,203 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentEnd="true"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginEnd="284dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="285dp"
+                            android:layout_marginTop="5dp"
                             android:gravity="start"
                             android:orientation="horizontal"
                             android:text="TV/PC"
-                            android:textColor="#ffffff"
+                            android:textStyle="bold"
+
+                            android:textColor="@color/buttonText"
                             android:textSize="22sp" />
+
+                        <ImageView
+                            android:id="@+id/tvimage"
+                            android:layout_width="match_parent"
+                            android:layout_height="125dp"
+                            android:layout_below="@+id/tv"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="9dp"
+                            android:layout_marginBottom="100dp"
+                            android:layout_alignTop="@id/tv"
+                            android:layout_toStartOf="@id/tvLinechart"
+                            card_view:srcCompat="@drawable/sll" />
+
 
                         <com.github.mikephil.charting.charts.CandleStickChart
                             android:id="@+id/tvLinechart"
-                            android:layout_width="273dp"
-                            android:layout_height="193dp"
+                            android:layout_width="280dp"
+                            android:layout_height="190dp"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentEnd="true"
-                            android:layout_marginTop="14dp"
-                            android:layout_marginEnd="13dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="100dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.3"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="@id/tvcard"
-                            app:layout_constraintVertical_bias="0.019"
                             tools:ignore="NotSibling">
 
                         </com.github.mikephil.charting.charts.CandleStickChart>
 
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="205dp"
+                            android:layout_marginBottom="50dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            >
+
+                            <ImageView
+                                android:id="@+id/tvstatusimage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/currentstatusvector" />
+
+                            <TextView
+                                android:id="@+id/tvstatusheader"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/currentStatus"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <ImageView
+                                android:id="@+id/tvtimeheader"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/ic_baseline_timer_24"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:id="@+id/tvendtime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/endtime"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <ImageView
+                                android:id="@+id/tvhourglass"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/ic_baseline_hourglass_bottom_24"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:id="@+id/tvduration"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/duration"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="250dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="15dp"
+                            >
+
+                            <TextView
+                                android:id="@+id/tvstatus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+
+                                android:textSize="18sp" />
+
+                            <Space
+                                android:layout_width="10dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <TextView
+                                android:id="@+id/tvtime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:textAlignment="viewStart"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+
+                                android:textSize="18sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <TextView
+                                android:id="@+id/text6"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:textSize="16sp"
+                                />
+
+                        </LinearLayout>
+
                     </RelativeLayout>
 
                 </androidx.cardview.widget.CardView>
-
 
 
                 <RadioGroup
@@ -1386,7 +1372,7 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/dinnercard"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_gravity="center"
                     card_view:cardCornerRadius="4dp">
@@ -1394,174 +1380,8 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:paddingStart="5dp">
-
-                        <TextView
-                            android:id="@+id/dinnerstatus"
-                            android:layout_width="fill_parent"
-                            android:layout_height="40dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginTop="260dp"
-                            android:layout_marginEnd="265dp"
-                            android:layout_marginBottom="4dp"
-                            android:layout_toStartOf="@+id/dinnertime"
-                            android:textAlignment="center"
-                            android:textColor="@color/cardview_light_background"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/text7"
-                            android:layout_width="fill_parent"
-                            android:layout_height="45dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="275dp"
-                            android:layout_marginTop="260dp"
-                            android:layout_marginEnd="0dp"
-                            android:layout_marginBottom="3dp"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/cardview_light_background"
-                            android:textSize="18sp" />
-
-
-                        <TextView
-                            android:id="@+id/dinnertime"
-                            android:layout_width="fill_parent"
-                            android:layout_height="35dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="159dp"
-                            android:layout_marginTop="260dp"
-                            android:layout_marginEnd="180dp"
-                            android:layout_marginBottom="9dp"
-                            android:layout_toStartOf="@+id/text7"
-                            android:textAlignment="center"
-                            android:textColor="@color/cardview_light_background"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/dinnerstatusheader"
-                            android:layout_width="fill_parent"
-                            android:layout_height="56dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="40dp"
-                            android:layout_marginTop="222dp"
-                            android:layout_marginEnd="246dp"
-                            android:layout_marginBottom="25dp"
-                            android:layout_toStartOf="@+id/dinnertimeheader"
-                            android:text="@string/currentStatus"
-                            android:textAlignment="center"
-                            android:textColor="@color/graphValue"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            android:id="@+id/dinnerimage"
-                            android:layout_width="fill_parent"
-                            android:layout_height="123dp"
-                            android:layout_below="@+id/dinner"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="0dp"
-                            android:layout_marginTop="19dp"
-                            android:layout_marginEnd="9dp"
-                            android:layout_marginBottom="128dp"
-                            android:layout_toStartOf="@+id/dinnerLinechart"
-                            card_view:srcCompat="@drawable/eating" />
-
-
-                        <ImageView
-                            android:id="@+id/dinnerhourglass"
-                            android:layout_width="wrap_content"
-                            android:layout_height="39dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="260dp"
-                            android:layout_marginTop="216dp"
-                            android:layout_marginEnd="93dp"
-                            android:layout_marginBottom="45dp"
-                            android:layout_toStartOf="@+id/dinnerduration"
-                            android:scaleType="fitCenter"
-                            card_view:srcCompat="@drawable/hourglass" />
-
-                        <TextView
-                            android:id="@+id/dinnerduration"
-                            android:layout_width="fill_parent"
-                            android:layout_height="26dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="272dp"
-                            android:layout_marginTop="222dp"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginBottom="57dp"
-                            android:text="@string/duration"
-                            android:textAlignment="center"
-                            android:textColor="@color/graphValue"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            android:id="@+id/dinnerstatusimage"
-                            android:layout_width="fill_parent"
-                            android:layout_height="35dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="-5dp"
-                            android:layout_marginTop="210dp"
-                            android:layout_marginEnd="344dp"
-                            android:layout_marginBottom="41dp"
-                            android:scaleType="fitCenter"
-                            android:layout_toStartOf="@+id/dinnerstatusheader"
-                            card_view:srcCompat="@drawable/currentstatus" />
-
-                        <ImageView
-                            android:id="@+id/dinnertimeheader"
-                            android:layout_width="fill_parent"
-                            android:layout_height="46dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="145dp"
-                            android:layout_marginTop="210dp"
-                            android:layout_marginEnd="210dp"
-                            android:layout_marginBottom="38dp"
-                            android:layout_toStartOf="@+id/dinnerendtime"
-                            android:scaleType="fitCenter"
-                            card_view:srcCompat="@drawable/endtime" />
-
-                        <TextView
-                            android:id="@+id/dinnerendtime"
-                            android:layout_width="fill_parent"
-                            android:layout_height="38dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="185dp"
-                            android:layout_marginTop="222dp"
-                            android:layout_marginEnd="139dp"
-                            android:layout_marginBottom="40dp"
-                            android:layout_toStartOf="@+id/dinnerhourglass"
-                            android:text="@string/endtime"
-                            android:textAlignment="center"
-                            android:textColor="@color/graphValue"
-                            android:textSize="14sp" />
+                        android:paddingStart="5dp"
+                        android:paddingEnd="10dp">
 
                         <TextView
                             android:id="@+id/dinner"
@@ -1569,31 +1389,199 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentEnd="true"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginEnd="284dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="285dp"
+                            android:layout_marginTop="5dp"
                             android:gravity="start"
                             android:orientation="horizontal"
                             android:text="Dinner"
-                            android:textColor="#ffffff"
+                            android:textStyle="bold"
+
+                            android:textColor="@color/buttonText"
                             android:textSize="22sp" />
+
+                        <ImageView
+                            android:id="@+id/dinnerimage"
+                            android:layout_width="match_parent"
+                            android:layout_height="125dp"
+                            android:layout_below="@+id/dinner"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="9dp"
+                            android:layout_marginBottom="100dp"
+                            android:layout_alignTop="@id/dinner"
+                            android:layout_toStartOf="@id/dinnerLinechart"
+                            card_view:srcCompat="@drawable/sll" />
+
 
                         <com.github.mikephil.charting.charts.CandleStickChart
                             android:id="@+id/dinnerLinechart"
-                            android:layout_width="273dp"
-                            android:layout_height="193dp"
+                            android:layout_width="280dp"
+                            android:layout_height="190dp"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentEnd="true"
-                            android:layout_marginTop="14dp"
-                            android:layout_marginEnd="13dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="100dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.3"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="@id/dinnercard"
-                            app:layout_constraintVertical_bias="0.019"
                             tools:ignore="NotSibling">
 
                         </com.github.mikephil.charting.charts.CandleStickChart>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="205dp"
+                            android:layout_marginBottom="50dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            >
+
+                            <ImageView
+                                android:id="@+id/dinnerstatusimage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/currentstatusvector" />
+
+                            <TextView
+                                android:id="@+id/dinnerstatusheader"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/currentStatus"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <ImageView
+                                android:id="@+id/dinnertimeheader"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/ic_baseline_timer_24"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:id="@+id/dinnerendtime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/endtime"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <ImageView
+                                android:id="@+id/dinnerhourglass"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/ic_baseline_hourglass_bottom_24"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:id="@+id/dinnerduration"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/duration"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="250dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="15dp"
+                            >
+
+                            <TextView
+                                android:id="@+id/dinnerstatus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+
+                                android:textSize="18sp" />
+
+                            <Space
+                                android:layout_width="10dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <TextView
+                                android:id="@+id/dinnertime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:textAlignment="viewStart"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+
+                                android:textSize="18sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <TextView
+                                android:id="@+id/text7"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:textSize="16sp"
+                                />
+
+                        </LinearLayout>
 
                     </RelativeLayout>
 
@@ -1645,7 +1633,7 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/showercard"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_gravity="center"
                     card_view:cardCornerRadius="4dp">
@@ -1653,174 +1641,8 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:paddingStart="5dp">
-
-                        <TextView
-                            android:id="@+id/showerstatus"
-                            android:layout_width="fill_parent"
-                            android:layout_height="40dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginTop="260dp"
-                            android:layout_marginEnd="265dp"
-                            android:layout_marginBottom="4dp"
-                            android:layout_toStartOf="@+id/showertime"
-                            android:textAlignment="center"
-                            android:textColor="@color/cardview_light_background"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/text2"
-                            android:layout_width="fill_parent"
-                            android:layout_height="45dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="275dp"
-                            android:layout_marginTop="260dp"
-                            android:layout_marginEnd="0dp"
-                            android:layout_marginBottom="3dp"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/cardview_light_background"
-                            android:textSize="18sp" />
-
-
-                        <TextView
-                            android:id="@+id/showertime"
-                            android:layout_width="fill_parent"
-                            android:layout_height="35dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="159dp"
-                            android:layout_marginTop="260dp"
-                            android:layout_marginEnd="180dp"
-                            android:layout_marginBottom="9dp"
-                            android:layout_toStartOf="@+id/text2"
-                            android:textAlignment="center"
-                            android:textColor="@color/cardview_light_background"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/showerstatusheader"
-                            android:layout_width="fill_parent"
-                            android:layout_height="56dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="40dp"
-                            android:layout_marginTop="222dp"
-                            android:layout_marginEnd="246dp"
-                            android:layout_marginBottom="25dp"
-                            android:layout_toStartOf="@+id/showertimeheader"
-                            android:text="@string/currentStatus"
-                            android:textAlignment="center"
-                            android:textColor="@color/graphValue"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            android:id="@+id/showerimage"
-                            android:layout_width="fill_parent"
-                            android:layout_height="123dp"
-                            android:layout_below="@+id/shower"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="0dp"
-                            android:layout_marginTop="19dp"
-                            android:layout_marginEnd="9dp"
-                            android:layout_marginBottom="128dp"
-                            android:layout_toStartOf="@+id/showerLinechart"
-                            card_view:srcCompat="@drawable/bath" />
-
-
-                        <ImageView
-                            android:id="@+id/showerhourglass"
-                            android:layout_width="wrap_content"
-                            android:layout_height="39dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="260dp"
-                            android:layout_marginTop="216dp"
-                            android:layout_marginEnd="93dp"
-                            android:layout_marginBottom="45dp"
-                            android:layout_toStartOf="@+id/showerduration"
-                            android:scaleType="fitCenter"
-                            card_view:srcCompat="@drawable/hourglass" />
-
-                        <TextView
-                            android:id="@+id/showerduration"
-                            android:layout_width="fill_parent"
-                            android:layout_height="26dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="272dp"
-                            android:layout_marginTop="222dp"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginBottom="57dp"
-                            android:text="@string/duration"
-                            android:textAlignment="center"
-                            android:textColor="@color/graphValue"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            android:id="@+id/showerstatusimage"
-                            android:layout_width="fill_parent"
-                            android:layout_height="35dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="-5dp"
-                            android:layout_marginTop="210dp"
-                            android:layout_marginEnd="344dp"
-                            android:layout_marginBottom="41dp"
-                            android:scaleType="fitCenter"
-                            android:layout_toStartOf="@+id/showerstatusheader"
-                            card_view:srcCompat="@drawable/currentstatus" />
-
-                        <ImageView
-                            android:id="@+id/showertimeheader"
-                            android:layout_width="fill_parent"
-                            android:layout_height="46dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="145dp"
-                            android:layout_marginTop="210dp"
-                            android:layout_marginEnd="210dp"
-                            android:layout_marginBottom="38dp"
-                            android:layout_toStartOf="@+id/showerendtime"
-                            android:scaleType="fitCenter"
-                            card_view:srcCompat="@drawable/endtime" />
-
-                        <TextView
-                            android:id="@+id/showerendtime"
-                            android:layout_width="fill_parent"
-                            android:layout_height="38dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="185dp"
-                            android:layout_marginTop="222dp"
-                            android:layout_marginEnd="139dp"
-                            android:layout_marginBottom="40dp"
-                            android:layout_toStartOf="@+id/showerhourglass"
-                            android:text="@string/endtime"
-                            android:textAlignment="center"
-                            android:textColor="@color/graphValue"
-                            android:textSize="14sp" />
+                        android:paddingStart="5dp"
+                        android:paddingEnd="10dp">
 
                         <TextView
                             android:id="@+id/shower"
@@ -1828,31 +1650,198 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentEnd="true"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginEnd="284dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="285dp"
+                            android:layout_marginTop="5dp"
                             android:gravity="start"
                             android:orientation="horizontal"
                             android:text="Shower"
-                            android:textColor="#ffffff"
+                            android:textStyle="bold"
+                            android:textColor="@color/buttonText"
                             android:textSize="22sp" />
+
+                        <ImageView
+                            android:id="@+id/showerimage"
+                            android:layout_width="match_parent"
+                            android:layout_height="125dp"
+                            android:layout_below="@+id/shower"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="9dp"
+                            android:layout_marginBottom="100dp"
+                            android:layout_alignTop="@id/shower"
+                            android:layout_toStartOf="@id/showerLinechart"
+                            card_view:srcCompat="@drawable/sll" />
+
 
                         <com.github.mikephil.charting.charts.CandleStickChart
                             android:id="@+id/showerLinechart"
-                            android:layout_width="273dp"
-                            android:layout_height="193dp"
+                            android:layout_width="280dp"
+                            android:layout_height="190dp"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentEnd="true"
-                            android:layout_marginTop="14dp"
-                            android:layout_marginEnd="13dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="100dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.3"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="@id/showercard"
-                            app:layout_constraintVertical_bias="0.019"
                             tools:ignore="NotSibling">
 
                         </com.github.mikephil.charting.charts.CandleStickChart>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="205dp"
+                            android:layout_marginBottom="50dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            >
+
+                            <ImageView
+                                android:id="@+id/showerstatusimage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/currentstatusvector" />
+
+                            <TextView
+                                android:id="@+id/showerstatusheader"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/currentStatus"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <ImageView
+                                android:id="@+id/showertimeheader"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/ic_baseline_timer_24"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:id="@+id/showerendtime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/endtime"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <ImageView
+                                android:id="@+id/showerhourglass"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/ic_baseline_hourglass_bottom_24"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:id="@+id/showerduration"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/duration"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="250dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="15dp"
+                            >
+
+                            <TextView
+                                android:id="@+id/showerstatus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+
+                                android:textSize="18sp" />
+
+                            <Space
+                                android:layout_width="10dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <TextView
+                                android:id="@+id/showertime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:textAlignment="viewStart"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+
+                                android:textSize="18sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <TextView
+                                android:id="@+id/text2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:textSize="16sp"
+                                />
+
+                        </LinearLayout>
 
                     </RelativeLayout>
 
@@ -1930,6 +1919,7 @@
                             android:layout_marginBottom="439dp"
                             app:layout_constraintBottom_toTopOf="@id/overallCardHeader"
                             android:text="Overall"
+                            android:textStyle="bold"
                             android:textColor="@color/buttonText"
                             android:textSize="30sp" />
 
@@ -2045,4 +2035,3 @@
         </ScrollView>
     </LinearLayout>
 </RelativeLayout>
-
