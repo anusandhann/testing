@@ -413,7 +413,7 @@ public class report  extends AppCompatActivity {
                         if ((preferences.contains("showerPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking shower shared preference   ", showerresponse);
                             showerradio.setVisibility(View.GONE);
-                            showerCard.setCardBackgroundColor(getColor(R.color.reportComplete));
+                            showerCard.setCardBackgroundColor(getColor(R.color.trafficGreen));
 
                         }
                     }
@@ -425,7 +425,7 @@ public class report  extends AppCompatActivity {
                         if ((preferences.contains("medicationPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking medication shared preference   ", medicationresponse);
                             medicationradio.setVisibility(View.GONE);
-                            medicineCard.setCardBackgroundColor(getColor(R.color.reportComplete));
+                            medicineCard.setCardBackgroundColor(getColor(R.color.trafficGreen));
 
                         }
                     }
@@ -437,7 +437,7 @@ public class report  extends AppCompatActivity {
                         if ((preferences.contains("breakfastPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking breakfast shared preference   ", breakfastresponse);
                             breakfastradio.setVisibility(View.GONE);
-                            bfCard.setCardBackgroundColor(getColor(R.color.reportComplete));
+                            bfCard.setCardBackgroundColor(getColor(R.color.trafficGreen));
 
                         }
                     }
@@ -449,7 +449,7 @@ public class report  extends AppCompatActivity {
                         if ((preferences.contains("lunchPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking lunch shared preference   ", lunchresponse);
                             lunchradio.setVisibility(View.GONE);
-                            lunchCard.setCardBackgroundColor(getColor(R.color.reportComplete));
+                            lunchCard.setCardBackgroundColor(getColor(R.color.trafficGreen));
 
                         }
                     }
@@ -462,7 +462,7 @@ public class report  extends AppCompatActivity {
                         if ((preferences.contains("tvPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking tv shared preference   ", tvresponse);
                             tvradio.setVisibility(View.GONE);
-                            tvCard.setCardBackgroundColor(getColor(R.color.reportComplete));
+                            tvCard.setCardBackgroundColor(getColor(R.color.trafficGreen));
 
                         }
                     }
@@ -474,7 +474,7 @@ public class report  extends AppCompatActivity {
                         if ((preferences.contains("dinnerPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking dinner shared preference   ", dinnerresponse);
                             dinnerradio.setVisibility(View.GONE);
-                            dinnerCard.setCardBackgroundColor(getColor(R.color.reportComplete));
+                            dinnerCard.setCardBackgroundColor(getColor(R.color.trafficGreen));
 
                         }
                     }
@@ -493,7 +493,7 @@ public class report  extends AppCompatActivity {
                     LocalTime currentTime = LocalTime.now();
 
                     //this index helps to start the graph at a aprticular date: pref after 3 days of data. Is in 2 places, userreport 232
-                    int enddateindex = (today.getDayOfYear() % (datearray.size()-2)) + 2;
+                    int enddateindex = (today.getDayOfYear() % (datearray.size()-2) + 1);
                     String activitydur = durarray.get(enddateindex);
 
 //                    Log.d("activitydur", String.valueOf(activitydur));
@@ -551,11 +551,12 @@ public class report  extends AppCompatActivity {
 
                         if (currentTime.isAfter(actTime)) {
 
-                            thisCard.setCardBackgroundColor(getColor(R.color.trafficYellow));
-                            drawchart(modStartArray, modEndArray, activityType);
-                            durationTextview.setText(durationOfActivity);
-                            endTimeTextview.setText(endtimeText);
-                            stateTextview.setText("Complete");
+
+                                thisCard.setCardBackgroundColor(getColor(R.color.trafficYellow));
+                                drawchart(modStartArray, modEndArray, activityType);
+                                durationTextview.setText(durationOfActivity);
+                                endTimeTextview.setText(endtimeText);
+                                stateTextview.setText("Complete");
 
 
                         }
@@ -589,14 +590,14 @@ public class report  extends AppCompatActivity {
 
                         if(currentTime.isAfter(actTime)){
 
-                            thisCard.setCardBackgroundColor(getColor(R.color.trafficYellow));
-                            durationTextview.setText(activitydur + " Minutes");
-                            endTimeTextview.setText(endtimeText);
-                            stateTextview.setText("Complete");
-                            drawchart(modStartArray, modEndArray, activityType);
 
+                                thisCard.setCardBackgroundColor(getColor(R.color.trafficYellow));
+                                durationTextview.setText(activitydur + " Minutes");
+                                endTimeTextview.setText(endtimeText);
+                                stateTextview.setText("Complete");
+                                drawchart(modStartArray, modEndArray, activityType);
+                            }
 
-                        }
                             else
                             {
                                 thisCard.setCardBackgroundColor(getColor(R.color.trafficRed));
@@ -625,7 +626,8 @@ public class report  extends AppCompatActivity {
             assert selectedChart != null;
             selectedChart.setBackgroundColor(Color.WHITE);
             selectedChart.getDescription().setEnabled(false);
-            selectedChart.setTouchEnabled(true);
+
+            selectedChart.setTouchEnabled(false);
 //            selectedChart.setDoubleTapToZoomEnabled(false);
 //            selectedChart.setPinchZoom(false);
 //
@@ -772,7 +774,9 @@ public class report  extends AppCompatActivity {
 //                            Log.d("value   ", String.valueOf(sleep.getText()));
                             sleepmap.put("Sleep state", userdr);
 
-                            ref.child(username).child("Sleep").child(String.valueOf(sleep.getText())).child(id).updateChildren(sleepmap);
+                            String finalTimes = finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime();
+
+                            ref.child(username).child("Sleep").child(String.valueOf(sleep.getText())).child(id).child(finalTimes).updateChildren(sleepmap);
 
                             editor.putString("sleepPrefuser_" + username + LocalDate.now(), username);
                             editor.putString("sleepPrefmonitor_" + username + LocalDate.now(), email);
@@ -789,7 +793,10 @@ public class report  extends AppCompatActivity {
                             shower = (RadioButton) findViewById(showerstate);
 //                            Log.d("value ", String.valueOf(shower.getText()));
                             showermap.put("Shower state", userdr);
-                            ref.child("testing for FB").child(username).child("Shower").child(String.valueOf(shower.getText())).child(id).updateChildren(showermap);
+
+                            String finalTimes = finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime();
+
+                            ref.child("testing for FB").child(username).child("Shower").child(String.valueOf(shower.getText())).child(id).child(finalTimes).updateChildren(showermap);
 
                             editor.putString("showerPrefuser_" + username+ LocalDate.now(), username);
                             editor.putString("showerPrefmonitor_" + username+ LocalDate.now(), email);
@@ -804,7 +811,9 @@ public class report  extends AppCompatActivity {
                             breakfast = (RadioButton) findViewById(bfstate);
 //                            Log.d("value   ", String.valueOf(breakfast.getText()));
                             bfmap.put("Breakfast state", userdr);
-                            ref.child(username).child("Breakfast").child(String.valueOf(breakfast.getText())).child(id).updateChildren(bfmap);
+                            String finalTimes = finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime();
+
+                            ref.child(username).child("Breakfast").child(String.valueOf(breakfast.getText())).child(id).child(finalTimes).updateChildren(bfmap);
 
                             editor.putString("breakfastPrefuser_" + username+ LocalDate.now(), username);
                             editor.putString("breakfastPrefmonitor_" + username+ LocalDate.now(), email);
@@ -820,7 +829,9 @@ public class report  extends AppCompatActivity {
                             medication = (RadioButton) findViewById(medstate);
 //                            Log.d("value   ", String.valueOf(medication.getText()));
                             medmap.put("Medication state", userdr);
-                            ref.child(username).child("Medication").child(String.valueOf(medication.getText())).child(id).updateChildren(medmap);
+                            String finalTimes = finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime();
+
+                            ref.child(username).child("Medication").child(String.valueOf(medication.getText())).child(id).child(finalTimes).updateChildren(medmap);
 
                             editor.putString("medicationPrefuser_" + username+ LocalDate.now(), username);
                             editor.putString("medicationPrefmonitor_" + username+ LocalDate.now(), email);
@@ -836,7 +847,9 @@ public class report  extends AppCompatActivity {
                             lunch = (RadioButton) findViewById(lunchstate);
 //                            Log.d("value   ", String.valueOf(lunch.getText()));
                             lunchmap.put("lunch state", userdr);
-                            ref.child(username).child("Lunch").child(String.valueOf(lunch.getText())).child(id).updateChildren(lunchmap);
+                            String finalTimes = finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime();
+
+                            ref.child(username).child("Lunch").child(String.valueOf(lunch.getText())).child(id).child(finalTimes).updateChildren(lunchmap);
 
                             editor.putString("lunchPrefuser_" + username+ LocalDate.now(), username);
                             editor.putString("lunchPrefmonitor_" + username+ LocalDate.now(), email);
@@ -852,7 +865,9 @@ public class report  extends AppCompatActivity {
                             tv = (RadioButton) findViewById(tvstate);
 //                            Log.d("value   ", String.valueOf(tv.getText()));
                             tvmap.put("TV state", userdr);
-                            ref.child(username).child("TV").child(String.valueOf(tv.getText())).child(id).updateChildren(tvmap);
+                            String finalTimes = finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime();
+
+                            ref.child(username).child("TV").child(String.valueOf(tv.getText())).child(id).child(finalTimes).updateChildren(tvmap);
 
                             editor.putString("tvPrefuser_" + username+ LocalDate.now(), username);
                             editor.putString("tvPrefmonitor_" + username+ LocalDate.now(), email);
@@ -867,7 +882,9 @@ public class report  extends AppCompatActivity {
                             dinner = (RadioButton) findViewById(dinnerstate);
 //                            Log.d("value   ", String.valueOf(dinner.getText()));
                             dinnermap.put("dinner state", userdr);
-                            ref.child(username).child("Dinner").child(String.valueOf(dinner.getText())).child(id).updateChildren(dinnermap);
+                            String finalTimes = finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime();
+
+                            ref.child(username).child("Dinner").child(String.valueOf(dinner.getText())).child(id).child(finalTimes).updateChildren(dinnermap);
 
                             editor.putString("dinnerPrefuser_" + username+ LocalDate.now(), username);
                             editor.putString("dinnerPrefmonitor_" + username+ LocalDate.now(), email);
@@ -882,7 +899,9 @@ public class report  extends AppCompatActivity {
                             overall = (RadioButton) findViewById(overallstate);
 //                            Log.d("value   ", String.valueOf(sleep.getText()));
                             overallmap.put("Overall state", userdr);
-                            ref.child(username).child("Overall").child(String.valueOf(overall.getText())).child(id).updateChildren(overallmap);
+                            String finalTimes = finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime();
+
+                            ref.child(username).child("Overall").child(String.valueOf(overall.getText())).child(id).child(finalTimes).updateChildren(overallmap);
 
                             editor.putString("overallPrefuser_" + username + LocalDate.now(), username);
                             editor.putString("overallPrefmonitor_" + username + LocalDate.now(), email);
@@ -921,17 +940,17 @@ public class report  extends AppCompatActivity {
             private ArrayList<String> mValues = new ArrayList<>();
 
             public MyXAxisValueFormatter() {
-                mValues.add("11/" + "29");
-                mValues.add("11/" + "30");
-                mValues.add("12/" + "1");
-                mValues.add("12/" + "2");
-                mValues.add("12/" + "3");
-                mValues.add("12/" + "4");
-                mValues.add("12/" + "5");
-                mValues.add("12/" + "6");
-                mValues.add("12/" + "7");
-                mValues.add("12/" + "8");
-                mValues.add("12/" + "9");
+
+                mValues.add("04/" + "5");
+                mValues.add("04/" + "6");
+                mValues.add("04/" + "7");
+                mValues.add("04/" + "8");
+                mValues.add("04/" + "9");
+                mValues.add("04/" + "10");
+                mValues.add("04/" + "11");
+                mValues.add("04/" + "12");
+                mValues.add("04/" + "13");
+                mValues.add("04/" + "14");
 
 //                for(int i = 1; i< 12;i++){
 //

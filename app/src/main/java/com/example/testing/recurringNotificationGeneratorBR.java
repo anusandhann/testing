@@ -46,6 +46,8 @@ public class recurringNotificationGeneratorBR extends BroadcastReceiver {
 
         Intent recurringIntent = new Intent(context, select.class);
 
+        recurringIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
         recurringIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         recurringIntent.putExtra("recurring_notificationGeneratedTime", currentTime);
@@ -59,7 +61,7 @@ public class recurringNotificationGeneratorBR extends BroadcastReceiver {
       //  Log.e(TAG, "checkingNotOpenTime     : " + currentTime);
 
         notif.setSmallIcon(R.drawable.ic_stat_name);
-        notif.setContentText("Please check recent activity of the elderly!!");
+        notif.setContentText("Please check recent activity of the elderly.");
         notif.setWhen(System.currentTimeMillis());
         notif.setColor(Color.BLUE);
         notif.setDefaults(Notification.DEFAULT_SOUND);

@@ -34,7 +34,7 @@ public class select extends AppCompatActivity {
 
 
     ListView simpleList;
-    String[] targetList = {"","Taro", "Francis", "Hyuckjin"};
+    String[] targetList = {"","Taro", "Watanabe", "Yamazaki"};
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
