@@ -415,7 +415,7 @@ public class userreport extends JobIntentService {
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_2_ID)
 
-                .setContentText("Please Check,  " + targetName + "-san just finished  "+ whichActivity + " activity.")
+                .setContentText(getString(R.string.pleaseCheck) + targetName + getString(R.string.whoFinished)+ whichActivity + getString(R.string.activity))
                 .setSmallIcon(R.drawable.ic_stat_name)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
@@ -441,7 +441,7 @@ public class userreport extends JobIntentService {
     }
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(CHANNEL_delete_ID, "Temporary", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel channel = new NotificationChannel(CHANNEL_delete_ID, getString(R.string.temporary), NotificationManager.IMPORTANCE_DEFAULT);
             channel.setDescription("This is temporary"); //to show to Users That the app is running
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.createNotificationChannel(channel);
@@ -449,7 +449,7 @@ public class userreport extends JobIntentService {
     }
     private void createNotificationChannel2() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(CHANNEL_2_ID, "Reminding users", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel channel = new NotificationChannel(CHANNEL_2_ID, getString(R.string.activitybasedNotification), NotificationManager.IMPORTANCE_DEFAULT);
             channel.setDescription("This is main"); //to show to Users That the app is running
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.createNotificationChannel(channel);

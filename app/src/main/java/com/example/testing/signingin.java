@@ -55,12 +55,12 @@ public class signingin extends AppCompatActivity {
                 String email = emailinput.getText().toString();
                 String password = passwordinput.getText().toString();
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.enterEmailCorrectly), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.enterPasswordCorrectly), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 firebaseauth.signInWithEmailAndPassword(email, password)
@@ -71,7 +71,7 @@ public class signingin extends AppCompatActivity {
                                 if (!task.isSuccessful()) {
                                     // there was an error
                                     {
-                                        Toast.makeText(signingin.this, "Please enter the details correctly!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(signingin.this, getResources().getString(R.string.enterDetailsCorrectly), Toast.LENGTH_LONG).show();
                                     }
                                 } else {
                                     Intent intent = new Intent(signingin.this, select.class);

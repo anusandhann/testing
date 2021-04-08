@@ -151,14 +151,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:text="@string/normalbutton" />
+                        android:text="@string/normalButton" />
 
                     <RadioButton
                         android:id="@+id/sleepsuspicious"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:text="@string/suspiciousbutton" />
+                        android:text="@string/suspiciousButton" />
 
                 </RadioGroup>
 
@@ -258,13 +258,13 @@
                         android:id="@+id/showernormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/normalbutton" />
+                        android:text="@string/normalButton" />
 
                     <RadioButton
                         android:id="@+id/showersuspicious"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/suspiciousbutton" />
+                        android:text="@string/suspiciousButton" />
 
                 </RadioGroup>
 
@@ -364,13 +364,13 @@
                         android:id="@+id/bfnormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/normalbutton" />
+                        android:text="@string/normalButton"/>
 
                     <RadioButton
                         android:id="@+id/bfsuspicious"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/suspiciousbutton" />
+                        android:text="@string/suspiciousButton" />
 
                 </RadioGroup>
 
@@ -471,13 +471,13 @@
                         android:id="@+id/mednormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/normalbutton" />
+                        android:text="@string/normalButton" />
 
                     <RadioButton
                         android:id="@+id/medsuspicious"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/suspiciousbutton" />
+                        android:text="@string/suspiciousButton" />
 
                 </RadioGroup>
 
@@ -578,13 +578,13 @@
                         android:id="@+id/lunchnormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/normalbutton" />
+                        android:text="@string/normalButton" />
 
                     <RadioButton
                         android:id="@+id/lunchsuspicious"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/suspiciousbutton" />
+                        android:text="@string/suspiciousButton" />
 
                 </RadioGroup>
 
@@ -685,13 +685,13 @@
                         android:id="@+id/tvnormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/normalbutton" />
+                        android:text="@string/normalButton" />
 
                     <RadioButton
                         android:id="@+id/tvsuspicious"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/suspiciousbutton" />
+                        android:text="@string/suspiciousButton" />
 
                 </RadioGroup>
 
@@ -792,13 +792,13 @@
                         android:id="@+id/dinnernormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/normalbutton" />
+                        android:text="@string/normalButton" />
 
                     <RadioButton
                         android:id="@+id/dinnersuspicious"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/suspiciousbutton" />
+                        android:text="@string/suspiciousButton" />
 
                 </RadioGroup>
 
@@ -944,7 +944,7 @@
                     android:background="#954C4C"
                     android:fontFamily="sans-serif"
                     android:gravity="center"
-                    android:text="@string/report"
+                    android:text="@string/submitReport"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/buttonText"
                     android:textSize="30sp"

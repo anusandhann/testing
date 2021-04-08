@@ -45,11 +45,11 @@ public class signingup extends Activity {
                 final String password = passwordinput.getText().toString();
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), "Enter email please", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.enterEmailCorrectly), Toast.LENGTH_LONG).show();
                     return;
                 }
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "Enter password please", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.enterPasswordCorrectly), Toast.LENGTH_LONG).show();
                     return;
                 }
 
@@ -59,8 +59,7 @@ public class signingup extends Activity {
 //                        Toast.makeText(signingup.this, "User Created -> " + "" + task.isSuccessful(), Toast.LENGTH_LONG).show();
 
                         if (!task.isSuccessful()) {
-                            Toast.makeText(signingup.this, "Please try again with proper credentials",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(signingup.this, getResources().getString(R.string.pleaseTryAgain), Toast.LENGTH_SHORT).show();
                         } else {
 
                             adduser();

@@ -90,7 +90,7 @@
                             android:layout_marginTop="5dp"
                             android:gravity="start"
                             android:orientation="horizontal"
-                            android:text="Sleep"
+                            android:text="@string/Sleep"
                             android:textStyle="bold"
 
                             android:textColor="@color/buttonText"
@@ -296,21 +296,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:text="Normal" />
+                        android:text="@string/normalButton" />
 
                     <RadioButton
                         android:id="@+id/sleepsuspicious"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:text="Suspicious" />
+                        android:text="@string/suspiciousButton" />
 
                     <RadioButton
                         android:id="@+id/sleepVerysuspicious"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:text="Very Suspicious" />
+                        android:text="@string/verySuspiciousButton" />
 
                 </RadioGroup>
 
@@ -354,7 +354,7 @@
                             android:layout_marginTop="5dp"
                             android:gravity="start"
                             android:orientation="horizontal"
-                            android:text="Breakfast"
+                            android:text="@string/Breakfast"
                             android:textStyle="bold"
 
                             android:textColor="@color/buttonText"
@@ -560,20 +560,20 @@
                         android:id="@+id/bfnormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Normal" />
+                        android:text="@string/normalButton" />
 
                     <RadioButton
                         android:id="@+id/bfsuspicious"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Suspicious" />
+                        android:text="@string/suspiciousButton" />
 
                     <RadioButton
                         android:id="@+id/bfVerysuspicious"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:text="Very Suspicious" />
+                        android:text="@string/verySuspiciousButton" />
 
                 </RadioGroup>
 
@@ -614,7 +614,7 @@
                             android:layout_marginEnd="285dp"
                             android:layout_marginTop="5dp"
                             android:gravity="start"
-                            android:text="Medicine"
+                            android:text="@string/Medicine"
                             android:textStyle="bold"
                             android:textColor="@color/buttonText"
                             android:textSize="20sp" />
@@ -820,20 +820,20 @@
                         android:id="@+id/mednormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Normal" />
+                        android:text="@string/normalButton" />
 
                     <RadioButton
                         android:id="@+id/medsuspicious"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Suspicious" />
+                        android:text="@string/suspiciousButton" />
 
                     <RadioButton
                         android:id="@+id/medVerysuspicious"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:text="Very Suspicious" />
+                        android:text="@string/verySuspiciousButton" />
 
                 </RadioGroup>
 
@@ -875,7 +875,7 @@
                             android:layout_marginTop="5dp"
                             android:gravity="start"
                             android:orientation="horizontal"
-                            android:text="Lunch"
+                            android:text="@string/Lunch"
                             android:textStyle="bold"
 
                             android:textColor="@color/buttonText"
@@ -1081,20 +1081,20 @@
                         android:id="@+id/lunchnormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Normal" />
+                        android:text="@string/normalButton" />
 
                     <RadioButton
                         android:id="@+id/lunchsuspicious"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Suspicious" />
+                        android:text="@string/suspiciousButton" />
 
                     <RadioButton
                         android:id="@+id/lunchVerysuspicious"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:text="Very Suspicious" />
+                        android:text="@string/verySuspiciousButton" />
 
                 </RadioGroup>
 
@@ -1136,7 +1136,7 @@
                             android:layout_marginTop="5dp"
                             android:gravity="start"
                             android:orientation="horizontal"
-                            android:text="TV/PC"
+                            android:text="@string/tvpc"
                             android:textStyle="bold"
 
                             android:textColor="@color/buttonText"
@@ -1342,20 +1342,20 @@
                         android:id="@+id/tvnormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Normal" />
+                        android:text="@string/normalButton" />
 
                     <RadioButton
                         android:id="@+id/tvsuspicious"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Suspicious" />
+                        android:text="@string/suspiciousButton" />
 
                     <RadioButton
                         android:id="@+id/tvVerysuspicious"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:text="Very Suspicious" />
+                        android:text="@string/verySuspiciousButton" />
 
                 </RadioGroup>
 
@@ -1397,7 +1397,7 @@
                             android:layout_marginTop="5dp"
                             android:gravity="start"
                             android:orientation="horizontal"
-                            android:text="Dinner"
+                            android:text="@string/Dinner"
                             android:textStyle="bold"
 
                             android:textColor="@color/buttonText"
@@ -1602,20 +1602,20 @@
                         android:id="@+id/dinnernormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Normal" />
+                        android:text="@string/normalButton" />
 
                     <RadioButton
                         android:id="@+id/dinnersuspicious"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Suspicious" />
+                        android:text="@string/suspiciousButton" />
 
                     <RadioButton
                         android:id="@+id/dinnerVerysuspicious"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:text="Very Suspicious" />
+                        android:text="@string/verySuspiciousButton" />
 
                 </RadioGroup>
 
@@ -1658,7 +1658,7 @@
                             android:layout_marginTop="5dp"
                             android:gravity="start"
                             android:orientation="horizontal"
-                            android:text="Shower"
+                            android:text="@string/Shower"
                             android:textStyle="bold"
                             android:textColor="@color/buttonText"
                             android:textSize="22sp" />
@@ -1862,20 +1862,20 @@
                         android:id="@+id/showernormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Normal" />
+                        android:text="@string/normalButton" />
 
                     <RadioButton
                         android:id="@+id/showersuspicious"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Suspicious" />
+                        android:text="@string/suspiciousButton" />
 
                     <RadioButton
                         android:id="@+id/showerVerysuspicious"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:text="Very Suspicious" />
+                        android:text="@string/verySuspiciousButton" />
 
                 </RadioGroup>
 
@@ -1921,7 +1921,7 @@
                             android:layout_marginEnd="258dp"
                             android:layout_marginBottom="439dp"
                             app:layout_constraintBottom_toTopOf="@id/overallCardHeader"
-                            android:text="Overall"
+                            android:text="@string/Overall"
                             android:textStyle="bold"
                             android:textColor="@color/buttonText"
                             android:textSize="30sp" />
@@ -1957,7 +1957,7 @@
                             android:layout_marginBottom="99dp"
                             android:fontFamily="sans-serif"
                             android:textAlignment = "center"
-                            android:text="What do you think is the overall status of the elderly?"
+                            android:text="@string/OverallQuestion"
                             android:textColor="@color/buttonText"
                             android:textSize="30sp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -1986,21 +1986,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:text="Normal" />
+                        android:text="@string/normalButton" />
 
                     <RadioButton
                         android:id="@+id/overallsuspicious"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:text="Suspicious" />
+                        android:text="@string/suspiciousButton" />
 
                     <RadioButton
                         android:id="@+id/overallVerysuspicious"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:text="Very Suspicious" />
+                        android:text="@string/verySuspiciousButton" />
 
                 </RadioGroup>
 
@@ -2023,7 +2023,7 @@
                     android:background="#954C4C"
                     android:fontFamily="sans-serif"
                     android:gravity="center"
-                    android:text="@string/report"
+                    android:text="@string/submitReport"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/buttonText"
                     android:textSize="30sp"

@@ -1,21 +1,77 @@
 <resources>
     <string name="app_name">MutualMonitor</string>
-    <string name="activity_report">Activity Report</string>
-    <string name="report">Submit Report</string>
-    <string name="todo">TODO</string>
 
-    <string name="normalbutton">Normal/ 正常</string>
-    <string name="suspiciousbutton">Suspicious/ 不審</string>
+    <!--    registering and loggin in-->
 
+    <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
+    <string name ="notMemberYet">Not a member yet? Sign up</string>
+    <string name="EnterEmail">Enter Email</string>
+    <string name="EnterPassword">Enter Password</string>
+    <string name="AlreadyRegistered">Already registered? Click here to Sign in</string>
+
+    <!--    registering and loggin in-->
+
+    <!--    Radiobuttons-->
+    <string name="normalButton">Normal</string>
+    <string name="suspiciousButton">Suspicious</string>
+    <string name="verySuspiciousButton">Normal</string>
+    <!--    Radiobuttons-->
+
+    <!--    Notification-->
+    <string name="temporary">Temporary</string>
+    <string name="activitybasedNotification">Reminding users</string>
+    <string name="pleaseCheck">Please Check,</string>
+    <string name="whoFinished">-san just finished  </string>
+    <string name="activity"> activity.</string>
+    <string name="recurringnotificationHeader">Please check recent activity of the elderly.</string>
+    <string name="recurringnotificationChannel">Recurring Notification</string>
+    <string name="contantNotificationDot">Contant Notification dot</string>
+
+
+    <!--    Notification-->
+
+    <!--Warnings-->
+    <string name="enterEmailCorrectly">Enter email address please!</string>
+    <string name="enterPasswordCorrectly">Enter password please!</string>
+    <string name="enterDetailsCorrectly">Please enter the details correctly!</string>
+    <string name="missedWhileReporting">Seems like you have missed selecting!! </string>
+    <string name="pleaseTryAgain">Please try again with proper credentials</string>
+    <!--Warnings-->
+
+    <!--    Text in cards-->
+    <string name="Sleep">Sleep</string>
+    <string name="Breakfast">Breakfast</string>
+    <string name="Medicine">Medicine</string>
+    <string name="Lunch">Lunch</string>
+    <string name= "tvpc">TV/PC</string>
+    <string name="Dinner">Dinner</string>
+    <string name="Shower">Shower</string>
+    <string name="Overall">Overall</string>
+    <string name="OverallQuestion">What do you think is the overall status of the elderly?</string>
     <string name="currentStatus">Current Status</string>
     <string name="endtime">End Time</string>
     <string name="duration">Duration</string>
     <string name="minutes"> Minutes</string>
+    <string name="activityComplete">Complete</string>
+    <string name="activityIncomplete">Incomplete</string>
+    <string name="hrs"> Hrs</string>
+    <string name="mins"> Min</string>
+    <!--    Text in cards-->
 
+    <!--    Target names-->
     <string name="target1">Taro</string>
     <string name="target2">Watanabe</string>
     <string name="target3">Yamazaki</string>
+    <!--    Target names-->
 
+    <!--    Miscellaneous-->
+    <string name="SelectTarget">Select</string>
+    <string name="activity_report">Activity Report - "  "</string>
+    <string name="submitReport">Submit Report</string>
+    <string name="todo">TODO</string>
     <string name="Goback">Go Back</string>
+
+    <!--    Miscellaneous-->
 
 </resources>

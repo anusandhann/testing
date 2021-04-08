@@ -841,7 +841,7 @@
             android:layout_marginBottom="8dp"
             android:background="#954C4C"
             android:fontFamily="serif"
-            android:text="@string/report"
+            android:text="@string/submitReport"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#0F1010"
             android:textSize="30sp"

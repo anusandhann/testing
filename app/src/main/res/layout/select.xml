@@ -20,7 +20,7 @@
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:orientation="vertical"
-        android:text="Select"
+        android:text="@string/SelectTarget"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/buttonText"
         android:textSize="30sp"

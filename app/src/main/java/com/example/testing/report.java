@@ -535,7 +535,7 @@ public class report  extends AppCompatActivity {
 
                     if (Float.parseFloat(activitydur) >= 60) {
 
-                        String durationOfActivity = Long.parseLong(activitydur) / 60 % 24 + " Hrs" + " & " + Long.parseLong(activitydur) % 60 + " Min";
+                        String durationOfActivity = Long.parseLong(activitydur) / 60 % 24 + getString(R.string.hrs) + " & " + Long.parseLong(activitydur) % 60 + getString(R.string.mins);
                         assert durationTextview != null;
 
                         assert endtimeArray != null;
@@ -556,7 +556,7 @@ public class report  extends AppCompatActivity {
                                 drawchart(modStartArray, modEndArray, activityType);
                                 durationTextview.setText(durationOfActivity);
                                 endTimeTextview.setText(endtimeText);
-                                stateTextview.setText("Complete");
+                                stateTextview.setText(getString(R.string.activityComplete));
 
 
                         }
@@ -567,7 +567,7 @@ public class report  extends AppCompatActivity {
                             drawchart(prevModStartArray , prevModEndArray, activityType);
                             durationTextview.setVisibility(View.GONE);
                             endTimeTextview.setVisibility(View.GONE);
-                            stateTextview.setText("Incomplete");
+                            stateTextview.setText(getString(R.string.activityIncomplete));
 
 
                         }
@@ -592,9 +592,9 @@ public class report  extends AppCompatActivity {
 
 
                                 thisCard.setCardBackgroundColor(getColor(R.color.trafficYellow));
-                                durationTextview.setText(activitydur + " Minutes");
+                                durationTextview.setText(activitydur + getString(R.string.minutes));
                                 endTimeTextview.setText(endtimeText);
-                                stateTextview.setText("Complete");
+                                stateTextview.setText(getString(R.string.activityComplete));
                                 drawchart(modStartArray, modEndArray, activityType);
                             }
 
@@ -602,7 +602,7 @@ public class report  extends AppCompatActivity {
                             {
                                 thisCard.setCardBackgroundColor(getColor(R.color.trafficRed));
                                 thisRadiogp.setVisibility(View.GONE);
-                                stateTextview.setText("Incomplete");
+                                stateTextview.setText(getString(R.string.activityIncomplete));
                                 durationTextview.setVisibility(View.GONE);
                                 endTimeTextview.setVisibility(View.GONE);
                                 drawchart(prevModStartArray, prevModEndArray, activityType);
@@ -765,7 +765,7 @@ public class report  extends AppCompatActivity {
                             && dinnerstate == -1
                             && overallstate == -1)
                     {
-                        Toast.makeText(getApplicationContext(), "Seems like you have missed selecting!! ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.missedWhileReporting), Toast.LENGTH_SHORT).show();
                     }
                     else {
 
