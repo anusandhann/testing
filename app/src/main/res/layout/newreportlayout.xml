@@ -1908,69 +1908,114 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
+                        <LinearLayout
+                            android:layout_width="375dp"
+                            android:layout_height="200dp"
+                            >
 
-                        <TextView
-                            android:id="@+id/overallCardHeader"
+                            <TextView
+                                android:id="@+id/overallCardHeader"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginBottom="150dp"
+                                app:layout_constraintBottom_toTopOf="@id/overallCardHeader"
+                                android:text="@string/Overall"
+                                android:textStyle="bold"
+                                android:textColor="@color/buttonText"
+                                android:textSize="30sp" />
+
+                            <ImageView
+                                android:id="@+id/overall"
+                                android:layout_width="130dp"
+                                android:layout_height="170dp"
+                                android:layout_marginStart="75dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginEnd="3dp"
+                                android:layout_marginBottom="332dp"
+                                android:contentDescription="@string/todo"
+                                android:textAlignment="center"
+                                app:srcCompat="@drawable/management" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginEnd="258dp"
-                            android:layout_marginBottom="439dp"
-                            app:layout_constraintBottom_toTopOf="@id/overallCardHeader"
-                            android:text="@string/Overall"
-                            android:textStyle="bold"
-                            android:textColor="@color/buttonText"
-                            android:textSize="30sp" />
+                            android:layout_marginTop="150dp">
 
-                        <ImageView
-                            android:id="@+id/overall"
-                            android:layout_width="131dp"
-                            android:layout_height="170dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="193dp"
-                            android:layout_marginTop="-2dp"
-                            android:layout_marginEnd="36dp"
-                            android:layout_marginBottom="332dp"
-                            android:contentDescription="@string/todo"
-                            android:textAlignment="center"
-                            app:layout_constraintTop_toBottomOf="@id/overallTextview"
-                            app:srcCompat="@drawable/management" />
+                            <TextView
+                                android:id="@+id/overallTextview"
+                                android:layout_width="311dp"
+                                android:layout_height="165dp"
 
-                        <TextView
-                            android:id="@+id/overallTextview"
-                            android:layout_width="311dp"
-                            android:layout_height="165dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="31dp"
-                            android:layout_marginTop="236dp"
-                            android:layout_marginEnd="18dp"
-                            android:layout_marginBottom="99dp"
-                            android:fontFamily="sans-serif"
-                            android:textAlignment = "center"
-                            android:text="@string/OverallQuestion"
-                            android:textColor="@color/buttonText"
-                            android:textSize="30sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.3"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/overallCardHeader"
-                            app:layout_constraintVertical_bias="0.019"
-                            tools:ignore="NotSibling" />
+                                android:layout_marginStart="31dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginEnd="18dp"
+                                android:layout_marginBottom="99dp"
+                                android:fontFamily="sans-serif"
+                                android:textAlignment = "center"
+                                android:text="@string/OverallQuestion"
+                                android:textColor="@color/buttonText"
+                                android:textSize="30sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.3"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/overallCardHeader"
+                                app:layout_constraintVertical_bias="0.019"
+                                tools:ignore="NotSibling" />
+
+
+                            <TextView
+                                android:id="@+id/overallLastResponse"
+                                android:layout_width="310dp"
+                                android:layout_height="wrap_content"
+
+                                android:layout_marginStart="-350dp"
+                                android:layout_marginTop="150dp"
+                                android:layout_marginEnd="150dp"
+                                android:layout_marginBottom="40dp"
+                                android:fontFamily="sans-serif"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/black"
+                                android:textSize="20sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.3"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/overallCardHeader"
+                                app:layout_constraintVertical_bias="0.019"
+                                tools:ignore="NotSibling" />
+
+                            <TextView
+                                android:id="@+id/overallLastResponseTime"
+                                android:layout_width="310dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="-450dp"
+                                android:layout_marginTop="250dp"
+                                android:layout_marginEnd="150dp"
+                                android:layout_marginBottom="10dp"
+                                android:fontFamily="sans-serif"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/black"
+                                android:textSize="18sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.3"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/overallCardHeader"
+                                app:layout_constraintVertical_bias="0.019"
+                                tools:ignore="NotSibling" />
+                        </LinearLayout>
+
 
                     </RelativeLayout>
 
                 </androidx.cardview.widget.CardView>
+
 
 
                 <RadioGroup

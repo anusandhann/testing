@@ -42,7 +42,7 @@ public class recurringNotificationGeneratorBR extends BroadcastReceiver {
             manager.createNotificationChannel(notificationChannel);
         }
 
-        String currentTime = String.valueOf(LocalTime.now());
+        String currentTime = String.valueOf(Calendar.getInstance().getTime());
 
         Intent recurringIntent = new Intent(context, select.class);
 

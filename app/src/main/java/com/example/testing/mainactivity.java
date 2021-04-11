@@ -36,32 +36,39 @@ public class mainactivity extends AppCompatActivity {
 
         isMyServiceRunning();
 
+
         Intent notificationIntent = new Intent(this, servicecheck.class);
         notificationIntent.putExtra("serviceCheck", 32);
        // ContextCompat.startForegroundService(this,notificationIntent );
 
         Intent userReportIntent = new Intent(this, userreport.class);
         userReportIntent.putExtra("userReportId", 23);
-      //  ContextCompat.startForegroundService(this,userReportIntent );
+        ContextCompat.startForegroundService(this,userReportIntent );
 
         Intent notificationReceiverIntent = new Intent(this,notificationGeneratorBR.class);
         notificationReceiverIntent.putExtra("notifID", 191);
         alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
         alarmIntent = PendingIntent.getBroadcast(this, 1, notificationReceiverIntent, 0);
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(),50 * 1000, alarmIntent);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(), 90 * 1000, alarmIntent);
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if(!prefs.getBoolean("RunningRecurringNotification", false)) {
-            // run your one time code
-            Intent recurringNotificationIntent = new Intent(this,recurringNotificationGeneratorBR.class);
-            recurringNotificationIntent.putExtra("regularnotifID", 196);
-            alarmManager2 = (AlarmManager)getSystemService(ALARM_SERVICE);
-            alarmIntent2 = PendingIntent.getBroadcast(this, 2, recurringNotificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-            alarmManager2.setInexactRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(),2 * 60 * 60 * 1000, alarmIntent2);
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean("RunningRecurringNotification", true);
-            editor.apply();
-        }
+        Intent recurringNotificationIntent = new Intent(this,recurringNotificationGeneratorBR.class);
+        recurringNotificationIntent.putExtra("regularnotifID", 196);
+        alarmManager2 = (AlarmManager)getSystemService(ALARM_SERVICE);
+        alarmIntent2 = PendingIntent.getBroadcast(this, 2, recurringNotificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        alarmManager2.setInexactRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(),10 * 1000, alarmIntent2);
+
+//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+//        if(!prefs.getBoolean("RunningRecurringNotification", false)) {
+//            // run your one time code
+//            Intent recurringNotificationIntent = new Intent(this,recurringNotificationGeneratorBR.class);
+//            recurringNotificationIntent.putExtra("regularnotifID", 196);
+//            alarmManager2 = (AlarmManager)getSystemService(ALARM_SERVICE);
+//            alarmIntent2 = PendingIntent.getBroadcast(this, 2, recurringNotificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+//            alarmManager2.setInexactRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(),2 * 1000, alarmIntent2);
+//            SharedPreferences.Editor editor = prefs.edit();
+//            editor.putBoolean("RunningRecurringNotification", true);
+//            editor.apply();
+//        }
 
 
 
@@ -80,6 +87,8 @@ public class mainactivity extends AppCompatActivity {
         }
 
    }
+
+
     public void signup(View view) {
         Intent intent2= new Intent(this, signingup.class);
         startActivity(intent2);
@@ -95,14 +104,14 @@ public class mainactivity extends AppCompatActivity {
 
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (servicecheck.class.getName().equals(service.service.getClassName())) {
+            if (userreport.class.getName().equals(service.service.getClassName())) {
 //                Log.d("", "yes permanent service running");
                 return;
             }
             else{
 //                Log.d("", "No the permanent service isnt running");
 
-                Intent serviceCheckIntent = new Intent(this, servicecheck.class);
+                Intent serviceCheckIntent = new Intent(this, userreport.class);
                 ContextCompat.startForegroundService(this,serviceCheckIntent );
             }
         }

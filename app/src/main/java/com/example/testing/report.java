@@ -61,7 +61,7 @@ public class report  extends AppCompatActivity {
     public CandleStickChart chart1, chart2, chart3, chart4, chart5, chart6, chart7;
     public TextView text1, text2, text3, text4, text5, text6, text7, durationTextview, activityReport;
     public TextView sleepEndtime, bfEndtime, medicineEndtime, lunchEndtime, tvEndtime, dinnerEndtime, showerEndtime, endTimeTextview;
-    public TextView sleepState, showerState, bfState, medicationState, lunchState, tvState, dinnerState, stateTextview;
+    public TextView sleepState, showerState, bfState, medicationState, lunchState, tvState, dinnerState, stateTextview, overallLastResponse,overallLastResponseTime ;
     RadioButton sleep, shower, breakfast, lunch, dinner, medication, tv, overall;
     private RadioGroup sleepradio, showerradio, breakfastradio, medicationradio, lunchradio, tvradio, dinnerradio, thisRadiogp,overallradio;
     Button submitreport;
@@ -69,7 +69,7 @@ public class report  extends AppCompatActivity {
 
     ArrayList<HashMap<String, String>> contactList;
 
-    public CardView sleepCard, showerCard, bfCard, medicineCard, lunchCard, tvCard, dinnerCard, thisCard;
+    public CardView sleepCard, showerCard, bfCard, medicineCard, lunchCard, tvCard, dinnerCard, thisCard, overallCard;
 
     private final HashMap<String, TextView> durationtextHash = new HashMap<>();
 
@@ -171,6 +171,10 @@ public class report  extends AppCompatActivity {
         dinnerState = (TextView) findViewById(R.id.dinnerstatus);
         showerState = (TextView) findViewById(R.id.showerstatus);
 
+        overallLastResponse = (TextView) findViewById(R.id.overallLastResponse);
+        overallLastResponseTime = (TextView) findViewById(R.id.overallLastResponseTime);
+
+
         activitystateHash.put("Sleep", sleepState);
         activitystateHash.put("Bath", showerState);
         activitystateHash.put("Breakfast", bfState);
@@ -203,6 +207,7 @@ public class report  extends AppCompatActivity {
         lunchCard = (CardView) findViewById(R.id.lunchcard);
         tvCard = (CardView) findViewById(R.id.tvcard);
         dinnerCard = (CardView) findViewById(R.id.dinnercard);
+        overallCard = (CardView) findViewById(R.id.overallCard);
 
         cardHash.put("Sleep", sleepCard);
         cardHash.put("Bath", showerCard);
@@ -394,6 +399,13 @@ public class report  extends AppCompatActivity {
                     String dinnerresponsedate = preferences.getString("dinnerPrefdate_" + username + LocalDate.now(),"");
                     String dinnerresponse = preferences.getString("dinnerPrefresponse_" + username + LocalDate.now(),"");
 
+                    String overallusername = preferences.getString("overallPrefuser_" + username + LocalDate.now(),"");
+                    String overallmonitor = preferences.getString("overallPrefmonitor_" + username + LocalDate.now(), "");
+                    String overallresponsedate = preferences.getString("overallPrefdate_" + username + LocalDate.now(),"");
+                    String overallresponse = preferences.getString("overallPrefresponse_" + username + LocalDate.now(),"");
+                    String overallresponseTime = preferences.getString("overallPrefresponsetime_" + username + LocalDate.now(),"");
+
+
                     String thisdate = String.valueOf(LocalDate.now());
 
 
@@ -481,6 +493,20 @@ public class report  extends AppCompatActivity {
                     else {
 //                        Log.d("checking if date not same dinner shared preference   ", dinnerusername);
                     }
+                    if((thisdate.equals( overallresponsedate )) && username.equals(overallusername) && useremail.equals(overallmonitor)) {
+                        if ((preferences.contains("overallPrefresponse_" + username + LocalDate.now()))){
+//                            Log.d("checking dinner shared preference   ", dinnerresponse);
+                            overallLastResponse.setText("Last Response: " + overallresponse);
+
+                            overallLastResponseTime.setText("Last Response Time: " + overallresponseTime);
+
+
+                        }
+                    }
+                    else {
+//                        Log.d("checking if date not same dinner shared preference   ", dinnerusername);
+                    }
+
 
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Setting date format
 
@@ -903,10 +929,17 @@ public class report  extends AppCompatActivity {
 
                             ref.child(username).child("Overall").child(String.valueOf(overall.getText())).child(id).child(finalTimes).updateChildren(overallmap);
 
+                            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                            LocalDateTime now = LocalDateTime.now();
+                            String lastResponseTime = dtf.format(now);
+
                             editor.putString("overallPrefuser_" + username + LocalDate.now(), username);
                             editor.putString("overallPrefmonitor_" + username + LocalDate.now(), email);
                             editor.putString("overallPrefresponse_" + username + LocalDate.now(), String.valueOf(overall.getText()));
                             editor.putString("overallPrefdate_" + username + LocalDate.now(), String.valueOf(LocalDate.now()));
+                            editor.putString("overallPrefresponsetime_" + username + LocalDate.now(), lastResponseTime);
+
+                            editor.putString("lastResponse", String.valueOf(overall.getText()));
 
 
                             editor.apply(); //to get it back, need to do, preferences.getString("same key", )
