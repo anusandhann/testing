@@ -496,14 +496,15 @@ public class report  extends AppCompatActivity {
                     if((thisdate.equals( overallresponsedate )) && username.equals(overallusername) && useremail.equals(overallmonitor)) {
                         if ((preferences.contains("overallPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking dinner shared preference   ", dinnerresponse);
-                            overallLastResponse.setText("Last Response: " + overallresponse);
+                            overallLastResponse.setText(overallresponse);
 
-                            overallLastResponseTime.setText("Last Response Time: " + overallresponseTime);
-
-
+                            overallLastResponseTime.setText(overallresponseTime);
                         }
                     }
                     else {
+                        overallLastResponse.setText(R.string.overallResponsenotReportedYet);
+
+                        overallLastResponseTime.setText(R.string.overallResponsenotReportedYet);
 //                        Log.d("checking if date not same dinner shared preference   ", dinnerusername);
                     }
 
@@ -929,7 +930,7 @@ public class report  extends AppCompatActivity {
 
                             ref.child(username).child("Overall").child(String.valueOf(overall.getText())).child(id).child(finalTimes).updateChildren(overallmap);
 
-                            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
                             LocalDateTime now = LocalDateTime.now();
                             String lastResponseTime = dtf.format(now);
 
@@ -938,8 +939,6 @@ public class report  extends AppCompatActivity {
                             editor.putString("overallPrefresponse_" + username + LocalDate.now(), String.valueOf(overall.getText()));
                             editor.putString("overallPrefdate_" + username + LocalDate.now(), String.valueOf(LocalDate.now()));
                             editor.putString("overallPrefresponsetime_" + username + LocalDate.now(), lastResponseTime);
-
-                            editor.putString("lastResponse", String.valueOf(overall.getText()));
 
 
                             editor.apply(); //to get it back, need to do, preferences.getString("same key", )

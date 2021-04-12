@@ -1894,24 +1894,23 @@
                     android:layout_height="10dp"
                     />
 
-
                 <androidx.cardview.widget.CardView
                     android:id="@+id/overallCard"
                     android:layout_gravity="center"
                     android:layout_width="375dp"
-                    android:layout_height="500dp"
+                    android:layout_height="440dp"
                     app:cardBackgroundColor="@color/appTheme"
                     card_view:cardCornerRadius="4dp">
-
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
                         <LinearLayout
+
                             android:layout_width="375dp"
-                            android:layout_height="200dp"
-                            >
+                            android:layout_height="170dp"
+                            android:orientation="horizontal">
 
                             <TextView
                                 android:id="@+id/overallCardHeader"
@@ -1920,7 +1919,7 @@
                                 android:layout_marginStart="10dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginEnd="8dp"
-                                android:layout_marginBottom="150dp"
+                                android:layout_marginBottom="80dp"
                                 app:layout_constraintBottom_toTopOf="@id/overallCardHeader"
                                 android:text="@string/Overall"
                                 android:textStyle="bold"
@@ -1929,12 +1928,12 @@
 
                             <ImageView
                                 android:id="@+id/overall"
-                                android:layout_width="130dp"
-                                android:layout_height="170dp"
-                                android:layout_marginStart="75dp"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginEnd="3dp"
-                                android:layout_marginBottom="332dp"
+                                android:layout_width="150dp"
+                                android:layout_height="150dp"
+                                android:layout_marginStart="50dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="5dp"
+                                android:layout_marginBottom="10dp"
                                 android:contentDescription="@string/todo"
                                 android:textAlignment="center"
                                 app:srcCompat="@drawable/management" />
@@ -1943,80 +1942,114 @@
 
                         <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="150dp">
+                            android:layout_height="130dp"
+                            android:layout_marginTop="175dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:orientation="vertical">
 
                             <TextView
                                 android:id="@+id/overallTextview"
-                                android:layout_width="311dp"
-                                android:layout_height="165dp"
-
-                                android:layout_marginStart="31dp"
+                                android:layout_width="300dp"
+                                android:layout_height="120dp"
+                                android:layout_marginStart="30dp"
                                 android:layout_marginTop="5dp"
-                                android:layout_marginEnd="18dp"
-                                android:layout_marginBottom="99dp"
+                                android:layout_marginEnd="20dp"
+                                android:layout_marginBottom="50dp"
                                 android:fontFamily="sans-serif"
                                 android:textAlignment = "center"
                                 android:text="@string/OverallQuestion"
                                 android:textColor="@color/buttonText"
                                 android:textSize="30sp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.3"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/overallCardHeader"
-                                app:layout_constraintVertical_bias="0.019"
                                 tools:ignore="NotSibling" />
 
+                        </LinearLayout>
+
+                        <LinearLayout
+
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_marginTop="320dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginBottom="15dp"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/overallLastResponse"
-                                android:layout_width="310dp"
-                                android:layout_height="wrap_content"
-
-                                android:layout_marginStart="-350dp"
-                                android:layout_marginTop="150dp"
-                                android:layout_marginEnd="150dp"
-                                android:layout_marginBottom="40dp"
-                                android:fontFamily="sans-serif"
-                                android:textAlignment="viewStart"
-                                android:textColor="@color/black"
-                                android:textSize="20sp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.3"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/overallCardHeader"
-                                app:layout_constraintVertical_bias="0.019"
-                                tools:ignore="NotSibling" />
-
-                            <TextView
-                                android:id="@+id/overallLastResponseTime"
-                                android:layout_width="310dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="-450dp"
-                                android:layout_marginTop="250dp"
-                                android:layout_marginEnd="150dp"
+                                android:id="@+id/overallLastResponseHeader"
+                                android:layout_width="150dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginEnd="5dp"
+                                android:text="@string/lastResponse"
                                 android:layout_marginBottom="10dp"
                                 android:fontFamily="sans-serif"
                                 android:textAlignment="viewStart"
                                 android:textColor="@color/black"
-                                android:textSize="18sp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.3"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/overallCardHeader"
-                                app:layout_constraintVertical_bias="0.019"
-                                tools:ignore="NotSibling" />
+                                android:textStyle="bold"
+                                android:textSize="16sp"/>
+
+                            <TextView
+                                android:id="@+id/overallLastResponseTimeHeader"
+                                android:layout_width="200dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="0dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginEnd="5dp"
+                                android:text="@string/lastResponseTime"
+                                android:layout_marginBottom="10dp"
+                                android:fontFamily="sans-serif"
+                                android:textAlignment="viewStart"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:textSize="16sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+
+                            android:layout_width="match_parent"
+                            android:layout_height="70dp"
+                            android:layout_marginTop="360dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/overallLastResponse"
+                                android:layout_width="150dp"
+                                android:layout_height="60dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginEnd="5dp"
+                                android:layout_marginBottom="10dp"
+                                android:fontFamily="sans-serif"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/buttonText"
+                                android:textSize="16sp"/>
+
+                            <TextView
+                                android:id="@+id/overallLastResponseTime"
+                                android:layout_width="200dp"
+                                android:layout_height="60dp"
+                                android:layout_marginStart="0dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginEnd="5dp"
+                                android:layout_marginBottom="10dp"
+                                android:fontFamily="sans-serif"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/buttonText"
+                                android:textSize="16sp" />
                         </LinearLayout>
 
 
                     </RelativeLayout>
 
                 </androidx.cardview.widget.CardView>
-
-
 
                 <RadioGroup
 

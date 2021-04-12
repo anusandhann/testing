@@ -57,6 +57,10 @@
     <string name="activityIncomplete">Incomplete</string>
     <string name="hrs"> Hrs</string>
     <string name="mins"> Min</string>
+    <string name = "lastResponse">Your last Response</string>
+    <string name = "lastResponseTime">Your last Response Time</string>
+    <string name="overallResponsenotReportedYet">Not reported yet</string>
+
     <!--    Text in cards-->
 
     <!--    Target names-->
