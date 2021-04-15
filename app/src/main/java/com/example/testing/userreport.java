@@ -378,6 +378,7 @@ public class userreport extends JobIntentService {
 
     private void showsNotification(String nTime, String user, String whichActivity) {
 
+
         createNotificationChannel2();
 
         String abNotificationTime = String.valueOf(Calendar.getInstance().getTime());
@@ -414,7 +415,6 @@ public class userreport extends JobIntentService {
 
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_2_ID)
-
                 .setContentText(getString(R.string.pleaseCheck) + targetName + getString(R.string.whoFinished)+ whichActivity + getString(R.string.activity))
                 .setSmallIcon(R.drawable.ic_stat_name)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -427,6 +427,7 @@ public class userreport extends JobIntentService {
 
         //notifManager.notify(12, notification);
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
 
         //checking current time, and comparing it to received time from method call, if same send
 

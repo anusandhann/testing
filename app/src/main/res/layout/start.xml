@@ -8,49 +8,47 @@
     android:screenOrientation="portrait"
     tools:context="com.example.testing.mainactivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginTop="150dp"
+        android:orientation="vertical">
+
     <Button
         android:id="@+id/signin"
         android:layout_width="fill_parent"
-        android:layout_height="118dp"
+        android:layout_height="120dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="#954C4C"
+        android:background="@color/appTheme"
         android:text="@string/sign_in"
         android:onClick="signin"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/buttonText"
         android:textSize="30sp"
         android:fontFamily="sans-serif"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.662"
         tools:ignore="OnClick" />
 
     <Button
         android:id="@+id/signup"
         android:layout_width="fill_parent"
-        android:layout_height="114dp"
+        android:layout_height="120dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="#954C4C"
+        android:background="@color/appTheme"
         android:fontFamily="sans-serif"
         android:text="@string/sign_up"
         android:onClick="signup"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/buttonText"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.339"
         tools:ignore="OnClick" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

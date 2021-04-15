@@ -21,9 +21,9 @@
     <!--    Notification-->
     <string name="temporary">Temporary</string>
     <string name="activitybasedNotification">Reminding users</string>
-    <string name="pleaseCheck">Please Check, \u0020</string>
-    <string name="whoFinished">\u0020 -san just finished \u0020</string>
-    <string name="activity"> \u0020 activity.</string>
+    <string name="pleaseCheck">Please Check,\u0020</string>
+    <string name="whoFinished">\u0020-san just finished\u0020</string>
+    <string name="activity">\u0020activity.</string>
     <string name="recurringnotificationHeader">Please check recent activity of the elderly.</string>
     <string name="recurringnotificationChannel">Recurring Notification</string>
     <string name="contantNotificationDot">Contant Notification dot</string>
@@ -40,23 +40,23 @@
     <!--Warnings-->
 
     <!--    Text in cards-->
-    <string name="Sleep">Sleep</string>
-    <string name="Breakfast">Breakfast</string>
-    <string name="Medicine">Medicine</string>
-    <string name="Lunch">Lunch</string>
+    <string name="sleep">Sleep</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="medicine">Medicine</string>
+    <string name="lunch">Lunch</string>
     <string name= "tvpc">TV/PC</string>
-    <string name="Dinner">Dinner</string>
-    <string name="Shower">Shower</string>
-    <string name="Overall">Overall</string>
+    <string name="dinner">Dinner</string>
+    <string name="shower">Shower</string>
+    <string name="overall">Overall</string>
     <string name="OverallQuestion">What do you think is the overall status of the elderly?</string>
     <string name="currentStatus">Current Status</string>
     <string name="endtime">End Time</string>
     <string name="duration">Duration</string>
-    <string name="minutes"> Minutes</string>
+    <string name="minutes">\u0020Minutes</string>
     <string name="activityComplete">Complete</string>
     <string name="activityIncomplete">Incomplete</string>
-    <string name="hrs"> Hrs</string>
-    <string name="mins"> Min</string>
+    <string name="hrs">\u0020Hrs</string>
+    <string name="mins">\u0020Min</string>
     <string name = "lastResponse">Your last Response</string>
     <string name = "lastResponseTime">Your last Response Time</string>
     <string name="overallResponsenotReportedYet">Not reported yet</string>
