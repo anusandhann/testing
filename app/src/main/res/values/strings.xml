@@ -21,9 +21,9 @@
     <!--    Notification-->
     <string name="temporary">Temporary</string>
     <string name="activitybasedNotification">Reminding users</string>
-    <string name="pleaseCheck">Please Check,</string>
-    <string name="whoFinished">-san just finished  </string>
-    <string name="activity"> activity.</string>
+    <string name="pleaseCheck">Please Check, \u0020</string>
+    <string name="whoFinished">\u0020 -san just finished \u0020</string>
+    <string name="activity"> \u0020 activity.</string>
     <string name="recurringnotificationHeader">Please check recent activity of the elderly.</string>
     <string name="recurringnotificationChannel">Recurring Notification</string>
     <string name="contantNotificationDot">Contant Notification dot</string>

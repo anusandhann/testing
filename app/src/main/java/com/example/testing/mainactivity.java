@@ -79,7 +79,7 @@ public class mainactivity extends AppCompatActivity {
             Intent i = new Intent(this, select.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
-//            Log.d(TAG, "logged in");
+            Log.d(TAG, "logged in -> " + user.getEmail());
 
         } else {
             // User is signed out

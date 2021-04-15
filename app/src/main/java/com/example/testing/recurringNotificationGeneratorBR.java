@@ -56,7 +56,7 @@ public class recurringNotificationGeneratorBR extends BroadcastReceiver {
         NotificationCompat.Builder notif = new NotificationCompat.Builder(context, CHANNEL_RecurringNotification_ID);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(context, UUID.randomUUID().hashCode(), recurringIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-       // Log.e(TAG, "checkingIntent    : " + recurringIntent.getStringExtra("recurring_notificationTime"));
+        Log.e(TAG, "checkingIntent    : " + recurringIntent.getStringExtra("recurring_notificationTime"));
 
       //  Log.e(TAG, "checkingNotOpenTime     : " + currentTime);
 
