@@ -1,18 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
-    android:background="@drawable/theme3"
     android:screenOrientation="portrait">
 
-    <Button
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="115dp"
+        android:orientation="horizontal"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:background="@color/appTheme"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="2dp"
+            android:textColor="@color/buttonText"
+            android:background="@color/appTheme"
+            android:text="@string/app_name"
+            android:textStyle="bold"
+            android:textSize="44sp"
+            android:textAlignment="center"
+            android:fontFamily="@font/textfont"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+        </TextView>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+        </Space>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:background="@color/appTheme"
+            android:src="@drawable/icon">
+
+        </ImageView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/thankyouimage"
+            android:layout_width="fill_parent"
+            android:layout_height="350dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+
+            app:srcCompat="@drawable/thanks_after_reporting" />
+
+        <Button
         android:id="@+id/goback"
         android:layout_width="fill_parent"
-        android:layout_height="62dp"
-        android:layout_marginBottom="196dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="10dp"
         android:background="#954C4C"
         android:fontFamily="sans-serif"
         android:gravity="center"
@@ -21,43 +86,10 @@
         android:onClick="goback"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/buttonText"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.454"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="30sp" />
 
-    <ImageView
-        android:id="@+id/thankyouimage"
-        android:layout_width="fill_parent"
-        android:layout_height="264dp"
-        app:layout_constraintBottom_toTopOf="@+id/goback"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.555"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.805"
-        app:srcCompat="@drawable/thanks3" />
+    </LinearLayout>
 
+    </LinearLayout>
 
-    <!--    <Button-->
-<!--        android:id="@+id/thankyou"-->
-<!--        android:layout_width="fill_parent"-->
-<!--        android:layout_height="80dp"-->
-<!--        android:background="#954C4C"-->
-<!--        android:fontFamily="sans-serif"-->
-<!--        android:gravity="center"-->
-<!--        android:orientation="vertical"-->
-<!--        android:text="Thank you for reporting!!"-->
-<!--        android:textAppearance="@style/TextAppearance.AppCompat.Medium"-->
-<!--        android:textColor="@color/buttonText"-->
-<!--        android:textSize="30sp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.454"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.424" />-->
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>

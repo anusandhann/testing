@@ -1,90 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/theme3"
     android:screenOrientation="portrait"
     tools:context="com.example.testing.select">
 
-    <Button
-        android:id="@+id/select"
-        android:layout_width="fill_parent"
-        android:layout_height="62dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="#954C4C"
-        android:fontFamily="sans-serif"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:text="@string/SelectTarget"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/buttonText"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.213" />
+    <LinearLayout
 
-    <ScrollView
-        android:id = "@+id/scroll"
-        android:layout_width="fill_parent"
-        android:layout_height="506dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/select">
+        android:layout_width="match_parent"
+        android:layout_height="115dp"
+        android:orientation="horizontal"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:background="@color/appTheme">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="2dp"
+            android:textColor="@color/buttonText"
+            android:background="@color/appTheme"
+            android:text="@string/app_name"
+            android:textStyle="bold"
+            android:textSize="44sp"
+            android:textAlignment="center"
+            android:fontFamily="@font/textfont"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+        </TextView>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+        </Space>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:background="@color/appTheme"
+            android:src="@drawable/icon">
+
+        </ImageView>
+
+    </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_marginTop="130dp"
+            android:orientation="vertical">
 
-            <ListView
-                android:id="@+id/list"
+            <Button
+                android:id="@+id/select"
                 android:layout_width="match_parent"
-                android:layout_height="521dp"
+                android:layout_height="65dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:backgroundTint="#8B1F1F"
+                android:background="#954C4C"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:text="@string/SelectTarget"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/buttonText"
+                android:textSize="30sp" />
+
+            <ListView
+                android:id="@+id/list"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:divider="#252424"
                 android:dividerHeight="1dp"
                 android:listSelector="#03525C"
                 android:textAlignment="center">
             </ListView>
-        </LinearLayout>
-    </ScrollView>
-<!--    <Button-->
-<!--        android:id="@+id/signout"-->
-<!--        android:layout_width="fill_parent"-->
-<!--        android:layout_height="62dp"-->
-<!--        android:layout_marginStart="8dp"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:layout_marginEnd="8dp"-->
-<!--        android:layout_marginBottom="8dp"-->
-<!--        android:background="#954C4C"-->
-<!--        android:fontFamily="serif"-->
-<!--        android:gravity="center"-->
-<!--        android:orientation="vertical"-->
-<!--        android:text="Signout"-->
-<!--        android:onClick="signout"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/select"-->
-<!--        android:textAppearance="@style/TextAppearance.AppCompat.Medium"-->
-<!--        android:textColor="#0F1010"-->
-<!--        android:textSize="30sp" />-->
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+        android:id="@+id/signout"
+        android:layout_width="fill_parent"
+        android:layout_height="65dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="#954C4C"
+        android:fontFamily="serif"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:text="@string/sign_out"
+        android:onClick="signout"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/buttonText"
+        android:textSize="30sp" />
+
+        </LinearLayout>
+</RelativeLayout>

@@ -5,10 +5,12 @@
 
     <string name="sign_in">Sign in</string>
     <string name="sign_up">Sign up</string>
+    <string name="sign_out">Sign out</string>
     <string name ="notMemberYet">Not a member yet? Sign up</string>
     <string name="EnterEmail">Enter Email</string>
     <string name="EnterPassword">Enter Password</string>
     <string name="AlreadyRegistered">Already registered? Click here to Sign in</string>
+
 
     <!--    registering and loggin in-->
 
