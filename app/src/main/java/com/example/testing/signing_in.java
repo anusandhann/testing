@@ -3,7 +3,6 @@ package com.example.testing;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -19,7 +18,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class signingin extends AppCompatActivity {
+public class signing_in extends AppCompatActivity {
     private EditText emailinput, passwordinput;
     private FirebaseAuth firebaseauth;
 
@@ -64,17 +63,17 @@ public class signingin extends AppCompatActivity {
                     return;
                 }
                 firebaseauth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(signingin.this, new OnCompleteListener<AuthResult>() {
+                        .addOnCompleteListener(signing_in.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
 
                                 if (!task.isSuccessful()) {
                                     // there was an error
                                     {
-                                        Toast.makeText(signingin.this, getResources().getString(R.string.enterDetailsCorrectly), Toast.LENGTH_LONG).show();
+                                        Toast.makeText(signing_in.this, getResources().getString(R.string.enterDetailsCorrectly), Toast.LENGTH_LONG).show();
                                     }
                                 } else {
-                                    Intent intent = new Intent(signingin.this, select.class);
+                                    Intent intent = new Intent(signing_in.this, select.class);
                                     startActivity(intent);
                                     finish();
                                 }
@@ -84,13 +83,13 @@ public class signingin extends AppCompatActivity {
         });
     }
     public void signup(View view) {
-        Intent intent= new Intent(this, signingup.class);
+        Intent intent= new Intent(this, signing_up.class);
         startActivity(intent);
     }
     @Override
     public void onBackPressed() {
 //        Log.d("CDA", "onBackPressed Called");
-        Intent setIntent = new Intent(this, mainactivity.class);
+        Intent setIntent = new Intent(this, MainActivity.class);
         setIntent.addCategory(Intent.CATEGORY_HOME);
         setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(setIntent);

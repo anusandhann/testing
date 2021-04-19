@@ -21,7 +21,7 @@
             android:screenOrientation = "portrait"/>
 
         <activity
-            android:name=".mainactivity"
+            android:name=".MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,11 +35,11 @@
         </activity>
 
         <activity
-            android:name=".signingup"
+            android:name=".signing_up"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".signingin"
+            android:name=".signing_in"
             android:screenOrientation="portrait" />
 
         <activity android:name=".HttpHandler"/>
@@ -65,12 +65,12 @@
 
         <service android:name=".servicecheck" />
 
-        <receiver android:name=".recurringnotification"
+        <receiver android:name=".recurringNotification"
             android:exported="false"
             android:enabled="true"
             android:permission="android.permission.BIND_JOB_SERVICE"/>
 
-        <service android:name=".userreport"
+        <service android:name=".userReport"
             android:exported="false"
             android:enabled="true"
             android:permission="android.permission.BIND_JOB_SERVICE">

@@ -2,42 +2,31 @@ package com.example.testing;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
-import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
-import android.app.job.JobParameters;
-import android.app.job.JobService;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.JobIntentService;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,7 +37,7 @@ import java.util.UUID;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
-public class userreport extends JobIntentService {
+public class userReport extends JobIntentService {
     public static final String CHANNEL_2_ID = "channel2";
     public static final String CHANNEL_delete_ID = "deletethischannel";
     public static final String CHANNEL_recurring_ID = "recurringNotification";
@@ -60,8 +49,8 @@ public class userreport extends JobIntentService {
     Context context;
 
     public static void enqueueWork(Context context, Intent intent) {
-        enqueueWork(context, userreport.class,notification_id,intent);
-//        Log.d(TAG, "enqueueWork: userreport");
+        enqueueWork(context, userReport.class,notification_id,intent);
+//        Log.d(TAG, "enqueueWork: userReport");
     }
 
     @Override
@@ -75,7 +64,7 @@ public class userreport extends JobIntentService {
         super.onCreate();
         context = getBaseContext();
         notifManager = NotificationManagerCompat.from(this);
-//        Log.d(TAG, "onCreate: userreport");
+//        Log.d(TAG, "onCreate: userReport");
     }
 
     @Override
@@ -86,7 +75,7 @@ public class userreport extends JobIntentService {
         getActivityData task = new getActivityData();
         task.execute();
 
-        String input = intent.getStringExtra("userreport");
+        String input = intent.getStringExtra("userReport");
 
         createNotificationChannel();
 

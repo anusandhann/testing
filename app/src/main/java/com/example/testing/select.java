@@ -1,30 +1,22 @@
 package com.example.testing;
 
-import android.app.ActivityManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Calendar;
 
 public class select extends AppCompatActivity {
@@ -42,7 +34,7 @@ public class select extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.select);
+        setContentView(R.layout.select_target);
 
         firebaseauth= FirebaseAuth.getInstance();
         fbauth =new FirebaseAuth.AuthStateListener(){
@@ -50,7 +42,7 @@ public class select extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
                 FirebaseUser user= firebaseAuth.getCurrentUser();
                 if (user == null){
-                    startActivity(new Intent(select.this, mainactivity.class));
+                    startActivity(new Intent(select.this, MainActivity.class));
                     finish();
                 }
                 else
@@ -171,7 +163,7 @@ public class select extends AppCompatActivity {
     }
 
     public void signout(View view) {
-        Intent intent = new Intent(this, mainactivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         firebaseauth.signOut();
         startActivity(intent);
     }

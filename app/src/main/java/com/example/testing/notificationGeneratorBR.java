@@ -7,7 +7,6 @@ import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.RequiresApi;
-import androidx.core.content.ContextCompat;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -19,8 +18,8 @@ public class notificationGeneratorBR extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         Log.d(TAG, "this receiver for usereport works");
-//        userreport.enqueueWork(context, new Intent());
-        Intent intent1 = new Intent(context,userreport.class);
+//        userReport.enqueueWork(context, new Intent());
+        Intent intent1 = new Intent(context, userReport.class);
         context.startForegroundService(intent1);
     }
 }

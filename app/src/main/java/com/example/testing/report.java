@@ -20,7 +20,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -37,20 +36,15 @@ import com.github.mikephil.charting.data.CandleEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -246,15 +240,15 @@ public class report  extends AppCompatActivity {
         Intent passedIntent = getIntent();
         userStr = passedIntent.getStringExtra("user");
 
-        //why do i need to call userreport class in this class..doesnt work if i dont!!
-        Intent userReportIntent = new Intent(this, userreport.class);
+        //why do i need to call userReport class in this class..doesnt work if i dont!!
+        Intent userReportIntent = new Intent(this, userReport.class);
         userReportIntent.putExtra("user", userStr);
         ContextCompat.startForegroundService(this,userReportIntent );
 
-        Intent recurringNotifIntent = new Intent(this, recurringnotification.class);
+        Intent recurringNotifIntent = new Intent(this, recurringNotification.class);
         ContextCompat.startForegroundService(this,recurringNotifIntent );
 
-//        startService(new Intent(this, userreport.class));
+//        startService(new Intent(this, userReport.class));
 //        Log.d("", "service running check which might be the cause for error");
 
     }
@@ -285,14 +279,14 @@ public class report  extends AppCompatActivity {
 
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (userreport.class.getName().equals(service.service.getClassName())) {
+            if (userReport.class.getName().equals(service.service.getClassName())) {
 //                Log.d("", "checking from report class: yes it is running");
                 return;
             }
             else{
 //                Log.d("", "checking from report class: No the service isnt running");
 
-                Intent userReportIntent = new Intent(this, userreport.class);
+                Intent userReportIntent = new Intent(this, userReport.class);
                 ContextCompat.startForegroundService(this,userReportIntent );
             }
         }
@@ -519,7 +513,7 @@ public class report  extends AppCompatActivity {
                     LocalDate today = LocalDate.now();
                     LocalTime currentTime = LocalTime.now();
 
-                    //this index helps to start the graph at a aprticular date: pref after 3 days of data. Is in 2 places, userreport 232
+                    //this index helps to start the graph at a aprticular date: pref after 3 days of data. Is in 2 places, userReport 232
                     int enddateindex = (today.getDayOfYear() % (datearray.size()-2) + 1);
                     String activitydur = durarray.get(enddateindex);
 

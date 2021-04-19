@@ -5,9 +5,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -22,7 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Calendar;
 
-public class mainactivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     private PendingIntent alarmIntent, alarmIntent2;
     AlarmManager alarmManager, alarmManager2;
     private NotificationManagerCompat notManager;
@@ -32,7 +30,7 @@ public class mainactivity extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.start);
+        setContentView(R.layout.start_screen);
 
         isMyServiceRunning();
 
@@ -41,7 +39,7 @@ public class mainactivity extends AppCompatActivity {
         notificationIntent.putExtra("serviceCheck", 32);
        // ContextCompat.startForegroundService(this,notificationIntent );
 
-        Intent userReportIntent = new Intent(this, userreport.class);
+        Intent userReportIntent = new Intent(this, userReport.class);
         userReportIntent.putExtra("userReportId", 23);
         ContextCompat.startForegroundService(this,userReportIntent );
 
@@ -90,12 +88,12 @@ public class mainactivity extends AppCompatActivity {
 
 
     public void signup(View view) {
-        Intent intent2= new Intent(this, signingup.class);
+        Intent intent2= new Intent(this, signing_up.class);
         startActivity(intent2);
     }
 
     public void signin(View view) {
-        Intent intent= new Intent(this, signingin.class);
+        Intent intent= new Intent(this, signing_in.class);
         startActivity(intent);
 
     }
@@ -104,14 +102,14 @@ public class mainactivity extends AppCompatActivity {
 
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (userreport.class.getName().equals(service.service.getClassName())) {
+            if (userReport.class.getName().equals(service.service.getClassName())) {
 //                Log.d("", "yes permanent service running");
                 return;
             }
             else{
 //                Log.d("", "No the permanent service isnt running");
 
-                Intent serviceCheckIntent = new Intent(this, userreport.class);
+                Intent serviceCheckIntent = new Intent(this, userReport.class);
                 ContextCompat.startForegroundService(this,serviceCheckIntent );
             }
         }

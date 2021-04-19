@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class signingup extends Activity {
+public class signing_up extends Activity {
     private FirebaseAuth firebaseAuth;
     private EditText emailinput, passwordinput;
     private Button buttonsignup;
@@ -27,7 +27,7 @@ public class signingup extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.signingup);
+        setContentView(R.layout.activity_signup);
 
         firebaseAuth = FirebaseAuth.getInstance();
         buttonsignup = (Button) findViewById(R.id.buttonsignup);
@@ -53,17 +53,17 @@ public class signingup extends Activity {
                     return;
                 }
 
-                firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(signingup.this, new OnCompleteListener<AuthResult>() {
+                firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(signing_up.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete( Task<AuthResult> task) {
-//                        Toast.makeText(signingup.this, "User Created -> " + "" + task.isSuccessful(), Toast.LENGTH_LONG).show();
+//                        Toast.makeText(signing_up.this, "User Created -> " + "" + task.isSuccessful(), Toast.LENGTH_LONG).show();
 
                         if (!task.isSuccessful()) {
-                            Toast.makeText(signingup.this, getResources().getString(R.string.pleaseTryAgain), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(signing_up.this, getResources().getString(R.string.pleaseTryAgain), Toast.LENGTH_SHORT).show();
                         } else {
 
                             adduser();
-                            Intent intent = new Intent(signingup.this, mainactivity.class);
+                            Intent intent = new Intent(signing_up.this, MainActivity.class);
                             startActivity(intent);
                         }
                     }
@@ -85,14 +85,14 @@ public class signingup extends Activity {
 
     }
     public void loginoption(View view) {
-        Intent intent = new Intent(signingup.this, signingin.class);
+        Intent intent = new Intent(signing_up.this, signing_in.class);
         startActivity(intent);
     }
 
     @Override
     public void onBackPressed() {
 //        Log.d("CDA", "onBackPressed Called");
-        Intent setIntent = new Intent(this, mainactivity.class);
+        Intent setIntent = new Intent(this, MainActivity.class);
         setIntent.addCategory(Intent.CATEGORY_HOME);
         setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(setIntent);

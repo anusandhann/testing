@@ -47,7 +47,7 @@ import java.util.Objects;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
-public class recurringnotification extends BroadcastReceiver {
+public class recurringNotification extends BroadcastReceiver {
 
     public static final String CHANNEL_recurring_ID = "recurringNotification";
 
