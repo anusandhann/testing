@@ -2,9 +2,10 @@
   <library name="Gradle: androidx.work:work-rxjava2:2.5.0@aar">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/4d22c6353d5c433b9c757e2d146ff8ba/work-rxjava2-2.5.0/res" />
-      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/228ac1899e5476f3e0e3395010313d39/work-rxjava2-2.5.0/AndroidManifest.xml" />
       <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/228ac1899e5476f3e0e3395010313d39/work-rxjava2-2.5.0/res" />
-      <root url="jar://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/228ac1899e5476f3e0e3395010313d39/work-rxjava2-2.5.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/10fef8efbcdce34a2e7b307d1ab3fe03/work-rxjava2-2.5.0/res" />
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/10fef8efbcdce34a2e7b307d1ab3fe03/work-rxjava2-2.5.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/10fef8efbcdce34a2e7b307d1ab3fe03/work-rxjava2-2.5.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

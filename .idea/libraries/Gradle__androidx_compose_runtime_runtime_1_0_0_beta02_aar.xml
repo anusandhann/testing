@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.compose.runtime:runtime:1.0.0-beta02@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/f6f7d3ef70b72974f13c5e11b968ec77/jetified-runtime-1.0.0-beta02/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/f6f7d3ef70b72974f13c5e11b968ec77/jetified-runtime-1.0.0-beta02/res" />
-      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/f6f7d3ef70b72974f13c5e11b968ec77/jetified-runtime-1.0.0-beta02/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/c1882d23a07abdbcf9c8d4b6671fac57/jetified-runtime-1.0.0-beta02/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/c1882d23a07abdbcf9c8d4b6671fac57/jetified-runtime-1.0.0-beta02/res" />
+      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/c1882d23a07abdbcf9c8d4b6671fac57/jetified-runtime-1.0.0-beta02/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

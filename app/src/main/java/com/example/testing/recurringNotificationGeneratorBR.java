@@ -79,6 +79,7 @@ public class recurringNotificationGeneratorBR extends BroadcastReceiver {
         else {
 
             manager.notify(123456, notif.build());
+            Log.e("Recurring Notification", String.valueOf(Calendar.getInstance().getTime()));
 
         }
 

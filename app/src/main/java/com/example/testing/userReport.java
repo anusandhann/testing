@@ -199,7 +199,6 @@ public class userReport extends JobIntentService {
                                 userList.add(activityMap.get("user"));
                                 endtimeList2.add(activityMap.get("end_time"));
 
-
                             }
 
                             // Correct the format of the start times in the start time list
@@ -232,7 +231,7 @@ public class userReport extends JobIntentService {
 
                             //to get the end time of activities for each day for all users
                             LocalDate today = LocalDate.now();
-                            int enddateindex = (today.getDayOfYear() % (dateList.size() - 2)+ 1);
+                            int enddateindex = (today.getDayOfYear() % (dateList.size() - 2)+ 2);
 
                             String endOfEachForToday = endtimeList.get(enddateindex);  //this is the end time of each activity for one particular day, the day defined by the index
 

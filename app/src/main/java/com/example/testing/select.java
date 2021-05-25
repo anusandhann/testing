@@ -26,7 +26,7 @@ public class select extends AppCompatActivity {
 
 
     ListView simpleList;
-    String[] targetList = {"","Taro", "Watanabe", "Yamazaki"};
+    String[] targetList = {"", "Taro", "Watanabe", "Yamazaki"};
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)

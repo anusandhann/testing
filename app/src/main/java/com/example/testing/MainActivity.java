@@ -5,7 +5,9 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -49,24 +51,24 @@ public class MainActivity extends AppCompatActivity {
         alarmIntent = PendingIntent.getBroadcast(this, 1, notificationReceiverIntent, 0);
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(), 90 * 1000, alarmIntent);
 
-        Intent recurringNotificationIntent = new Intent(this,recurringNotificationGeneratorBR.class);
-        recurringNotificationIntent.putExtra("regularnotifID", 196);
-        alarmManager2 = (AlarmManager)getSystemService(ALARM_SERVICE);
-        alarmIntent2 = PendingIntent.getBroadcast(this, 2, recurringNotificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-        alarmManager2.setInexactRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(),10 * 1000, alarmIntent2);
+//        Intent recurringNotificationIntent = new Intent(this,recurringNotificationGeneratorBR.class);
+//        recurringNotificationIntent.putExtra("regularnotifID", 196);
+//        alarmManager2 = (AlarmManager)getSystemService(ALARM_SERVICE);
+//        alarmIntent2 = PendingIntent.getBroadcast(this, 2, recurringNotificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+//        alarmManager2.setInexactRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(),10 * 1000, alarmIntent2);
 
-//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-//        if(!prefs.getBoolean("RunningRecurringNotification", false)) {
-//            // run your one time code
-//            Intent recurringNotificationIntent = new Intent(this,recurringNotificationGeneratorBR.class);
-//            recurringNotificationIntent.putExtra("regularnotifID", 196);
-//            alarmManager2 = (AlarmManager)getSystemService(ALARM_SERVICE);
-//            alarmIntent2 = PendingIntent.getBroadcast(this, 2, recurringNotificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-//            alarmManager2.setInexactRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(),2 * 1000, alarmIntent2);
-//            SharedPreferences.Editor editor = prefs.edit();
-//            editor.putBoolean("RunningRecurringNotification", true);
-//            editor.apply();
-//        }
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if(!prefs.getBoolean("RunningRecurringNotification", false)) {
+            // run your one time code
+            Intent recurringNotificationIntent = new Intent(this,recurringNotificationGeneratorBR.class);
+            recurringNotificationIntent.putExtra("regularnotifID", 196);
+            alarmManager2 = (AlarmManager)getSystemService(ALARM_SERVICE);
+            alarmIntent2 = PendingIntent.getBroadcast(this, 2, recurringNotificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+            alarmManager2.setInexactRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(),2 * 1000, alarmIntent2);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("RunningRecurringNotification", true);
+            editor.apply();
+        }
 
 
 

@@ -503,9 +503,9 @@ public class report  extends AppCompatActivity {
                     }
 
 
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Setting date format
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Setting date format //for graph
 
-                    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // Setting time format
+                    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // Setting time format //for notification <time check to send notification>
 
                     assert datearray != null;
                     LocalDate startDate = LocalDate.parse(datearray.get(0));
@@ -513,8 +513,8 @@ public class report  extends AppCompatActivity {
                     LocalDate today = LocalDate.now();
                     LocalTime currentTime = LocalTime.now();
 
-                    //this index helps to start the graph at a aprticular date: pref after 3 days of data. Is in 2 places, userReport 232
-                    int enddateindex = (today.getDayOfYear() % (datearray.size()-2) + 1);
+                    //this index helps to start the graph at a aprticular date: pref after 3 days of data. Is in 2 places, userReport 234
+                    int enddateindex = (today.getDayOfYear() % (datearray.size()-2) + 2);
                     String activitydur = durarray.get(enddateindex);
 
 //                    Log.d("activitydur", String.valueOf(activitydur));
@@ -559,7 +559,8 @@ public class report  extends AppCompatActivity {
                         String durationOfActivity = Long.parseLong(activitydur) / 60 % 24 + getString(R.string.hrs) + " & " + Long.parseLong(activitydur) % 60 + getString(R.string.mins);
                         assert durationTextview != null;
 
-                        assert endtimeArray != null;
+                        assert endarray != null;
+                        assert endtimeArray2 != null;
                         String actvTime = endtimeArray.get(enddateindex);
                        // Log.d("compareactivitytime", (actvTime));
 
@@ -567,19 +568,15 @@ public class report  extends AppCompatActivity {
                         LocalDateTime lct = LocalDateTime.parse(actvTime, timeFormatter);
                         LocalTime actTime = lct.toLocalTime(); //get activity completion time in localtime format
 
-
                         String endtimeText = endtimeArray2.get(enddateindex);
 
                         if (currentTime.isAfter(actTime)) {
-
 
                                 thisCard.setCardBackgroundColor(getColor(R.color.trafficYellow));
                                 drawchart(modStartArray, modEndArray, activityType);
                                 durationTextview.setText(durationOfActivity);
                                 endTimeTextview.setText(endtimeText);
                                 stateTextview.setText(getString(R.string.activityComplete));
-
-
                         }
                         else {
 
@@ -589,8 +586,6 @@ public class report  extends AppCompatActivity {
                             durationTextview.setVisibility(View.GONE);
                             endTimeTextview.setVisibility(View.GONE);
                             stateTextview.setText(getString(R.string.activityIncomplete));
-
-
                         }
                     }
                     else {
@@ -600,18 +595,18 @@ public class report  extends AppCompatActivity {
 
                        // Log.d("durationOfActivity", String.valueOf(durationOfActivity));
 
-                        assert endtimeArray != null;
+                        assert endtimeArray2 != null;
                         String actvTime = endtimeArray.get(enddateindex);
-                      //  Log.d("compareactivitytime2", (actvTime));
+//                        Log.d("compareactivitytime2", (actvTime));
 
                         LocalDateTime lct = LocalDateTime.parse(actvTime,timeFormatter);
                         LocalTime actTime = lct.toLocalTime(); //get activity completion time in localtime format
 
+//                        Log.e(TAG, "onReceive: parsing error checking ->  " +lct);
+
                         String endtimeText = endtimeArray2.get(enddateindex);
 
                         if(currentTime.isAfter(actTime)){
-
-
                                 thisCard.setCardBackgroundColor(getColor(R.color.trafficYellow));
                                 durationTextview.setText(activitydur + getString(R.string.minutes));
                                 endTimeTextview.setText(endtimeText);
