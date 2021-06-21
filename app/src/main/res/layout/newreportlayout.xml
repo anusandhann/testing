@@ -172,6 +172,7 @@
                                     tools:ignore="NotSibling">
 
                                 </com.github.mikephil.charting.charts.CandleStickChart>
+
                             </LinearLayout>
 
                         </LinearLayout>
@@ -250,7 +251,7 @@
                                 app:tint="#FFFFFF" />
 
                             <TextView
-                                android:id="@+id/sleepduration"
+                                android:id="@+id/sleepdurationHeader"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
@@ -311,7 +312,7 @@
                             </Space>
 
                             <TextView
-                                android:id="@+id/text1"
+                                android:id="@+id/sleepDuration"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="0dp"
@@ -328,38 +329,112 @@
 
                 </androidx.cardview.widget.CardView>
 
-                <RadioGroup
-
-                    android:id="@+id/sleepbutton"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="39dp"
-                    android:gravity="center"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <RadioButton
-                        android:id="@+id/sleepnormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="35dp"
+                        android:layout_margin="5dp"
+                        android:text= "@string/riskLevel"
+                        android:textStyle="bold"
+                        android:id="@+id/sleepRisklevelText"
+                        android:textColor="@color/appTheme"
+                        android:textSize="20sp"
+                        android:layout_gravity="start"/>
 
-                        android:text="@string/normalButton" />
+                    <RadioGroup
+                        android:id="@+id/sleepRiskbuttonGroup"
 
-                    <RadioButton
-                        android:id="@+id/sleepsuspicious"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="fill_parent"
+                        android:layout_height="35dp"
+                        android:textAlignment="viewStart"
+                        android:orientation="horizontal">
 
-                        android:text="@string/suspiciousButton" />
+                        <RadioButton
+                            android:id="@+id/sleepNoneRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
 
-                    <RadioButton
-                        android:id="@+id/sleepVerysuspicious"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                            android:text="@string/none" />
+                        <RadioButton
+                            android:id="@+id/sleepLowRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
 
-                        android:text="@string/verySuspiciousButton" />
+                            android:text="@string/low" />
 
-                </RadioGroup>
+                        <RadioButton
+                            android:id="@+id/sleepMediumRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
 
+                            android:text="@string/medium" />
 
+                        <RadioButton
+                            android:id="@+id/sleepHighRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/high" />
+
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="35dp"
+                        android:text="@string/Surety"
+                        android:layout_margin="5dp"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:id="@+id/sleepReportConfidenceText"
+                        android:textColor="@color/appTheme"
+                        android:layout_gravity="start"/>
+
+                    <RadioGroup
+                        android:id="@+id/sleepConfidenceGroup"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:gravity="start"
+                        android:textAlignment="viewStart"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/sleepLowConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+                            android:text="@string/low" />
+
+                        <RadioButton
+                            android:id="@+id/sleepMediumConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+
+                            android:text="@string/medium" />
+
+                        <RadioButton
+                            android:id="@+id/sleepHighConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+                            android:text="@string/high" />
+                    </RadioGroup>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -524,7 +599,7 @@
                                 app:tint="#FFFFFF" />
 
                             <TextView
-                                android:id="@+id/breakfastduration"
+                                android:id="@+id/breakfastdurationHeader"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
@@ -585,7 +660,7 @@
                             </Space>
 
                             <TextView
-                                android:id="@+id/text3"
+                                android:id="@+id/breakfastDuration"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="0dp"
@@ -602,35 +677,112 @@
 
                 </androidx.cardview.widget.CardView>
 
-
-
-                <RadioGroup
-                    android:id="@+id/breakfastbutton"
-                    android:layout_width="fill_parent"
-                    android:layout_height="39dp"
-                    android:gravity="center"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <RadioButton
-                        android:id="@+id/bfnormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/normalButton" />
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="35dp"
+                        android:layout_margin="5dp"
+                        android:text= "@string/riskLevel"
+                        android:textStyle="bold"
+                        android:id="@+id/breakfastRisklevelText"
+                        android:textColor="@color/appTheme"
+                        android:textSize="20sp"
+                        android:layout_gravity="start"/>
 
-                    <RadioButton
-                        android:id="@+id/bfsuspicious"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/suspiciousButton" />
+                    <RadioGroup
+                        android:id="@+id/breakfastRiskbuttonGroup"
 
-                    <RadioButton
-                        android:id="@+id/bfVerysuspicious"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="fill_parent"
+                        android:layout_height="35dp"
+                        android:textAlignment="viewStart"
+                        android:orientation="horizontal">
 
-                        android:text="@string/verySuspiciousButton" />
+                        <RadioButton
+                            android:id="@+id/breakfastNoneRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
 
-                </RadioGroup>
+                            android:text="@string/none" />
+                        <RadioButton
+                            android:id="@+id/breakfastLowRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/low" />
+
+                        <RadioButton
+                            android:id="@+id/breakfastMediumRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/medium" />
+
+                        <RadioButton
+                            android:id="@+id/breakfastHighRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/high" />
+
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="35dp"
+                        android:text="@string/Surety"
+                        android:layout_margin="5dp"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:id="@+id/breakfastReportConfidenceText"
+                        android:textColor="@color/appTheme"
+                        android:layout_gravity="start"/>
+
+                    <RadioGroup
+                        android:id="@+id/breakfastConfidenceGroup"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:gravity="start"
+                        android:textAlignment="viewStart"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/breakfastLowConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+                            android:text="@string/low" />
+
+                        <RadioButton
+                            android:id="@+id/breakfastMediumConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+
+                            android:text="@string/medium" />
+
+                        <RadioButton
+                            android:id="@+id/breakfastHighConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+                            android:text="@string/high" />
+                    </RadioGroup>
+                </LinearLayout>
 
 
                 <View
@@ -651,7 +803,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_gravity="center"
-                    app:cardBackgroundColor="@color/appTheme"
                     card_view:cardCornerRadius="4dp">
 
                     <RelativeLayout
@@ -798,7 +949,7 @@
                                 app:tint="#FFFFFF" />
 
                             <TextView
-                                android:id="@+id/medicationduration"
+                                android:id="@+id/medicationdurationHeader"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
@@ -860,7 +1011,7 @@
                             </Space>
 
                             <TextView
-                                android:id="@+id/text4"
+                                android:id="@+id/medicationDuration"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="0dp"
@@ -878,36 +1029,112 @@
 
                 </androidx.cardview.widget.CardView>
 
-
-                <RadioGroup
-                    android:id="@+id/medicationbutton"
-
-                    android:layout_width="fill_parent"
-                    android:layout_height="39dp"
-                    android:gravity="center"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <RadioButton
-                        android:id="@+id/mednormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/normalButton" />
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="35dp"
+                        android:layout_margin="5dp"
+                        android:text= "@string/riskLevel"
+                        android:textStyle="bold"
+                        android:id="@+id/medicationRisklevelText"
+                        android:textColor="@color/appTheme"
+                        android:textSize="20sp"
+                        android:layout_gravity="start"/>
 
-                    <RadioButton
-                        android:id="@+id/medsuspicious"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/suspiciousButton" />
+                    <RadioGroup
+                        android:id="@+id/medicationRiskbuttonGroup"
 
-                    <RadioButton
-                        android:id="@+id/medVerysuspicious"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="fill_parent"
+                        android:layout_height="35dp"
+                        android:textAlignment="viewStart"
+                        android:orientation="horizontal">
 
-                        android:text="@string/verySuspiciousButton" />
+                        <RadioButton
+                            android:id="@+id/medicationNoneRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
 
-                </RadioGroup>
+                            android:text="@string/none" />
+                        <RadioButton
+                            android:id="@+id/medicationLowRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
 
+                            android:text="@string/low" />
+
+                        <RadioButton
+                            android:id="@+id/medicationMediumRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/medium" />
+
+                        <RadioButton
+                            android:id="@+id/medicationHighRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/high" />
+
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="35dp"
+                        android:text="@string/Surety"
+                        android:layout_margin="5dp"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:id="@+id/medicationReportConfidenceText"
+                        android:textColor="@color/appTheme"
+                        android:layout_gravity="start"/>
+
+                    <RadioGroup
+                        android:id="@+id/medicationConfidenceGroup"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:gravity="start"
+                        android:textAlignment="viewStart"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/medicationLowConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+                            android:text="@string/low" />
+
+                        <RadioButton
+                            android:id="@+id/medicationMediumConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+
+                            android:text="@string/medium" />
+
+                        <RadioButton
+                            android:id="@+id/medicationHighConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+                            android:text="@string/high" />
+                    </RadioGroup>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -927,7 +1154,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_gravity="center"
-                    app:cardBackgroundColor="@color/appTheme"
                     card_view:cardCornerRadius="4dp">
 
                     <RelativeLayout
@@ -1073,7 +1299,7 @@
                                 app:tint="#FFFFFF" />
 
                             <TextView
-                                android:id="@+id/lunchduration"
+                                android:id="@+id/lunchdurationHeader"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
@@ -1134,7 +1360,7 @@
                             </Space>
 
                             <TextView
-                                android:id="@+id/text5"
+                                android:id="@+id/lunchDuration"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="0dp"
@@ -1151,35 +1377,112 @@
 
                 </androidx.cardview.widget.CardView>
 
-                <RadioGroup
-                    android:id="@+id/lunchbutton"
-
-                    android:layout_width="fill_parent"
-                    android:layout_height="39dp"
-                    android:gravity="center"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <RadioButton
-                        android:id="@+id/lunchnormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/normalButton" />
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="35dp"
+                        android:layout_margin="5dp"
+                        android:text= "@string/riskLevel"
+                        android:textStyle="bold"
+                        android:id="@+id/lunchRisklevelText"
+                        android:textColor="@color/appTheme"
+                        android:textSize="20sp"
+                        android:layout_gravity="start"/>
 
-                    <RadioButton
-                        android:id="@+id/lunchsuspicious"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/suspiciousButton" />
+                    <RadioGroup
+                        android:id="@+id/lunchRiskbuttonGroup"
 
-                    <RadioButton
-                        android:id="@+id/lunchVerysuspicious"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="fill_parent"
+                        android:layout_height="35dp"
+                        android:textAlignment="viewStart"
+                        android:orientation="horizontal">
 
-                        android:text="@string/verySuspiciousButton" />
+                        <RadioButton
+                            android:id="@+id/lunchNoneRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
 
-                </RadioGroup>
+                            android:text="@string/none" />
+                        <RadioButton
+                            android:id="@+id/lunchLowRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
 
+                            android:text="@string/low" />
+
+                        <RadioButton
+                            android:id="@+id/lunchMediumRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/medium" />
+
+                        <RadioButton
+                            android:id="@+id/lunchHighRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/high" />
+
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="35dp"
+                        android:text="@string/Surety"
+                        android:layout_margin="5dp"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:id="@+id/lunchReportConfidenceText"
+                        android:textColor="@color/appTheme"
+                        android:layout_gravity="start"/>
+
+                    <RadioGroup
+                        android:id="@+id/lunchConfidenceGroup"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:gravity="start"
+                        android:textAlignment="viewStart"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/lunchLowConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+                            android:text="@string/low" />
+
+                        <RadioButton
+                            android:id="@+id/lunchMediumConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+
+                            android:text="@string/medium" />
+
+                        <RadioButton
+                            android:id="@+id/lunchHighConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+                            android:text="@string/high" />
+                    </RadioGroup>
+                </LinearLayout>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
@@ -1195,11 +1498,10 @@
 
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/tvcard"
+                    android:id="@+id/tv1card"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_gravity="center"
-                    app:cardBackgroundColor="@color/appTheme"
                     card_view:cardCornerRadius="4dp">
 
                     <RelativeLayout
@@ -1223,7 +1525,7 @@
                                 android:orientation="vertical">
 
                                 <TextView
-                                    android:id="@+id/tv"
+                                    android:id="@+id/tv1"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="5dp"
@@ -1238,7 +1540,7 @@
                                     android:textSize="22sp" />
 
                                 <ImageView
-                                    android:id="@+id/tvimage"
+                                    android:id="@+id/tv1image"
                                     android:layout_width="match_parent"
                                     android:layout_height="125dp"
 
@@ -1258,7 +1560,7 @@
                                 android:layout_marginEnd="2dp">
 
                                 <com.github.mikephil.charting.charts.CandleStickChart
-                                    android:id="@+id/tvLinechart"
+                                    android:id="@+id/tv1Linechart"
                                     android:layout_width="match_parent"
                                     android:layout_height="190dp"
                                     android:layout_marginTop="1dp"
@@ -1282,7 +1584,7 @@
                             >
 
                             <ImageView
-                                android:id="@+id/tvstatusimage"
+                                android:id="@+id/tv1statusimage"
                                 android:layout_width="wrap_content"
                                 android:layout_height="24dp"
                                 android:layout_marginTop="7dp"
@@ -1290,7 +1592,7 @@
                                 app:srcCompat="@drawable/currentstatusvector" />
 
                             <TextView
-                                android:id="@+id/tvstatusheader"
+                                android:id="@+id/tv1statusheader"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
@@ -1309,7 +1611,7 @@
                             </Space>
 
                             <ImageView
-                                android:id="@+id/tvtimeheader"
+                                android:id="@+id/tv1timeheader"
                                 android:layout_width="wrap_content"
                                 android:layout_height="24dp"
                                 android:layout_marginTop="7dp"
@@ -1318,7 +1620,7 @@
                                 app:tint="#FFFFFF" />
 
                             <TextView
-                                android:id="@+id/tvendtime"
+                                android:id="@+id/tv1endtime"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
@@ -1336,7 +1638,7 @@
                             </Space>
 
                             <ImageView
-                                android:id="@+id/tvhourglass"
+                                android:id="@+id/tv1hourglass"
                                 android:layout_width="wrap_content"
                                 android:layout_height="24dp"
                                 android:layout_marginTop="7dp"
@@ -1345,7 +1647,7 @@
                                 app:tint="#FFFFFF" />
 
                             <TextView
-                                android:id="@+id/tvduration"
+                                android:id="@+id/tv1durationHeader"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
@@ -1369,7 +1671,7 @@
                             >
 
                             <TextView
-                                android:id="@+id/tvstatus"
+                                android:id="@+id/tv1status"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
 
@@ -1388,7 +1690,7 @@
                             </Space>
 
                             <TextView
-                                android:id="@+id/tvtime"
+                                android:id="@+id/tv1time"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="0dp"
@@ -1406,7 +1708,7 @@
                             </Space>
 
                             <TextView
-                                android:id="@+id/text6"
+                                android:id="@+id/tv1Duration"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="0dp"
@@ -1423,36 +1725,460 @@
 
                 </androidx.cardview.widget.CardView>
 
-
-
-                <RadioGroup
-                    android:id="@+id/tvbutton"
-
-                    android:layout_width="fill_parent"
-                    android:layout_height="39dp"
-                    android:gravity="center"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <RadioButton
-                        android:id="@+id/tvnormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/normalButton" />
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="35dp"
+                        android:layout_margin="5dp"
+                        android:text= "@string/riskLevel"
+                        android:textStyle="bold"
+                        android:id="@+id/tv1RisklevelText"
+                        android:textColor="@color/appTheme"
+                        android:textSize="20sp"
+                        android:layout_gravity="start"/>
 
-                    <RadioButton
-                        android:id="@+id/tvsuspicious"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/suspiciousButton" />
+                    <RadioGroup
+                        android:id="@+id/tv1RiskbuttonGroup"
 
-                    <RadioButton
-                        android:id="@+id/tvVerysuspicious"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="fill_parent"
+                        android:layout_height="35dp"
+                        android:textAlignment="viewStart"
+                        android:orientation="horizontal">
 
-                        android:text="@string/verySuspiciousButton" />
+                        <RadioButton
+                            android:id="@+id/tv1NoneRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
 
-                </RadioGroup>
+                            android:text="@string/none" />
+                        <RadioButton
+                            android:id="@+id/tv1LowRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/low" />
+
+                        <RadioButton
+                            android:id="@+id/tv1MediumRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/medium" />
+
+                        <RadioButton
+                            android:id="@+id/tv1HighRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/high" />
+
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="35dp"
+                        android:text="@string/Surety"
+                        android:layout_margin="5dp"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:id="@+id/tv1ReportConfidenceText"
+                        android:textColor="@color/appTheme"
+                        android:layout_gravity="start"/>
+
+                    <RadioGroup
+                        android:id="@+id/tv1ConfidenceGroup"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:gravity="start"
+                        android:textAlignment="viewStart"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/tv1LowConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+                            android:text="@string/low" />
+
+                        <RadioButton
+                            android:id="@+id/tv1MediumConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+
+                            android:text="@string/medium" />
+
+                        <RadioButton
+                            android:id="@+id/tv1HighConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+                            android:text="@string/high" />
+                    </RadioGroup>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@android:color/holo_red_light" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/tv2card"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_gravity="center"
+                    card_view:cardCornerRadius="4dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="100dp"
+                                android:layout_height="180dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginStart="2dp"
+                                android:layout_marginEnd="2dp"
+                                android:layout_marginBottom="2dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tv2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginEnd="2dp"
+                                    android:layout_marginTop="5dp"
+                                    android:gravity="start"
+                                    android:orientation="horizontal"
+                                    android:text="@string/tvpc"
+                                    android:textStyle="bold"
+
+                                    android:textColor="@color/buttonText"
+                                    android:textSize="22sp" />
+
+                                <ImageView
+                                    android:id="@+id/tv2image"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="125dp"
+
+                                    android:layout_marginStart="0dp"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_marginEnd="9dp"
+                                    android:layout_marginBottom="100dp"
+                                    card_view:srcCompat="@drawable/pc" />
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="190dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginBottom="2dp"
+                                android:layout_marginStart="2dp"
+                                android:layout_marginEnd="2dp">
+
+                                <com.github.mikephil.charting.charts.CandleStickChart
+                                    android:id="@+id/tv2Linechart"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="190dp"
+                                    android:layout_marginTop="1dp"
+                                    android:layout_marginEnd="1dp"
+                                    android:layout_marginBottom="1dp"
+                                    tools:ignore="NotSibling">
+
+                                </com.github.mikephil.charting.charts.CandleStickChart>
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="205dp"
+                            android:layout_marginBottom="50dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            >
+
+                            <ImageView
+                                android:id="@+id/tv2statusimage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/currentstatusvector" />
+
+                            <TextView
+                                android:id="@+id/tv2statusheader"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/currentStatus"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <ImageView
+                                android:id="@+id/tv2timeheader"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/ic_baseline_timer_24"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:id="@+id/tv2endtime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/endtime"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <ImageView
+                                android:id="@+id/tv2hourglass"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/ic_baseline_hourglass_bottom_24"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:id="@+id/tv2duration"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/duration"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="250dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="15dp"
+                            >
+
+                            <TextView
+                                android:id="@+id/tv2status"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+
+                                android:textSize="18sp" />
+
+                            <Space
+                                android:layout_width="10dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <TextView
+                                android:id="@+id/tv2time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:textAlignment="center"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+
+                                android:textSize="18sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <TextView
+                                android:id="@+id/tv2Duration"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:textSize="16sp"
+                                />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="35dp"
+                        android:layout_margin="5dp"
+                        android:text= "@string/riskLevel"
+                        android:textStyle="bold"
+                        android:id="@+id/tv2RisklevelText"
+                        android:textColor="@color/appTheme"
+                        android:textSize="20sp"
+                        android:layout_gravity="start"/>
+
+                    <RadioGroup
+                        android:id="@+id/tv2RiskbuttonGroup"
+
+                        android:layout_width="fill_parent"
+                        android:layout_height="35dp"
+                        android:textAlignment="viewStart"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/tv2NoneRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/none" />
+                        <RadioButton
+                            android:id="@+id/tv2LowRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/low" />
+
+                        <RadioButton
+                            android:id="@+id/tv2MediumRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/medium" />
+
+                        <RadioButton
+                            android:id="@+id/tv2HighRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/high" />
+
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="35dp"
+                        android:text="@string/Surety"
+                        android:layout_margin="5dp"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:id="@+id/tv2ReportConfidenceText"
+                        android:textColor="@color/appTheme"
+                        android:layout_gravity="start"/>
+
+                    <RadioGroup
+                        android:id="@+id/tv2ConfidenceGroup"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:gravity="start"
+                        android:textAlignment="viewStart"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/tv2LowConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+                            android:text="@string/low" />
+
+                        <RadioButton
+                            android:id="@+id/tv2MediumConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+
+                            android:text="@string/medium" />
+
+                        <RadioButton
+                            android:id="@+id/tv2HighConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+                            android:text="@string/high" />
+                    </RadioGroup>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -1472,7 +2198,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_gravity="center"
-                    app:cardBackgroundColor="@color/appTheme"
                     card_view:cardCornerRadius="4dp">
 
                     <RelativeLayout
@@ -1618,7 +2343,7 @@
                                 app:tint="#FFFFFF" />
 
                             <TextView
-                                android:id="@+id/dinnerduration"
+                                android:id="@+id/dinnerdurationHeader"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
@@ -1679,7 +2404,7 @@
                             </Space>
 
                             <TextView
-                                android:id="@+id/text7"
+                                android:id="@+id/dinnerDuration"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="0dp"
@@ -1695,34 +2420,113 @@
                     </RelativeLayout>
 
                 </androidx.cardview.widget.CardView>
-                <RadioGroup
-                    android:id="@+id/dinnerbutton"
 
-                    android:layout_width="fill_parent"
-                    android:layout_height="39dp"
-                    android:gravity="center"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <RadioButton
-                        android:id="@+id/dinnernormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/normalButton" />
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="35dp"
+                        android:layout_margin="5dp"
+                        android:text= "@string/riskLevel"
+                        android:textStyle="bold"
+                        android:id="@+id/dinnerRisklevelText"
+                        android:textColor="@color/appTheme"
+                        android:textSize="20sp"
+                        android:layout_gravity="start"/>
 
-                    <RadioButton
-                        android:id="@+id/dinnersuspicious"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/suspiciousButton" />
+                    <RadioGroup
+                        android:id="@+id/dinnerRiskbuttonGroup"
 
-                    <RadioButton
-                        android:id="@+id/dinnerVerysuspicious"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="fill_parent"
+                        android:layout_height="35dp"
+                        android:textAlignment="viewStart"
+                        android:orientation="horizontal">
 
-                        android:text="@string/verySuspiciousButton" />
+                        <RadioButton
+                            android:id="@+id/dinnerNoneRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
 
-                </RadioGroup>
+                            android:text="@string/none" />
+                        <RadioButton
+                            android:id="@+id/dinnerLowRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/low" />
+
+                        <RadioButton
+                            android:id="@+id/mdinnerMediumRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/medium" />
+
+                        <RadioButton
+                            android:id="@+id/dinnerHighRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/high" />
+
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="35dp"
+                        android:text="@string/Surety"
+                        android:layout_margin="5dp"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:id="@+id/dinnerReportConfidenceText"
+                        android:textColor="@color/appTheme"
+                        android:layout_gravity="start"/>
+
+                    <RadioGroup
+                        android:id="@+id/dinnerConfidenceGroup"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:gravity="start"
+                        android:textAlignment="viewStart"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/dinnerLowConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+                            android:text="@string/low" />
+
+                        <RadioButton
+                            android:id="@+id/dinnerMediumConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+
+                            android:text="@string/medium" />
+
+                        <RadioButton
+                            android:id="@+id/dinnerHighConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+                            android:text="@string/high" />
+                    </RadioGroup>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -1744,7 +2548,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_gravity="center"
-                    app:cardBackgroundColor="@color/appTheme"
                     card_view:cardCornerRadius="4dp">
 
                     <RelativeLayout
@@ -1890,7 +2693,7 @@
                                 app:tint="#FFFFFF" />
 
                             <TextView
-                                android:id="@+id/showerduration"
+                                android:id="@+id/showerdurationHeader"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
@@ -1951,7 +2754,7 @@
                             </Space>
 
                             <TextView
-                                android:id="@+id/text2"
+                                android:id="@+id/showerDuration"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="0dp"
@@ -1967,34 +2770,113 @@
                     </RelativeLayout>
 
                 </androidx.cardview.widget.CardView>
-                <RadioGroup
-                    android:id="@+id/showerbutton"
 
-                    android:layout_width="fill_parent"
-                    android:layout_height="39dp"
-                    android:gravity="center"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <RadioButton
-                        android:id="@+id/showernormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/normalButton" />
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="35dp"
+                        android:layout_margin="5dp"
+                        android:text= "@string/riskLevel"
+                        android:textStyle="bold"
+                        android:id="@+id/showerRisklevelText"
+                        android:textColor="@color/appTheme"
+                        android:textSize="20sp"
+                        android:layout_gravity="start"/>
 
-                    <RadioButton
-                        android:id="@+id/showersuspicious"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/suspiciousButton" />
+                    <RadioGroup
+                        android:id="@+id/showerRiskbuttonGroup"
 
-                    <RadioButton
-                        android:id="@+id/showerVerysuspicious"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="fill_parent"
+                        android:layout_height="35dp"
+                        android:textAlignment="viewStart"
+                        android:orientation="horizontal">
 
-                        android:text="@string/verySuspiciousButton" />
+                        <RadioButton
+                            android:id="@+id/showerNoneRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
 
-                </RadioGroup>
+                            android:text="@string/none" />
+                        <RadioButton
+                            android:id="@+id/showerLowRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/low" />
+
+                        <RadioButton
+                            android:id="@+id/showerMediumRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/medium" />
+
+                        <RadioButton
+                            android:id="@+id/showerHighRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/high" />
+
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="35dp"
+                        android:text="@string/Surety"
+                        android:layout_margin="5dp"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:id="@+id/showerReportConfidenceText"
+                        android:textColor="@color/appTheme"
+                        android:layout_gravity="start"/>
+
+                    <RadioGroup
+                        android:id="@+id/showerConfidenceGroup"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:gravity="start"
+                        android:textAlignment="viewStart"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/showerLowConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+                            android:text="@string/low" />
+
+                        <RadioButton
+                            android:id="@+id/showerMediumConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+
+                            android:text="@string/medium" />
+
+                        <RadioButton
+                            android:id="@+id/showerHighConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+                            android:text="@string/high" />
+                    </RadioGroup>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -2168,36 +3050,112 @@
 
                 </androidx.cardview.widget.CardView>
 
-                <RadioGroup
-
-                    android:id="@+id/overallButton"
-                    android:layout_width="fill_parent"
-                    android:layout_height="39dp"
-                    android:gravity="center"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <RadioButton
-                        android:id="@+id/overallnormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="35dp"
+                        android:layout_margin="5dp"
+                        android:text= "@string/riskLevel"
+                        android:textStyle="bold"
+                        android:id="@+id/overallRisklevelText"
+                        android:textColor="@color/appTheme"
+                        android:textSize="20sp"
+                        android:layout_gravity="start"/>
 
-                        android:text="@string/normalButton" />
+                    <RadioGroup
+                        android:id="@+id/overallRiskbuttonGroup"
 
-                    <RadioButton
-                        android:id="@+id/overallsuspicious"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="fill_parent"
+                        android:layout_height="35dp"
+                        android:textAlignment="viewStart"
+                        android:orientation="horizontal">
 
-                        android:text="@string/suspiciousButton" />
+                        <RadioButton
+                            android:id="@+id/overallNoneRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
 
-                    <RadioButton
-                        android:id="@+id/overallVerysuspicious"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                            android:text="@string/none" />
+                        <RadioButton
+                            android:id="@+id/overallLowRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
 
-                        android:text="@string/verySuspiciousButton" />
+                            android:text="@string/low" />
 
-                </RadioGroup>
+                        <RadioButton
+                            android:id="@+id/overallMediumRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/medium" />
+
+                        <RadioButton
+                            android:id="@+id/overallHighRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/high" />
+
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="35dp"
+                        android:text="@string/Surety"
+                        android:layout_margin="5dp"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:id="@+id/overallReportConfidenceText"
+                        android:textColor="@color/appTheme"
+                        android:layout_gravity="start"/>
+
+                    <RadioGroup
+                        android:id="@+id/overallConfidenceGroup"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:gravity="start"
+                        android:textAlignment="viewStart"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/overallLowConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+                            android:text="@string/low" />
+
+                        <RadioButton
+                            android:id="@+id/overallMediumConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+
+                            android:text="@string/medium" />
+
+                        <RadioButton
+                            android:id="@+id/overallHighConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+                            android:text="@string/high" />
+                    </RadioGroup>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"

@@ -17,7 +17,13 @@
     <!--    Radiobuttons-->
     <string name="normalButton">Normal</string>
     <string name="suspiciousButton">Suspicious</string>
-    <string name="verySuspiciousButton">Normal</string>
+    <string name="verySuspiciousButton">Very Suspicious</string>
+    <string name="none">None</string>
+    <string name="low">Low</string>
+    <string name="medium">Medium</string>
+    <string name="high">High</string>
+    <string name="riskLevel">Risk Level</string>
+    <string name="Surety">Confidence</string>
     <!--    Radiobuttons-->
 
     <!--    Notification-->
@@ -57,6 +63,7 @@
     <string name="minutes">\u0020Minutes</string>
     <string name="activityComplete">Complete</string>
     <string name="activityIncomplete">Incomplete</string>
+    <string name="activityOngoing">Ongoing</string>
     <string name="hrs">\u0020Hrs</string>
     <string name="mins">\u0020Min</string>
     <string name = "lastResponse">Your last Response</string>

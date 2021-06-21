@@ -174,6 +174,7 @@ public class userReport extends JobIntentService {
                             ArrayList<String> endtimeList = new ArrayList<>();
                             ArrayList<String> userList = new ArrayList<>();
                             ArrayList<String> endtimeList2 = new ArrayList<>();
+                            ArrayList<String> startTimeList = new ArrayList<>();
 
 
 
@@ -198,7 +199,7 @@ public class userReport extends JobIntentService {
                                 dateList.add(activityMap.get("date"));
                                 userList.add(activityMap.get("user"));
                                 endtimeList2.add(activityMap.get("end_time"));
-
+                                startTimeList.add(activityMap.get("start_time"));
                             }
 
                             // Correct the format of the start times in the start time list
@@ -316,6 +317,7 @@ public class userReport extends JobIntentService {
                             in.putStringArrayListExtra("endtimeList", endtimeList);
                             in.putStringArrayListExtra("thisUser", userList);
                             in.putStringArrayListExtra("endtimeList2", endtimeList2);
+                            in.putStringArrayListExtra("starttimelist", startTimeList);
 
 
                             // Broadcast the intent

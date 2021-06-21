@@ -52,18 +52,33 @@ import java.util.Objects;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class report  extends AppCompatActivity {
 
-    public CandleStickChart chart1, chart2, chart3, chart4, chart5, chart6, chart7;
-    public TextView text1, text2, text3, text4, text5, text6, text7, durationTextview, activityReport;
-    public TextView sleepEndtime, bfEndtime, medicineEndtime, lunchEndtime, tvEndtime, dinnerEndtime, showerEndtime, endTimeTextview;
-    public TextView sleepState, showerState, bfState, medicationState, lunchState, tvState, dinnerState, stateTextview, overallLastResponse,overallLastResponseTime ;
-    RadioButton sleep, shower, breakfast, lunch, dinner, medication, tv, overall;
-    private RadioGroup sleepradio, showerradio, breakfastradio, medicationradio, lunchradio, tvradio, dinnerradio, thisRadiogp,overallradio;
+    public CandleStickChart sleepChart, showerChart, breakfastChart, medicineChart, lunchChart, tv1Chart, dinnerChart, tv2Chart;
+    public TextView sleepDuration, showerDuration, breakfastDuration, medicationDuration, lunchDuration, tv1Duration, tv2Duration, dinnerDuration, durationTextview, activityReport;
+    public TextView sleepEndtime, bfEndtime, medicineEndtime, lunchEndtime, tv1Endtime, tv2Endtime,dinnerEndtime, showerEndtime, endTimeTextview;
+    public TextView sleepState, showerState, bfState, medicationState, lunchState, tv1State, tv2State, dinnerState, stateTextview, overallLastResponse,overallLastResponseTime ;
+    RadioButton sleep, shower, breakfast, lunch, dinner, medication, tv1, tv2, overall;
+
+    public TextView sleepRiskLevelText,breakfastRiskLevelText,medicationRiskLevelText,lunchRiskLevelText,tv1RiskLevelText,tv2RiskLevelText,dinnerRiskLevelText,showerRiskLevelText;
+    public TextView sleepConfidenceText,breakfastConfidenceText,medicationConfidenceText,lunchConfidenceText,tv1ConfidenceText,tv2ConfidenceText,dinnerConfidenceText,showerConfidenceText;
+    private RadioGroup sleepRiskGroup, breakfastRiskGroup,medicationRiskGroup,lunchRiskGroup,tv1RiskGroup,tv2RiskGroup,dinnerRiskGroup,showerRiskGroup;
+    private RadioGroup sleepConfidenceGroup, breakfastConfidenceGroup,medicationConfidenceGroup,lunchConfidenceGroup,tv1ConfidenceGroup,tv2ConfidenceGroup,dinnerConfidenceGroup,showerConfidenceGroup;
+
+    private RadioGroup overallRiskGroup, overallConfidenceGroup;
+    private TextView overallRiskLevelText, overallConfidenceText;
+
+    private RadioGroup sleepradio, showerradio, breakfastradio, medicationradio, lunchradio, tvradio, tvradio2, dinnerradio, thisRadiogp,overallradio;
+
+    private RadioGroup riskLevelRadioGroup, reportConfidenceRadioGroup;
+    private TextView risklevelText, confidenceReportText;
+
+
+
     Button submitreport;
     String TAG = "ttyl";
 
     ArrayList<HashMap<String, String>> contactList;
 
-    public CardView sleepCard, showerCard, bfCard, medicineCard, lunchCard, tvCard, dinnerCard, thisCard, overallCard;
+    public CardView sleepCard, showerCard, bfCard, medicineCard, lunchCard, tv1Card, tv2Card, dinnerCard, thisCard, overallCard;
 
     private final HashMap<String, TextView> durationtextHash = new HashMap<>();
 
@@ -71,9 +86,19 @@ public class report  extends AppCompatActivity {
 
     private HashMap<String, TextView> activitystateHash = new HashMap<>();
 
+    private HashMap<String, TextView> riskLevelTextHash = new HashMap<>();
+
+    private HashMap<String, TextView> reportConfidenceTextHash = new HashMap<>();
+
+
     private HashMap<String, CardView> cardHash = new HashMap<>();
 
     private HashMap<String, RadioGroup> radioHash = new HashMap<>();
+
+    private HashMap<String, RadioGroup> riskLevelGroupHash = new HashMap<>();
+
+    private HashMap<String, RadioGroup> reportConfidenceGroupHash = new HashMap<>();
+
 
     private HashMap<String, CandleStickChart> activityChartMap = new HashMap<>();
 
@@ -96,64 +121,78 @@ public class report  extends AppCompatActivity {
         submitreport = (Button) findViewById(R.id.submitreport);
         activityReport = (TextView) findViewById(R.id.report);
 
-        chart1 = (CandleStickChart) findViewById(R.id.sleepLinechart);
-        chart2 = (CandleStickChart) findViewById(R.id.showerLinechart);
-        chart3 = (CandleStickChart) findViewById(R.id.breakfastLinechart);
-        chart4 = (CandleStickChart) findViewById(R.id.medicationLinechart);
-        chart5 = (CandleStickChart) findViewById(R.id.lunchLinechart);
-        chart6 = (CandleStickChart) findViewById(R.id.tvLinechart);
-        chart7 = (CandleStickChart) findViewById(R.id.dinnerLinechart);
+        sleepChart = (CandleStickChart) findViewById(R.id.sleepLinechart);
+        showerChart = (CandleStickChart) findViewById(R.id.showerLinechart);
+        breakfastChart = (CandleStickChart) findViewById(R.id.breakfastLinechart);
+        medicineChart = (CandleStickChart) findViewById(R.id.medicationLinechart);
+        lunchChart = (CandleStickChart) findViewById(R.id.lunchLinechart);
+        tv1Chart = (CandleStickChart) findViewById(R.id.tv1Linechart);
+        dinnerChart = (CandleStickChart) findViewById(R.id.dinnerLinechart);
+        tv2Chart = (CandleStickChart) findViewById(R.id.tv2Linechart);
 
 
-        YAxis sleepleft = chart1.getAxisLeft();
+        YAxis sleepleft = sleepChart.getAxisLeft();
         sleepleft.setAxisMaximum((float) 35.0);
         sleepleft.setAxisMinimum(16);
 
-        YAxis showerleft = chart2.getAxisLeft();
+        YAxis showerleft = showerChart.getAxisLeft();
         showerleft.setAxisMaximum((float) 24.0);
         showerleft.setAxisMinimum(9);
 
-        YAxis bfleft = chart3.getAxisLeft();
+        YAxis bfleft = breakfastChart.getAxisLeft();
         bfleft.setAxisMaximum((float) 11.0);
         bfleft.setAxisMinimum(5);
 
-        YAxis medleft = chart4.getAxisLeft();
+        YAxis medleft = medicineChart.getAxisLeft();
         medleft.setAxisMaximum((float) 10.0);
         medleft.setAxisMinimum(6);
 
-        YAxis lunchleft = chart5.getAxisLeft();
+        YAxis lunchleft = lunchChart.getAxisLeft();
         lunchleft.setAxisMaximum((float) 16.0);
         lunchleft.setAxisMinimum(10);
 
-        YAxis tvleft = chart6.getAxisLeft();
-        tvleft.setAxisMaximum((float) 20.0);
-        tvleft.setAxisMinimum(12);
+        YAxis tvleft = tv1Chart.getAxisLeft();
+        tvleft.setAxisMaximum((float) 22.0);
+        tvleft.setAxisMinimum(18);
 
-        YAxis dinnerleft = chart7.getAxisLeft();
+        YAxis tvleft2 = tv2Chart.getAxisLeft();
+        tvleft2.setAxisMaximum((float) 18.0);
+        tvleft2.setAxisMinimum(12);
+
+//        YAxis tvleft3 = chart9.getAxisLeft();
+//        tvleft3.setAxisMaximum((float) 12.0);
+//        tvleft3.setAxisMinimum(6);
+
+        YAxis dinnerleft = dinnerChart.getAxisLeft();
         dinnerleft.setAxisMaximum((float) 23.0);
         dinnerleft.setAxisMinimum(16);
 
-        activityChartMap.put("Sleep", chart1);
-        activityChartMap.put("Bath", chart2);
-        activityChartMap.put("Breakfast", chart3);
-        activityChartMap.put("medicine ", chart4); // TODO Remove the space at end next time
-        activityChartMap.put("Lunch", chart5);
-        activityChartMap.put("TV", chart6);
-        activityChartMap.put("Dinner", chart7);
+        activityChartMap.put("Sleep", sleepChart);
+        activityChartMap.put("Bath", showerChart);
+        activityChartMap.put("Breakfast", breakfastChart);
+        activityChartMap.put("medicine ", medicineChart); // TODO Remove the space at end next time
+        activityChartMap.put("Lunch", lunchChart);
+        activityChartMap.put("TV", tv1Chart);
+        activityChartMap.put("TV2", tv2Chart);
+        activityChartMap.put("Dinner", dinnerChart);
 
-        text1 = (TextView) findViewById(R.id.text1);
-        text2 = (TextView) findViewById(R.id.text2);
-        text3 = (TextView) findViewById(R.id.text3);
-        text4 = (TextView) findViewById(R.id.text4);
-        text5 = (TextView) findViewById(R.id.text5);
-        text6 = (TextView) findViewById(R.id.text6);
-        text7 = (TextView) findViewById(R.id.text7);
+
+        sleepDuration = (TextView) findViewById(R.id.sleepDuration);
+        showerDuration = (TextView) findViewById(R.id.showerDuration);
+        breakfastDuration = (TextView) findViewById(R.id.breakfastDuration);
+        medicationDuration = (TextView) findViewById(R.id.medicationDuration);
+        lunchDuration = (TextView) findViewById(R.id.lunchDuration);
+        tv1Duration = (TextView) findViewById(R.id.tv1Duration);
+        dinnerDuration = (TextView) findViewById(R.id.dinnerDuration);
+        tv2Duration = (TextView) findViewById(R.id.tv2Duration);
 
         sleepEndtime = (TextView) findViewById(R.id.sleeptime);
         bfEndtime = (TextView) findViewById(R.id.breakfasttime);
         medicineEndtime = (TextView) findViewById(R.id.medicationtime);
         lunchEndtime = (TextView) findViewById(R.id.lunchtime);
-        tvEndtime = (TextView) findViewById(R.id.tvtime);
+        tv1Endtime = (TextView) findViewById(R.id.tv1time);
+        tv2Endtime = (TextView) findViewById(R.id.tv2time);
+
         dinnerEndtime = (TextView) findViewById(R.id.dinnertime);
         showerEndtime = (TextView) findViewById(R.id.showertime);
 
@@ -161,20 +200,23 @@ public class report  extends AppCompatActivity {
         bfState = (TextView) findViewById(R.id.breakfaststatus);
         medicationState = (TextView) findViewById(R.id.medicationstatus);
         lunchState = (TextView) findViewById(R.id.lunchstatus);
-        tvState = (TextView) findViewById(R.id.tvstatus);
+        tv1State = (TextView) findViewById(R.id.tv1status);
+        tv2State = (TextView) findViewById(R.id.tv2status);
+
         dinnerState = (TextView) findViewById(R.id.dinnerstatus);
         showerState = (TextView) findViewById(R.id.showerstatus);
 
         overallLastResponse = (TextView) findViewById(R.id.overallLastResponse);
         overallLastResponseTime = (TextView) findViewById(R.id.overallLastResponseTime);
 
-
         activitystateHash.put("Sleep", sleepState);
         activitystateHash.put("Bath", showerState);
         activitystateHash.put("Breakfast", bfState);
         activitystateHash.put("medicine ", medicationState); // TODO Remove the space at end next time
         activitystateHash.put("Lunch", lunchState);
-        activitystateHash.put("TV", tvState);
+        activitystateHash.put("TV", tv1State);
+        activitystateHash.put("TV2", tv2State);
+
         activitystateHash.put("Dinner", dinnerState);
 
         endTimetextHash.put("Sleep", sleepEndtime);
@@ -182,16 +224,18 @@ public class report  extends AppCompatActivity {
         endTimetextHash.put("Breakfast", bfEndtime);
         endTimetextHash.put("medicine ", medicineEndtime); // TODO Remove the space at end next time
         endTimetextHash.put("Lunch", lunchEndtime);
-        endTimetextHash.put("TV", tvEndtime);
+        endTimetextHash.put("TV", tv1Endtime);
+        endTimetextHash.put("TV2", tv2Endtime);
         endTimetextHash.put("Dinner", dinnerEndtime);
 
-        durationtextHash.put("Sleep", text1);
-        durationtextHash.put("Bath", text2);
-        durationtextHash.put("Breakfast", text3);
-        durationtextHash.put("medicine ", text4); // TODO Remove the space at end next time
-        durationtextHash.put("Lunch", text5);
-        durationtextHash.put("TV", text6);
-        durationtextHash.put("Dinner", text7);
+        durationtextHash.put("Sleep", sleepDuration);
+        durationtextHash.put("Bath", showerDuration);
+        durationtextHash.put("Breakfast", breakfastDuration);
+        durationtextHash.put("medicine ", medicationDuration); // TODO Remove the space at end next time
+        durationtextHash.put("Lunch", lunchDuration);
+        durationtextHash.put("TV", tv1Duration);
+        durationtextHash.put("Dinner", dinnerDuration);
+        durationtextHash.put("TV2", tv2Duration);
 
 
         sleepCard = (CardView) findViewById(R.id.sleepcard);
@@ -199,7 +243,9 @@ public class report  extends AppCompatActivity {
         bfCard = (CardView) findViewById(R.id.breakfastcard);
         medicineCard = (CardView) findViewById(R.id.medicationcard);
         lunchCard = (CardView) findViewById(R.id.lunchcard);
-        tvCard = (CardView) findViewById(R.id.tvcard);
+        tv1Card = (CardView) findViewById(R.id.tv1card);
+        tv2Card = (CardView) findViewById(R.id.tv2card);
+
         dinnerCard = (CardView) findViewById(R.id.dinnercard);
         overallCard = (CardView) findViewById(R.id.overallCard);
 
@@ -208,26 +254,99 @@ public class report  extends AppCompatActivity {
         cardHash.put("Breakfast", bfCard);
         cardHash.put("medicine ", medicineCard);
         cardHash.put("Lunch", lunchCard);
-        cardHash.put("TV", tvCard);
+        cardHash.put("TV", tv1Card);
         cardHash.put("Dinner", dinnerCard);
+        cardHash.put("TV2", tv2Card);
 
-        lunchradio = (RadioGroup) findViewById(R.id.lunchbutton);
-        dinnerradio = (RadioGroup) findViewById(R.id.dinnerbutton);
-        tvradio = (RadioGroup) findViewById(R.id.tvbutton);
-        medicationradio = (RadioGroup) findViewById(R.id.medicationbutton);
-        breakfastradio = (RadioGroup) findViewById(R.id.breakfastbutton);
-        showerradio = (RadioGroup) findViewById(R.id.showerbutton);
-        sleepradio = (RadioGroup) findViewById(R.id.sleepbutton);
-        overallradio = (RadioGroup) findViewById(R.id.overallButton);
 
-        radioHash.put("Sleep", sleepradio);
-        radioHash.put("Bath", showerradio);
-        radioHash.put("Breakfast", breakfastradio);
-        radioHash.put("medicine ", medicationradio);
-        radioHash.put("Lunch", lunchradio);
-        radioHash.put("TV", tvradio);
-        radioHash.put("Dinner", dinnerradio);
-        radioHash.put("Overall", overallradio);
+        sleepRiskGroup = (RadioGroup) findViewById(R.id.sleepRiskbuttonGroup);
+        breakfastRiskGroup = (RadioGroup) findViewById(R.id.breakfastRiskbuttonGroup);
+        medicationRiskGroup  = (RadioGroup) findViewById(R.id.medicationRiskbuttonGroup);
+        lunchRiskGroup  = (RadioGroup) findViewById(R.id.lunchRiskbuttonGroup);
+        tv1RiskGroup  = (RadioGroup) findViewById(R.id.tv1RiskbuttonGroup);
+        tv2RiskGroup  = (RadioGroup) findViewById(R.id.tv2RiskbuttonGroup);
+        dinnerRiskGroup  = (RadioGroup) findViewById(R.id.dinnerRiskbuttonGroup);
+        showerRiskGroup  = (RadioGroup) findViewById(R.id.showerRiskbuttonGroup);
+        overallRiskGroup = (RadioGroup) findViewById(R.id.overallRiskbuttonGroup);
+
+
+        sleepRiskLevelText = (TextView) findViewById(R.id.sleepRisklevelText);
+        breakfastRiskLevelText = (TextView) findViewById(R.id.breakfastRisklevelText);
+        medicationRiskLevelText = (TextView) findViewById(R.id. medicationRisklevelText);
+        lunchRiskLevelText = (TextView) findViewById(R.id.lunchRisklevelText);
+        tv1RiskLevelText = (TextView) findViewById(R.id.tv1RisklevelText);
+        tv2RiskLevelText = (TextView) findViewById(R.id.tv2RisklevelText);
+        dinnerRiskLevelText = (TextView) findViewById(R.id.dinnerRisklevelText);
+        showerRiskLevelText = (TextView) findViewById(R.id.showerRisklevelText);
+        sleepRiskLevelText = (TextView) findViewById(R.id.sleepRisklevelText);
+        overallRiskLevelText = (TextView) findViewById(R.id.overallRisklevelText);
+
+
+        sleepConfidenceGroup = (RadioGroup) findViewById(R.id.sleepConfidenceGroup);
+        breakfastConfidenceGroup = (RadioGroup) findViewById(R.id. breakfastConfidenceGroup);
+        medicationConfidenceGroup = (RadioGroup) findViewById(R.id. medicationConfidenceGroup);
+        lunchConfidenceGroup = (RadioGroup) findViewById(R.id.lunchConfidenceGroup);
+        tv1ConfidenceGroup = (RadioGroup) findViewById(R.id.tv1ConfidenceGroup);
+        tv2ConfidenceGroup = (RadioGroup) findViewById(R.id.tv2ConfidenceGroup);
+        dinnerConfidenceGroup = (RadioGroup) findViewById(R.id.dinnerConfidenceGroup);
+        showerConfidenceGroup = (RadioGroup) findViewById(R.id.showerConfidenceGroup);
+        overallConfidenceGroup = (RadioGroup) findViewById(R.id.overallConfidenceGroup);
+
+
+        sleepConfidenceText = (TextView) findViewById(R.id.sleepReportConfidenceText);
+        breakfastConfidenceText = (TextView) findViewById(R.id. breakfastReportConfidenceText);
+        medicationConfidenceText = (TextView) findViewById(R.id.medicationReportConfidenceText);
+        lunchConfidenceText = (TextView) findViewById(R.id.lunchReportConfidenceText);
+        tv1ConfidenceText = (TextView) findViewById(R.id.tv1ReportConfidenceText);
+        tv2ConfidenceText = (TextView) findViewById(R.id.tv2ReportConfidenceText);
+        dinnerConfidenceText = (TextView) findViewById(R.id.dinnerReportConfidenceText);
+        showerConfidenceText = (TextView) findViewById(R.id.showerReportConfidenceText);
+        overallConfidenceText = (TextView) findViewById(R.id.overallReportConfidenceText);
+
+
+
+        riskLevelGroupHash.put("Sleep", sleepRiskGroup);
+        riskLevelGroupHash.put("Bath", showerRiskGroup);
+        riskLevelGroupHash.put("Breakfast", breakfastRiskGroup);
+        riskLevelGroupHash.put("medicine ", medicationRiskGroup);
+        riskLevelGroupHash.put("Lunch", lunchRiskGroup);
+        riskLevelGroupHash.put("TV", tv1RiskGroup);
+        riskLevelGroupHash.put("TV2", tv2RiskGroup);
+        riskLevelGroupHash.put("Dinner", dinnerRiskGroup);
+        riskLevelGroupHash.put("Overall", overallRiskGroup);
+
+
+        reportConfidenceGroupHash.put("Sleep", sleepConfidenceGroup);
+        reportConfidenceGroupHash.put("Bath", showerConfidenceGroup);
+        reportConfidenceGroupHash.put("Breakfast", breakfastRiskGroup);
+        reportConfidenceGroupHash.put("medicine ", medicationConfidenceGroup);
+        reportConfidenceGroupHash.put("Lunch", lunchConfidenceGroup);
+        reportConfidenceGroupHash.put("TV", tv1ConfidenceGroup);
+        reportConfidenceGroupHash.put("TV2", tv2ConfidenceGroup);
+        reportConfidenceGroupHash.put("Dinner", dinnerConfidenceGroup);
+        reportConfidenceGroupHash.put("Overall", overallConfidenceGroup);
+
+
+        riskLevelTextHash.put("Sleep", sleepRiskLevelText);
+        riskLevelTextHash.put("Bath", showerRiskLevelText);
+        riskLevelTextHash.put("Breakfast", breakfastRiskLevelText);
+        riskLevelTextHash.put("medicine ", medicationRiskLevelText);
+        riskLevelTextHash.put("Lunch", lunchRiskLevelText);
+        riskLevelTextHash.put("TV", tv1RiskLevelText);
+        riskLevelTextHash.put("TV2", tv2RiskLevelText);
+        riskLevelTextHash.put("Dinner", dinnerRiskLevelText);
+        riskLevelTextHash.put("Overall", overallRiskLevelText);
+
+
+        reportConfidenceTextHash.put("Sleep", sleepConfidenceText);
+        reportConfidenceTextHash.put("Bath", showerConfidenceText);
+        reportConfidenceTextHash.put("Breakfast", breakfastConfidenceText);
+        reportConfidenceTextHash.put("medicine ", medicationConfidenceText);
+        reportConfidenceTextHash.put("Lunch", lunchConfidenceText);
+        reportConfidenceTextHash.put("TV", tv1ConfidenceText);
+        reportConfidenceTextHash.put("TV2", tv2ConfidenceText);
+        reportConfidenceTextHash.put("Dinner", dinnerConfidenceText);
+        reportConfidenceTextHash.put("Overall", overallConfidenceText);
 
 
         contactList = new ArrayList<>();
@@ -319,8 +438,11 @@ public class report  extends AppCompatActivity {
                     ArrayList<String> startarray = intent.getStringArrayListExtra("starttimearraylist");
 //                    Log.d("starttime array", String.valueOf((startarray)));
 
+                    ArrayList<String> startTimearray = intent.getStringArrayListExtra("starttimelist");
+//                    Log.d("starttime array", String.valueOf((startTimearray)));
+
                     ArrayList<String> datearray = intent.getStringArrayListExtra("datelist");
-                    //Log.d("datearray", String.valueOf((datearray)));
+//                    Log.e("datearray", String.valueOf((datearray)));
 
                     ArrayList<String> endtimeArray = intent.getStringArrayListExtra("endtimeList");
 
@@ -388,6 +510,11 @@ public class report  extends AppCompatActivity {
                     String tvresponsedate = preferences.getString("tvPrefdate_" + username + LocalDate.now(),"");
                     String tvresponse = preferences.getString("tvPrefresponse_" + username + LocalDate.now(),"");
 
+                    String tvusername2 = preferences.getString("tvPrefuser2_" + username + LocalDate.now(),"");
+                    String tvmonitor2 = preferences.getString("tvPrefmonitor2_" + username + LocalDate.now(), "");
+                    String tvresponsedate2 = preferences.getString("tvPrefdate2_" + username + LocalDate.now(),"");
+                    String tvresponse2 = preferences.getString("tvPrefresponse2_" + username + LocalDate.now(),"");
+
                     String dinnerusername = preferences.getString("dinnerPrefuser_" + username + LocalDate.now(),"");
                     String dinnermonitor = preferences.getString("dinnerPrefmonitor_" + username + LocalDate.now(), "");
                     String dinnerresponsedate = preferences.getString("dinnerPrefdate_" + username + LocalDate.now(),"");
@@ -407,7 +534,12 @@ public class report  extends AppCompatActivity {
                     if((thisdate.equals( sleepresponsedate )) && username.equals(sleepusername) && useremail.equals(sleepmonitor)) {
                         if ((preferences.contains("sleepPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking sleep shared preference   ", sleepresponse);
-                            sleepradio.setVisibility(View.GONE);
+//                            sleepradio.setVisibility(View.GONE);
+                            sleepConfidenceGroup.setVisibility(View.GONE);
+                            sleepConfidenceText.setVisibility(View.GONE);
+                            sleepRiskGroup.setVisibility(View.GONE);
+                            sleepRiskLevelText.setVisibility(View.GONE);
+
                             sleepCard.setCardBackgroundColor(getColor(R.color.trafficGreen));
                         }
                     }
@@ -418,7 +550,13 @@ public class report  extends AppCompatActivity {
                     if((thisdate.equals( showerresponsedate )) && username.equals(showerusername) && useremail.equals(showermonitor)) {
                         if ((preferences.contains("showerPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking shower shared preference   ", showerresponse);
-                            showerradio.setVisibility(View.GONE);
+//                            showerradio.setVisibility(View.GONE);
+
+                            showerConfidenceGroup.setVisibility(View.GONE);
+                            showerConfidenceText.setVisibility(View.GONE);
+                            showerRiskGroup.setVisibility(View.GONE);
+                            showerRiskLevelText.setVisibility(View.GONE);
+
                             showerCard.setCardBackgroundColor(getColor(R.color.trafficGreen));
 
                         }
@@ -430,7 +568,13 @@ public class report  extends AppCompatActivity {
                     if((thisdate.equals( medicationresponsedate )) && username.equals(medicationusername) && useremail.equals(medicationmonitor)) {
                         if ((preferences.contains("medicationPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking medication shared preference   ", medicationresponse);
-                            medicationradio.setVisibility(View.GONE);
+//                            medicationradio.setVisibility(View.GONE);
+
+                            medicationConfidenceGroup.setVisibility(View.GONE);
+                            medicationConfidenceText.setVisibility(View.GONE);
+                            medicationRiskGroup.setVisibility(View.GONE);
+                            medicationRiskLevelText.setVisibility(View.GONE);
+
                             medicineCard.setCardBackgroundColor(getColor(R.color.trafficGreen));
 
                         }
@@ -442,7 +586,13 @@ public class report  extends AppCompatActivity {
                     if((thisdate.equals( breakfastresponsedate )) && username.equals(breakfastusername) && useremail.equals(breakfastmonitor)) {
                         if ((preferences.contains("breakfastPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking breakfast shared preference   ", breakfastresponse);
-                            breakfastradio.setVisibility(View.GONE);
+//                            breakfastradio.setVisibility(View.GONE);
+
+                            breakfastConfidenceGroup.setVisibility(View.GONE);
+                            breakfastConfidenceText.setVisibility(View.GONE);
+                            breakfastRiskGroup.setVisibility(View.GONE);
+                            breakfastRiskLevelText.setVisibility(View.GONE);
+
                             bfCard.setCardBackgroundColor(getColor(R.color.trafficGreen));
 
                         }
@@ -454,7 +604,13 @@ public class report  extends AppCompatActivity {
                     if((thisdate.equals( lunchresponsedate )) && username.equals(lunchusername) && useremail.equals(lunchmonitor)) {
                         if ((preferences.contains("lunchPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking lunch shared preference   ", lunchresponse);
-                            lunchradio.setVisibility(View.GONE);
+//                            lunchradio.setVisibility(View.GONE);
+
+                            lunchConfidenceGroup.setVisibility(View.GONE);
+                            lunchConfidenceText.setVisibility(View.GONE);
+                            lunchRiskGroup.setVisibility(View.GONE);
+                            lunchRiskLevelText.setVisibility(View.GONE);
+
                             lunchCard.setCardBackgroundColor(getColor(R.color.trafficGreen));
 
                         }
@@ -467,8 +623,32 @@ public class report  extends AppCompatActivity {
                     if((thisdate.equals( tvresponsedate )) && username.equals(tvusername) && useremail.equals(tvmonitor)) {
                         if ((preferences.contains("tvPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking tv shared preference   ", tvresponse);
-                            tvradio.setVisibility(View.GONE);
-                            tvCard.setCardBackgroundColor(getColor(R.color.trafficGreen));
+//                            tvradio.setVisibility(View.GONE);
+
+                            tv1ConfidenceGroup.setVisibility(View.GONE);
+                            tv1ConfidenceText.setVisibility(View.GONE);
+                            tv1RiskGroup.setVisibility(View.GONE);
+                            tv1RiskLevelText.setVisibility(View.GONE);
+
+                            tv1Card.setCardBackgroundColor(getColor(R.color.trafficGreen));
+
+                        }
+                    }
+                    else {
+//                        Log.d("checking if date not same tv shared preference   ", tvusername);
+                    }
+
+                    if((thisdate.equals( tvresponsedate2 )) && username.equals(tvusername2) && useremail.equals(tvmonitor2)) {
+                        if ((preferences.contains("tvPrefresponse2_" + username + LocalDate.now()))){
+//                            Log.d("checking tv shared preference   ", tvresponse);
+//                            tvradio2.setVisibility(View.INVISIBLE);
+
+                            tv2ConfidenceGroup.setVisibility(View.GONE);
+                            tv2ConfidenceText.setVisibility(View.GONE);
+                            tv2RiskGroup.setVisibility(View.GONE);
+                            tv2RiskLevelText.setVisibility(View.GONE);
+
+                            tv2Card.setCardBackgroundColor(getColor(R.color.trafficGreen));
 
                         }
                     }
@@ -479,7 +659,13 @@ public class report  extends AppCompatActivity {
                     if((thisdate.equals( dinnerresponsedate )) && username.equals(dinnerusername) && useremail.equals(dinnermonitor)) {
                         if ((preferences.contains("dinnerPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking dinner shared preference   ", dinnerresponse);
-                            dinnerradio.setVisibility(View.GONE);
+//                            dinnerradio.setVisibility(View.GONE);
+
+                            dinnerConfidenceGroup.setVisibility(View.GONE);
+                            dinnerConfidenceText.setVisibility(View.GONE);
+                            dinnerRiskGroup.setVisibility(View.GONE);
+                            dinnerRiskLevelText.setVisibility(View.GONE);
+
                             dinnerCard.setCardBackgroundColor(getColor(R.color.trafficGreen));
 
                         }
@@ -513,6 +699,10 @@ public class report  extends AppCompatActivity {
                     LocalDate today = LocalDate.now();
                     LocalTime currentTime = LocalTime.now();
 
+                    LocalDateTime ldtime = LocalDateTime.now();
+
+//                    Log.e(TAG, "onReceive: ->/>/> " + ldtime );
+
                     //this index helps to start the graph at a aprticular date: pref after 3 days of data. Is in 2 places, userReport 234
                     int enddateindex = (today.getDayOfYear() % (datearray.size()-2) + 2);
                     String activitydur = durarray.get(enddateindex);
@@ -520,7 +710,8 @@ public class report  extends AppCompatActivity {
 //                    Log.d("activitydur", String.valueOf(activitydur));
 
                     LocalDate endDate = LocalDate.parse(datearray.get(enddateindex));
-                   // Log.d("enddatelocal", String.valueOf(endDate));
+
+                    // Log.d("enddatelocal", String.valueOf(endDate));
 
                     ArrayList<String> modStartArray = new ArrayList<>();
                     ArrayList<String> modEndArray = new ArrayList<>();
@@ -550,9 +741,21 @@ public class report  extends AppCompatActivity {
 
                     durationTextview = durationtextHash.get(activityType);
                     endTimeTextview = endTimetextHash.get(activityType);
-                    thisRadiogp = radioHash.get(activityType);
+//                    thisRadiogp = radioHash.get(activityType);
                     thisCard = cardHash.get(activityType);
                     stateTextview = activitystateHash.get(activityType);
+
+                    riskLevelRadioGroup = riskLevelGroupHash.get(activityType);
+                    reportConfidenceRadioGroup = reportConfidenceGroupHash.get(activityType);
+                    risklevelText = riskLevelTextHash.get(activityType);
+                    confidenceReportText = reportConfidenceTextHash.get(activityType);
+
+
+//                    if (!activityType.equals("TV")| !activityType.equals("TV2")){
+//
+//                        tvCard2.setVisibility(View.GONE);
+//                        tvCard.setVisibility(View.VISIBLE);
+//                    }
 
                     if (Float.parseFloat(activitydur) >= 60) {
 
@@ -562,14 +765,47 @@ public class report  extends AppCompatActivity {
                         assert endarray != null;
                         assert endtimeArray2 != null;
                         String actvTime = endtimeArray.get(enddateindex);
-                       // Log.d("compareactivitytime", (actvTime));
+                        String startTime = startTimearray.get(enddateindex);
+                        Log.d("compareactivitytime", (startTime));
 
 
                         LocalDateTime lct = LocalDateTime.parse(actvTime, timeFormatter);
                         LocalTime actTime = lct.toLocalTime(); //get activity completion time in localtime format
 
-                        String endtimeText = endtimeArray2.get(enddateindex);
+                        LocalDateTime startlct = LocalDateTime.parse(startTime, timeFormatter);
+                        LocalTime startactTime = startlct.toLocalTime();
 
+                        String endtimeText = endtimeArray2.get(enddateindex);
+//                        Log.e(TAG, "onReceive: mocktheweek22- > " + "->> " + startactTime + "-->> " + actTime);
+
+                        if(currentTime.isAfter(startactTime) && currentTime.isBefore(actTime)){
+
+                            thisCard.setCardBackgroundColor(getColor(R.color.trafficRed));
+//                            thisRadiogp.setVisibility(View.GONE);
+                            drawchart(prevModStartArray , prevModEndArray, activityType);
+                            durationTextview.setVisibility(View.GONE);
+                            endTimeTextview.setVisibility(View.GONE);
+                            stateTextview.setText(getString(R.string.activityOngoing));
+
+                            riskLevelRadioGroup.setVisibility(View.GONE);
+                            risklevelText.setVisibility(View.GONE);
+                            reportConfidenceRadioGroup.setVisibility(View.GONE);
+                            confidenceReportText.setVisibility(View.GONE);
+
+                            if(activityType.equals("TV")){
+                                tv2Card.setVisibility(View.INVISIBLE);
+                                tvradio2.setVisibility(View.INVISIBLE);
+                            }
+                            if(activityType.equals("TV2")){
+                                tv1Card.setVisibility(View.INVISIBLE);
+                                tvradio.setVisibility(View.INVISIBLE);
+                            }
+
+                            Log.e(TAG, "onReceive: mocktheweek- > " + "->> " + startactTime + "-->> " + actTime);
+
+                        }
+
+                        else {
                         if (currentTime.isAfter(actTime)) {
 
                                 thisCard.setCardBackgroundColor(getColor(R.color.trafficYellow));
@@ -581,49 +817,93 @@ public class report  extends AppCompatActivity {
                         else {
 
                             thisCard.setCardBackgroundColor(getColor(R.color.trafficRed));
-                            thisRadiogp.setVisibility(View.GONE);
+//                            thisRadiogp.setVisibility(View.GONE);
                             drawchart(prevModStartArray , prevModEndArray, activityType);
                             durationTextview.setVisibility(View.GONE);
                             endTimeTextview.setVisibility(View.GONE);
                             stateTextview.setText(getString(R.string.activityIncomplete));
-                        }
+
+                            riskLevelRadioGroup.setVisibility(View.GONE);
+                            risklevelText.setVisibility(View.GONE);
+                            reportConfidenceRadioGroup.setVisibility(View.GONE);
+                            confidenceReportText.setVisibility(View.GONE);
+                        }}
                     }
                     else {
 
                         long durationOfActivity = Long.parseLong(activitydur);
-                        assert durationTextview != null;
-
-                       // Log.d("durationOfActivity", String.valueOf(durationOfActivity));
+                        // Log.d("durationOfActivity", String.valueOf(durationOfActivity));
 
                         assert endtimeArray2 != null;
                         String actvTime = endtimeArray.get(enddateindex);
 //                        Log.d("compareactivitytime2", (actvTime));
+                        String startTime = startTimearray.get(enddateindex);
 
-                        LocalDateTime lct = LocalDateTime.parse(actvTime,timeFormatter);
+                        LocalDateTime lct = LocalDateTime.parse(actvTime, timeFormatter);
                         LocalTime actTime = lct.toLocalTime(); //get activity completion time in localtime format
 
 //                        Log.e(TAG, "onReceive: parsing error checking ->  " +lct);
 
                         String endtimeText = endtimeArray2.get(enddateindex);
 
+                        LocalDateTime startlct = LocalDateTime.parse(startTime, timeFormatter);
+                        LocalTime startactTime = startlct.toLocalTime();
+
+
+                        if (currentTime.isAfter(startactTime) && currentTime.isBefore(actTime)){
+
+                            thisCard.setCardBackgroundColor(getColor(R.color.trafficRed));
+//                            thisRadiogp.setVisibility(View.GONE);
+                            durationTextview.setVisibility(View.GONE);
+                            endTimeTextview.setVisibility(View.GONE);
+                            stateTextview.setText(getString(R.string.activityOngoing));
+                            drawchart(prevModStartArray, prevModEndArray, activityType);
+
+                            riskLevelRadioGroup.setVisibility(View.GONE);
+                            risklevelText.setVisibility(View.GONE);
+                            reportConfidenceRadioGroup.setVisibility(View.GONE);
+                            confidenceReportText.setVisibility(View.GONE);
+
+                            Log.e(TAG, "onReceive: mocktheweek- > " + "->> " + startactTime + "-->> " + actTime);
+                        }
+
+                        else{
+
                         if(currentTime.isAfter(actTime)){
+
                                 thisCard.setCardBackgroundColor(getColor(R.color.trafficYellow));
                                 durationTextview.setText(activitydur + getString(R.string.minutes));
                                 endTimeTextview.setText(endtimeText);
                                 stateTextview.setText(getString(R.string.activityComplete));
                                 drawchart(modStartArray, modEndArray, activityType);
+
+                            if (activityType.equals("TV2")){
+                                tv1Card.setVisibility(View.GONE);
+                            }
+                               if(("TV").equals(activityType) & tv1Duration !=null){
+                                    String currentDuration = activitydur;
+                                    Log.e(TAG, "thisISSparta- >  " + currentDuration);
+                                    //text6.setText(currentDuration);
+                                    String newDuration = String.valueOf(Integer.parseInt(currentDuration) + Integer.parseInt(activitydur));
+                                  tv1Duration.setText(newDuration);
+                                }
                             }
 
                             else
                             {
                                 thisCard.setCardBackgroundColor(getColor(R.color.trafficRed));
-                                thisRadiogp.setVisibility(View.GONE);
+//                                thisRadiogp.setVisibility(View.GONE);
                                 stateTextview.setText(getString(R.string.activityIncomplete));
                                 durationTextview.setVisibility(View.GONE);
                                 endTimeTextview.setVisibility(View.GONE);
                                 drawchart(prevModStartArray, prevModEndArray, activityType);
 
-                            }
+                               riskLevelRadioGroup.setVisibility(View.GONE);
+                               risklevelText.setVisibility(View.GONE);
+                               reportConfidenceRadioGroup.setVisibility(View.GONE);
+                               confidenceReportText.setVisibility(View.GONE);
+
+                            }}
                     }
                 }
             }
@@ -753,6 +1033,7 @@ public class report  extends AppCompatActivity {
                     HashMap<String, Object> lunchmap = new HashMap<>();
                     HashMap<String, Object> dinnermap = new HashMap<>();
                     HashMap<String, Object> tvmap = new HashMap<>();
+                    HashMap<String, Object> tvmap2 = new HashMap<>();
                     HashMap<String, Object> overallmap = new HashMap<>();
 
 
@@ -768,6 +1049,10 @@ public class report  extends AppCompatActivity {
                     final int lunchstate = lunchradio.getCheckedRadioButtonId();
                     final int dinnerstate = dinnerradio.getCheckedRadioButtonId();
                     final int tvstate = tvradio.getCheckedRadioButtonId();
+                    final int tvstate2 = tvradio2.getCheckedRadioButtonId();
+
+
+
                     final int overallstate = overallradio.getCheckedRadioButtonId();
 
                     String timeValues = " Time values  ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime();
@@ -878,17 +1163,34 @@ public class report  extends AppCompatActivity {
 
                         }
                         if (tvradio != null && tvradio.isEnabled() && tvstate != -1) {
-                            tv = (RadioButton) findViewById(tvstate);
+                            tv1 = (RadioButton) findViewById(tvstate);
 //                            Log.d("value   ", String.valueOf(tv.getText()));
                             tvmap.put("TV state", userdr);
                             String finalTimes = finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime();
 
-                            ref.child(username).child("TV").child(String.valueOf(tv.getText())).child(id).child(finalTimes).updateChildren(tvmap);
+                            ref.child(username).child("TV").child(String.valueOf(tv1.getText())).child(id).child(finalTimes).updateChildren(tvmap);
 
                             editor.putString("tvPrefuser_" + username+ LocalDate.now(), username);
                             editor.putString("tvPrefmonitor_" + username+ LocalDate.now(), email);
-                            editor.putString("tvPrefresponse_" + username+ LocalDate.now(), String.valueOf(tv.getText()));
+                            editor.putString("tvPrefresponse_" + username+ LocalDate.now(), String.valueOf(tv1.getText()));
                             editor.putString("tvPrefdate_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
+
+                            editor.apply();
+                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport+ "  ReportingTime ->  " + Calendar.getInstance().getTime() );
+
+                        }
+                        if (tvradio2 != null && tvradio2.isEnabled() && tvstate2 != -1) {
+                            tv2 = (RadioButton) findViewById(tvstate);
+//                            Log.d("value   ", String.valueOf(tv.getText()));
+                            tvmap2.put("TV state2", userdr);
+                            String finalTimes = finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime();
+
+                            ref.child(username).child("TV").child(String.valueOf(tv1.getText())).child(id).child(finalTimes).updateChildren(tvmap);
+
+                            editor.putString("tvPrefuser2_" + username+ LocalDate.now(), username);
+                            editor.putString("tvPrefmonitor2_" + username+ LocalDate.now(), email);
+                            editor.putString("tvPrefresponse2_" + username+ LocalDate.now(), String.valueOf(tv2.getText()));
+                            editor.putString("tvPrefdate2_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
                             Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport+ "  ReportingTime ->  " + Calendar.getInstance().getTime() );
