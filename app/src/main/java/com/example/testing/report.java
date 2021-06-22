@@ -56,7 +56,9 @@ public class report  extends AppCompatActivity {
     public TextView sleepDuration, showerDuration, breakfastDuration, medicationDuration, lunchDuration, tv1Duration, tv2Duration, dinnerDuration, durationTextview, activityReport;
     public TextView sleepEndtime, bfEndtime, medicineEndtime, lunchEndtime, tv1Endtime, tv2Endtime,dinnerEndtime, showerEndtime, endTimeTextview;
     public TextView sleepState, showerState, bfState, medicationState, lunchState, tv1State, tv2State, dinnerState, stateTextview, overallLastResponse,overallLastResponseTime ;
-    RadioButton sleep, shower, breakfast, lunch, dinner, medication, tv1, tv2, overall;
+    public RadioButton sleepRisk, showerRisk, breakfastRisk, lunchRisk, dinnerRisk, medicationRisk, tv1Risk, tv2Risk, overallRisk;
+    public RadioButton sleepConfidence, showerConfidence, breakfastConfidence, lunchConfidence, dinnerConfidence, medicationConfidence, tv1Confidence, tv2Confidence, overallConfidence;
+
 
     public TextView sleepRiskLevelText,breakfastRiskLevelText,medicationRiskLevelText,lunchRiskLevelText,tv1RiskLevelText,tv2RiskLevelText,dinnerRiskLevelText,showerRiskLevelText;
     public TextView sleepConfidenceText,breakfastConfidenceText,medicationConfidenceText,lunchConfidenceText,tv1ConfidenceText,tv2ConfidenceText,dinnerConfidenceText,showerConfidenceText;
@@ -64,13 +66,9 @@ public class report  extends AppCompatActivity {
     private RadioGroup sleepConfidenceGroup, breakfastConfidenceGroup,medicationConfidenceGroup,lunchConfidenceGroup,tv1ConfidenceGroup,tv2ConfidenceGroup,dinnerConfidenceGroup,showerConfidenceGroup;
 
     private RadioGroup overallRiskGroup, overallConfidenceGroup;
-    private TextView overallRiskLevelText, overallConfidenceText;
-
-    private RadioGroup sleepradio, showerradio, breakfastradio, medicationradio, lunchradio, tvradio, tvradio2, dinnerradio, thisRadiogp,overallradio;
-
-    private RadioGroup riskLevelRadioGroup, reportConfidenceRadioGroup;
-    private TextView risklevelText, confidenceReportText;
-
+    public TextView overallRiskLevelText, overallConfidenceText;
+    public RadioGroup riskLevelRadioGroup, reportConfidenceRadioGroup;
+    public TextView risklevelText, confidenceReportText;
 
 
     Button submitreport;
@@ -82,25 +80,22 @@ public class report  extends AppCompatActivity {
 
     private final HashMap<String, TextView> durationtextHash = new HashMap<>();
 
-    private HashMap<String, TextView> endTimetextHash = new HashMap<>();
+    private final HashMap<String, TextView> endTimetextHash = new HashMap<>();
 
-    private HashMap<String, TextView> activitystateHash = new HashMap<>();
+    private final  HashMap<String, TextView> activitystateHash = new HashMap<>();
 
-    private HashMap<String, TextView> riskLevelTextHash = new HashMap<>();
+    private final  HashMap<String, TextView> riskLevelTextHash = new HashMap<>();
 
-    private HashMap<String, TextView> reportConfidenceTextHash = new HashMap<>();
+    private final  HashMap<String, TextView> reportConfidenceTextHash = new HashMap<>();
 
+    private final  HashMap<String, CardView> cardHash = new HashMap<>();
 
-    private HashMap<String, CardView> cardHash = new HashMap<>();
+    private final  HashMap<String, RadioGroup> riskLevelGroupHash = new HashMap<>();
 
-    private HashMap<String, RadioGroup> radioHash = new HashMap<>();
-
-    private HashMap<String, RadioGroup> riskLevelGroupHash = new HashMap<>();
-
-    private HashMap<String, RadioGroup> reportConfidenceGroupHash = new HashMap<>();
+    private final  HashMap<String, RadioGroup> reportConfidenceGroupHash = new HashMap<>();
 
 
-    private HashMap<String, CandleStickChart> activityChartMap = new HashMap<>();
+    private final  HashMap<String, CandleStickChart> activityChartMap = new HashMap<>();
 
     private String userStr = null;
     public static final String mypreference = "mypref";
@@ -794,11 +789,11 @@ public class report  extends AppCompatActivity {
 
                             if(activityType.equals("TV")){
                                 tv2Card.setVisibility(View.INVISIBLE);
-                                tvradio2.setVisibility(View.INVISIBLE);
+                                tv2RiskGroup.setVisibility(View.INVISIBLE);
                             }
                             if(activityType.equals("TV2")){
                                 tv1Card.setVisibility(View.INVISIBLE);
-                                tvradio.setVisibility(View.INVISIBLE);
+                                tv1RiskGroup.setVisibility(View.INVISIBLE);
                             }
 
                             Log.e(TAG, "onReceive: mocktheweek- > " + "->> " + startactTime + "-->> " + actTime);
@@ -1026,62 +1021,82 @@ public class report  extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    HashMap<String, Object> sleepmap = new HashMap<>();
-                    HashMap<String, Object> showermap = new HashMap<>();
-                    HashMap<String, Object> medmap = new HashMap<>();
-                    HashMap<String, Object> bfmap = new HashMap<>();
-                    HashMap<String, Object> lunchmap = new HashMap<>();
-                    HashMap<String, Object> dinnermap = new HashMap<>();
-                    HashMap<String, Object> tvmap = new HashMap<>();
-                    HashMap<String, Object> tvmap2 = new HashMap<>();
-                    HashMap<String, Object> overallmap = new HashMap<>();
-
+                    HashMap<String, Object> sleepMap = new HashMap<>();
+                    HashMap<String, Object> showerMap = new HashMap<>();
+                    HashMap<String, Object> medicationMap = new HashMap<>();
+                    HashMap<String, Object> breakfastMap = new HashMap<>();
+                    HashMap<String, Object> lunchMap = new HashMap<>();
+                    HashMap<String, Object> dinnerMap = new HashMap<>();
+                    HashMap<String, Object> tv1Map = new HashMap<>();
+                    HashMap<String, Object> tv2Map = new HashMap<>();
+                    HashMap<String, Object> overallMap = new HashMap<>();
 
                     assert email != null;
                     Log.d("EdVanWood", email);
                     String id = ref.push().getKey();
                     assert id != null;
 
-                    final int sleepstate = sleepradio.getCheckedRadioButtonId();
-                    final int showerstate = showerradio.getCheckedRadioButtonId();
-                    final int medstate = medicationradio.getCheckedRadioButtonId();
-                    final int bfstate = breakfastradio.getCheckedRadioButtonId();
-                    final int lunchstate = lunchradio.getCheckedRadioButtonId();
-                    final int dinnerstate = dinnerradio.getCheckedRadioButtonId();
-                    final int tvstate = tvradio.getCheckedRadioButtonId();
-                    final int tvstate2 = tvradio2.getCheckedRadioButtonId();
+                    final int sleepRiskResponse = sleepRiskGroup.getCheckedRadioButtonId();
+                    final int showerRiskResponse = showerRiskGroup.getCheckedRadioButtonId();
+                    final int medicationRiskResponse = medicationRiskGroup.getCheckedRadioButtonId();
+                    final int breakfastRiskResponse = breakfastRiskGroup.getCheckedRadioButtonId();
+                    final int lunchRiskResponse = lunchRiskGroup.getCheckedRadioButtonId();
+                    final int dinnerRiskResponse = dinnerRiskGroup.getCheckedRadioButtonId();
+                    final int tv1RiskResponse = tv1RiskGroup.getCheckedRadioButtonId();
+                    final int tv2RiskResponse = tv2RiskGroup.getCheckedRadioButtonId();
 
+                    final int sleepReportConfidence = sleepConfidenceGroup.getCheckedRadioButtonId();
+                    final int showerReportConfidence = showerConfidenceGroup.getCheckedRadioButtonId();
+                    final int medicationReportConfidence = medicationConfidenceGroup.getCheckedRadioButtonId();
+                    final int breakfastReportConfidence = breakfastConfidenceGroup.getCheckedRadioButtonId();
+                    final int lunchReportConfidence = lunchConfidenceGroup.getCheckedRadioButtonId();
+                    final int dinnerReportConfidence = dinnerConfidenceGroup.getCheckedRadioButtonId();
+                    final int tv1ReportConfidence = tv1ConfidenceGroup.getCheckedRadioButtonId();
+                    final int tv2ReportConfidence = tv2ConfidenceGroup.getCheckedRadioButtonId();
 
+                    final int overallRiskResponse = overallRiskGroup.getCheckedRadioButtonId();
+                    final int overallReportConfidence = overallConfidenceGroup.getCheckedRadioButtonId();
 
-                    final int overallstate = overallradio.getCheckedRadioButtonId();
 
                     String timeValues = " Time values  ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime();
 
-                    if ( sleepstate == -1
-                            && showerstate == -1
-                            &&  bfstate == -1
-                            && medstate == -1
-                            && lunchstate == -1
-                            && tvstate == -1
-                            && dinnerstate == -1
-                            && overallstate == -1)
+                    if ( sleepRiskResponse == -1
+                            && showerRiskResponse == -1
+                            && breakfastRiskResponse == -1
+                            && medicationRiskResponse == -1
+                            && lunchRiskResponse == -1
+                            && tv1RiskResponse == -1
+                            && dinnerRiskResponse == -1
+                            && overallRiskResponse == -1
+                            && tv2RiskResponse == -1
+
+                            && sleepReportConfidence == -1
+                            && showerReportConfidence == -1
+                            && breakfastReportConfidence == -1
+                            && medicationReportConfidence == -1
+                            && lunchReportConfidence == -1
+                            && tv1ReportConfidence == -1
+                            && dinnerReportConfidence== -1
+                            && overallReportConfidence == -1
+                            && tv2ReportConfidence == -1)
                     {
                         Toast.makeText(getApplicationContext(), getResources().getString(R.string.missedWhileReporting), Toast.LENGTH_SHORT).show();
                     }
                     else {
 
-                        if (sleepradio != null && sleepradio.isEnabled() && sleepstate != -1) {
-                            sleep = (RadioButton) findViewById(sleepstate);
-//                            Log.d("value   ", String.valueOf(sleep.getText()));
-                            sleepmap.put("Sleep state", userdr);
+                        if (sleepRiskGroup != null && sleepRiskGroup.isEnabled() && sleepRiskResponse != -1 && sleepConfidenceGroup != null && sleepConfidenceGroup.isEnabled() && sleepReportConfidence != -1) {
+                            sleepRisk = (RadioButton) findViewById(sleepRiskResponse);
+                            sleepConfidence = (RadioButton)findViewById(sleepReportConfidence);
+
+                            sleepMap.put("Sleep state", userdr);
 
                             String finalTimes = finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime();
 
-                            ref.child(username).child("Sleep").child(String.valueOf(sleep.getText())).child(id).child(finalTimes).updateChildren(sleepmap);
+                            ref.child(username).child("Sleep").child( "Risk is - >  " + String.valueOf(sleepRisk.getText())).child("Confidence is ->  "+ String.valueOf(sleepConfidence.getText())).child(id).child(finalTimes).updateChildren(sleepMap);
 
                             editor.putString("sleepPrefuser_" + username + LocalDate.now(), username);
                             editor.putString("sleepPrefmonitor_" + username + LocalDate.now(), email);
-                            editor.putString("sleepPrefresponse_" + username + LocalDate.now(), String.valueOf(sleep.getText()));
+                            editor.putString("sleepPrefresponse_" + username + LocalDate.now(), String.valueOf(sleepRisk.getText()));
                             editor.putString("sleepPrefdate_" + username + LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply(); //to get it back, need to do, preferences.getString("same key", )
@@ -1090,35 +1105,39 @@ public class report  extends AppCompatActivity {
                             Log.e(TAG, "onClick: testing if local time is varied" +  "  " + timeValues );
                         }
 
-                        if (showerradio != null && showerradio.isEnabled() && showerstate != -1) {
-                            shower = (RadioButton) findViewById(showerstate);
+                        if (showerRiskGroup != null && showerRiskGroup.isEnabled() && showerRiskResponse != -1 && showerConfidenceGroup != null && showerConfidenceGroup.isEnabled() && showerReportConfidence != -1) {
+                            showerRisk = (RadioButton) findViewById(showerRiskResponse);
+                            showerConfidence = (RadioButton)findViewById(showerReportConfidence);
+
 //                            Log.d("value ", String.valueOf(shower.getText()));
-                            showermap.put("Shower state", userdr);
+                            showerMap.put("Shower state", userdr);
 
                             String finalTimes = finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime();
 
-                            ref.child("testing for FB").child(username).child("Shower").child(String.valueOf(shower.getText())).child(id).child(finalTimes).updateChildren(showermap);
+                            ref.child(username).child("Shower").child("Risk is - >  " +String.valueOf(showerRisk.getText())).child("Confidence is ->  "+ String.valueOf(showerConfidence.getText())).child(id).child(finalTimes).updateChildren(showerMap);
 
                             editor.putString("showerPrefuser_" + username+ LocalDate.now(), username);
                             editor.putString("showerPrefmonitor_" + username+ LocalDate.now(), email);
-                            editor.putString("showerPrefresponse_" + username+ LocalDate.now(), String.valueOf(shower.getText()));
+                            editor.putString("showerPrefresponse_" + username+ LocalDate.now(), String.valueOf(showerRisk.getText()));
                             editor.putString("showerPrefdate_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
                             Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime() );
 
                         }
-                        if (breakfastradio != null && breakfastradio.isEnabled() && bfstate != -1) {
-                            breakfast = (RadioButton) findViewById(bfstate);
+                        if (breakfastRiskGroup != null && breakfastRiskGroup.isEnabled() && breakfastRiskResponse != -1 && breakfastConfidenceGroup != null && breakfastConfidenceGroup.isEnabled() && breakfastReportConfidence != -1){
+                            breakfastRisk = (RadioButton) findViewById(breakfastRiskResponse);
+                            breakfastConfidence= (RadioButton) findViewById(breakfastReportConfidence);
+
 //                            Log.d("value   ", String.valueOf(breakfast.getText()));
-                            bfmap.put("Breakfast state", userdr);
+                            breakfastMap.put("Breakfast state", userdr);
                             String finalTimes = finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime();
 
-                            ref.child(username).child("Breakfast").child(String.valueOf(breakfast.getText())).child(id).child(finalTimes).updateChildren(bfmap);
+                            ref.child(username).child("Breakfast").child("Risk is - >  " +String.valueOf(breakfastRisk.getText())).child("Confidence is ->  "+ String.valueOf(breakfastConfidence.getText())).child(id).child(finalTimes).updateChildren(breakfastMap);
 
                             editor.putString("breakfastPrefuser_" + username+ LocalDate.now(), username);
                             editor.putString("breakfastPrefmonitor_" + username+ LocalDate.now(), email);
-                            editor.putString("breakfastPrefresponse_" + username+ LocalDate.now(), String.valueOf(breakfast.getText()));
+                            editor.putString("breakfastPrefresponse_" + username+ LocalDate.now(), String.valueOf(breakfastRisk.getText()));
                             editor.putString("breakfastPrefdate_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
@@ -1126,17 +1145,18 @@ public class report  extends AppCompatActivity {
 
 
                         }
-                        if (medicationradio != null && medicationradio.isEnabled() && medstate != -1) {
-                            medication = (RadioButton) findViewById(medstate);
+                        if (medicationRiskGroup != null && medicationRiskGroup.isEnabled() && medicationRiskResponse != -1 && medicationConfidenceGroup != null && medicationConfidenceGroup.isEnabled() && medicationReportConfidence != -1) {
+                            medicationRisk = (RadioButton) findViewById(medicationRiskResponse);
+                            medicationConfidence= (RadioButton) findViewById(medicationReportConfidence);
 //                            Log.d("value   ", String.valueOf(medication.getText()));
-                            medmap.put("Medication state", userdr);
+                            medicationMap.put("Medication state", userdr);
                             String finalTimes = finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime();
 
-                            ref.child(username).child("Medication").child(String.valueOf(medication.getText())).child(id).child(finalTimes).updateChildren(medmap);
+                            ref.child(username).child("Medication").child("Risk is - >  " +String.valueOf(medicationRisk.getText())).child("Confidence is ->  "+ String.valueOf(medicationConfidence.getText())).child(id).child(finalTimes).updateChildren(medicationMap);
 
                             editor.putString("medicationPrefuser_" + username+ LocalDate.now(), username);
                             editor.putString("medicationPrefmonitor_" + username+ LocalDate.now(), email);
-                            editor.putString("medicationPrefresponse_" + username+ LocalDate.now(), String.valueOf(medication.getText()));
+                            editor.putString("medicationPrefresponse_" + username+ LocalDate.now(), String.valueOf(medicationRisk.getText()));
                             editor.putString("medicationPrefdate_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
@@ -1144,17 +1164,18 @@ public class report  extends AppCompatActivity {
 
 
                         }
-                        if (lunchradio != null && lunchradio.isEnabled() && lunchstate != -1) {
-                            lunch = (RadioButton) findViewById(lunchstate);
-//                            Log.d("value   ", String.valueOf(lunch.getText()));
-                            lunchmap.put("lunch state", userdr);
+                        if (lunchRiskGroup != null && lunchRiskGroup.isEnabled() && lunchRiskResponse != -1 && lunchConfidenceGroup != null && lunchConfidenceGroup.isEnabled() && lunchReportConfidence != -1) {
+                            lunchRisk = (RadioButton) findViewById(lunchRiskResponse);
+                            lunchConfidence= (RadioButton) findViewById(lunchReportConfidence);
+
+                            lunchMap.put("lunch state", userdr);
                             String finalTimes = finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime();
 
-                            ref.child(username).child("Lunch").child(String.valueOf(lunch.getText())).child(id).child(finalTimes).updateChildren(lunchmap);
+                            ref.child(username).child("Lunch").child(String.valueOf(lunchRisk.getText())).child(id).child(finalTimes).updateChildren(lunchMap);
 
                             editor.putString("lunchPrefuser_" + username+ LocalDate.now(), username);
                             editor.putString("lunchPrefmonitor_" + username+ LocalDate.now(), email);
-                            editor.putString("lunchPrefresponse_" + username+ LocalDate.now(), String.valueOf(lunch.getText()));
+                            editor.putString("lunchPrefresponse_" + username+ LocalDate.now(), String.valueOf(lunchRisk.getText()));
                             editor.putString("lunchPrefdate_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
@@ -1162,64 +1183,72 @@ public class report  extends AppCompatActivity {
 
 
                         }
-                        if (tvradio != null && tvradio.isEnabled() && tvstate != -1) {
-                            tv1 = (RadioButton) findViewById(tvstate);
+                        if (tv1RiskGroup != null && tv1RiskGroup.isEnabled() && tv1RiskResponse != -1 && tv1ConfidenceGroup != null && tv1ConfidenceGroup.isEnabled() && tv1ReportConfidence != -1) {
+                            tv1Risk = (RadioButton) findViewById(tv1RiskResponse);
+                            tv1Confidence= (RadioButton) findViewById(tv1ReportConfidence);
+
 //                            Log.d("value   ", String.valueOf(tv.getText()));
-                            tvmap.put("TV state", userdr);
+                            tv1Map.put("TV state", userdr);
                             String finalTimes = finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime();
 
-                            ref.child(username).child("TV").child(String.valueOf(tv1.getText())).child(id).child(finalTimes).updateChildren(tvmap);
+                            ref.child(username).child("TV").child("Risk is - >  " +String.valueOf(tv1Risk.getText())).child("Confidence is ->  "+ String.valueOf(tv1Confidence.getText())).child(id).child(finalTimes).updateChildren(tv1Map);
 
                             editor.putString("tvPrefuser_" + username+ LocalDate.now(), username);
                             editor.putString("tvPrefmonitor_" + username+ LocalDate.now(), email);
-                            editor.putString("tvPrefresponse_" + username+ LocalDate.now(), String.valueOf(tv1.getText()));
+                            editor.putString("tvPrefresponse_" + username+ LocalDate.now(), String.valueOf(tv1Risk.getText()));
                             editor.putString("tvPrefdate_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
                             Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport+ "  ReportingTime ->  " + Calendar.getInstance().getTime() );
 
                         }
-                        if (tvradio2 != null && tvradio2.isEnabled() && tvstate2 != -1) {
-                            tv2 = (RadioButton) findViewById(tvstate);
+                        if (tv2RiskGroup != null && tv2RiskGroup.isEnabled() && tv2RiskResponse != -1 && tv2ConfidenceGroup != null && tv2ConfidenceGroup.isEnabled() && tv2ReportConfidence != -1) {
+                            tv2Risk = (RadioButton) findViewById(tv2RiskResponse);
+                            tv2Confidence= (RadioButton) findViewById(tv2ReportConfidence);
+
 //                            Log.d("value   ", String.valueOf(tv.getText()));
-                            tvmap2.put("TV state2", userdr);
+                            tv2Map.put("TV state2", userdr);
                             String finalTimes = finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime();
 
-                            ref.child(username).child("TV").child(String.valueOf(tv1.getText())).child(id).child(finalTimes).updateChildren(tvmap);
+                            ref.child(username).child("TV").child("Risk is - >  " +String.valueOf(tv2Risk.getText())).child("Confidence is ->  "+ String.valueOf(tv2Confidence.getText())).child(id).child(finalTimes).updateChildren(tv2Map);
 
                             editor.putString("tvPrefuser2_" + username+ LocalDate.now(), username);
                             editor.putString("tvPrefmonitor2_" + username+ LocalDate.now(), email);
-                            editor.putString("tvPrefresponse2_" + username+ LocalDate.now(), String.valueOf(tv2.getText()));
+                            editor.putString("tvPrefresponse2_" + username+ LocalDate.now(), String.valueOf(tv2Risk.getText()));
                             editor.putString("tvPrefdate2_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
                             Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport+ "  ReportingTime ->  " + Calendar.getInstance().getTime() );
 
                         }
-                        if (dinnerradio != null && dinnerradio.isEnabled() && dinnerstate != -1) {
-                            dinner = (RadioButton) findViewById(dinnerstate);
+                        if (dinnerRiskGroup != null && dinnerRiskGroup.isEnabled() && dinnerRiskResponse != -1 && dinnerConfidenceGroup != null && dinnerConfidenceGroup.isEnabled() && dinnerReportConfidence != -1) {
+                            dinnerRisk = (RadioButton) findViewById(dinnerRiskResponse);
+                            dinnerConfidence= (RadioButton) findViewById(dinnerReportConfidence);
+
 //                            Log.d("value   ", String.valueOf(dinner.getText()));
-                            dinnermap.put("dinner state", userdr);
+                            dinnerMap.put("dinner state", userdr);
                             String finalTimes = finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime();
 
-                            ref.child(username).child("Dinner").child(String.valueOf(dinner.getText())).child(id).child(finalTimes).updateChildren(dinnermap);
+                            ref.child(username).child("Dinner").child("Risk is - >  " +String.valueOf(dinnerRisk.getText())).child("Confidence is ->  "+ String.valueOf(dinnerConfidence.getText())).child(id).child(finalTimes).updateChildren(dinnerMap);
 
                             editor.putString("dinnerPrefuser_" + username+ LocalDate.now(), username);
                             editor.putString("dinnerPrefmonitor_" + username+ LocalDate.now(), email);
-                            editor.putString("dinnerPrefresponse_" + username+ LocalDate.now(), String.valueOf(dinner.getText()));
+                            editor.putString("dinnerPrefresponse_" + username+ LocalDate.now(), String.valueOf(dinnerRisk.getText()));
                             editor.putString("dinnerPrefdate_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
                             Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime() );
 
                         }
-                        if (overallradio != null && overallradio.isEnabled() && overallstate != -1) {
-                            overall = (RadioButton) findViewById(overallstate);
+                        if (overallRiskGroup != null && overallRiskGroup.isEnabled() && overallRiskResponse != -1 && overallConfidenceGroup != null && overallConfidenceGroup.isEnabled() && overallReportConfidence != -1) {
+                            overallRisk = (RadioButton) findViewById(overallRiskResponse);
+                            overallConfidence= (RadioButton) findViewById(overallReportConfidence);
+
 //                            Log.d("value   ", String.valueOf(sleep.getText()));
-                            overallmap.put("Overall state", userdr);
+                            overallMap.put("Overall state", userdr);
                             String finalTimes = finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime();
 
-                            ref.child(username).child("Overall").child(String.valueOf(overall.getText())).child(id).child(finalTimes).updateChildren(overallmap);
+                            ref.child(username).child("Overall").child("Risk is - >  " +String.valueOf(overallRisk.getText())).child("Confidence is ->  "+ String.valueOf(overallConfidence.getText())).child(id).child(finalTimes).updateChildren(overallMap);
 
                             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
                             LocalDateTime now = LocalDateTime.now();
@@ -1227,7 +1256,7 @@ public class report  extends AppCompatActivity {
 
                             editor.putString("overallPrefuser_" + username + LocalDate.now(), username);
                             editor.putString("overallPrefmonitor_" + username + LocalDate.now(), email);
-                            editor.putString("overallPrefresponse_" + username + LocalDate.now(), String.valueOf(overall.getText()));
+                            editor.putString("overallPrefresponse_" + username + LocalDate.now(), String.valueOf(overallRisk.getText()));
                             editor.putString("overallPrefdate_" + username + LocalDate.now(), String.valueOf(LocalDate.now()));
                             editor.putString("overallPrefresponsetime_" + username + LocalDate.now(), lastResponseTime);
 
