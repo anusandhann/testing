@@ -59,7 +59,6 @@ public class report  extends AppCompatActivity {
     public RadioButton sleepRisk, showerRisk, breakfastRisk, lunchRisk, dinnerRisk, medicationRisk, tv1Risk, tv2Risk, overallRisk;
     public RadioButton sleepConfidence, showerConfidence, breakfastConfidence, lunchConfidence, dinnerConfidence, medicationConfidence, tv1Confidence, tv2Confidence, overallConfidence;
 
-
     public TextView sleepRiskLevelText,breakfastRiskLevelText,medicationRiskLevelText,lunchRiskLevelText,tv1RiskLevelText,tv2RiskLevelText,dinnerRiskLevelText,showerRiskLevelText;
     public TextView sleepConfidenceText,breakfastConfidenceText,medicationConfidenceText,lunchConfidenceText,tv1ConfidenceText,tv2ConfidenceText,dinnerConfidenceText,showerConfidenceText;
     private RadioGroup sleepRiskGroup, breakfastRiskGroup,medicationRiskGroup,lunchRiskGroup,tv1RiskGroup,tv2RiskGroup,dinnerRiskGroup,showerRiskGroup;
@@ -187,7 +186,6 @@ public class report  extends AppCompatActivity {
         lunchEndtime = (TextView) findViewById(R.id.lunchtime);
         tv1Endtime = (TextView) findViewById(R.id.tv1time);
         tv2Endtime = (TextView) findViewById(R.id.tv2time);
-
         dinnerEndtime = (TextView) findViewById(R.id.dinnertime);
         showerEndtime = (TextView) findViewById(R.id.showertime);
 
@@ -197,7 +195,6 @@ public class report  extends AppCompatActivity {
         lunchState = (TextView) findViewById(R.id.lunchstatus);
         tv1State = (TextView) findViewById(R.id.tv1status);
         tv2State = (TextView) findViewById(R.id.tv2status);
-
         dinnerState = (TextView) findViewById(R.id.dinnerstatus);
         showerState = (TextView) findViewById(R.id.showerstatus);
 
@@ -211,7 +208,6 @@ public class report  extends AppCompatActivity {
         activitystateHash.put("Lunch", lunchState);
         activitystateHash.put("TV", tv1State);
         activitystateHash.put("TV2", tv2State);
-
         activitystateHash.put("Dinner", dinnerState);
 
         endTimetextHash.put("Sleep", sleepEndtime);
@@ -232,7 +228,6 @@ public class report  extends AppCompatActivity {
         durationtextHash.put("Dinner", dinnerDuration);
         durationtextHash.put("TV2", tv2Duration);
 
-
         sleepCard = (CardView) findViewById(R.id.sleepcard);
         showerCard = (CardView) findViewById(R.id.showercard);
         bfCard = (CardView) findViewById(R.id.breakfastcard);
@@ -240,7 +235,6 @@ public class report  extends AppCompatActivity {
         lunchCard = (CardView) findViewById(R.id.lunchcard);
         tv1Card = (CardView) findViewById(R.id.tv1card);
         tv2Card = (CardView) findViewById(R.id.tv2card);
-
         dinnerCard = (CardView) findViewById(R.id.dinnercard);
         overallCard = (CardView) findViewById(R.id.overallCard);
 
@@ -252,7 +246,6 @@ public class report  extends AppCompatActivity {
         cardHash.put("TV", tv1Card);
         cardHash.put("Dinner", dinnerCard);
         cardHash.put("TV2", tv2Card);
-
 
         sleepRiskGroup = (RadioGroup) findViewById(R.id.sleepRiskbuttonGroup);
         breakfastRiskGroup = (RadioGroup) findViewById(R.id.breakfastRiskbuttonGroup);
@@ -298,8 +291,6 @@ public class report  extends AppCompatActivity {
         showerConfidenceText = (TextView) findViewById(R.id.showerReportConfidenceText);
         overallConfidenceText = (TextView) findViewById(R.id.overallReportConfidenceText);
 
-
-
         riskLevelGroupHash.put("Sleep", sleepRiskGroup);
         riskLevelGroupHash.put("Bath", showerRiskGroup);
         riskLevelGroupHash.put("Breakfast", breakfastRiskGroup);
@@ -331,7 +322,6 @@ public class report  extends AppCompatActivity {
         riskLevelTextHash.put("TV2", tv2RiskLevelText);
         riskLevelTextHash.put("Dinner", dinnerRiskLevelText);
         riskLevelTextHash.put("Overall", overallRiskLevelText);
-
 
         reportConfidenceTextHash.put("Sleep", sleepConfidenceText);
         reportConfidenceTextHash.put("Bath", showerConfidenceText);
@@ -520,6 +510,7 @@ public class report  extends AppCompatActivity {
                     String overallresponsedate = preferences.getString("overallPrefdate_" + username + LocalDate.now(),"");
                     String overallresponse = preferences.getString("overallPrefresponse_" + username + LocalDate.now(),"");
                     String overallresponseTime = preferences.getString("overallPrefresponsetime_" + username + LocalDate.now(),"");
+                    String overallConfidence = preferences.getString("overallPrefresponseConfidence_" + username + LocalDate.now(),"");
 
 
                     String thisdate = String.valueOf(LocalDate.now());
@@ -671,13 +662,14 @@ public class report  extends AppCompatActivity {
                     if((thisdate.equals( overallresponsedate )) && username.equals(overallusername) && useremail.equals(overallmonitor)) {
                         if ((preferences.contains("overallPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking dinner shared preference   ", dinnerresponse);
-                            overallLastResponse.setText(overallresponse);
+                            overallLastResponse.setText(overallresponse + getString(R.string.risk) + " & " + overallConfidence + getString(R.string.confidence));
 
                             overallLastResponseTime.setText(overallresponseTime);
                         }
                     }
                     else {
                         overallLastResponse.setText(R.string.overallResponsenotReportedYet);
+
 
                         overallLastResponseTime.setText(R.string.overallResponsenotReportedYet);
 //                        Log.d("checking if date not same dinner shared preference   ", dinnerusername);
@@ -712,6 +704,7 @@ public class report  extends AppCompatActivity {
                     ArrayList<String> modEndArray = new ArrayList<>();
                     ArrayList<String> prevModStartArray = new ArrayList<>();
                     ArrayList<String> prevModEndArray = new ArrayList<>();
+
 
                     //for graph where activity has been completed already for today
                     for(int i = 0; i < datearray.size(); i++){
@@ -1257,6 +1250,7 @@ public class report  extends AppCompatActivity {
                             editor.putString("overallPrefuser_" + username + LocalDate.now(), username);
                             editor.putString("overallPrefmonitor_" + username + LocalDate.now(), email);
                             editor.putString("overallPrefresponse_" + username + LocalDate.now(), String.valueOf(overallRisk.getText()));
+                            editor.putString("overallPrefresponseConfidence_" + username + LocalDate.now(), String.valueOf(overallConfidence.getText()));
                             editor.putString("overallPrefdate_" + username + LocalDate.now(), String.valueOf(LocalDate.now()));
                             editor.putString("overallPrefresponsetime_" + username + LocalDate.now(), lastResponseTime);
 

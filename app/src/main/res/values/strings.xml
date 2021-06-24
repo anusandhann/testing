@@ -69,6 +69,8 @@
     <string name = "lastResponse">Your last Response</string>
     <string name = "lastResponseTime">Your last Response Time</string>
     <string name="overallResponsenotReportedYet">Not reported yet</string>
+    <string name="risk">\u0020 Risk</string>
+    <string name="confidence">\u0020 Confidence</string>
 
     <!--    Text in cards-->
 
