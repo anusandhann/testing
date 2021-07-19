@@ -59,6 +59,7 @@
     <string name="OverallQuestion">What do you think is the overall status of the elderly?</string>
     <string name="currentStatus">Current Status</string>
     <string name="endtime">End Time</string>
+    <string name="starttime">Start Time</string>
     <string name="duration">Duration</string>
     <string name="minutes">\u0020Minutes</string>
     <string name="activityComplete">Complete</string>

@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.testing">
+    package="com.mutualmonitor.testing">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
@@ -17,11 +17,11 @@
 
         tools:ignore="GoogleAppIndexingWarning,LockedOrientationActivity">
 
-        <activity android:name=".select"
+        <activity android:name="com.mutualmonitor.testing.select"
             android:screenOrientation = "portrait"/>
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.mutualmonitor.testing.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,24 +29,24 @@
             </intent-filter>
         </activity>
 
-        <activity android:name =".report"
+        <activity android:name ="com.mutualmonitor.testing.report"
             android:enabled="true"
             android:screenOrientation = "portrait">
         </activity>
 
         <activity
-            android:name=".signing_up"
+            android:name="com.mutualmonitor.testing.signing_up"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".signing_in"
+            android:name="com.mutualmonitor.testing.signing_in"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".HttpHandler"/>
+        <activity android:name="com.mutualmonitor.testing.HttpHandler"/>
 
-        <activity android:name=".thankYou"/>
+        <activity android:name="com.mutualmonitor.testing.thankYou"/>
 
-        <receiver android:name=".notificationGeneratorBR">
+        <receiver android:name="com.mutualmonitor.testing.notificationGeneratorBR">
 
         <intent-filter>
             <action android:name="android.media.action.DISPLAY_NOTIFICATION" />
@@ -55,7 +55,7 @@
         </intent-filter>
         </receiver>
 
-        <receiver android:name=".recurringNotificationGeneratorBR">
+        <receiver android:name="com.mutualmonitor.testing.recurringNotificationGeneratorBR">
         <intent-filter>
             <action android:name="android.media.action.DISPLAY_NOTIFICATION" />
 
@@ -63,14 +63,14 @@
         </intent-filter>
          </receiver>
 
-        <service android:name=".servicecheck" />
+        <service android:name="com.mutualmonitor.testing.servicecheck" />
 
-        <receiver android:name=".recurringNotification"
+        <receiver android:name="com.mutualmonitor.testing.recurringNotification"
             android:exported="false"
             android:enabled="true"
             android:permission="android.permission.BIND_JOB_SERVICE"/>
 
-        <service android:name=".userReport"
+        <service android:name="com.mutualmonitor.testing.userReport"
             android:exported="false"
             android:enabled="true"
             android:permission="android.permission.BIND_JOB_SERVICE">
