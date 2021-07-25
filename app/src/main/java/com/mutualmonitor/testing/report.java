@@ -52,24 +52,25 @@ import java.util.Objects;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class report  extends AppCompatActivity {
 
-    public CandleStickChart sleepChart, showerChart, breakfastChart, medicineChart, lunchChart, tv1Chart, dinnerChart, tv2Chart;
-    public TextView sleepDuration, showerDuration, breakfastDuration, medicationDuration, lunchDuration, tv1Duration, tv2Duration, dinnerDuration, durationTextview, activityReport;
-    public TextView sleepEndtime, bfEndtime, medicineEndtime, lunchEndtime, tv1Endtime, tv2Endtime,dinnerEndtime, showerEndtime, endTimeTextview;
-    public TextView sleepState, showerState, bfState, medicationState, lunchState, tv1State, tv2State, dinnerState, stateTextview, overallLastResponse,overallLastResponseTime ;
-    public RadioButton sleepRisk, showerRisk, breakfastRisk, lunchRisk, dinnerRisk, medicationRisk, tv1Risk, tv2Risk, overallRisk;
-    public RadioButton sleepConfidence, showerConfidence, breakfastConfidence, lunchConfidence, dinnerConfidence, medicationConfidence, tv1Confidence, tv2Confidence, overallConfidence;
+    public CandleStickChart sleepChart, showerChart, breakfastChart, medicineChart, lunchChart, tv1Chart, dinnerChart, tv2Chart, tv3Chart;
+    public TextView sleepDuration, showerDuration, breakfastDuration, medicationDuration, lunchDuration, tv1Duration, tv2Duration,tv3Duration, dinnerDuration, durationTextview, activityReport;
+    public TextView sleepEndtime, bfEndtime, medicineEndtime, lunchEndtime, tv1Endtime, tv2Endtime,tv3Endtime, dinnerEndtime, showerEndtime, endTimeTextview;
+    public TextView sleepState, showerState, bfState, medicationState, lunchState, tv1State, tv2State, tv3State, dinnerState, stateTextview, overallLastResponse,overallLastResponseTime ;
+    public RadioButton sleepRisk, showerRisk, breakfastRisk, lunchRisk, dinnerRisk, medicationRisk, tv1Risk, tv2Risk, tv3Risk, overallRisk;
+    public RadioButton sleepConfidence, showerConfidence, breakfastConfidence, lunchConfidence, dinnerConfidence, medicationConfidence, tv1Confidence, tv2Confidence,tv3Confidence, overallConfidence;
 
-    public TextView sleepRiskLevelText,breakfastRiskLevelText,medicationRiskLevelText,lunchRiskLevelText,tv1RiskLevelText,tv2RiskLevelText,dinnerRiskLevelText,showerRiskLevelText;
-    public TextView sleepConfidenceText,breakfastConfidenceText,medicationConfidenceText,lunchConfidenceText,tv1ConfidenceText,tv2ConfidenceText,dinnerConfidenceText,showerConfidenceText;
-    private RadioGroup sleepRiskGroup, breakfastRiskGroup,medicationRiskGroup,lunchRiskGroup,tv1RiskGroup,tv2RiskGroup,dinnerRiskGroup,showerRiskGroup;
-    private RadioGroup sleepConfidenceGroup, breakfastConfidenceGroup,medicationConfidenceGroup,lunchConfidenceGroup,tv1ConfidenceGroup,tv2ConfidenceGroup,dinnerConfidenceGroup,showerConfidenceGroup;
+    public TextView sleepRiskLevelText,breakfastRiskLevelText,medicationRiskLevelText,lunchRiskLevelText,tv1RiskLevelText,tv2RiskLevelText,tv3RiskLevelText, dinnerRiskLevelText,showerRiskLevelText;
+    public TextView sleepConfidenceText,breakfastConfidenceText,medicationConfidenceText,lunchConfidenceText,tv1ConfidenceText,tv2ConfidenceText,tv3ConfidenceText, dinnerConfidenceText,showerConfidenceText;
+    private RadioGroup sleepRiskGroup, breakfastRiskGroup,medicationRiskGroup,lunchRiskGroup,tv1RiskGroup,tv2RiskGroup,tv3RiskGroup, dinnerRiskGroup,showerRiskGroup;
+    private RadioGroup sleepConfidenceGroup, breakfastConfidenceGroup,medicationConfidenceGroup,lunchConfidenceGroup,tv1ConfidenceGroup,tv2ConfidenceGroup,tv3ConfidenceGroup,dinnerConfidenceGroup,showerConfidenceGroup;
 
     private RadioGroup overallRiskGroup, overallConfidenceGroup;
     public TextView overallRiskLevelText, overallConfidenceText;
     public RadioGroup riskLevelRadioGroup, reportConfidenceRadioGroup;
     public TextView risklevelText, confidenceReportText;
+    public View medicineLunchLine, dinnerTv3Line, lunchTV2Line;
 
-    public TextView sleepEndtimeHeader, bfEndtimeHeader, medicineEndtimeHeader, lunchEndtimeHeader, tv1EndtimeHeader, tv2EndtimeHeader,dinnerEndtimeHeader, showerEndtimeHeader, endTimeHeaderTextview;
+    public TextView sleepEndtimeHeader, bfEndtimeHeader, medicineEndtimeHeader, lunchEndtimeHeader, tv1EndtimeHeader, tv2EndtimeHeader,tv3EndtimeHeader, dinnerEndtimeHeader, showerEndtimeHeader, endTimeHeaderTextview;
 
 
     Button submitreport;
@@ -77,7 +78,7 @@ public class report  extends AppCompatActivity {
 
     ArrayList<HashMap<String, String>> contactList;
 
-    public CardView sleepCard, showerCard, bfCard, medicineCard, lunchCard, tv1Card, tv2Card, dinnerCard, thisCard, overallCard;
+    public CardView sleepCard, showerCard, bfCard, medicineCard, lunchCard, tv1Card, tv2Card,tv3Card, dinnerCard, thisCard, overallCard;
 
     private final HashMap<String, TextView> durationtextHash = new HashMap<>();
 
@@ -127,6 +128,7 @@ public class report  extends AppCompatActivity {
         tv1Chart = (CandleStickChart) findViewById(R.id.tv1Linechart);
         dinnerChart = (CandleStickChart) findViewById(R.id.dinnerLinechart);
         tv2Chart = (CandleStickChart) findViewById(R.id.tv2Linechart);
+        tv3Chart = (CandleStickChart) findViewById(R.id.tv3Linechart);
 
 
         YAxis sleepleft = sleepChart.getAxisLeft();
@@ -150,12 +152,16 @@ public class report  extends AppCompatActivity {
         lunchleft.setAxisMinimum(10);
 
         YAxis tvleft = tv1Chart.getAxisLeft();
-        tvleft.setAxisMaximum((float) 22.0);
-        tvleft.setAxisMinimum(18);
+        tvleft.setAxisMaximum((float) 12.0);
+        tvleft.setAxisMinimum(8);
 
         YAxis tvleft2 = tv2Chart.getAxisLeft();
-        tvleft2.setAxisMaximum((float) 18.0);
+        tvleft2.setAxisMaximum((float) 17.0);
         tvleft2.setAxisMinimum(12);
+
+        YAxis tvleft3 = tv3Chart.getAxisLeft();
+        tvleft3.setAxisMaximum((float) 24.0);
+        tvleft3.setAxisMinimum(18);
 
 //        YAxis tvleft3 = chart9.getAxisLeft();
 //        tvleft3.setAxisMaximum((float) 12.0);
@@ -172,6 +178,7 @@ public class report  extends AppCompatActivity {
         activityChartMap.put("Lunch", lunchChart);
         activityChartMap.put("TV", tv1Chart);
         activityChartMap.put("TV2", tv2Chart);
+        activityChartMap.put("TV3", tv3Chart);
         activityChartMap.put("Dinner", dinnerChart);
 
 
@@ -183,6 +190,7 @@ public class report  extends AppCompatActivity {
         tv1Duration = (TextView) findViewById(R.id.tv1Duration);
         dinnerDuration = (TextView) findViewById(R.id.dinnerDuration);
         tv2Duration = (TextView) findViewById(R.id.tv2Duration);
+        tv3Duration = (TextView) findViewById(R.id.tv3Duration);
 
         sleepEndtime = (TextView) findViewById(R.id.sleeptime);
         bfEndtime = (TextView) findViewById(R.id.breakfasttime);
@@ -190,6 +198,7 @@ public class report  extends AppCompatActivity {
         lunchEndtime = (TextView) findViewById(R.id.lunchtime);
         tv1Endtime = (TextView) findViewById(R.id.tv1time);
         tv2Endtime = (TextView) findViewById(R.id.tv2time);
+        tv3Endtime = (TextView) findViewById(R.id.tv3time);
         dinnerEndtime = (TextView) findViewById(R.id.dinnertime);
         showerEndtime = (TextView) findViewById(R.id.showertime);
 
@@ -199,6 +208,7 @@ public class report  extends AppCompatActivity {
         lunchEndtimeHeader = (TextView) findViewById(R.id.lunchendtime);
         tv1EndtimeHeader = (TextView) findViewById(R.id.tv1endtime);
         tv2EndtimeHeader = (TextView) findViewById(R.id.tv2endtime);
+        tv3EndtimeHeader = (TextView) findViewById(R.id.tv3endtime);
         dinnerEndtimeHeader = (TextView) findViewById(R.id.dinnerendtime);
         showerEndtimeHeader = (TextView) findViewById(R.id.showerendtime);
 
@@ -208,6 +218,7 @@ public class report  extends AppCompatActivity {
         lunchState = (TextView) findViewById(R.id.lunchstatus);
         tv1State = (TextView) findViewById(R.id.tv1status);
         tv2State = (TextView) findViewById(R.id.tv2status);
+        tv3State = (TextView) findViewById(R.id.tv3status);
         dinnerState = (TextView) findViewById(R.id.dinnerstatus);
         showerState = (TextView) findViewById(R.id.showerstatus);
 
@@ -221,6 +232,7 @@ public class report  extends AppCompatActivity {
         activitystateHash.put("Lunch", lunchState);
         activitystateHash.put("TV", tv1State);
         activitystateHash.put("TV2", tv2State);
+        activitystateHash.put("TV3", tv3State);
         activitystateHash.put("Dinner", dinnerState);
 
         endTimeHeaderTextviewHash.put("Sleep", sleepEndtimeHeader);
@@ -230,6 +242,7 @@ public class report  extends AppCompatActivity {
         endTimeHeaderTextviewHash.put("Lunch", lunchEndtimeHeader);
         endTimeHeaderTextviewHash.put("TV", tv1EndtimeHeader);
         endTimeHeaderTextviewHash.put("TV2", tv2EndtimeHeader);
+        endTimeHeaderTextviewHash.put("TV3", tv3EndtimeHeader);
         endTimeHeaderTextviewHash.put("Dinner", dinnerEndtimeHeader);
 
         endTimetextHash.put("Sleep", sleepEndtime);
@@ -239,6 +252,7 @@ public class report  extends AppCompatActivity {
         endTimetextHash.put("Lunch", lunchEndtime);
         endTimetextHash.put("TV", tv1Endtime);
         endTimetextHash.put("TV2", tv2Endtime);
+        endTimetextHash.put("TV3", tv3Endtime);
         endTimetextHash.put("Dinner", dinnerEndtime);
 
         durationtextHash.put("Sleep", sleepDuration);
@@ -249,6 +263,7 @@ public class report  extends AppCompatActivity {
         durationtextHash.put("TV", tv1Duration);
         durationtextHash.put("Dinner", dinnerDuration);
         durationtextHash.put("TV2", tv2Duration);
+        durationtextHash.put("TV3", tv3Duration);
 
         sleepCard = (CardView) findViewById(R.id.sleepcard);
         showerCard = (CardView) findViewById(R.id.showercard);
@@ -257,6 +272,7 @@ public class report  extends AppCompatActivity {
         lunchCard = (CardView) findViewById(R.id.lunchcard);
         tv1Card = (CardView) findViewById(R.id.tv1card);
         tv2Card = (CardView) findViewById(R.id.tv2card);
+        tv3Card = (CardView) findViewById(R.id.tv3card);
         dinnerCard = (CardView) findViewById(R.id.dinnercard);
         overallCard = (CardView) findViewById(R.id.overallCard);
 
@@ -268,6 +284,7 @@ public class report  extends AppCompatActivity {
         cardHash.put("TV", tv1Card);
         cardHash.put("Dinner", dinnerCard);
         cardHash.put("TV2", tv2Card);
+        cardHash.put("TV3", tv3Card);
 
         sleepRiskGroup = (RadioGroup) findViewById(R.id.sleepRiskbuttonGroup);
         breakfastRiskGroup = (RadioGroup) findViewById(R.id.breakfastRiskbuttonGroup);
@@ -275,6 +292,7 @@ public class report  extends AppCompatActivity {
         lunchRiskGroup  = (RadioGroup) findViewById(R.id.lunchRiskbuttonGroup);
         tv1RiskGroup  = (RadioGroup) findViewById(R.id.tv1RiskbuttonGroup);
         tv2RiskGroup  = (RadioGroup) findViewById(R.id.tv2RiskbuttonGroup);
+        tv3RiskGroup  = (RadioGroup) findViewById(R.id.tv3RiskbuttonGroup);
         dinnerRiskGroup  = (RadioGroup) findViewById(R.id.dinnerRiskbuttonGroup);
         showerRiskGroup  = (RadioGroup) findViewById(R.id.showerRiskbuttonGroup);
         overallRiskGroup = (RadioGroup) findViewById(R.id.overallRiskbuttonGroup);
@@ -286,6 +304,7 @@ public class report  extends AppCompatActivity {
         lunchRiskLevelText = (TextView) findViewById(R.id.lunchRisklevelText);
         tv1RiskLevelText = (TextView) findViewById(R.id.tv1RisklevelText);
         tv2RiskLevelText = (TextView) findViewById(R.id.tv2RisklevelText);
+        tv3RiskLevelText = (TextView) findViewById(R.id.tv3RisklevelText);
         dinnerRiskLevelText = (TextView) findViewById(R.id.dinnerRisklevelText);
         showerRiskLevelText = (TextView) findViewById(R.id.showerRisklevelText);
         sleepRiskLevelText = (TextView) findViewById(R.id.sleepRisklevelText);
@@ -298,6 +317,7 @@ public class report  extends AppCompatActivity {
         lunchConfidenceGroup = (RadioGroup) findViewById(R.id.lunchConfidenceGroup);
         tv1ConfidenceGroup = (RadioGroup) findViewById(R.id.tv1ConfidenceGroup);
         tv2ConfidenceGroup = (RadioGroup) findViewById(R.id.tv2ConfidenceGroup);
+        tv3ConfidenceGroup = (RadioGroup) findViewById(R.id.tv3ConfidenceGroup);
         dinnerConfidenceGroup = (RadioGroup) findViewById(R.id.dinnerConfidenceGroup);
         showerConfidenceGroup = (RadioGroup) findViewById(R.id.showerConfidenceGroup);
         overallConfidenceGroup = (RadioGroup) findViewById(R.id.overallConfidenceGroup);
@@ -309,6 +329,7 @@ public class report  extends AppCompatActivity {
         lunchConfidenceText = (TextView) findViewById(R.id.lunchReportConfidenceText);
         tv1ConfidenceText = (TextView) findViewById(R.id.tv1ReportConfidenceText);
         tv2ConfidenceText = (TextView) findViewById(R.id.tv2ReportConfidenceText);
+        tv3ConfidenceText = (TextView) findViewById(R.id.tv3ReportConfidenceText);
         dinnerConfidenceText = (TextView) findViewById(R.id.dinnerReportConfidenceText);
         showerConfidenceText = (TextView) findViewById(R.id.showerReportConfidenceText);
         overallConfidenceText = (TextView) findViewById(R.id.overallReportConfidenceText);
@@ -320,6 +341,7 @@ public class report  extends AppCompatActivity {
         riskLevelGroupHash.put("Lunch", lunchRiskGroup);
         riskLevelGroupHash.put("TV", tv1RiskGroup);
         riskLevelGroupHash.put("TV2", tv2RiskGroup);
+        riskLevelGroupHash.put("TV3", tv3RiskGroup);
         riskLevelGroupHash.put("Dinner", dinnerRiskGroup);
         riskLevelGroupHash.put("Overall", overallRiskGroup);
 
@@ -331,6 +353,7 @@ public class report  extends AppCompatActivity {
         reportConfidenceGroupHash.put("Lunch", lunchConfidenceGroup);
         reportConfidenceGroupHash.put("TV", tv1ConfidenceGroup);
         reportConfidenceGroupHash.put("TV2", tv2ConfidenceGroup);
+        reportConfidenceGroupHash.put("TV3", tv3ConfidenceGroup);
         reportConfidenceGroupHash.put("Dinner", dinnerConfidenceGroup);
         reportConfidenceGroupHash.put("Overall", overallConfidenceGroup);
 
@@ -342,6 +365,7 @@ public class report  extends AppCompatActivity {
         riskLevelTextHash.put("Lunch", lunchRiskLevelText);
         riskLevelTextHash.put("TV", tv1RiskLevelText);
         riskLevelTextHash.put("TV2", tv2RiskLevelText);
+        riskLevelTextHash.put("TV3", tv3RiskLevelText);
         riskLevelTextHash.put("Dinner", dinnerRiskLevelText);
         riskLevelTextHash.put("Overall", overallRiskLevelText);
 
@@ -352,9 +376,13 @@ public class report  extends AppCompatActivity {
         reportConfidenceTextHash.put("Lunch", lunchConfidenceText);
         reportConfidenceTextHash.put("TV", tv1ConfidenceText);
         reportConfidenceTextHash.put("TV2", tv2ConfidenceText);
+        reportConfidenceTextHash.put("TV3", tv3ConfidenceText);
         reportConfidenceTextHash.put("Dinner", dinnerConfidenceText);
         reportConfidenceTextHash.put("Overall", overallConfidenceText);
 
+        medicineLunchLine = (View)findViewById(R.id.medicineLunchLine);
+        dinnerTv3Line = (View)findViewById(R.id.dinnerTV3Line);
+        lunchTV2Line= (View)findViewById(R.id.lunchTV2Line);
 
         contactList = new ArrayList<>();
 
@@ -524,6 +552,11 @@ public class report  extends AppCompatActivity {
                     String tvresponsedate2 = preferences.getString("tvPrefdate2_" + username + LocalDate.now(),"");
                     String tvresponse2 = preferences.getString("tvPrefresponse2_" + username + LocalDate.now(),"");
 
+                    String tvusername3 = preferences.getString("tvPrefuser3_" + username + LocalDate.now(),"");
+                    String tvmonitor3 = preferences.getString("tvPrefmonitor3_" + username + LocalDate.now(), "");
+                    String tvresponsedate3 = preferences.getString("tvPrefdate3_" + username + LocalDate.now(),"");
+                    String tvresponse3 = preferences.getString("tvPrefresponse3_" + username + LocalDate.now(),"");
+
                     String dinnerusername = preferences.getString("dinnerPrefuser_" + username + LocalDate.now(),"");
                     String dinnermonitor = preferences.getString("dinnerPrefmonitor_" + username + LocalDate.now(), "");
                     String dinnerresponsedate = preferences.getString("dinnerPrefdate_" + username + LocalDate.now(),"");
@@ -588,7 +621,6 @@ public class report  extends AppCompatActivity {
                             medicationRiskLevelText.setVisibility(View.GONE);
                             medicineEndtimeHeader.setText(R.string.endtime);
 
-
                             medicineCard.setCardBackgroundColor(getColor(R.color.trafficGreen));
 
                         }
@@ -607,7 +639,6 @@ public class report  extends AppCompatActivity {
                             breakfastRiskGroup.setVisibility(View.GONE);
                             breakfastRiskLevelText.setVisibility(View.GONE);
                             bfEndtimeHeader.setText(R.string.endtime);
-
 
                             bfCard.setCardBackgroundColor(getColor(R.color.trafficGreen));
 
@@ -628,7 +659,6 @@ public class report  extends AppCompatActivity {
                             lunchRiskLevelText.setVisibility(View.GONE);
                             lunchEndtimeHeader.setText(R.string.endtime);
 
-
                             lunchCard.setCardBackgroundColor(getColor(R.color.trafficGreen));
 
                         }
@@ -638,20 +668,17 @@ public class report  extends AppCompatActivity {
                     }
 
                     assert useremail != null;
+
                     if((thisdate.equals( tvresponsedate )) && username.equals(tvusername) && useremail.equals(tvmonitor)) {
                         if ((preferences.contains("tvPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking tv shared preference   ", tvresponse);
-//                            tvradio.setVisibility(View.GONE);
-
                             tv1ConfidenceGroup.setVisibility(View.GONE);
                             tv1ConfidenceText.setVisibility(View.GONE);
                             tv1RiskGroup.setVisibility(View.GONE);
                             tv1RiskLevelText.setVisibility(View.GONE);
                             tv1EndtimeHeader.setText(R.string.endtime);
 
-
                             tv1Card.setCardBackgroundColor(getColor(R.color.trafficGreen));
-
                         }
                     }
                     else {
@@ -661,23 +688,36 @@ public class report  extends AppCompatActivity {
                     if((thisdate.equals( tvresponsedate2 )) && username.equals(tvusername2) && useremail.equals(tvmonitor2)) {
                         if ((preferences.contains("tvPrefresponse2_" + username + LocalDate.now()))){
 //                            Log.d("checking tv shared preference   ", tvresponse);
-//                            tvradio2.setVisibility(View.INVISIBLE);
-
                             tv2ConfidenceGroup.setVisibility(View.GONE);
                             tv2ConfidenceText.setVisibility(View.GONE);
                             tv2RiskGroup.setVisibility(View.GONE);
                             tv2RiskLevelText.setVisibility(View.GONE);
                             tv2EndtimeHeader.setText(R.string.endtime);
 
-
-                            tv2Card.setCardBackgroundColor(getColor(R.color.trafficGreen));
-
+                            tv2Card.setVisibility(View.GONE);
                         }
                     }
                     else {
 //                        Log.d("checking if date not same tv shared preference   ", tvusername);
                     }
 
+                    if(thisdate.equals( tvresponsedate3) && username.equals(tvusername3) && useremail.equals(tvmonitor3)) {
+                        if ((preferences.contains("tvPrefresponse3_" + username + LocalDate.now()))){
+//                            Log.d("checking tv shared preference   ", tvresponse);
+
+                            tv3ConfidenceGroup.setVisibility(View.GONE);
+                            tv3ConfidenceText.setVisibility(View.GONE);
+                            tv3RiskGroup.setVisibility(View.GONE);
+                            tv3RiskLevelText.setVisibility(View.GONE);
+                            tv3EndtimeHeader.setText(R.string.endtime);
+
+                            tv3Card.setVisibility(View.GONE);
+
+                        }
+                    }
+                    else {
+//                        Log.d("checking if date not same tv shared preference   ", tvusername);
+                    }
                     if((thisdate.equals( dinnerresponsedate )) && username.equals(dinnerusername) && useremail.equals(dinnermonitor)) {
                         if ((preferences.contains("dinnerPrefresponse_" + username + LocalDate.now()))){
 //                            Log.d("checking dinner shared preference   ", dinnerresponse);
@@ -728,7 +768,7 @@ public class report  extends AppCompatActivity {
 //                    Log.e(TAG, "onReceive: ->/>/> " + ldtime );
 
                     //this index helps to start the graph at a aprticular date: pref after 3 days of data. Is in 2 places, userReport 234
-                    int enddateindex = (today.getDayOfYear() % (datearray.size()-2) + 2);
+                    int enddateindex = (today.getDayOfYear() % (datearray.size()-2) -2);
                     String activitydur = durarray.get(enddateindex);
 
 //                    Log.d("activitydur", String.valueOf(activitydur));
@@ -775,90 +815,77 @@ public class report  extends AppCompatActivity {
                     risklevelText = riskLevelTextHash.get(activityType);
                     confidenceReportText = reportConfidenceTextHash.get(activityType);
 
-
-//                    if (!activityType.equals("TV")| !activityType.equals("TV2")){
-//
-//                        tvCard2.setVisibility(View.GONE);
-//                        tvCard.setVisibility(View.VISIBLE);
-//                    }
-
                     if (Float.parseFloat(activitydur) >= 60) {
 
                         String durationOfActivity = Long.parseLong(activitydur) / 60 % 24 + getString(R.string.hrs) + " & " + Long.parseLong(activitydur) % 60 + getString(R.string.mins);
                         assert durationTextview != null;
 
-                            assert endarray != null;
-                            assert endtimeArray2 != null;
-                            String actvTime = endtimeArray.get(enddateindex);
-                            String startTime = startTimearray.get(enddateindex);
-                            Log.d("compareactivitytime", (startTime));
+                        assert endarray != null;
+                        assert endtimeArray2 != null;
+                        String actvTime = endtimeArray.get(enddateindex);
+                        String startTime = startTimearray.get(enddateindex);
+                        Log.d("compareactivitytime", (startTime));
 
+                        LocalDateTime lct = LocalDateTime.parse(actvTime, timeFormatter);
+                        LocalTime actTime = lct.toLocalTime(); //get activity completion time in localtime format
 
-                            LocalDateTime lct = LocalDateTime.parse(actvTime, timeFormatter);
-                            LocalTime actTime = lct.toLocalTime(); //get activity completion time in localtime format
+                        LocalDateTime startlct = LocalDateTime.parse(startTime, timeFormatter);
+                        LocalTime startactTime = startlct.toLocalTime();
 
-                            LocalDateTime startlct = LocalDateTime.parse(startTime, timeFormatter);
-                            LocalTime startactTime = startlct.toLocalTime();
+                        String endtimeText = endtimeArray2.get(enddateindex);
+                        String starttimeText = startTimearray2.get(enddateindex);
 
-                            String endtimeText = endtimeArray2.get(enddateindex);
-                            String starttimeText = startTimearray2.get(enddateindex);
+                        if (currentTime.isAfter(startactTime) && currentTime.isBefore(actTime)) {
+                            thisCard.setCardBackgroundColor(getColor(R.color.trafficRed));
+                            drawchart(prevModStartArray, prevModEndArray, activityType);
+                            durationTextview.setVisibility(View.GONE);
+                            endTimeTextview.setText(starttimeText);
+                            endTimeHeaderTextview.setText(R.string.starttime);
+                            stateTextview.setText(getString(R.string.activityOngoing));
 
-//                        Log.e(TAG, "onReceive: mocktheweek22- > " + "->> " + startactTime + "-->> " + actTime);
+                            riskLevelRadioGroup.setVisibility(View.GONE);
+                            risklevelText.setVisibility(View.GONE);
+                            reportConfidenceRadioGroup.setVisibility(View.GONE);
+                            confidenceReportText.setVisibility(View.GONE);
 
-                            if (currentTime.isAfter(startactTime) && currentTime.isBefore(actTime)) {
+                            Log.e(TAG, "onReceive: mocktheweek- > " + "->> " + startactTime + "-->> " + actTime);
 
-                                thisCard.setCardBackgroundColor(getColor(R.color.trafficRed));
-                                drawchart(prevModStartArray, prevModEndArray, activityType);
-                                durationTextview.setVisibility(View.GONE);
-                                endTimeTextview.setText(starttimeText);
-                                endTimeHeaderTextview.setText(R.string.starttime);
-                                stateTextview.setText(getString(R.string.activityOngoing));
+                        } else if (currentTime.isAfter(actTime)) {
 
-                                riskLevelRadioGroup.setVisibility(View.GONE);
-                                risklevelText.setVisibility(View.GONE);
-                                reportConfidenceRadioGroup.setVisibility(View.GONE);
-                                confidenceReportText.setVisibility(View.GONE);
+                            thisCard.setCardBackgroundColor(getColor(R.color.trafficYellow));
+                            drawchart(modStartArray, modEndArray, activityType);
+                            durationTextview.setText(durationOfActivity);
+                            endTimeHeaderTextview.setText(R.string.endtime);
+                            endTimeTextview.setText(endtimeText);
+                            stateTextview.setText(getString(R.string.activityComplete));
 
-//                                if (activityType.equals("TV")) {
-//                                    tv2Card.setVisibility(View.INVISIBLE);
-//                                    tv2RiskGroup.setVisibility(View.INVISIBLE);
-//                                }
-//                                if (activityType.equals("TV2")) {
-//                                    tv1Card.setVisibility(View.INVISIBLE);
-//                                    tv1RiskGroup.setVisibility(View.INVISIBLE);
-//                                }
+                        } else {
 
-                                Log.e(TAG, "onReceive: mocktheweek- > " + "->> " + startactTime + "-->> " + actTime);
-
-                            } else {
-                                if (currentTime.isAfter(actTime)) {
-
-                                    thisCard.setCardBackgroundColor(getColor(R.color.trafficYellow));
-                                    drawchart(modStartArray, modEndArray, activityType);
-                                    durationTextview.setText(durationOfActivity);
-                                    endTimeHeaderTextview.setText(R.string.endtime);
-                                    endTimeTextview.setText(endtimeText);
-                                    stateTextview.setText(getString(R.string.activityComplete));
-                                } else {
-
-                                    thisCard.setCardBackgroundColor(getColor(R.color.trafficRed));
-//                            thisRadiogp.setVisibility(View.GONE);
-                                    drawchart(prevModStartArray, prevModEndArray, activityType);
-                                    durationTextview.setVisibility(View.GONE);
-                                    endTimeHeaderTextview.setText(R.string.endtime);
-                                    endTimeTextview.setVisibility(View.GONE);
-                                    stateTextview.setText(getString(R.string.activityIncomplete));
-
-                                    riskLevelRadioGroup.setVisibility(View.GONE);
-                                    risklevelText.setVisibility(View.GONE);
-                                    reportConfidenceRadioGroup.setVisibility(View.GONE);
-                                    confidenceReportText.setVisibility(View.GONE);
-                                }
+                            if (activityType.equals("TV2") || activityType.equals("TV3")) {
+                                thisCard.setVisibility(View.GONE);
+                                dinnerTv3Line.setVisibility(View.GONE);
+                                lunchTV2Line.setVisibility(View.GONE);
                             }
+                            else {
+                                thisCard.setCardBackgroundColor(getColor(R.color.trafficRed));
+                                stateTextview.setText(getString(R.string.activityIncomplete));
+                                endTimeHeaderTextview.setText(R.string.endtime);
+                                durationTextview.setVisibility(View.GONE);
+                                endTimeTextview.setVisibility(View.GONE);
+                                drawchart(prevModStartArray, prevModEndArray, activityType);
+                            }
+
+                            riskLevelRadioGroup.setVisibility(View.GONE);
+                            risklevelText.setVisibility(View.GONE);
+                            reportConfidenceRadioGroup.setVisibility(View.GONE);
+                            confidenceReportText.setVisibility(View.GONE);
+                            }
+
                         }
+
                     else{
 
-                            long durationOfActivity = Long.parseLong(activitydur);
+                        long durationOfActivity = Long.parseLong(activitydur);
 
                             // Log.d("durationOfActivity", String.valueOf(durationOfActivity));
 
@@ -882,7 +909,6 @@ public class report  extends AppCompatActivity {
                             if (currentTime.isAfter(startactTime) && currentTime.isBefore(actTime)) {
 
                                 thisCard.setCardBackgroundColor(getColor(R.color.trafficRed));
-//                            thisRadiogp.setVisibility(View.GONE);
                                 durationTextview.setVisibility(View.GONE);
                                 endTimeHeaderTextview.setText(R.string.starttime);
                                 endTimeTextview.setText(starttimeText);
@@ -895,42 +921,36 @@ public class report  extends AppCompatActivity {
                                 confidenceReportText.setVisibility(View.GONE);
 
                                 Log.e(TAG, "onReceive: mocktheweek- > " + "->> " + startactTime + "-->> " + actTime);
+
+                            }
+                            else if (currentTime.isAfter(actTime)) {
+                                thisCard.setCardBackgroundColor(getColor(R.color.trafficYellow));
+                                durationTextview.setText(activitydur + getString(R.string.minutes));
+                                endTimeHeaderTextview.setText(R.string.endtime);
+                                endTimeTextview.setText(endtimeText);
+                                stateTextview.setText(getString(R.string.activityComplete));
+                                drawchart(modStartArray, modEndArray, activityType);
+
                             } else {
 
-                                if (currentTime.isAfter(actTime)) {
-
-                                    thisCard.setCardBackgroundColor(getColor(R.color.trafficYellow));
-                                    durationTextview.setText(activitydur + getString(R.string.minutes));
-                                    endTimeHeaderTextview.setText(R.string.endtime);
-                                    endTimeTextview.setText(endtimeText);
-                                    stateTextview.setText(getString(R.string.activityComplete));
-                                    drawchart(modStartArray, modEndArray, activityType);
-
-//                                    if (activityType.equals("TV2")) {
-//                                        tv1Card.setVisibility(View.GONE);
-//                                    }
-//                                    if (("TV").equals(activityType) & tv1Duration != null) {
-//                                        String currentDuration = activitydur;
-//                                        Log.e(TAG, "thisISSparta- >  " + currentDuration);
-//                                        //text6.setText(currentDuration);
-//                                        String newDuration = String.valueOf(Integer.parseInt(currentDuration) + Integer.parseInt(activitydur));
-//                                        tv1Duration.setText(newDuration);
-//                                    }
-                                } else {
-
+                                if(activityType.equals("TV2") ||activityType.equals("TV3")) {
+                                    thisCard.setVisibility(View.GONE);
+                                    dinnerTv3Line.setVisibility(View.GONE);
+                                    lunchTV2Line.setVisibility(View.GONE);
+                                }
+                                else{
                                     thisCard.setCardBackgroundColor(getColor(R.color.trafficRed));
                                     stateTextview.setText(getString(R.string.activityIncomplete));
                                     endTimeHeaderTextview.setText(R.string.endtime);
                                     durationTextview.setVisibility(View.GONE);
                                     endTimeTextview.setVisibility(View.GONE);
                                     drawchart(prevModStartArray, prevModEndArray, activityType);
-
-                                    riskLevelRadioGroup.setVisibility(View.GONE);
-                                    risklevelText.setVisibility(View.GONE);
-                                    reportConfidenceRadioGroup.setVisibility(View.GONE);
-                                    confidenceReportText.setVisibility(View.GONE);
-
                                 }
+
+                                riskLevelRadioGroup.setVisibility(View.GONE);
+                                risklevelText.setVisibility(View.GONE);
+                                reportConfidenceRadioGroup.setVisibility(View.GONE);
+                                confidenceReportText.setVisibility(View.GONE);
                             }
                         }
                 }
@@ -1062,6 +1082,7 @@ public class report  extends AppCompatActivity {
                     HashMap<String, Object> dinnerMap = new HashMap<>();
                     HashMap<String, Object> tv1Map = new HashMap<>();
                     HashMap<String, Object> tv2Map = new HashMap<>();
+                    HashMap<String, Object> tv3Map = new HashMap<>();
                     HashMap<String, Object> overallMap = new HashMap<>();
 
                     assert email != null;
@@ -1077,6 +1098,7 @@ public class report  extends AppCompatActivity {
                     final int dinnerRiskResponse = dinnerRiskGroup.getCheckedRadioButtonId();
                     final int tv1RiskResponse = tv1RiskGroup.getCheckedRadioButtonId();
                     final int tv2RiskResponse = tv2RiskGroup.getCheckedRadioButtonId();
+                    final int tv3RiskResponse = tv3RiskGroup.getCheckedRadioButtonId();
 
                     final int sleepReportConfidence = sleepConfidenceGroup.getCheckedRadioButtonId();
                     final int showerReportConfidence = showerConfidenceGroup.getCheckedRadioButtonId();
@@ -1086,6 +1108,7 @@ public class report  extends AppCompatActivity {
                     final int dinnerReportConfidence = dinnerConfidenceGroup.getCheckedRadioButtonId();
                     final int tv1ReportConfidence = tv1ConfidenceGroup.getCheckedRadioButtonId();
                     final int tv2ReportConfidence = tv2ConfidenceGroup.getCheckedRadioButtonId();
+                    final int tv3ReportConfidence = tv3ConfidenceGroup.getCheckedRadioButtonId();
 
                     final int overallRiskResponse = overallRiskGroup.getCheckedRadioButtonId();
                     final int overallReportConfidence = overallConfidenceGroup.getCheckedRadioButtonId();
@@ -1102,6 +1125,7 @@ public class report  extends AppCompatActivity {
                             && dinnerRiskResponse == -1
                             && overallRiskResponse == -1
                             && tv2RiskResponse == -1
+                            && tv3RiskResponse == -1
 
                             && sleepReportConfidence == -1
                             && showerReportConfidence == -1
@@ -1111,7 +1135,8 @@ public class report  extends AppCompatActivity {
                             && tv1ReportConfidence == -1
                             && dinnerReportConfidence== -1
                             && overallReportConfidence == -1
-                            && tv2ReportConfidence == -1)
+                            && tv2ReportConfidence == -1
+                            && tv3ReportConfidence == -1 )
                     {
                         Toast.makeText(getApplicationContext(), getResources().getString(R.string.missedWhileReporting), Toast.LENGTH_SHORT).show();
                     }
@@ -1243,12 +1268,31 @@ public class report  extends AppCompatActivity {
                             tv2Map.put("TV state2", userdr);
                             String finalTimes = finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime();
 
-                            ref.child(username).child("TV").child("Risk is - >  " +String.valueOf(tv2Risk.getText())).child("Confidence is ->  "+ String.valueOf(tv2Confidence.getText())).child(id).child(finalTimes).updateChildren(tv2Map);
+                            ref.child(username).child("TV2").child("Risk is - >  " +String.valueOf(tv2Risk.getText())).child("Confidence is ->  "+ String.valueOf(tv2Confidence.getText())).child(id).child(finalTimes).updateChildren(tv2Map);
 
                             editor.putString("tvPrefuser2_" + username+ LocalDate.now(), username);
                             editor.putString("tvPrefmonitor2_" + username+ LocalDate.now(), email);
                             editor.putString("tvPrefresponse2_" + username+ LocalDate.now(), String.valueOf(tv2Risk.getText()));
                             editor.putString("tvPrefdate2_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
+
+                            editor.apply();
+                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport+ "  ReportingTime ->  " + Calendar.getInstance().getTime() );
+
+                        }
+                        if (tv3RiskGroup != null && tv3RiskGroup.isEnabled() && tv3RiskResponse != -1 && tv3ConfidenceGroup != null && tv3ConfidenceGroup.isEnabled() && tv3ReportConfidence != -1) {
+                            tv3Risk = (RadioButton) findViewById(tv3RiskResponse);
+                            tv3Confidence= (RadioButton) findViewById(tv3ReportConfidence);
+
+//                            Log.d("value   ", String.valueOf(tv.getText()));
+                            tv3Map.put("TV state3", userdr);
+                            String finalTimes = finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime();
+
+                            ref.child(username).child("TV3").child("Risk is - >  " +String.valueOf(tv3Risk.getText())).child("Confidence is ->  "+ String.valueOf(tv3Confidence.getText())).child(id).child(finalTimes).updateChildren(tv3Map);
+
+                            editor.putString("tvPrefuser3_" + username+ LocalDate.now(), username);
+                            editor.putString("tvPrefmonitor3_" + username+ LocalDate.now(), email);
+                            editor.putString("tvPrefresponse3_" + username+ LocalDate.now(), String.valueOf(tv3Risk.getText()));
+                            editor.putString("tvPrefdate3_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
                             Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport+ "  ReportingTime ->  " + Calendar.getInstance().getTime() );

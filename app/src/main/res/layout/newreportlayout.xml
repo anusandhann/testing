@@ -1034,10 +1034,6 @@
 
                 </androidx.cardview.widget.CardView>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -1152,6 +1148,359 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
+                    android:background="@android:color/holo_red_light" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/tv1card"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_gravity="center"
+                    card_view:cardCornerRadius="4dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="100dp"
+                                android:layout_height="180dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginStart="2dp"
+                                android:layout_marginEnd="2dp"
+                                android:layout_marginBottom="2dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tv1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginEnd="2dp"
+                                    android:layout_marginTop="5dp"
+                                    android:gravity="start"
+                                    android:orientation="horizontal"
+                                    android:text="@string/tvpc"
+                                    android:textStyle="bold"
+
+                                    android:textColor="@color/buttonText"
+                                    android:textSize="22sp" />
+
+                                <ImageView
+                                    android:id="@+id/tv1image"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="125dp"
+
+                                    android:layout_marginStart="0dp"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_marginEnd="9dp"
+                                    android:layout_marginBottom="100dp"
+                                    card_view:srcCompat="@drawable/pc" />
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="190dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginBottom="2dp"
+                                android:layout_marginStart="2dp"
+                                android:layout_marginEnd="2dp">
+
+                                <com.github.mikephil.charting.charts.CandleStickChart
+                                    android:id="@+id/tv1Linechart"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="190dp"
+                                    android:layout_marginTop="1dp"
+                                    android:layout_marginEnd="1dp"
+                                    android:layout_marginBottom="1dp"
+                                    tools:ignore="NotSibling">
+
+                                </com.github.mikephil.charting.charts.CandleStickChart>
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="205dp"
+                            android:layout_marginBottom="50dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            >
+
+                            <ImageView
+                                android:id="@+id/tv1statusimage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/currentstatusvector" />
+
+                            <TextView
+                                android:id="@+id/tv1statusheader"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/currentStatus"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <ImageView
+                                android:id="@+id/tv1timeheader"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/ic_baseline_timer_24"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:id="@+id/tv1endtime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="35dp"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <ImageView
+                                android:id="@+id/tv1hourglass"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/ic_baseline_hourglass_bottom_24"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:id="@+id/tv1durationHeader"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/duration"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="250dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="15dp"
+                            >
+
+                            <TextView
+                                android:id="@+id/tv1status"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+
+                                android:textSize="18sp" />
+
+                            <Space
+                                android:layout_width="10dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <TextView
+                                android:id="@+id/tv1time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:textAlignment="center"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+
+                                android:textSize="18sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <TextView
+                                android:id="@+id/tv1Duration"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:textSize="16sp"
+                                />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="35dp"
+                        android:layout_margin="5dp"
+                        android:text= "@string/riskLevel"
+                        android:textStyle="bold"
+                        android:id="@+id/tv1RisklevelText"
+                        android:textColor="@color/appTheme"
+                        android:textSize="20sp"
+                        android:layout_gravity="start"/>
+
+                    <RadioGroup
+                        android:id="@+id/tv1RiskbuttonGroup"
+
+                        android:layout_width="fill_parent"
+                        android:layout_height="35dp"
+                        android:textAlignment="viewStart"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/tv1NoneRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/none" />
+                        <RadioButton
+                            android:id="@+id/tv1LowRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/low" />
+
+                        <RadioButton
+                            android:id="@+id/tv1MediumRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/medium" />
+
+                        <RadioButton
+                            android:id="@+id/tv1HighRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/high" />
+
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="35dp"
+                        android:text="@string/Surety"
+                        android:layout_margin="5dp"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:id="@+id/tv1ReportConfidenceText"
+                        android:textColor="@color/appTheme"
+                        android:layout_gravity="start"/>
+
+                    <RadioGroup
+                        android:id="@+id/tv1ConfidenceGroup"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:gravity="start"
+                        android:textAlignment="viewStart"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/tv1LowConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+                            android:text="@string/low" />
+
+                        <RadioButton
+                            android:id="@+id/tv1MediumConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+
+                            android:text="@string/medium" />
+
+                        <RadioButton
+                            android:id="@+id/tv1HighConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+                            android:text="@string/high" />
+                    </RadioGroup>
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:id="@+id/medicineLunchLine"
                     android:background="@android:color/holo_red_light" />
 
                 <View
@@ -1511,357 +1860,6 @@
 
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/tv1card"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_gravity="center"
-                    card_view:cardCornerRadius="4dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingStart="5dp"
-                        android:paddingEnd="10dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:layout_width="100dp"
-                                android:layout_height="180dp"
-                                android:layout_marginTop="2dp"
-                                android:layout_marginStart="2dp"
-                                android:layout_marginEnd="2dp"
-                                android:layout_marginBottom="2dp"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/tv1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_marginEnd="2dp"
-                                    android:layout_marginTop="5dp"
-                                    android:gravity="start"
-                                    android:orientation="horizontal"
-                                    android:text="@string/tvpc"
-                                    android:textStyle="bold"
-
-                                    android:textColor="@color/buttonText"
-                                    android:textSize="22sp" />
-
-                                <ImageView
-                                    android:id="@+id/tv1image"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="125dp"
-
-                                    android:layout_marginStart="0dp"
-                                    android:layout_marginTop="20dp"
-                                    android:layout_marginEnd="9dp"
-                                    android:layout_marginBottom="100dp"
-                                    card_view:srcCompat="@drawable/pc" />
-
-                            </LinearLayout>
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="190dp"
-                                android:layout_marginTop="2dp"
-                                android:layout_marginBottom="2dp"
-                                android:layout_marginStart="2dp"
-                                android:layout_marginEnd="2dp">
-
-                                <com.github.mikephil.charting.charts.CandleStickChart
-                                    android:id="@+id/tv1Linechart"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="190dp"
-                                    android:layout_marginTop="1dp"
-                                    android:layout_marginEnd="1dp"
-                                    android:layout_marginBottom="1dp"
-                                    tools:ignore="NotSibling">
-
-                                </com.github.mikephil.charting.charts.CandleStickChart>
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="205dp"
-                            android:layout_marginBottom="50dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="10dp"
-                            >
-
-                            <ImageView
-                                android:id="@+id/tv1statusimage"
-                                android:layout_width="wrap_content"
-                                android:layout_height="24dp"
-                                android:layout_marginTop="7dp"
-                                android:layout_marginBottom="0dp"
-                                app:srcCompat="@drawable/currentstatusvector" />
-
-                            <TextView
-                                android:id="@+id/tv1statusheader"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="10dp"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="0dp"
-                                android:layout_marginBottom="35dp"
-                                android:text="@string/currentStatus"
-                                android:gravity="center_vertical"
-                                android:textColor="@color/black"
-                                android:textSize="14sp" />
-
-                            <Space
-                                android:layout_width="0dp"
-                                android:layout_height="0dp"
-                                android:layout_weight="1" >
-                            </Space>
-
-                            <ImageView
-                                android:id="@+id/tv1timeheader"
-                                android:layout_width="wrap_content"
-                                android:layout_height="24dp"
-                                android:layout_marginTop="7dp"
-                                android:layout_marginBottom="0dp"
-                                app:srcCompat="@drawable/ic_baseline_timer_24"
-                                app:tint="#FFFFFF" />
-
-                            <TextView
-                                android:id="@+id/tv1endtime"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="10dp"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginBottom="35dp"
-                                android:textColor="@color/black"
-                                android:textSize="14sp" />
-
-                            <Space
-                                android:layout_width="0dp"
-                                android:layout_height="0dp"
-                                android:layout_weight="1" >
-                            </Space>
-
-                            <ImageView
-                                android:id="@+id/tv1hourglass"
-                                android:layout_width="wrap_content"
-                                android:layout_height="24dp"
-                                android:layout_marginTop="7dp"
-                                android:layout_marginBottom="0dp"
-                                app:srcCompat="@drawable/ic_baseline_hourglass_bottom_24"
-                                app:tint="#FFFFFF" />
-
-                            <TextView
-                                android:id="@+id/tv1durationHeader"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="10dp"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginBottom="35dp"
-                                android:text="@string/duration"
-                                android:textColor="@color/black"
-                                android:textSize="14sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="250dp"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginEnd="15dp"
-                            >
-
-                            <TextView
-                                android:id="@+id/tv1status"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-
-                                android:layout_marginTop="0dp"
-                                android:layout_marginBottom="5dp"
-                                android:textAlignment="center"
-                                android:textColor="@color/black"
-                                android:textStyle="bold"
-
-                                android:textSize="18sp" />
-
-                            <Space
-                                android:layout_width="10dp"
-                                android:layout_height="0dp"
-                                android:layout_weight="1" >
-                            </Space>
-
-                            <TextView
-                                android:id="@+id/tv1time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="0dp"
-                                android:layout_marginBottom="5dp"
-                                android:textAlignment="center"
-                                android:textStyle="bold"
-                                android:textColor="@color/black"
-
-                                android:textSize="18sp" />
-
-                            <Space
-                                android:layout_width="0dp"
-                                android:layout_height="0dp"
-                                android:layout_weight="1" >
-                            </Space>
-
-                            <TextView
-                                android:id="@+id/tv1Duration"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="0dp"
-                                android:layout_marginBottom="5dp"
-                                android:textAlignment="center"
-                                android:textColor="@color/black"
-                                android:textStyle="bold"
-                                android:textSize="16sp"
-                                />
-
-                        </LinearLayout>
-
-                    </RelativeLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="110dp"
-                        android:layout_height="35dp"
-                        android:layout_margin="5dp"
-                        android:text= "@string/riskLevel"
-                        android:textStyle="bold"
-                        android:id="@+id/tv1RisklevelText"
-                        android:textColor="@color/appTheme"
-                        android:textSize="20sp"
-                        android:layout_gravity="start"/>
-
-                    <RadioGroup
-                        android:id="@+id/tv1RiskbuttonGroup"
-
-                        android:layout_width="fill_parent"
-                        android:layout_height="35dp"
-                        android:textAlignment="viewStart"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/tv1NoneRisk"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/overall"
-
-                            android:text="@string/none" />
-                        <RadioButton
-                            android:id="@+id/tv1LowRisk"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/overall"
-
-                            android:text="@string/low" />
-
-                        <RadioButton
-                            android:id="@+id/tv1MediumRisk"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/overall"
-
-                            android:text="@string/medium" />
-
-                        <RadioButton
-                            android:id="@+id/tv1HighRisk"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/overall"
-
-                            android:text="@string/high" />
-
-                    </RadioGroup>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="110dp"
-                        android:layout_height="35dp"
-                        android:text="@string/Surety"
-                        android:layout_margin="5dp"
-                        android:textStyle="bold"
-                        android:textSize="20sp"
-                        android:id="@+id/tv1ReportConfidenceText"
-                        android:textColor="@color/appTheme"
-                        android:layout_gravity="start"/>
-
-                    <RadioGroup
-                        android:id="@+id/tv1ConfidenceGroup"
-
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:gravity="start"
-                        android:textAlignment="viewStart"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/tv1LowConfidence"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/appTheme"
-                            android:text="@string/low" />
-
-                        <RadioButton
-                            android:id="@+id/tv1MediumConfidence"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/appTheme"
-
-                            android:text="@string/medium" />
-
-                        <RadioButton
-                            android:id="@+id/tv1HighConfidence"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/appTheme"
-                            android:text="@string/high" />
-                    </RadioGroup>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="@android:color/holo_red_light" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <androidx.cardview.widget.CardView
                     android:id="@+id/tv2card"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
@@ -2199,6 +2197,7 @@
                     </RadioGroup>
                 </LinearLayout>
 
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
@@ -2206,6 +2205,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
+                    android:id="@+id/lunchTV2Line"
                     android:background="@android:color/holo_red_light" />
 
                 <View
@@ -2548,6 +2548,361 @@
                             android:buttonTint="@color/appTheme"
                             android:text="@string/high" />
                     </RadioGroup>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:id="@+id/dinnerTV3Line"
+                    android:background="@android:color/holo_red_light" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/tv3card"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_gravity="center"
+                    card_view:cardCornerRadius="4dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="100dp"
+                                android:layout_height="180dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginStart="2dp"
+                                android:layout_marginEnd="2dp"
+                                android:layout_marginBottom="2dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tv3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginEnd="2dp"
+                                    android:layout_marginTop="5dp"
+                                    android:gravity="start"
+                                    android:orientation="horizontal"
+                                    android:text="@string/tvpc"
+                                    android:textStyle="bold"
+
+                                    android:textColor="@color/buttonText"
+                                    android:textSize="22sp" />
+
+                                <ImageView
+                                    android:id="@+id/tv3image"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="125dp"
+
+                                    android:layout_marginStart="0dp"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_marginEnd="9dp"
+                                    android:layout_marginBottom="100dp"
+                                    card_view:srcCompat="@drawable/pc" />
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="190dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginBottom="2dp"
+                                android:layout_marginStart="2dp"
+                                android:layout_marginEnd="2dp">
+
+                                <com.github.mikephil.charting.charts.CandleStickChart
+                                    android:id="@+id/tv3Linechart"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="190dp"
+                                    android:layout_marginTop="1dp"
+                                    android:layout_marginEnd="1dp"
+                                    android:layout_marginBottom="1dp"
+                                    tools:ignore="NotSibling">
+
+                                </com.github.mikephil.charting.charts.CandleStickChart>
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="205dp"
+                            android:layout_marginBottom="50dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            >
+
+                            <ImageView
+                                android:id="@+id/tv3statusimage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/currentstatusvector" />
+
+                            <TextView
+                                android:id="@+id/tv3statusheader"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/currentStatus"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <ImageView
+                                android:id="@+id/tv3timeheader"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/ic_baseline_timer_24"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:id="@+id/tv3endtime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="35dp"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <ImageView
+                                android:id="@+id/tv3hourglass"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="0dp"
+                                app:srcCompat="@drawable/ic_baseline_hourglass_bottom_24"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:id="@+id/tv3durationHeader"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="35dp"
+                                android:text="@string/duration"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="250dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="15dp"
+                            >
+
+                            <TextView
+                                android:id="@+id/tv3status"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+
+                                android:textSize="18sp" />
+
+                            <Space
+                                android:layout_width="10dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <TextView
+                                android:id="@+id/tv3time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:textAlignment="center"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+
+                                android:textSize="18sp" />
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" >
+                            </Space>
+
+                            <TextView
+                                android:id="@+id/tv3Duration"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginBottom="5dp"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:textSize="16sp"
+                                />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="35dp"
+                        android:layout_margin="5dp"
+                        android:text= "@string/riskLevel"
+                        android:textStyle="bold"
+                        android:id="@+id/tv3RisklevelText"
+                        android:textColor="@color/appTheme"
+                        android:textSize="20sp"
+                        android:layout_gravity="start"/>
+
+                    <RadioGroup
+                        android:id="@+id/tv3RiskbuttonGroup"
+
+                        android:layout_width="fill_parent"
+                        android:layout_height="35dp"
+                        android:textAlignment="viewStart"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/tv3cardNoneRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/none" />
+                        <RadioButton
+                            android:id="@+id/tv3LowRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/low" />
+
+                        <RadioButton
+                            android:id="@+id/tv3MediumRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/medium" />
+
+                        <RadioButton
+                            android:id="@+id/tv3HighRisk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/overall"
+
+                            android:text="@string/high" />
+
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="35dp"
+                        android:text="@string/Surety"
+                        android:layout_margin="5dp"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:id="@+id/tv3ReportConfidenceText"
+                        android:textColor="@color/appTheme"
+                        android:layout_gravity="start"/>
+
+                    <RadioGroup
+                        android:id="@+id/tv3ConfidenceGroup"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:gravity="start"
+                        android:textAlignment="viewStart"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/tv3LowConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+                            android:text="@string/low" />
+
+                        <RadioButton
+                            android:id="@+id/tv3MediumConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+
+                            android:text="@string/medium" />
+
+                        <RadioButton
+                            android:id="@+id/tv3HighConfidence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/appTheme"
+                            android:text="@string/high" />
+                    </RadioGroup>
+
                 </LinearLayout>
 
                 <View

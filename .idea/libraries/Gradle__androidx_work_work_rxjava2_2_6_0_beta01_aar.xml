@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.work:work-rxjava2:2.6.0-beta01@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/91fd1cf4bd737409a8a739a13f60b4a7/work-rxjava2-2.6.0-beta01/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/91fd1cf4bd737409a8a739a13f60b4a7/work-rxjava2-2.6.0-beta01/res" />
-      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/91fd1cf4bd737409a8a739a13f60b4a7/work-rxjava2-2.6.0-beta01/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/07d840568ea93489ad3328fd7c546a63/work-rxjava2-2.6.0-beta01/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/07d840568ea93489ad3328fd7c546a63/work-rxjava2-2.6.0-beta01/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/07d840568ea93489ad3328fd7c546a63/work-rxjava2-2.6.0-beta01/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.work:work-runtime-ktx:2.6.0-beta01@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/b3a95fb920031d4f4f29f02d69569a79/work-runtime-ktx-2.6.0-beta01/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/b3a95fb920031d4f4f29f02d69569a79/work-runtime-ktx-2.6.0-beta01/res" />
-      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/b3a95fb920031d4f4f29f02d69569a79/work-runtime-ktx-2.6.0-beta01/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/f67fb7293af6fc1921d31998fefc98b4/work-runtime-ktx-2.6.0-beta01/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/f67fb7293af6fc1921d31998fefc98b4/work-runtime-ktx-2.6.0-beta01/res" />
+      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/f67fb7293af6fc1921d31998fefc98b4/work-runtime-ktx-2.6.0-beta01/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

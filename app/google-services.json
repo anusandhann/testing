@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:757335677172:android:ae959fb381a2df1666e6a1",
+        "mobilesdk_app_id": "1:757335677172:android:85263025dbd5bcb866e6a1",
         "android_client_info": {
-          "package_name": "com.example.testing"
+          "package_name": "com.mutualmonitor.testing"
         }
       },
       "oauth_client": [
