@@ -937,7 +937,7 @@ public class report  extends AppCompatActivity {
                             }
                             else if (currentTime.isAfter(actTime)) {
 
-                                if((activityType.equals("medicine "))&& (activitydur.equals("1"))){
+                                if((activityType.equals("medicine "))&& (activitydur.equals("0"))){
                                     medicineCard.setCardBackgroundColor(getColor(R.color.trafficYellow));
                                     drawchart(modStartArray, modEndArray, activityType);
                                     durationTextview.setVisibility(View.GONE);

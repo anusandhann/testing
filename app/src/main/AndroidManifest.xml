@@ -42,7 +42,8 @@
             android:name="com.mutualmonitor.testing.signing_in"
             android:screenOrientation="portrait" />
 
-        <activity android:name="com.mutualmonitor.testing.HttpHandler"/>
+        <activity android:name="com.mutualmonitor.testing.HttpHandler"
+            tools:ignore="Instantiatable" />
 
         <activity android:name="com.mutualmonitor.testing.thankYou"/>
 
