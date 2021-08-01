@@ -235,7 +235,9 @@ public class userReport extends JobIntentService {
 
                             //to get the end time of activities for each day for all users
                             LocalDate today = LocalDate.now();
-                            int enddateindex = (today.getDayOfYear() % (dateList.size() - 2)-2);
+
+                            //this index helps to start the graph at a aprticular date: pref after 3 days of data. Is in 2 places, report 770
+                            int enddateindex = (today.getDayOfYear() % (dateList.size() - 2) +2);
 
                             String endOfEachForToday = endtimeList.get(enddateindex);  //this is the end time of each activity for one particular day, the day defined by the index
 

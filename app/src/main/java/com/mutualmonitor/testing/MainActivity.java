@@ -64,10 +64,12 @@ public class MainActivity extends AppCompatActivity {
             recurringNotificationIntent.putExtra("regularnotifID", 196);
             alarmManager2 = (AlarmManager)getSystemService(ALARM_SERVICE);
             alarmIntent2 = PendingIntent.getBroadcast(this, 2, recurringNotificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-            alarmManager2.setInexactRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(),2 * 1000, alarmIntent2);
+            alarmManager2.setInexactRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(),2 * 60 * 60 * 1000, alarmIntent2);
             SharedPreferences.Editor editor = prefs.edit();
             editor.putBoolean("RunningRecurringNotification", true);
             editor.apply();
+
+            Log.e("TAG", "RecurringNotification" );
         }
 
 

@@ -65,6 +65,8 @@
     <string name="activityComplete">Complete</string>
     <string name="activityIncomplete">Incomplete</string>
     <string name="activityOngoing">Ongoing</string>
+    <string name="notTaken">Not Taken</string>
+    <string name="missed">Missed</string>
     <string name="hrs">\u0020Hrs</string>
     <string name="mins">\u0020Min</string>
     <string name = "lastResponse">Your last Response</string>

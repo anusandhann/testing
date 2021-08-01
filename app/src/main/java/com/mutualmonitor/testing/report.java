@@ -144,8 +144,8 @@ public class report  extends AppCompatActivity {
         bfleft.setAxisMinimum(5);
 
         YAxis medleft = medicineChart.getAxisLeft();
-        medleft.setAxisMaximum((float) 10.0);
-        medleft.setAxisMinimum(6);
+        medleft.setAxisMaximum((float) 11.0);
+        medleft.setAxisMinimum(7);
 
         YAxis lunchleft = lunchChart.getAxisLeft();
         lunchleft.setAxisMaximum((float) 16.0);
@@ -468,7 +468,7 @@ public class report  extends AppCompatActivity {
 //                    Log.d("endtime array", String.valueOf((endarray)));
 
                     ArrayList<String> durarray = intent.getStringArrayListExtra("durationarraylist");
-//                    Log.d("duration array", String.valueOf((durarray)));
+                    Log.d("duration array", String.valueOf((durarray)));
 
                     ArrayList<String> startarray = intent.getStringArrayListExtra("starttimearraylist");
 //                    Log.d("starttime array", String.valueOf((startarray)));
@@ -490,7 +490,7 @@ public class report  extends AppCompatActivity {
                     String activityType = intent.getStringExtra("actv");
 //                    Log.d("getting activity from service", activityType);
 
-                    submitbutton(username);
+
 
                     String targetName = null;
 
@@ -506,6 +506,8 @@ public class report  extends AppCompatActivity {
                         ;
                     }
 
+                    submitbutton(targetName);
+                    
                     activityReport.setText("Activity Report - " + " " + targetName );
 
 
@@ -768,7 +770,7 @@ public class report  extends AppCompatActivity {
 //                    Log.e(TAG, "onReceive: ->/>/> " + ldtime );
 
                     //this index helps to start the graph at a aprticular date: pref after 3 days of data. Is in 2 places, userReport 234
-                    int enddateindex = (today.getDayOfYear() % (datearray.size()-2) -2);
+                    int enddateindex = (today.getDayOfYear() % (datearray.size()-2) +2);
                     String activitydur = durarray.get(enddateindex);
 
 //                    Log.d("activitydur", String.valueOf(activitydur));
@@ -837,6 +839,10 @@ public class report  extends AppCompatActivity {
 
                         if (currentTime.isAfter(startactTime) && currentTime.isBefore(actTime)) {
                             thisCard.setCardBackgroundColor(getColor(R.color.trafficRed));
+
+                            prevModEndArray.add("0");
+                            prevModStartArray.add("0");
+
                             drawchart(prevModStartArray, prevModEndArray, activityType);
                             durationTextview.setVisibility(View.GONE);
                             endTimeTextview.setText(starttimeText);
@@ -848,7 +854,10 @@ public class report  extends AppCompatActivity {
                             reportConfidenceRadioGroup.setVisibility(View.GONE);
                             confidenceReportText.setVisibility(View.GONE);
 
-                            Log.e(TAG, "onReceive: mocktheweek- > " + "->> " + startactTime + "-->> " + actTime);
+                           // Log.e(TAG, "onReceive: mocktheweek- > " + "->> " + startactTime + "-->> " + actTime);
+
+                            Log.e(TAG, "onReceive: mocktheweek- > " + "->> " + prevModEndArray + "-->> " + prevModStartArray);
+
 
                         } else if (currentTime.isAfter(actTime)) {
 
@@ -872,6 +881,9 @@ public class report  extends AppCompatActivity {
                                 endTimeHeaderTextview.setText(R.string.endtime);
                                 durationTextview.setVisibility(View.GONE);
                                 endTimeTextview.setVisibility(View.GONE);
+                                Log.e(TAG, "onReceive: mocktheweek- > " + "->> " + prevModEndArray + "-->> " + prevModStartArray);
+                                prevModEndArray.add("0");
+                                prevModStartArray.add("0");
                                 drawchart(prevModStartArray, prevModEndArray, activityType);
                             }
 
@@ -884,9 +896,6 @@ public class report  extends AppCompatActivity {
                         }
 
                     else{
-
-                        long durationOfActivity = Long.parseLong(activitydur);
-
                             // Log.d("durationOfActivity", String.valueOf(durationOfActivity));
 
                             assert endtimeArray2 != null;
@@ -913,7 +922,10 @@ public class report  extends AppCompatActivity {
                                 endTimeHeaderTextview.setText(R.string.starttime);
                                 endTimeTextview.setText(starttimeText);
                                 stateTextview.setText(getString(R.string.activityOngoing));
+                                prevModEndArray.add("0");
+                                prevModStartArray.add("0");
                                 drawchart(prevModStartArray, prevModEndArray, activityType);
+                                Log.e(TAG, "onReceive: mocktheweek- > " + "->> " + prevModEndArray + "-->> " + prevModStartArray);
 
                                 riskLevelRadioGroup.setVisibility(View.GONE);
                                 risklevelText.setVisibility(View.GONE);
@@ -924,12 +936,21 @@ public class report  extends AppCompatActivity {
 
                             }
                             else if (currentTime.isAfter(actTime)) {
+
+                                if((activityType.equals("medicine "))&& (activitydur.equals("1"))){
+                                    medicineCard.setCardBackgroundColor(getColor(R.color.trafficYellow));
+                                    drawchart(modStartArray, modEndArray, activityType);
+                                    durationTextview.setVisibility(View.GONE);
+                                    endTimeHeaderTextview.setText(R.string.endtime);
+                                    endTimeTextview.setText(getString(R.string.notTaken));
+                                    stateTextview.setText(getString(R.string.missed));
+                                }else{
                                 thisCard.setCardBackgroundColor(getColor(R.color.trafficYellow));
                                 durationTextview.setText(activitydur + getString(R.string.minutes));
                                 endTimeHeaderTextview.setText(R.string.endtime);
                                 endTimeTextview.setText(endtimeText);
                                 stateTextview.setText(getString(R.string.activityComplete));
-                                drawchart(modStartArray, modEndArray, activityType);
+                                drawchart(modStartArray, modEndArray, activityType);}
 
                             } else {
 
@@ -944,6 +965,9 @@ public class report  extends AppCompatActivity {
                                     endTimeHeaderTextview.setText(R.string.endtime);
                                     durationTextview.setVisibility(View.GONE);
                                     endTimeTextview.setVisibility(View.GONE);
+                                    Log.e(TAG, "onReceive: mocktheweek- > " + "->> " + prevModEndArray + "-->> " + prevModStartArray);
+                                    prevModEndArray.add("0");
+                                    prevModStartArray.add("0");
                                     drawchart(prevModStartArray, prevModEndArray, activityType);
                                 }
 
@@ -974,7 +998,6 @@ public class report  extends AppCompatActivity {
             selectedChart.setTouchEnabled(false);
 //            selectedChart.setDoubleTapToZoomEnabled(false);
 //            selectedChart.setPinchZoom(false);
-//
 //            selectedChart.setVisibleXRangeMaximum(7);
 //            selectedChart.setVisibleXRangeMaximum(7);
 
@@ -1371,16 +1394,19 @@ public class report  extends AppCompatActivity {
 
             public MyXAxisValueFormatter() {
 
-                mValues.add("04/" + "5");
-                mValues.add("04/" + "6");
-                mValues.add("04/" + "7");
-                mValues.add("04/" + "8");
-                mValues.add("04/" + "9");
-                mValues.add("04/" + "10");
-                mValues.add("04/" + "11");
-                mValues.add("04/" + "12");
-                mValues.add("04/" + "13");
-                mValues.add("04/" + "14");
+                mValues.add("07/" + "24");
+                mValues.add("07/" + "25");
+                mValues.add("07/" + "26");
+                mValues.add("07/" + "27");
+                mValues.add("07/" + "28");
+                mValues.add("07/" + "29");
+                mValues.add("07/" + "30");
+                mValues.add("07/" + "31");
+                mValues.add("08/" + "01");
+                mValues.add("08/" + "02");
+                mValues.add("08/" + "03");
+                mValues.add("08/" + "04");
+                mValues.add("08/" + "05");
 
 //                for(int i = 1; i< 12;i++){
 //

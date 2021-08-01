@@ -1,6 +1,9 @@
 package com.mutualmonitor.testing;
 
+import android.app.AppComponentFactory;
 import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
