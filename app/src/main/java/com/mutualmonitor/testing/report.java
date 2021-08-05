@@ -144,8 +144,8 @@ public class report  extends AppCompatActivity {
         bfleft.setAxisMinimum(5);
 
         YAxis medleft = medicineChart.getAxisLeft();
-        medleft.setAxisMaximum((float) 11.0);
-        medleft.setAxisMinimum(7);
+        medleft.setAxisMaximum((float) 12.0);
+        medleft.setAxisMinimum(6);
 
         YAxis lunchleft = lunchChart.getAxisLeft();
         lunchleft.setAxisMaximum((float) 16.0);
@@ -153,15 +153,15 @@ public class report  extends AppCompatActivity {
 
         YAxis tvleft = tv1Chart.getAxisLeft();
         tvleft.setAxisMaximum((float) 12.0);
-        tvleft.setAxisMinimum(8);
+        tvleft.setAxisMinimum(6);
 
         YAxis tvleft2 = tv2Chart.getAxisLeft();
-        tvleft2.setAxisMaximum((float) 17.0);
-        tvleft2.setAxisMinimum(12);
+        tvleft2.setAxisMaximum(17);
+        tvleft2.setAxisMinimum(11);
 
         YAxis tvleft3 = tv3Chart.getAxisLeft();
         tvleft3.setAxisMaximum((float) 24.0);
-        tvleft3.setAxisMinimum(18);
+        tvleft3.setAxisMinimum(17);
 
 //        YAxis tvleft3 = chart9.getAxisLeft();
 //        tvleft3.setAxisMaximum((float) 12.0);
@@ -169,7 +169,7 @@ public class report  extends AppCompatActivity {
 
         YAxis dinnerleft = dinnerChart.getAxisLeft();
         dinnerleft.setAxisMaximum((float) 23.0);
-        dinnerleft.setAxisMinimum(16);
+        dinnerleft.setAxisMinimum(15);
 
         activityChartMap.put("Sleep", sleepChart);
         activityChartMap.put("Bath", showerChart);
@@ -506,7 +506,7 @@ public class report  extends AppCompatActivity {
                         ;
                     }
 
-                    submitbutton(targetName);
+                    submitbutton(username);
                     
                     activityReport.setText("Activity Report - " + " " + targetName );
 

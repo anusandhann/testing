@@ -72,6 +72,8 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/appTheme"
             android:textSize="30sp"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.6"
@@ -3407,6 +3409,7 @@
                                 android:layout_marginEnd="5dp"
                                 android:layout_marginBottom="10dp"
                                 android:fontFamily="sans-serif"
+                                android:textStyle="bold"
                                 android:textAlignment="viewStart"
                                 android:textColor="@color/buttonText"
                                 android:textSize="16sp"/>
@@ -3420,6 +3423,7 @@
                                 android:layout_marginEnd="5dp"
                                 android:layout_marginBottom="10dp"
                                 android:fontFamily="sans-serif"
+                                android:textStyle="bold"
                                 android:textAlignment="viewStart"
                                 android:textColor="@color/buttonText"
                                 android:textSize="16sp" />
