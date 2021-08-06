@@ -854,9 +854,7 @@ public class report  extends AppCompatActivity {
                             reportConfidenceRadioGroup.setVisibility(View.GONE);
                             confidenceReportText.setVisibility(View.GONE);
 
-                           // Log.e(TAG, "onReceive: mocktheweek- > " + "->> " + startactTime + "-->> " + actTime);
-
-                            Log.e(TAG, "onReceive: mocktheweek- > " + "->> " + prevModEndArray + "-->> " + prevModStartArray);
+//                            Log.e(TAG, "onReceive: mocktheweek- > " + "->> " + prevModEndArray + "-->> " + prevModStartArray);
 
 
                         } else if (currentTime.isAfter(actTime)) {
@@ -881,7 +879,7 @@ public class report  extends AppCompatActivity {
                                 endTimeHeaderTextview.setText(R.string.endtime);
                                 durationTextview.setVisibility(View.GONE);
                                 endTimeTextview.setVisibility(View.GONE);
-                                Log.e(TAG, "onReceive: mocktheweek- > " + "->> " + prevModEndArray + "-->> " + prevModStartArray);
+//                                Log.e(TAG, "onReceive: mocktheweek- > " + "->> " + prevModEndArray + "-->> " + prevModStartArray);
                                 prevModEndArray.add("0");
                                 prevModStartArray.add("0");
                                 drawchart(prevModStartArray, prevModEndArray, activityType);
@@ -925,14 +923,14 @@ public class report  extends AppCompatActivity {
                                 prevModEndArray.add("0");
                                 prevModStartArray.add("0");
                                 drawchart(prevModStartArray, prevModEndArray, activityType);
-                                Log.e(TAG, "onReceive: mocktheweek- > " + "->> " + prevModEndArray + "-->> " + prevModStartArray);
+//                                Log.e(TAG, "onReceive: mocktheweek- > " + "->> " + prevModEndArray + "-->> " + prevModStartArray);
 
                                 riskLevelRadioGroup.setVisibility(View.GONE);
                                 risklevelText.setVisibility(View.GONE);
                                 reportConfidenceRadioGroup.setVisibility(View.GONE);
                                 confidenceReportText.setVisibility(View.GONE);
 
-                                Log.e(TAG, "onReceive: mocktheweek- > " + "->> " + startactTime + "-->> " + actTime);
+//                                Log.e(TAG, "onReceive: mocktheweek- > " + "->> " + startactTime + "-->> " + actTime);
 
                             }
                             else if (currentTime.isAfter(actTime)) {
@@ -965,7 +963,7 @@ public class report  extends AppCompatActivity {
                                     endTimeHeaderTextview.setText(R.string.endtime);
                                     durationTextview.setVisibility(View.GONE);
                                     endTimeTextview.setVisibility(View.GONE);
-                                    Log.e(TAG, "onReceive: mocktheweek- > " + "->> " + prevModEndArray + "-->> " + prevModStartArray);
+//                                    Log.e(TAG, "onReceive: mocktheweek- > " + "->> " + prevModEndArray + "-->> " + prevModStartArray);
                                     prevModEndArray.add("0");
                                     prevModStartArray.add("0");
                                     drawchart(prevModStartArray, prevModEndArray, activityType);
