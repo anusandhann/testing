@@ -39,12 +39,16 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -765,10 +769,6 @@ public class report  extends AppCompatActivity {
                     LocalDate today = LocalDate.now();
                     LocalTime currentTime = LocalTime.now();
 
-                    LocalDateTime ldtime = LocalDateTime.now();
-
-//                    Log.e(TAG, "onReceive: ->/>/> " + ldtime );
-
                     //this index helps to start the graph at a aprticular date: pref after 3 days of data. Is in 2 places, userReport 234
                     int enddateindex = (today.getDayOfYear() % (datearray.size()-2) +2);
                     String activitydur = durarray.get(enddateindex);
@@ -1006,7 +1006,7 @@ public class report  extends AppCompatActivity {
             selectedChart.setBorderColor(getResources().getColor((R.color.borderofGraph)));
 
             XAxis xAxis = selectedChart.getXAxis();
-            xAxis.setValueFormatter(new MyXAxisValueFormatter());
+            xAxis.setValueFormatter(new MyXAxisValueFormatter(x.size()));
 
             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
@@ -1019,7 +1019,7 @@ public class report  extends AppCompatActivity {
 
             YAxis leftAxis = selectedChart.getAxisLeft();
             YAxis rightAxis = selectedChart.getAxisRight();
-            leftAxis.setValueFormatter(new MyYAxisValueFormatter());
+            leftAxis.setValueFormatter(new MyYAxisValueFormatter(x.size()));
 
             rightAxis.setTextColor(Color.WHITE);
             leftAxis.setDrawGridLines(false);
@@ -1374,7 +1374,7 @@ public class report  extends AppCompatActivity {
         }
 
         private class MyYAxisValueFormatter implements IAxisValueFormatter {
-            public MyYAxisValueFormatter() {
+            public MyYAxisValueFormatter(int size) {
 
             }
 
@@ -1390,26 +1390,40 @@ public class report  extends AppCompatActivity {
         private class MyXAxisValueFormatter implements IAxisValueFormatter {
             private ArrayList<String> mValues = new ArrayList<>();
 
-            public MyXAxisValueFormatter() {
+            public MyXAxisValueFormatter(int dateSize) {
 
-                mValues.add("07/" + "24");
-                mValues.add("07/" + "25");
-                mValues.add("07/" + "26");
-                mValues.add("07/" + "27");
-                mValues.add("07/" + "28");
-                mValues.add("07/" + "29");
-                mValues.add("07/" + "30");
-                mValues.add("07/" + "31");
-                mValues.add("08/" + "01");
-                mValues.add("08/" + "02");
-                mValues.add("08/" + "03");
-                mValues.add("08/" + "04");
-                mValues.add("08/" + "05");
+                LocalDate today = LocalDate.now();
+                int enddateindex = (today.getDayOfYear() % (dateSize - 2) +2);
+                int daycount = enddateindex + 1;
 
-//                for(int i = 1; i< 12;i++){
-//
-//                    mValues.add("12/"+ i);
-//               }
+                for(int i = 0; i< 12;i++){
+
+                    Date thisDate = new Date();
+                    LocalDate dateThis = LocalDate.now().minusDays(daycount);
+                    ZoneId defaultZoneId = ZoneId.systemDefault();
+                    Date graphDate = Date.from(dateThis.atStartOfDay(defaultZoneId).toInstant());
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    sdf.applyPattern("MM/dd");
+                    String endActivityTime = sdf.format(graphDate);
+
+                    Calendar c = Calendar.getInstance();
+                    try{
+                        c.setTime(sdf.parse(endActivityTime));
+                    }catch(ParseException e){
+                        e.printStackTrace();
+                    }
+                    //Incrementing the date by 1 day
+                    c.add(Calendar.DAY_OF_MONTH, i);
+                    String thisNewDate = sdf.format(c.getTime());
+
+//                    Log.e(TAG, "MyXAxisValueFormatter: before formatting->  " + thisDate );
+//                    Log.e(TAG, "MyXAxisValueFormatter: after formatting ->  " + endActivityTime );
+//                    Log.e(TAG, "MyXAxisValueFormatter: after adding 1 day ->  " + thisNewDate );
+
+                    mValues.add(thisNewDate);
+                }
+
             }
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
