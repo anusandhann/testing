@@ -472,7 +472,7 @@ public class report  extends AppCompatActivity {
 //                    Log.d("endtime array", String.valueOf((endarray)));
 
                     ArrayList<String> durarray = intent.getStringArrayListExtra("durationarraylist");
-                    Log.d("duration array", String.valueOf((durarray)));
+//                    Log.d("duration array", String.valueOf((durarray)));
 
                     ArrayList<String> startarray = intent.getStringArrayListExtra("starttimearraylist");
 //                    Log.d("starttime array", String.valueOf((startarray)));
@@ -826,7 +826,7 @@ public class report  extends AppCompatActivity {
                         assert endtimeArray2 != null;
                         String actvTime = endtimeArray.get(enddateindex);
                         String startTime = startTimearray.get(enddateindex);
-                        Log.d("compareactivitytime", (startTime));
+//                        Log.d("compareactivitytime", (startTime));
 
                         LocalDateTime lct = LocalDateTime.parse(actvTime, timeFormatter);
                         LocalTime actTime = lct.toLocalTime(); //get activity completion time in localtime format
@@ -1008,6 +1008,9 @@ public class report  extends AppCompatActivity {
             XAxis xAxis = selectedChart.getXAxis();
             xAxis.setValueFormatter(new MyXAxisValueFormatter(x.size()));
 
+//          Log.d("graph thing", String.valueOf(x.size()));
+
+
             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
             xAxis.setDrawGridLines(false);
@@ -1107,7 +1110,7 @@ public class report  extends AppCompatActivity {
                     HashMap<String, Object> overallMap = new HashMap<>();
 
                     assert email != null;
-                    Log.d("EdVanWood", email);
+//                    Log.d("EdVanWood", email);
                     String id = ref.push().getKey();
                     assert id != null;
 
@@ -1180,8 +1183,8 @@ public class report  extends AppCompatActivity {
 
                             editor.apply(); //to get it back, need to do, preferences.getString("same key", )
 
-                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime() );
-                            Log.e(TAG, "onClick: testing if local time is varied" +  "  " + timeValues );
+//                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime() );
+//                            Log.e(TAG, "onClick: testing if local time is varied" +  "  " + timeValues );
                         }
 
                         if (showerRiskGroup != null && showerRiskGroup.isEnabled() && showerRiskResponse != -1 && showerConfidenceGroup != null && showerConfidenceGroup.isEnabled() && showerReportConfidence != -1) {
@@ -1201,7 +1204,7 @@ public class report  extends AppCompatActivity {
                             editor.putString("showerPrefdate_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
-                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime() );
+//                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime() );
 
                         }
                         if (breakfastRiskGroup != null && breakfastRiskGroup.isEnabled() && breakfastRiskResponse != -1 && breakfastConfidenceGroup != null && breakfastConfidenceGroup.isEnabled() && breakfastReportConfidence != -1){
@@ -1220,7 +1223,7 @@ public class report  extends AppCompatActivity {
                             editor.putString("breakfastPrefdate_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
-                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime() );
+//                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime() );
 
 
                         }
@@ -1239,7 +1242,7 @@ public class report  extends AppCompatActivity {
                             editor.putString("medicationPrefdate_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
-                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport+ "  ReportingTime ->  " + Calendar.getInstance().getTime() );
+//                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport+ "  ReportingTime ->  " + Calendar.getInstance().getTime() );
 
 
                         }
@@ -1258,7 +1261,7 @@ public class report  extends AppCompatActivity {
                             editor.putString("lunchPrefdate_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
-                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport+ "  ReportingTime ->  " + Calendar.getInstance().getTime() );
+//                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport+ "  ReportingTime ->  " + Calendar.getInstance().getTime() );
 
 
                         }
@@ -1278,7 +1281,7 @@ public class report  extends AppCompatActivity {
                             editor.putString("tvPrefdate_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
-                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport+ "  ReportingTime ->  " + Calendar.getInstance().getTime() );
+//                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport+ "  ReportingTime ->  " + Calendar.getInstance().getTime() );
 
                         }
                         if (tv2RiskGroup != null && tv2RiskGroup.isEnabled() && tv2RiskResponse != -1 && tv2ConfidenceGroup != null && tv2ConfidenceGroup.isEnabled() && tv2ReportConfidence != -1) {
@@ -1297,7 +1300,7 @@ public class report  extends AppCompatActivity {
                             editor.putString("tvPrefdate2_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
-                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport+ "  ReportingTime ->  " + Calendar.getInstance().getTime() );
+//                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport+ "  ReportingTime ->  " + Calendar.getInstance().getTime() );
 
                         }
                         if (tv3RiskGroup != null && tv3RiskGroup.isEnabled() && tv3RiskResponse != -1 && tv3ConfidenceGroup != null && tv3ConfidenceGroup.isEnabled() && tv3ReportConfidence != -1) {
@@ -1316,7 +1319,7 @@ public class report  extends AppCompatActivity {
                             editor.putString("tvPrefdate3_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
-                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport+ "  ReportingTime ->  " + Calendar.getInstance().getTime() );
+//                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport+ "  ReportingTime ->  " + Calendar.getInstance().getTime() );
 
                         }
                         if (dinnerRiskGroup != null && dinnerRiskGroup.isEnabled() && dinnerRiskResponse != -1 && dinnerConfidenceGroup != null && dinnerConfidenceGroup.isEnabled() && dinnerReportConfidence != -1) {
@@ -1335,14 +1338,14 @@ public class report  extends AppCompatActivity {
                             editor.putString("dinnerPrefdate_" + username+ LocalDate.now(), String.valueOf(LocalDate.now()));
 
                             editor.apply();
-                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime() );
+//                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime() );
 
                         }
                         if (overallRiskGroup != null && overallRiskGroup.isEnabled() && overallRiskResponse != -1 && overallConfidenceGroup != null && overallConfidenceGroup.isEnabled() && overallReportConfidence != -1) {
                             overallRisk = (RadioButton) findViewById(overallRiskResponse);
                             overallConfidence= (RadioButton) findViewById(overallReportConfidence);
 
-//                            Log.d("value   ", String.valueOf(sleep.getText()));
+//                          Log.d("value   ", String.valueOf(sleep.getText()));
                             overallMap.put("Overall state", userdr);
                             String finalTimes = finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime();
 
@@ -1362,7 +1365,7 @@ public class report  extends AppCompatActivity {
 
                             editor.apply(); //to get it back, need to do, preferences.getString("same key", )
 
-                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport+ "  ReportingTime ->  " + Calendar.getInstance().getTime() );
+//                            Log.e(TAG, "onClick: testing report submission time" + " ^_^ " + finalCheckingTime + " -> " + timeOfOpeningofReport+ "  ReportingTime ->  " + Calendar.getInstance().getTime() );
 
                         }
 
@@ -1396,7 +1399,7 @@ public class report  extends AppCompatActivity {
                 int enddateindex = (today.getDayOfYear() % (dateSize - 2) +2);
                 int daycount = enddateindex + 1;
 
-                for(int i = 0; i< 12;i++){
+                for(int i = 1; i< 12;i++){
 
                     Date thisDate = new Date();
                     LocalDate dateThis = LocalDate.now().minusDays(daycount);

@@ -70,7 +70,7 @@ public class userReport extends JobIntentService {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        Log.d("", "start of the usereport service");
+//        Log.d("", "start of the usereport service");
 
         getActivityData task = new getActivityData();
         task.execute();
@@ -247,7 +247,7 @@ public class userReport extends JobIntentService {
                             Date thisDate = sdf.parse(endOfEachForToday);
                             sdf.applyPattern("HH:mm");
                             String endActivityTime = sdf.format(thisDate);
-                            Log.d("endtime for activity ", ((endActivityTime) + "  " + activityTypeFilter + "  user " + userFilter));
+//                            Log.d("endtime for activity ", ((endActivityTime) + "  " + activityTypeFilter + "  user " + userFilter));
 
                            //  showsNotification(endActivityTime);
 
@@ -403,7 +403,7 @@ public class userReport extends JobIntentService {
 //        PendingIntent pendingIntent = PendingIntent.getActivity(this,
 //                0, notificationIntent, 0);
 
-        Log.e(TAG, "showsNotification: currentTimeforActivitybasedNotification  -> " + abNotificationTime );
+//        Log.e(TAG, "showsNotification: currentTimeforActivitybasedNotification  -> " + abNotificationTime );
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, UUID.randomUUID().hashCode(), activityBasedNotificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
