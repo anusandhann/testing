@@ -1008,7 +1008,7 @@ public class report  extends AppCompatActivity {
             XAxis xAxis = selectedChart.getXAxis();
             xAxis.setValueFormatter(new MyXAxisValueFormatter(x.size()));
 
-//          Log.d("graph thing", String.valueOf(x.size()));
+          Log.d("graph thing", String.valueOf(x.size()));
 
 
             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -1396,15 +1396,17 @@ public class report  extends AppCompatActivity {
             public MyXAxisValueFormatter(int dateSize) {
 
                 LocalDate today = LocalDate.now();
-                int enddateindex = (today.getDayOfYear() % (dateSize - 2) +2);
-                int daycount = enddateindex + 1;
+
+                LocalDate graphDateStart = today.minusDays(dateSize);
 
                 for(int i = 1; i< 12;i++){
+                    
+                    Log.e(TAG, "today->  " + String.valueOf(today));
+                    Log.e(TAG, String.valueOf(dateSize));
+                    Log.e(TAG, "start "+ String.valueOf(graphDateStart));
 
-                    Date thisDate = new Date();
-                    LocalDate dateThis = LocalDate.now().minusDays(daycount);
                     ZoneId defaultZoneId = ZoneId.systemDefault();
-                    Date graphDate = Date.from(dateThis.atStartOfDay(defaultZoneId).toInstant());
+                    Date graphDate = Date.from(graphDateStart.atStartOfDay(defaultZoneId).toInstant());
 
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     sdf.applyPattern("MM/dd");
@@ -1419,10 +1421,6 @@ public class report  extends AppCompatActivity {
                     //Incrementing the date by 1 day
                     c.add(Calendar.DAY_OF_MONTH, i);
                     String thisNewDate = sdf.format(c.getTime());
-
-//                    Log.e(TAG, "MyXAxisValueFormatter: before formatting->  " + thisDate );
-//                    Log.e(TAG, "MyXAxisValueFormatter: after formatting ->  " + endActivityTime );
-//                    Log.e(TAG, "MyXAxisValueFormatter: after adding 1 day ->  " + thisNewDate );
 
                     mValues.add(thisNewDate);
                 }
