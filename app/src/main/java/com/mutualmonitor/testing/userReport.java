@@ -421,6 +421,7 @@ public class userReport extends JobIntentService {
 
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_2_ID)
+
                 .setContentText(getString(R.string.pleaseCheck) + targetName + getString(R.string.whoFinished)+ whichActivity + getString(R.string.activity))
                 .setSmallIcon(R.drawable.ic_stat_name)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)

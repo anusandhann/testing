@@ -1400,7 +1400,7 @@ public class report  extends AppCompatActivity {
                 LocalDate graphDateStart = today.minusDays(dateSize);
 
                 for(int i = 1; i< 12;i++){
-                    
+
                     Log.e(TAG, "today->  " + String.valueOf(today));
                     Log.e(TAG, String.valueOf(dateSize));
                     Log.e(TAG, "start "+ String.valueOf(graphDateStart));
