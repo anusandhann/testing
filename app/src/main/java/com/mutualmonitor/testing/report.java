@@ -1253,7 +1253,7 @@ public class report  extends AppCompatActivity {
                             lunchMap.put("lunch state", userdr);
                             String finalTimes = finalCheckingTime + " -> " + timeOfOpeningofReport + "  ReportingTime ->  " + Calendar.getInstance().getTime();
 
-                            ref.child(username).child("Lunch").child(String.valueOf(lunchRisk.getText())).child(id).child(finalTimes).updateChildren(lunchMap);
+                            ref.child(username).child("Lunch").child("Risk is - >  " +String.valueOf(lunchRisk.getText())).child("Confidence is ->  "+ String.valueOf(lunchConfidence.getText())).child(id).child(finalTimes).updateChildren(lunchMap);
 
                             editor.putString("lunchPrefuser_" + username+ LocalDate.now(), username);
                             editor.putString("lunchPrefmonitor_" + username+ LocalDate.now(), email);
