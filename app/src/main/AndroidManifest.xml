@@ -14,7 +14,6 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         android:networkSecurityConfig="@xml/network"
-
         tools:ignore="GoogleAppIndexingWarning,LockedOrientationActivity">
 
         <activity android:name="com.mutualmonitor.testing.select"
@@ -22,6 +21,7 @@
 
         <activity
             android:name="com.mutualmonitor.testing.MainActivity"
+            android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,34 +45,31 @@
         <activity android:name="com.mutualmonitor.testing.HttpHandler"
             tools:ignore="Instantiatable" />
 
-        <activity android:name="com.mutualmonitor.testing.thankYou"/>
+        <activity android:name="com.mutualmonitor.testing.thankYou" />
 
-        <receiver android:name="com.mutualmonitor.testing.notificationGeneratorBR">
-
-        <intent-filter>
+        <receiver android:name="com.mutualmonitor.testing.notificationGeneratorBR"
+            android:exported="true">
+            <intent-filter>
             <action android:name="android.media.action.DISPLAY_NOTIFICATION" />
-
             <category android:name="android.intent.category.DEFAULT" />
-        </intent-filter>
+            </intent-filter>
         </receiver>
 
-        <receiver android:name="com.mutualmonitor.testing.recurringNotificationGeneratorBR">
-        <intent-filter>
+        <receiver android:name="com.mutualmonitor.testing.recurringNotificationGeneratorBR"
+            android:exported="true">
+            <intent-filter>
             <action android:name="android.media.action.DISPLAY_NOTIFICATION" />
-
             <category android:name="android.intent.category.DEFAULT" />
-        </intent-filter>
-         </receiver>
+            </intent-filter>
+        </receiver>
 
         <service android:name="com.mutualmonitor.testing.servicecheck" />
 
         <receiver android:name="com.mutualmonitor.testing.recurringNotification"
-            android:exported="false"
             android:enabled="true"
             android:permission="android.permission.BIND_JOB_SERVICE"/>
 
         <service android:name="com.mutualmonitor.testing.userReport"
-            android:exported="false"
             android:enabled="true"
             android:permission="android.permission.BIND_JOB_SERVICE">
         </service>
